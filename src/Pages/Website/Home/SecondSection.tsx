@@ -43,7 +43,7 @@ const SecondSection = () => {
                         func={setSelectVal} />
                 </Box>
 
-                <Box sx={{ display: 'grid', my: '40px', gridTemplateColumns: { md: 'auto auto auto', sm: 'auto auto', xs: 'auto' }, justifyContent: 'space-between', width: '100%' }}>
+                <Box sx={{ display: 'grid', my: '40px', gridTemplateColumns: { md: 'auto auto', sm: 'auto auto', lg:'auto auto auto', xs: 'auto' }, justifyContent: 'space-between', width: '100%' }}>
                     {data?.products && data.products.map((item: any, key: number) => {
                         return <TestSection data={item} />
                     })}

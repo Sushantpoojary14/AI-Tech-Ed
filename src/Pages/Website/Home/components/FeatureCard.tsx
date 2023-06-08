@@ -1,8 +1,7 @@
-import { Box, Card, CardContent, CardContentTypeMap, CardMedia, Collapse } from '@mui/material'
-import Fade from '@mui/material/Fade';
-import React, { useState } from 'react'
+import { Box, Card, CardContent, CardMedia, Collapse } from '@mui/material'
+import  { useState } from 'react'
 import { Header2 } from '../../../../Components/Common/HeaderText';
-import ParaText from '../../../../Components/Common/ParaText';
+import {ParaText1} from '../../../../Components/Common/ParaText';
 
 interface mapData {
     title: string;
@@ -25,17 +24,17 @@ const FeatureCard = (props: props) => {
     };
 
     return (
-        <Card sx={{ width: { sm: '340px', xs: '370px', lg: '400px', md: '340px' }, height: '281px', border: '1px solid #ccc', borderRadius: '3px', p: { md: '25px', sm: '15px', xs: '15px' }, boxShadow: '13px 13px 20px 1px rgba(0, 0, 0, 0.16)', mb: '30px' }} onClick={handleChange}>
+        <Card sx={{ width: { sm: '340px', xs: '370px', lg: '400px', md: '300px' }, height: '291px', border: '1px solid #ccc', borderRadius: '3px', p: { md: '25px', sm: '15px', xs: '15px' }, boxShadow: '13px 13px 20px 1px rgba(0, 0, 0, 0.16)', mb: '30px' ,mx:'auto'}} onClick={handleChange}>
             <CardContent sx={{ py: '6px', px: 0, textAlign: 'center' }}  >
                 <Header2 header={props.data.title} />
                 <Box sx={{py:'14px'}}>
                     {checked1 == true &&
                         <Collapse in={checked1} >
-                            {<ParaText text={props.data.description} />}
+                            {<ParaText1 text={props.data.description} />}
                         </Collapse>}
                     {checked2 == true &&
                         <Collapse in={checked2}>
-                            {<CardMedia sx={{ height: '204px', width: { sm: '180px', xs: '180px', lg: '204px' }, m: 'auto' }}
+                            {<CardMedia sx={{ height: '204px', width: { sm: '180px', xs: '180px', md:'180px', lg: '204px' }, m: 'auto' }}
                                 image={props.data.image} />}
                         </Collapse>}
                 </Box>

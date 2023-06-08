@@ -4,13 +4,15 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 interface props {
   name?: string;
-  func?: () => void;
+  func?: (e: any)  => void;
+  css?:object;
 }
 
 const WButton = (props: props) => {
   return (
     <Button variant="contained"
       sx={{
+        ...props.css,
         backgroundColor: '#F0F0F0',
         color: '#FA8128',
         borderRadius: '3px',
@@ -30,6 +32,7 @@ const WButton = (props: props) => {
 const OButton = (props: props) => {
   return (
     <Button variant="contained" color='warning' sx={{
+     
       backgroundColor: '#FA8128',
       borderRadius: '3px',
       height: '60px',
@@ -37,6 +40,7 @@ const OButton = (props: props) => {
       fontSize:'16px',
       fontWeight:600,
       border: '1px solid #F0F0F0',
+      ...props.css,
     }} size="large" disableElevation onClick={props.func}>{props.name} </Button>
   )
 }
@@ -44,9 +48,10 @@ const OButton = (props: props) => {
 const BButton = (props: props) => {
   return (
     <Button variant="contained"  sx={{
+     
       backgroundColor: '#FA8128',
       borderRadius: '0px',
-      
+      ...props.css,
     }} size="large" disableElevation onClick={props.func}>{props.name}</Button>
   )
 }
@@ -54,23 +59,24 @@ const BButton = (props: props) => {
 const PIButton = (props: props) => {
   return (
     <Button sx={{
+      ...props.css,
       color: '#FA8128',
       backgroundColor: '#FFFFFF',
-      height: '60px',
-      width: '60px',
       borderRadius: '3px',
       border: '1px solid #FA8128',
       '&:hover': {
       color: '#FFFFFF ',
-      backgroundColor: '#FA8128'
+      backgroundColor: '#FA8128',
+
       }
-    }} color='warning' variant="outlined" size='small' onClick={props.func}><PersonIcon sx={{ height: '28px', width: '28px' }} /></Button>
+    }} color='warning' variant="outlined" size='small' onClick={props.func}><PersonIcon  sx={{...props.css }} /></Button>
   )
 }
 
 const SIButton = (props: props) => {
   return (
     <Button sx={{
+      ...props.css,
       color: '#FA8128', 
       backgroundColor: '#FFFFFF', 
       border: '1px solid #FA8128',
@@ -79,15 +85,15 @@ const SIButton = (props: props) => {
         backgroundColor: '#FA8128'
       }, 
       
-      height: '60px', 
-      width: '60px'
-    }} variant="outlined" size='small' color='warning' onClick={props.func}><SettingsIcon sx={{ height: '28px', width: '28px' }} /></Button>
+      
+    }} variant="outlined" size='small' color='warning' onClick={props.func}><SettingsIcon sx={{...props.css}} /></Button>
   )
 }
 
 const OButton2 = (props: props) => {
   return (
     <Button variant="contained" color='warning' sx={{
+      ...props.css,
       backgroundColor: '#FA8128',
       borderRadius: '3px',
       height: '60px',
@@ -116,4 +122,20 @@ const BButton2 = (props: props) => {
     }} size="large" disableElevation onClick={props.func}>{props.name} </Button>
   )
 }
-export { WButton, OButton, BButton, PIButton, SIButton ,OButton2, BButton2 }
+
+const OButton3 = (props: props) => {
+  return (
+    <Button variant="contained" color='warning' type="submit" 
+      sx={{
+      backgroundColor: '#FA8128',
+      borderRadius: '3px',
+      height: '60px',
+      width: '284px',
+      fontSize:'16px',
+      fontWeight:600,
+      border: '1px solid #F0F0F0',
+      m:'auto'
+    }} size="large" disableElevation onClick={props.func}>{props.name} </Button>
+  )
+}
+export { WButton, OButton, BButton, PIButton, SIButton ,OButton2, BButton2, OButton3 }
