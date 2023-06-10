@@ -1,29 +1,49 @@
+import { useEffect } from 'react';
+import { Navigate, Route, Routes, useLocation, } from 'react-router-dom';
+import Footer from '../../Components/Footer/Footer';
+import Navbar from '../../Components/Headers/Navbar';
+import { AppContext } from '../../Context/AppContext';
+import { UserContext } from '../../Context/UserContext';
 
-import { Route, Routes, } from 'react-router-dom'
-import Footer from '../../Components/Footer/Footer'
-import Navbar from '../../Components/Headers/Navbar'
-import { MainUserContext } from '../../Context/UserContext'
-import MainAuth from './Auth/MainAuth'
-
-import Register from './Auth/Register'
-import HomePage from './Home/Main'
-import Product from './Product/Cart/Product'
+import MainAuth from './Auth/MainAuth';
+import HomePage from './Home/Main';
+import Product from './Product/Cart/Product';
 
 const Index = () => {
-  
+  const { user } = AppContext();
+  const { setOpen } = UserContext();
+
+  const location = useLocation();
+
+  useEffect(() => {
+
+    if (location.pathname !== '/' && !user) {
+      setOpen(true);
+    }
+  }, [location]);
+
   return (
     <>
-    <MainUserContext>
-     <MainAuth/>
-    
+
+      <MainAuth />
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/product" element={<Product />} />
-      </Routes>
-      <Footer/>
-    </MainUserContext>
-  
+      {
+        user ?
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path='/product' element={<Product />} />
+          </Routes>
+          :
+          <>
+            <Routes>
+              <Route index element={<HomePage user={true} />} />
+            </Routes>
+            <Navigate to="/" replace={true} />
+          </>
+      }
+      <Footer />
+
+
     </>
   )
 }

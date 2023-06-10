@@ -8,19 +8,22 @@ interface MainContextProps {
 interface ContextValue {
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  user:boolean;
 }
 
 const defaultValue: ContextValue = {
   isLoading: false,
   setIsLoading: () => {},
+  user:false,
 };
 
 const Context = createContext<ContextValue>(defaultValue);
 
 const MainContext: React.FC<MainContextProps>  = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<boolean>(false);
   return (
-    <Context.Provider value={{ setIsLoading, isLoading }}>
+    <Context.Provider value={{ setIsLoading, isLoading ,user}}>
       {children}
     </Context.Provider>
   );

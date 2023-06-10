@@ -32,7 +32,7 @@ const LoadingBar = (props:props) => {
     <>
       {
       val == true ? 
-        <Box key="progress" sx={{ width: '100%' , position:'fixed', zIndex:'11111' }}>
+        <Box key="progress" sx={{ width: '100%' , position:'fixed' }}>
           <LinearProgress variant="determinate" value={progress} color="warning" sx={{
             height:'6px'
           }}/>

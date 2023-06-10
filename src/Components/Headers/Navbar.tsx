@@ -78,7 +78,7 @@ const Navbar = () => {
 
     return (
         <>
-            <AppBar position="relative" sx={{
+            <AppBar position="sticky" sx={{
                 backgroundColor: '#3A9BDC', boxShadow: 'none', height: {
                     xs: '4.375rem', lg: '7.813rem', md: '6.875rem', sm: '4.375rem'
                 }, justifyContent: 'space-evenly',
@@ -137,7 +137,7 @@ const Navbar = () => {
                                 <HashLink
                                     to={item.url}
                                     key={key}
-                                    scroll={(el: any) => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                                    smooth={true}
                                 >
                                     <Typography sx={{
                                         color: 'white',

@@ -5,7 +5,15 @@ import FourthSection from './FourthSection'
 import SecondSection from './SecondSection'
 import ThirdSection from './ThirdSection'
 
-const Main = () => {
+interface props {
+  user?:boolean;
+}
+
+const Main = (props:props) => {
+
+ 
+ 
+
   return (
     < >  
       <FirstSection />

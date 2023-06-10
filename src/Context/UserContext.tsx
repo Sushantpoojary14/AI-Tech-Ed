@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 interface MainContextProps {
     children: React.ReactNode;
@@ -6,8 +6,6 @@ interface MainContextProps {
 interface ContextValue {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    open2: boolean;
-    setOpen2: React.Dispatch<React.SetStateAction<boolean>>;
     handleClickOpen:(val:string)=>void;
     handleClose:()=>void;
    
@@ -16,9 +14,7 @@ interface ContextValue {
   const defaultValue: ContextValue = {
     open: false,
     setOpen: () => {},
-    open2: false,
-    setOpen2: () => {},
-    handleClickOpen:(val:string) => {},
+    handleClickOpen:() => {},
     handleClose:() => {},
    
  
@@ -28,23 +24,26 @@ const Context = createContext<ContextValue>(defaultValue);
 
 const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
     
-    const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(()=>{
+    console.log(open);
+    
+  },[open])
+
 
   const handleClickOpen =  () => {
-    // console.log(e);
+    console.log('open');
     // setValue(e);
     setOpen(true);
-  };
+  }; 
 
   const handleClose = () => {
     setOpen(false);
   }
-
-
   
   return (
-    <Context.Provider value={{ open, setOpen,open2,setOpen2,handleClickOpen,handleClose }}>
+    <Context.Provider value={{ open, setOpen,handleClickOpen,handleClose }}>
     {children}
   </Context.Provider>
   )
