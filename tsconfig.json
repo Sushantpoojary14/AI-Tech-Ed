@@ -21,7 +21,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src",
+    "src", 
+    "@types/react-router-hash-link.d.ts",
     
   ]
 }

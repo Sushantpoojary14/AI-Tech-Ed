@@ -6,7 +6,7 @@ import SelectBox from '../../../Components/Common/Select'
 import UseGet from '../../../Hooks/UseGet';
 import { AppContext } from '../../../Context/AppContext';
 import TestSection from './components/TestCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 interface option {
@@ -27,16 +27,13 @@ const SecondSection = () => {
         queryKey: [selectVal], queryFn: UseGet('https://dummyjson.com/products?limit=6'),
     })
 
-    if (isLoading) {
-        setIsLoading(true)
-    } 
-    else {
-        setIsLoading(false)
-    }
+    useEffect(() => {
+        setIsLoading(isLoading);
+    }, [isLoading, setIsLoading]);
 
     return (
         <>
-            <Container maxWidth={false} sx={{ width: '98%', py: '15px', }}>
+            <Container maxWidth={false} sx={{ width: '98%', py: '15px', }} id="second">
                 <Box style={{ display: 'flex', alignItems: 'left', width: '100%', }}>
                     <Header1 header='Buy Test Series' />
                     <SelectBox name='choose test type' selectName='test_type' options={options}
@@ -45,7 +42,7 @@ const SecondSection = () => {
 
                 <Box sx={{ display: 'grid', my: '40px', gridTemplateColumns: { md: 'auto auto', sm: 'auto auto', lg:'auto auto auto', xs: 'auto' }, justifyContent: 'space-between', width: '100%' }}>
                     {data?.products && data.products.map((item: any, key: number) => {
-                        return <TestSection data={item} />
+                        return <TestSection data={item} key={key}/>
                     })}
                 </Box>
 

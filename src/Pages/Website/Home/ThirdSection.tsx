@@ -1,9 +1,9 @@
 import { Box, Collapse, Container, Paper, Theme } from '@mui/material'
 import CardData from '../../../Assets/Data/CardData';
-import { useState } from 'react';
-import { Header1 } from '../../../Components/Common/HeaderText'
+import { useRef, useState } from 'react';
+import { Header1 } from '../../../Components/Common/HeaderText';
 import FeatureCard from './components/FeatureCard';
-
+// import { HashLink } from "react-router-hash-scroll";
 
 interface mapData {
     title: string;
@@ -12,9 +12,9 @@ interface mapData {
 }
 
 const ThirdSection = () => {
-
+  
     return (
-        <Container maxWidth={false} sx={{ width: '98%', py: '15px', }}>
+        <Container maxWidth={false} sx={{ width: '98%', py: '15px', }} id="third">
             <Box sx={{ display: 'flex', alignItems: 'left', width: '100%', }}>
                 <Header1 header='Features' />
             </Box>
@@ -23,8 +23,8 @@ const ThirdSection = () => {
             alignItems: 'left', 
             width: '100%', my:'40px' }}>
                 {
-                    CardData.map((item: mapData) => {
-                        return <FeatureCard data={item} />;
+                    CardData.map((item: mapData,key) => {
+                        return <FeatureCard data={item} key={key} />;
                     })
                 }
             </Box>

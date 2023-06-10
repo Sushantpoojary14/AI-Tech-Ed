@@ -15,11 +15,11 @@ function App() {
    
       <Routes>
         <Route path='/' element={<Index />}>
-          <Route path='/' element={<HomePage />} />
+          <Route index element={<HomePage />} />
           <Route path='/product' element={<Product />} />
         </Route>
         <Route path='/user/' element={<UserIndex />} >
-
+          
         </Route>
         <Route path='/admin/' element={<AdminIndex />} >
 

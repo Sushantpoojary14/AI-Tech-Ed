@@ -1,10 +1,12 @@
 import { Box, Divider, IconButton, List, Stack, SwipeableDrawer, ListItem, ListItemButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import React, { Dispatch, ReactElement, SetStateAction, useState } from 'react'
-import { OButton, PIButton, SIButton, WButton } from '../Common/Button';
-import { Link } from 'react-router-dom';
+import { OButton, PIButton, WButton } from '../Common/Button';
+// import { Link } from 'react-router-dom';
 import { Header3 } from '../Common/HeaderText';
 import { ParaText2 } from '../Common/ParaText';
+import { HashLink } from 'react-router-hash-link'; 
+import { UserContext } from '../../Context/UserContext';
 
 interface pageType {
   name: string;
@@ -24,6 +26,7 @@ interface props {
 
 const SideBar = (props: props) => {
   const [state, setState] = useState<boolean>(false);
+  const {handleClickOpen }  = UserContext();
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (event && event.type === 'keydown' && ((event as React.KeyboardEvent).key === 'Tab' ||
@@ -61,15 +64,16 @@ const SideBar = (props: props) => {
               </>
               :
               <Stack direction="column" spacing={2}>
-                <WButton name="login" />
-                <OButton name="Register" />
+                  <WButton name="login"  func={handleClickOpen}  />
+                  <OButton name="Register" func={ handleClickOpen} />
               </Stack>
 
             }
           </Stack>
 
           {props.pages.map((item: pageType, key) => (
-            <ListItemButton component={Link} to={item.url} key={key} sx={{ px: '10px',  
+            <HashLink  to={item.url} key={key}>
+            <ListItemButton   sx={{ px: '10px',  
             fontSize: '20px', fontWeight: 600, }}>
                <ListItem sx={{width:'50px',height:'50px'}}>
                 {item.icon}
@@ -78,6 +82,7 @@ const SideBar = (props: props) => {
                 {item.name}
               </ListItem>
             </ListItemButton>
+            </HashLink>
           ))}
 
         </List>

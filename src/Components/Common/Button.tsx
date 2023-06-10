@@ -4,13 +4,13 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 interface props {
   name?: string;
-  func?: (e: any)  => void;
+  func?: ((e: any) => void) ;
   css?:object;
 }
 
 const WButton = (props: props) => {
   return (
-    <Button variant="contained"
+    <Button variant="contained" type="submit"
       sx={{
         ...props.css,
         backgroundColor: '#F0F0F0',
@@ -69,7 +69,8 @@ const PIButton = (props: props) => {
       backgroundColor: '#FA8128',
 
       }
-    }} color='warning' variant="outlined" size='small' onClick={props.func}><PersonIcon  sx={{...props.css }} /></Button>
+    }} color='warning' variant="outlined" size='small' onClick={props.func}><PersonIcon  sx={{...props.css }} />
+    </Button>
   )
 }
 
@@ -85,23 +86,23 @@ const SIButton = (props: props) => {
         backgroundColor: '#FA8128'
       }, 
       
-      
-    }} variant="outlined" size='small' color='warning' onClick={props.func}><SettingsIcon sx={{...props.css}} /></Button>
+    }} variant="outlined" size='small' color='warning' onClick={props.func}><SettingsIcon sx={{...props.css}} />
+    </Button>
   )
 }
 
 const OButton2 = (props: props) => {
   return (
-    <Button variant="contained" color='warning' sx={{
+    <Button variant="contained" color='warning' type="submit" sx={{
       ...props.css,
       backgroundColor: '#FA8128',
       borderRadius: '3px',
       height: '60px',
-      width: '360px',
+      width: '100%',
       fontSize:'16px',
       fontWeight:600,
       border: '1px solid #F0F0F0',
-      m:'auto'
+  
     }} size="large" disableElevation onClick={props.func}>{props.name} </Button>
   )
 }
