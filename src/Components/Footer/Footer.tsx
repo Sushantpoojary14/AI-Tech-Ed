@@ -10,7 +10,7 @@ const surl = ['/', '', '', '/product'];
 
 const Footer = () => {
     return (
-        <Container maxWidth={false} sx={{width:'100%', display:'flex',justifyContent:'space-between',height:'180px'}}>
+        <Container  maxWidth={false} sx={{width:'100%', display:'flex',justifyContent:{lg:'space-evenly',md:'space-evenly',sm:'space-evenly', xs:'space-between'} ,mt:'auto', backgroundColor:'#FFFFFF' }}>
             <Box sx={{my:'auto'}}>
                 {pages.map((item,key) => {
                     return <Link to={surl[key]} key={key}> <Header2 header={item} css={{py:'10px'}} /></Link>   

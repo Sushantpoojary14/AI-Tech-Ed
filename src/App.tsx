@@ -5,28 +5,25 @@ import UserIndex from './Pages/User/UserIndex';
 import AdminIndex from './Pages/Admin/AdminIndex';
 import { AppContext } from './Context/AppContext';
 // import Navbar from './Components/Headers/Navbar';
-import { MainUserContext } from '../src/Context/UserContext';
+import { MainCartContext  } from '../src/Context/CartContext';
+import ErrorPage from './Pages/Error';
 function App() {
 
-  const { user } = AppContext();
 
   return (
     <>
 
-      <MainUserContext>
+      <MainCartContext >
         <Routes>
           <Route path='/*' element={<Index />} />
-        </Routes>
-      </MainUserContext>
-      <Routes>
-        <Route path='/user/*' element={<UserIndex />} >
-
-        </Route>
-        <Route path='/admin/' element={<AdminIndex />} >
-
-        </Route>
-        {/* <Route path='/*' element={<Index />} /> */}
+          
+    
+   
+        <Route path='/user/*' element={<UserIndex />} />
+        <Route path='/admin/' element={<AdminIndex />} />
+     
       </Routes>
+      </MainCartContext>
 
     </>
   );

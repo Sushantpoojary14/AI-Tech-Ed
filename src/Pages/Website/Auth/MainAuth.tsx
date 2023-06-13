@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import { Dialog, Tab } from '@mui/material';
 import Login from './Login';
@@ -7,17 +7,22 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import Register from './Register';
 
 const MainAuth = () => {
-    const { open, handleClose} = UserContext();
-    const [value, setValue] = useState('1');
+    const { open, handleClose, values,setValues} = UserContext();
+ 
+    // const [value, setValue] = useState(values);
+
+    // useEffect(() => {
+    //     setValue(values);;
+    // }, [values]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
+        setValues(newValue)
     };
 
     return (
         <Dialog onClose={handleClose} open={open} >
             <Box sx={{maxWidth:"480px"}}>
-            <TabContext value={value} >
+            <TabContext value={values} >
                 <Box sx={{mt:'10px',}} >
                     <TabList onChange={handleChange} 
                    sx={{ '& .MuiTab-root': {mx:{lg:'70px',xs:'12px',md:'80px',sm:'50px'} } }} centered>

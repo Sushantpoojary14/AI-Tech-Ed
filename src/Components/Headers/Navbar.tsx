@@ -10,11 +10,11 @@ import { ReactElement, useState } from 'react';
 import { UserContext } from '../../Context/UserContext';
 import { Link } from 'react-router-dom';
 import { OButton, PIButton, WButton, SIButton } from '../Common/Button';
-import LoadingBar from '../Headers/LoadingBar';
-import { AppContext } from '../../Context/AppContext';
 import SideBar from '../Sidebar/SideBar';
 import { ParaText1 } from '../Common/ParaText';
 import { HashLink } from 'react-router-hash-link';
+import { Header4 } from '../Common/HeaderText';
+import { AppContext } from '../../Context/AppContext';
 
 interface Type {
     name: string;
@@ -45,7 +45,7 @@ const pages: Type[] =
     [{ name: 'Home', url: '/', icon: <HomeOutlinedIcon sx={pCss} /> },
     { name: 'Buy Test Series', url: '/#second', icon: <FeedOutlinedIcon sx={pCss} /> },
     { name: 'Features', url: '/#third', icon: <FeaturedPlayListOutlinedIcon sx={pCss} /> },
-    { name: 'Cart', url: '/product', icon: <ShoppingCartOutlinedIcon sx={pCss} /> }];
+    { name: 'Cart', url: '/cart', icon: <ShoppingCartOutlinedIcon sx={pCss} /> }];
 
 const settings: Type[] =
     [{ name: 'Profile', url: '', icon: <PersonIcon sx={sCss} /> },
@@ -54,11 +54,10 @@ const settings: Type[] =
 
 const Navbar = () => {
     const { handleClickOpen } = UserContext();
-    const { isLoading } = AppContext();
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-    const [user, setUser] = useState<boolean>(false);
+    const {user} = AppContext();
 
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -91,21 +90,15 @@ const Navbar = () => {
                         {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
                         <Box >
                             <Link to='/'>
-                                <Typography noWrap align='justify'
-                                    sx={{
-                                        fontSize: '3rem',
-                                        display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex' },
-                                        fontWeight: 600,
-                                        color: 'inherit',
-                                        textDecoration: 'none',
-                                    }}> AI Tech ED </Typography>
+                                <Header4 header="AI Tech Ed" 
+                                css={{ display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex' } }} />
                             </Link>
 
                         </Box>
 
                         {/* Mobile View SideBar Icon */}
                         <Box sx={{
-                            width: '100%', justifyContent: 'space-between',
+                            width: '100%', justifyContent: 'space-evenly',
                             alignItems: 'center', display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'none' }
                         }}>
                             <SideBar handleCloseNavMenu={handleCloseNavMenu} pages={pages}
@@ -115,16 +108,7 @@ const Navbar = () => {
                             {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
                             <Stack spacing={4} direction='row' sx={{ alignItems: 'center' }}>
                                 <Link to='/'>
-                                    <Typography
-                                        noWrap
-                                        sx={{
-                                            mx: 'auto',
-                                            flexGrow: 1,
-                                            fontSize: '38px',
-                                            fontWeight: 600,
-                                            color: 'inherit',
-                                            textDecoration: 'none',
-                                        }} > AI Tech ED </Typography>
+                                    <Header4 header="AI Tech Ed"  />
                                 </Link>
                                 {user && <SIButton css={{ p: '2px', height: '30px', width: '30px', }}
                                     func={handleOpenUserMenu} />}
@@ -162,8 +146,8 @@ const Navbar = () => {
                                     </Stack>
                                     :
                                     <Stack spacing={2} direction="row">
-                                         <WButton name="login"  func={handleClickOpen}  />
-                                        <OButton name="Register" func={ handleClickOpen} />
+                                        <WButton name="login" func={() => handleClickOpen("1")} css={{ width: '127px' }} />
+                                        <OButton name="Register" func={() => handleClickOpen("2")} />
                                     </Stack>}
                             </Tooltip>
                             <Menu
@@ -193,7 +177,7 @@ const Navbar = () => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <LoadingBar isLoading={isLoading} />
+
         </>
     )
 }

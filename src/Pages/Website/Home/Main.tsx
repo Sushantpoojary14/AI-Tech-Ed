@@ -1,5 +1,7 @@
 import { Container } from '@mui/material'
 import React from 'react'
+import LoadingBar from '../../../Components/Headers/LoadingBar'
+
 import FirstSection from './FirstSection'
 import FourthSection from './FourthSection'
 import SecondSection from './SecondSection'
@@ -10,18 +12,21 @@ interface props {
 }
 
 const Main = (props:props) => {
-
  
- 
-
   return (
-    < >  
-      <FirstSection />
-      <SecondSection/>
-      <ThirdSection/>
-      <FourthSection/>
+    <>
+      {/* {isLoading==true ? (
+      ) : ( */}
+     
+        <>
+          <FirstSection />
+          <SecondSection />
+          <ThirdSection />
+          <FourthSection />
+        </>
+      {/* )} */}
     </>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;

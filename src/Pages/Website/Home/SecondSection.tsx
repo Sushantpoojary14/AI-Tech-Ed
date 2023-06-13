@@ -8,6 +8,8 @@ import { AppContext } from '../../../Context/AppContext';
 import TestSection from './components/TestCard';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import LoadingBar from '../../../Components/Headers/LoadingBar';
+import { CartContext } from '../../../Context/CartContext';
 
 interface option {
     name: string;
@@ -22,15 +24,15 @@ const options: option[] = [
 
 const SecondSection = () => {
     const [selectVal, setSelectVal] = useState<number>(1);
-    const { setIsLoading } = AppContext();
+    const { cart } = CartContext();
     const { isLoading, data, error, refetch } = useQuery({
         queryKey: [selectVal], queryFn: UseGet('https://dummyjson.com/products?limit=6'),
     })
 
-    useEffect(() => {
-        setIsLoading(isLoading);
-    }, [isLoading, setIsLoading]);
-
+   
+    if(isLoading){
+        return <LoadingBar />
+    }
     return (
         <>
             <Container maxWidth={false} sx={{ width: '98%', py: '15px', }} id="second">
@@ -42,7 +44,7 @@ const SecondSection = () => {
 
                 <Box sx={{ display: 'grid', my: '40px', gridTemplateColumns: { md: 'auto auto', sm: 'auto auto', lg:'auto auto auto', xs: 'auto' }, justifyContent: 'space-between', width: '100%' }}>
                     {data?.products && data.products.map((item: any, key: number) => {
-                        return <TestSection data={item} key={key}/>
+                        return  <TestSection data={item} key={key}/>
                     })}
                 </Box>
 

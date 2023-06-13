@@ -8,15 +8,17 @@ interface ContextValue {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     handleClickOpen:(val:string)=>void;
     handleClose:()=>void;
-   
+    values :string;
+    setValues:React.Dispatch<React.SetStateAction<string>>;
   }
   
   const defaultValue: ContextValue = {
     open: false,
     setOpen: () => {},
-    handleClickOpen:() => {},
+    handleClickOpen:(val) => {},
     handleClose:() => {},
-   
+    values :"1",
+    setValues:()=>{}
  
   };
   
@@ -25,16 +27,13 @@ const Context = createContext<ContextValue>(defaultValue);
 const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
     
   const [open, setOpen] = useState(false);
-
-  useEffect(()=>{
-    console.log(open);
-    
-  },[open])
+  const [values ,  setValues] = useState("1");
 
 
-  const handleClickOpen =  () => {
-    console.log('open');
-    // setValue(e);
+
+
+  const handleClickOpen =  (val:string) => {
+    setValues(val);
     setOpen(true);
   }; 
 
@@ -43,7 +42,7 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
   }
   
   return (
-    <Context.Provider value={{ open, setOpen,handleClickOpen,handleClose }}>
+    <Context.Provider value={{ open, setOpen,handleClickOpen,handleClose,values ,setValues }}>
     {children}
   </Context.Provider>
   )

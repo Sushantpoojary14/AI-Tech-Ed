@@ -6,18 +6,18 @@ interface props {
   name?: string;
   func?: ((e: any) => void) ;
   css?:object;
+  type?:"button" | "submit" | "reset" | undefined;
 }
 
 const WButton = (props: props) => {
   return (
-    <Button variant="contained" type="submit"
+    <Button variant="contained" type={props.type}
       sx={{
         ...props.css,
         backgroundColor: '#F0F0F0',
         color: '#FA8128',
         borderRadius: '3px',
         height: '60px',
-        width: '127px',
         fontSize:'16px',
         fontWeight:600,
         border: '1px solid #FA8128',
@@ -31,7 +31,7 @@ const WButton = (props: props) => {
 
 const OButton = (props: props) => {
   return (
-    <Button variant="contained" color='warning' sx={{
+    <Button variant="contained" color='warning' type={props.type} sx={{
      
       backgroundColor: '#FA8128',
       borderRadius: '3px',
@@ -47,7 +47,7 @@ const OButton = (props: props) => {
 
 const BButton = (props: props) => {
   return (
-    <Button variant="contained"  sx={{
+    <Button variant="contained"  type={props.type} sx={{
      
       backgroundColor: '#FA8128',
       borderRadius: '0px',
@@ -58,7 +58,7 @@ const BButton = (props: props) => {
 
 const PIButton = (props: props) => {
   return (
-    <Button sx={{
+    <Button type={props.type} sx={{
       ...props.css,
       color: '#FA8128',
       backgroundColor: '#FFFFFF',
@@ -76,7 +76,7 @@ const PIButton = (props: props) => {
 
 const SIButton = (props: props) => {
   return (
-    <Button sx={{
+    <Button type={props.type} sx={{
       ...props.css,
       color: '#FA8128', 
       backgroundColor: '#FFFFFF', 
@@ -93,7 +93,7 @@ const SIButton = (props: props) => {
 
 const OButton2 = (props: props) => {
   return (
-    <Button variant="contained" color='warning' type="submit" sx={{
+    <Button variant="contained" color='warning' type={props.type} sx={{
       ...props.css,
       backgroundColor: '#FA8128',
       borderRadius: '3px',
@@ -110,7 +110,7 @@ const OButton2 = (props: props) => {
 
 const BButton2 = (props: props) => {
   return (
-    <Button variant="contained"  sx={{
+    <Button variant="contained" type={props.type} sx={{
       backgroundColor: '#3A9BDC',
       color:'#FFFFFF',
       borderRadius: '3px',
@@ -126,7 +126,7 @@ const BButton2 = (props: props) => {
 
 const OButton3 = (props: props) => {
   return (
-    <Button variant="contained" color='warning' type="submit" 
+    <Button variant="contained" color='warning' type={props.type} 
       sx={{
       backgroundColor: '#FA8128',
       borderRadius: '3px',
