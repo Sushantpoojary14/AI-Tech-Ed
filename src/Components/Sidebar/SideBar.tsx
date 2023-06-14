@@ -22,6 +22,7 @@ interface props {
   anchorElNav: null | HTMLElement;
   setAnchorElUser: Dispatch<SetStateAction<null | HTMLElement>>;
   user: boolean;
+  boxStyle:object;
 }
 
 const SideBar = (props: props) => {
@@ -37,7 +38,7 @@ const SideBar = (props: props) => {
   };
 
   return (
-    <Box sx={{ width: '100%', display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'none' } }}>
+    <Box sx={{ width: '100%', ...props.boxStyle }}>
       <IconButton
         size="large"
         aria-label="account of current user"
@@ -47,7 +48,7 @@ const SideBar = (props: props) => {
         color="inherit" >
         <MenuIcon sx={{ height: '50px', width: '40px' }} />
       </IconButton>
-      <SwipeableDrawer PaperProps={{ sx: { width: { md: '50%', sm: '50%', xs: '70%' } } }}
+      <SwipeableDrawer PaperProps={{ sx: { width: { md: '50%', sm: '50%', xs: '70%' ,lg:'30%'} } }}
         anchor='left' open={state} onClose={toggleDrawer(false)} onOpen={toggleDrawer(true)} >
         <List sx={{ pt: 0 }}>
           <Stack direction="row" sx={{ backgroundColor: '#3A9BDC', width: '100%', height: { md: '198px', sm: '198px', xs: '178px' }, textAlign: 'center', display: { sm: 'flex', md: 'flex', xs: 'flex' }, flexDirection: { sm: 'row', md: 'row', xs: 'column' }, justifyContent: 'center', alignItems: 'center' }}>

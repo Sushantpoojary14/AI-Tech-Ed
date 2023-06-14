@@ -48,10 +48,10 @@ const OButton = (props: props) => {
 const BButton = (props: props) => {
   return (
     <Button variant="contained"  type={props.type} sx={{
-     
-      backgroundColor: '#FA8128',
-      borderRadius: '0px',
       ...props.css,
+      backgroundColor: '#3A9BDC',
+      borderRadius: '0px',
+      
     }} size="large" disableElevation onClick={props.func}>{props.name}</Button>
   )
 }
@@ -69,7 +69,7 @@ const PIButton = (props: props) => {
       backgroundColor: '#FA8128',
 
       }
-    }} color='warning' variant="outlined" size='small' onClick={props.func}><PersonIcon  sx={{...props.css }} />
+    }} color='warning' variant="outlined"  onClick={props.func}><PersonIcon  sx={{...props.css }} />
     </Button>
   )
 }
@@ -86,7 +86,7 @@ const SIButton = (props: props) => {
         backgroundColor: '#FA8128'
       }, 
       
-    }} variant="outlined" size='small' color='warning' onClick={props.func}><SettingsIcon sx={{...props.css}} />
+    }} variant="outlined"  color='warning' onClick={props.func}><SettingsIcon sx={{...props.css}} />
     </Button>
   )
 }
