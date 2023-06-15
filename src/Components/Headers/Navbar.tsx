@@ -3,9 +3,7 @@ import FeaturedPlayListOutlinedIcon from '@mui/icons-material/FeaturedPlayListOu
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
-import PersonIcon from '@mui/icons-material/Person';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+
 import { ReactElement, useState } from 'react';
 import { UserContext } from '../../Context/UserContext';
 import { Link } from 'react-router-dom';
@@ -15,11 +13,13 @@ import { ParaText1 } from '../Common/ParaText';
 import { HashLink } from 'react-router-hash-link';
 import { Header4 } from '../Common/HeaderText';
 import { AppContext } from '../../Context/AppContext';
+import MenuModel from '../Model/MenuModel';
 
-interface Type {
-    name: string;
-    url: string;
-    icon: ReactElement;
+type  Type={
+    name: string,
+    url: string,
+    icon: ReactElement,
+    func?:()=>void;
 }
 // interface props{
 //     func:()=>void;
@@ -34,12 +34,7 @@ const pCss = {
     color: '#FA8128',
 };
 
-const sCss = {
-    height: '28px',
-    width: '28px',
-    color: '#FA8128',
-    mx: '8px'
-};
+
 
 const pages: Type[] =
     [{ name: 'Home', url: '/', icon: <HomeOutlinedIcon sx={pCss} /> },
@@ -47,10 +42,6 @@ const pages: Type[] =
     { name: 'Features', url: '/#third', icon: <FeaturedPlayListOutlinedIcon sx={pCss} /> },
     { name: 'Cart', url: '/cart', icon: <ShoppingCartOutlinedIcon sx={pCss} /> }];
 
-const settings: Type[] =
-    [{ name: 'Profile', url: '', icon: <PersonIcon sx={sCss} /> },
-    { name: 'change Password', url: '', icon: <LockOutlinedIcon sx={sCss} /> },
-    { name: 'Logout', url: '', icon: <ExitToAppOutlinedIcon sx={sCss} /> }];
 
 const Navbar = () => {
     const { handleClickOpen } = UserContext();
@@ -58,7 +49,6 @@ const Navbar = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
     const {user} = AppContext();
-
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -68,13 +58,17 @@ const Navbar = () => {
     };
 
     const handleCloseNavMenu = () => {
+      
+        
         setAnchorElNav(null);
     };
 
     const handleCloseUserMenu = () => {
+        console.log('click');
         setAnchorElUser(null);
     };
 
+  
     return (
         <>
             <AppBar position="sticky" sx={{
@@ -103,7 +97,8 @@ const Navbar = () => {
                         }}>
                             <SideBar handleCloseNavMenu={handleCloseNavMenu} pages={pages}
                                 handleOpenUserMenu={handleOpenUserMenu} setAnchorElNav={setAnchorElNav}
-                                anchorElNav={anchorElNav} setAnchorElUser={setAnchorElUser} user={user} />
+                                anchorElNav={anchorElNav} setAnchorElUser={setAnchorElUser} user={user} 
+                                boxStyle={{display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'none' }}}/>
 
                             {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
                             <Stack spacing={4} direction='row' sx={{ alignItems: 'center' }}>
@@ -150,29 +145,7 @@ const Navbar = () => {
                                         <OButton name="Register" func={() => handleClickOpen("2")} />
                                     </Stack>}
                             </Tooltip>
-                            <Menu
-                                sx={{ width: '272px', height: '270px', mt: { md: '45px', lg: '65px', xs: '45px' }, }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                {settings.map((item: Type, key) => (
-                                    <MenuItem key={key} >
-                                        {item.icon}
-                                        <ParaText1 text={item.name} />
-                                    </MenuItem>
-                                ))}
-                            </Menu>
+                            <MenuModel anchorElUser={anchorElUser} handleCloseUserMenu={handleCloseUserMenu}  />        
                         </Box>
                     </Toolbar>
                 </Container>

@@ -25,7 +25,7 @@ const options: option[] = [
 const SecondSection = () => {
     const [selectVal, setSelectVal] = useState<number>(1);
     const { cart } = CartContext();
-    const { isLoading, data, error, refetch } = useQuery({
+    const { isLoading, data, refetch } = useQuery({
         queryKey: [selectVal], queryFn: UseGet('https://dummyjson.com/products?limit=6'),
     })
 

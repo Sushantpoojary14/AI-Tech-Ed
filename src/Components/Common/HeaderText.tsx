@@ -12,10 +12,9 @@ const Header1 = (props: props) => {
 
       sx={{
         ...props.css,
-        fontSize: { xs: '18px', md: '24px' },
+        fontSize: { xs: '18px', md: '24px',lg:'24' },
         fontWeight: 700,
         color: '#1E1E1E',
-        mr: '50px'
       }}
     >
       {props.header}
