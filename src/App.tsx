@@ -5,7 +5,7 @@ import UserIndex from './Pages/User/UserIndex';
 import AdminIndex from './Pages/Admin/AdminIndex';
 import { AppContext } from './Context/AppContext';
 // import Navbar from './Components/Headers/Navbar';
-import { MainCartContext  } from '../src/Context/CartContext';
+import { MainCartContext } from '../src/Context/CartContext';
 import ErrorPage from './Pages/Error';
 function App() {
 
@@ -16,13 +16,12 @@ function App() {
       <MainCartContext >
         <Routes>
           <Route path='/*' element={<Index />} />
-          
-    
-   
-        <Route path='/user/*' element={<UserIndex />} />
-        <Route path='/admin/' element={<AdminIndex />} />
-     
-      </Routes>
+
+
+          <Route path='/user/*' element={<UserIndex />} />
+          <Route path='/admin/*' element={<AdminIndex />} />
+
+        </Routes>
       </MainCartContext>
 
     </>

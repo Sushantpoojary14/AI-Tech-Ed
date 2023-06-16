@@ -31,7 +31,6 @@ const TableData = (props: dataProps) => {
       {
         props.data.map((item, key) => {
           let temp = Object.values(item);
-          console.log(temp, item);
           return (
             <TableRow key={key} >
               <TableCell align="center" sx={{ border: 0 }}>{key + 1}</TableCell>

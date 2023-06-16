@@ -14,7 +14,7 @@ const WButton = (props: props) => {
     <Button variant="contained" type={props.type}
       sx={{
         ...props.css,
-        backgroundColor: '#F0F0F0',
+        backgroundColor: '#FFFFFF',
         color: '#FA8128',
         borderRadius: '3px',
         height: '60px',
@@ -32,15 +32,14 @@ const WButton = (props: props) => {
 const OButton = (props: props) => {
   return (
     <Button variant="contained" color='warning' type={props.type} sx={{
-     
+      ...props.css,
       backgroundColor: '#FA8128',
       borderRadius: '3px',
       height: '60px',
-      width: '127px',
       fontSize:'16px',
       fontWeight:600,
       border: '1px solid #F0F0F0',
-      ...props.css,
+     
     }} size="large" disableElevation onClick={props.func}>{props.name} </Button>
   )
 }

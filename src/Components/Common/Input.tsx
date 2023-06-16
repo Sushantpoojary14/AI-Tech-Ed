@@ -18,6 +18,7 @@ const Input = (props:props) => {
     helperText={props.val}
     InputLabelProps={{
       sx: {
+        
               color: '#000000',
               fontWeight:'500',
           },

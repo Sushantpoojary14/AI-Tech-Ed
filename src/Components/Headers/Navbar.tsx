@@ -15,11 +15,11 @@ import { Header4 } from '../Common/HeaderText';
 import { AppContext } from '../../Context/AppContext';
 import MenuModel from '../Model/MenuModel';
 
-type  Type={
+type Type = {
     name: string,
     url: string,
     icon: ReactElement,
-    func?:()=>void;
+    func?: () => void;
 }
 // interface props{
 //     func:()=>void;
@@ -37,8 +37,8 @@ const pCss = {
 
 
 const pages: Type[] =
-    [{ name: 'Home', url: '/', icon: <HomeOutlinedIcon sx={pCss} /> },
-    { name: 'Buy Test Series', url: '/#second', icon: <FeedOutlinedIcon sx={pCss} /> },
+    [{ name: 'Home', url: '/#home', icon: <HomeOutlinedIcon sx={pCss} /> },
+    { name: 'Buy Test Series', url: '/#product', icon: <FeedOutlinedIcon sx={pCss} /> },
     { name: 'Features', url: '/#third', icon: <FeaturedPlayListOutlinedIcon sx={pCss} /> },
     { name: 'Cart', url: '/cart', icon: <ShoppingCartOutlinedIcon sx={pCss} /> }];
 
@@ -48,7 +48,7 @@ const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-    const {user} = AppContext();
+    const { user } = AppContext();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -58,8 +58,8 @@ const Navbar = () => {
     };
 
     const handleCloseNavMenu = () => {
-      
-        
+
+
         setAnchorElNav(null);
     };
 
@@ -68,7 +68,7 @@ const Navbar = () => {
         setAnchorElUser(null);
     };
 
-  
+
     return (
         <>
             <AppBar position="sticky" sx={{
@@ -84,8 +84,8 @@ const Navbar = () => {
                         {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
                         <Box >
                             <Link to='/'>
-                                <Header4 header="AI Tech Ed" 
-                                css={{ display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex' } }} />
+                                <Header4 header="AI Tech Ed"
+                                    css={{ display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex' } }} />
                             </Link>
 
                         </Box>
@@ -97,13 +97,13 @@ const Navbar = () => {
                         }}>
                             <SideBar handleCloseNavMenu={handleCloseNavMenu} pages={pages}
                                 handleOpenUserMenu={handleOpenUserMenu} setAnchorElNav={setAnchorElNav}
-                                anchorElNav={anchorElNav} setAnchorElUser={setAnchorElUser} user={user} 
-                                boxStyle={{display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'none' }}}/>
+                                anchorElNav={anchorElNav} setAnchorElUser={setAnchorElUser} user={user}
+                                boxStyle={{ display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'none' } }} />
 
                             {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
                             <Stack spacing={4} direction='row' sx={{ alignItems: 'center' }}>
                                 <Link to='/'>
-                                    <Header4 header="AI Tech Ed"  />
+                                    <Header4 header="AI Tech Ed" />
                                 </Link>
                                 {user && <SIButton css={{ p: '2px', height: '30px', width: '30px', }}
                                     func={handleOpenUserMenu} />}
@@ -111,19 +111,22 @@ const Navbar = () => {
                         </Box>
 
                         {/* PC View SideBar menu */}
+
+                     
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex' }, justifyContent: 'space-evenly' }}>
                             {pages.map((item: Type, key) => (
                                 <HashLink
+                                smooth={true}
                                     to={item.url}
                                     key={key}
-                                    smooth={true}
+                                    style={{  }} // Add top margin here
                                 >
                                     <Typography sx={{
                                         color: 'white',
                                         display: 'block',
                                         fontSize: '20px',
                                         fontWeight: 600
-                                    }}  >
+                                    }}>
                                         {item.name}
                                     </Typography>
                                 </HashLink>
@@ -142,10 +145,10 @@ const Navbar = () => {
                                     :
                                     <Stack spacing={2} direction="row">
                                         <WButton name="login" func={() => handleClickOpen("1")} css={{ width: '127px' }} />
-                                        <OButton name="Register" func={() => handleClickOpen("2")} />
+                                        <OButton name="Register" func={() => handleClickOpen("2")}  css={{ width: '127px' }}/>
                                     </Stack>}
                             </Tooltip>
-                            <MenuModel anchorElUser={anchorElUser} handleCloseUserMenu={handleCloseUserMenu}  />        
+                            <MenuModel anchorElUser={anchorElUser} handleCloseUserMenu={handleCloseUserMenu} />
                         </Box>
                     </Toolbar>
                 </Container>

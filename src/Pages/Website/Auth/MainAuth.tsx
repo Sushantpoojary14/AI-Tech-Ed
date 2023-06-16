@@ -7,16 +7,10 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import Register from './Register';
 
 const MainAuth = () => {
-    const { open, handleClose, values,setValues} = UserContext();
+    const { open, handleClose, values,dispatch} = UserContext();
  
-    // const [value, setValue] = useState(values);
-
-    // useEffect(() => {
-    //     setValue(values);;
-    // }, [values]);
-
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValues(newValue)
+        dispatch({ type: 'SET_VALUES', payload:newValue })
     };
 
     return (

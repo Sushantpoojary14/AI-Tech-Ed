@@ -13,7 +13,7 @@ const FirstSection = () => {
 
 
     return (
-        <Container  maxWidth={false} sx={{width:'100%'}}>
+        <Container  maxWidth={false} sx={{width:'100%'}} id="home">
 
             <Carousel
                 NextIcon={< ArrowForwardIosIcon />}

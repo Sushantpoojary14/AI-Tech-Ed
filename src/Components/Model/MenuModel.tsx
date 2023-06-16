@@ -5,6 +5,7 @@ import { ParaText1 } from "../Common/ParaText";
 import PersonIcon from '@mui/icons-material/Person';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import { UserContext } from "../../Context/UserContext";
 const pCss = {
     height: '38px',
     width: '38px',
@@ -27,6 +28,8 @@ interface props {
 }
 
 const MenuModel = (props: props) => {
+
+    const { handleMenuOpen ,handlePCOpen} = UserContext();
     return (
         <Menu
             sx={{ width: '272px', height: '270px', mt: { md: '45px', lg: '65px', xs: '45px' }, }}
@@ -55,16 +58,15 @@ const MenuModel = (props: props) => {
                     </Stack>
                 </Link>
             </MenuItem>
-            <MenuItem >
-                <Link to="/">
-                    <Stack spacing={1} direction="row">
-
+            <MenuItem onClick={handlePCOpen}>
+            
+                    <Stack spacing={1} direction="row" >
                         <LockOutlinedIcon sx={sCss} />
                         <ParaText1 text="Change Password" />
                     </Stack>
-                </Link>
+      
             </MenuItem>
-            <MenuItem >
+            <MenuItem onClick={handleMenuOpen}>
 
                 <Stack spacing={1} direction="row" >
                     <ExitToAppOutlinedIcon sx={sCss} />

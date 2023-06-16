@@ -36,11 +36,11 @@ const SixthSection = () => {
         <Container maxWidth="xl" sx={{ my: '20px' }}>
             <Header1 header="PERFORMANCE ANALYSIS" />
             <Box sx={{ display: 'grid', gridTemplateColumns: { lg: 'auto auto auto auto auto', md: 'auto auto auto ', sm: 'auto auto ', xs: 'auto' }, gridGap: { lg: '20px', md: '20px', sm: '20px', xs: '20px' }, my: '30px' }}>
-                {card_content.map((item: content) => {
+                {card_content.map((item: content,key) => {
                     return (<Card sx={{
                         Width: '100%', height: '306px', boxShadow: '3px 3px 15px 1px #808080',
                         borderBottom: '5px solid #3A9BDC', borderRight: '5px solid #3A9BDC', pt: '20px'
-                    }}>
+                    }} key={key}>
                         <CardContent sx={{ m: 'auto', textAlign: 'center' }}>
                             <Header2 header={item.test} css={{ mx: 'auto', my: '5px' }} />
                             <Stack direction="column" sx={{

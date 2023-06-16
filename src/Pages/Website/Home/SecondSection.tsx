@@ -35,7 +35,7 @@ const SecondSection = () => {
     }
     return (
         <>
-            <Container maxWidth={false} sx={{ width: '98%', py: '15px', }} id="second">
+            <Container maxWidth={false} sx={{ width: '98%', py: '15px', }} id="product">
                 <Box style={{ display: 'flex', alignItems: 'left', width: '100%', }}>
                     <Header1 header='Buy Test Series' />
                     <SelectBox name='choose test type' selectName='test_type' options={options}

@@ -66,7 +66,7 @@ const SideBar = (props: props) => {
               :
               <Stack direction="column" spacing={2}>
                    <WButton name="login"  func={()=>handleClickOpen("1")} css={{width:'127px'}} />
-                    <OButton name="Register" func={()=>handleClickOpen("2")} />
+                    <OButton name="Register" func={()=>handleClickOpen("2")}  css={{ width: '127px' }}/>
               </Stack>
 
             }

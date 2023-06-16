@@ -11,23 +11,35 @@ import MainAuth from './Auth/MainAuth';
 import HomePage from './Home/Main';
 import Cart from './Product/Cart';
 import Product from './Product/Product';
+import LogoutIcon from '@mui/icons-material/Logout';
+import ConfirmModel from '../../Components/Model/ConfirmModel';
+import PasswordChangeModal from '../../Components/Model/PasswordChangeModal';
 
 const Index = () => {
   const { user } = AppContext();
-  const { setOpen ,values} = UserContext();
+  // const {  handleClickOpen} = UserContext();
+  const { handleMenuClose, openMenu } = UserContext();
   const location = useLocation();
+  // useEffect(() => {
 
+  //   if (location.pathname === '/' && user===false) {
+  //     console.log(location.pathname );
+
+  //     // handleClickOpen('1');
+  //   }
+  // }, [location]);
   return (
-    <Container maxWidth={false} 
-    sx={{width:'100%',m:0,p:0 , minHeight:'100vh',display:'flex',flexDirection:'column',backgroundColor:'#F5F5F5'}} disableGutters>
-    
+    <Container maxWidth={false}
+      sx={{ width: '100%', m: 0, p: 0, minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F5F5F5' }} disableGutters>
+      <ConfirmModel handleClose={handleMenuClose} open={openMenu} icon={<LogoutIcon sx={{ height: '100px', width: '100px', color: '#FA8128', mx: 'auto' }} />} text="Are you sure you want to log out?" />
+      <PasswordChangeModal />
       <MainAuth />
       <Navbar />
       <Routes>
-            <Route index element={<HomePage />} />
-            <Route path='/cart' element={<Cart/>} />
-            <Route path='/product/:id' element={<Product/>} />
-            <Route path="*" element={<ErrorPage />} />
+        <Route index element={<HomePage />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/product/:id' element={<Product />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
 
