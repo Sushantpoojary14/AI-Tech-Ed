@@ -11,23 +11,35 @@ import PasswordChangeModal from '../../Components/Model/PasswordChangeModal';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import SuccessModel from '../../Components/Model/SuccessModel';
 import img from '../../Assets/images/password_success.jpg';
+import ProfileIndex from './Profile/ProfileIndex'
+import ProfileEditModal from '../../Components/Model/ProfileEditModel';
+import TestRA from './TestResultAnalysis/TestRA';
 
 const UserIndex = () => {
   const { user } = AppContext();
-  const { handleMenuClose,openMenu,openPC2,handlePC2Close,handleSubmit,openSuccess ,handleSuccessClose} 
-  = UserContext();
+  const { handleMenuClose, openMenu, openPC2, handlePC2Close, handleSubmit, openSuccess, handleSuccessClose, openPE2,handlePESuccessClose, handlePE2Close,openPESuccess }
+    = UserContext();
   return (
     <>
 
       {
         user ?
           <>
-            <ConfirmModel handleClose={handleMenuClose} open={openMenu} icon={<LogoutIcon sx={{height:'100px',width:'100px',color:'#FA8128' ,mx:'auto'}}/>} text="Are you sure you want to log out?" />
+            <ConfirmModel handleClose={handleMenuClose} open={openMenu} icon={<LogoutIcon sx={{ height: '100px', width: '100px', color: '#FA8128', mx: 'auto' }} />} text="Are you sure you want to log out?" />
 
-            <ConfirmModel handleClose={handlePC2Close} open={openPC2} icon={<LockOpenIcon sx={{height:'100px',width:'100px',color:'#FA8128' ,mx:'auto'}}/>} text="Are you sure you want to Change your password?" func={handleSubmit}/>
+            <ConfirmModel handleClose={handlePC2Close} open={openPC2} icon={<LockOpenIcon sx={{ height: '100px', width: '100px', color: '#FA8128', mx: 'auto' }} />} text="Are you sure you want to Change your password?"
+              func={handleSubmit} />
 
-            <PasswordChangeModal/>
-            <SuccessModel handleClose={handleSuccessClose} open={openSuccess} icon={<img src={img} style={{ height: '150px', width: '150px', color: '#FA8128', marginLeft: 'auto',marginRight:'auto' }} />} header="Your password has been changed successfully!" text="Back to Dashboard" link="/user"/>
+            <ConfirmModel handleClose={handlePE2Close} open={openPE2} icon={<LockOpenIcon sx={{ height: '100px', width: '100px', color: '#FA8128', mx: 'auto' }} />} text="Are you sure you want to Change your Details?"
+              func={handleSubmit} />
+
+            <PasswordChangeModal />
+
+            <ProfileEditModal />
+
+            <SuccessModel handleClose={handleSuccessClose} open={openSuccess} icon={<img src={img} style={{ height: '150px', width: '150px', color: '#FA8128', marginLeft: 'auto', marginRight: 'auto' }} />} header="Your password has been changed successfully!" text="Back to Dashboard" link="/user" />
+
+            <SuccessModel handleClose={handlePESuccessClose} open={openPESuccess} icon={<img src={img} style={{ height: '150px', width: '150px', color: '#FA8128', marginLeft: 'auto', marginRight: 'auto' }} />} header="Your Details has been changed successfully!" text="Back to Dashboard" link="/user" />
 
             <Container maxWidth={false}
               sx={{ width: '100%', m: 0, p: 0, minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F5F5F5' }} disableGutters>
@@ -35,6 +47,8 @@ const UserIndex = () => {
               <UserNavbar />
               <Routes>
                 <Route index element={<MainDash />} />
+                <Route path='/profile' element={<ProfileIndex />} />
+                <Route path='/Test-result-analysis' element={<TestRA />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </Container>

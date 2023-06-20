@@ -49,7 +49,7 @@ const MenuModel = (props: props) => {
         >
 
             <MenuItem >
-                <Link to="/">
+                <Link to="/user/profile">
                     <Stack spacing={1} direction="row">
 
                         <PersonIcon sx={sCss} />

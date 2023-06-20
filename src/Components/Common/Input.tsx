@@ -2,11 +2,13 @@ import { Box, outlinedInputClasses, TextField } from '@mui/material'
 import { ParaText1 } from './ParaText';
 
 interface props{
+
   reg: any;
   val:boolean;
   label:string;
   type:string;
   css?:object;
+  defaultVal?:any;
 }
 const Input = (props:props) => {
 
@@ -15,6 +17,7 @@ const Input = (props:props) => {
     <ParaText1 text={props.label} css={{textAlign:'left'}}/>
     <TextField error={props.val} type={props.type}  
     required={true}
+    defaultValue={props.defaultVal}
     helperText={props.val}
     InputLabelProps={{
       sx: {

@@ -17,7 +17,7 @@ type Inputs = {
 
 
 const PasswordChangeModal = () => {
-    const { openPC, handlePCClose, handlePC2Open,dataSubmit,dispatch,handleSuccessOpen} = UserContext();
+    const { openPC, handlePCClose, handlePC2Open,dataSubmit,dispatch,handleSuccessOpen,openPC2} = UserContext();
     const { register, handleSubmit, watch, formState: { errors }, reset, control } = useForm<Inputs>();
     const [passwordData,setPasswordData]= useState({});
 
@@ -31,7 +31,7 @@ const PasswordChangeModal = () => {
       }, [openPC]);
       
       useEffect(() => {
-        if(dataSubmit==true){
+        if(dataSubmit==true && openPC2==true){
             console.log(passwordData);
             dispatch({ type: 'SET_dataSubmit', payload: false });
             handleSuccessOpen();
