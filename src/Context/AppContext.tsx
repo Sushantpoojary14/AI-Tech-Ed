@@ -1,30 +1,25 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
 interface MainContextProps {
   children: React.ReactNode;
 }
 interface ContextValue {
-  user:boolean;
+  user: boolean;
 }
 
 const defaultValue: ContextValue = {
-  user:false,
+  user: false,
 };
 
 const Context = createContext<ContextValue>(defaultValue);
 
-const MainContext: React.FC<MainContextProps>  = ({ children }) => {
+const MainContext: React.FC<MainContextProps> = ({ children }) => {
   const [user, setUser] = useState<boolean>(false);
-  
- 
-  return (
-    <Context.Provider value={{user}}>
-      {children}
-    </Context.Provider>
-  );
+
+  return <Context.Provider value={{ user }}>{children}</Context.Provider>;
 };
 
-const AppContext = ():ContextValue => {
+const AppContext = (): ContextValue => {
   return useContext(Context);
 };
- export  {MainContext , AppContext};
+export { MainContext, AppContext };
