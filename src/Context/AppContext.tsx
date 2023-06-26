@@ -14,7 +14,7 @@ const defaultValue: ContextValue = {
 const Context = createContext<ContextValue>(defaultValue);
 
 const MainContext: React.FC<MainContextProps>  = ({ children }) => {
-  const [user, setUser] = useState<boolean>(false);
+  const [user, setUser] = useState<boolean>(true);
   
  
   return (
