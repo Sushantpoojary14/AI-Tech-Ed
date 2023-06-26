@@ -1,11 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
-import { type } from 'os';
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import UsePost from '../Hooks/UsePost';
+import { useMutation } from "@tanstack/react-query";
+import { type } from "os";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import UsePost from "../Hooks/UsePost";
 
 type mapObject = {
-  id:number,  quantity: 1,
-}
+  id: number;
+  quantity: 1;
+};
 interface MainContextProps {
   children: React.ReactNode;
 }
@@ -20,11 +21,11 @@ interface ContextValue {
 
 const defaultValue: ContextValue = {
   isLoading: false,
-  setIsLoading: () => { },
+  setIsLoading: () => {},
   user: false,
-  addToCart: (id: number) => { },
+  addToCart: (id: number) => {},
   cart: [],
-  removeFromCart: (id: number) => { }
+  removeFromCart: (id: number) => {},
 };
 
 const Context = createContext<ContextValue>(defaultValue);
@@ -32,55 +33,54 @@ const Context = createContext<ContextValue>(defaultValue);
 const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [user, setUser] = useState<boolean>(false);
-  const storedCart = localStorage.getItem('product_id');
+  const storedCart = localStorage.getItem("product_id");
   const initialCart = storedCart ? JSON.parse(storedCart) : [];
   const [cart, setCart] = useState<Array<mapObject>>(initialCart);
 
   const CartData = useMutation({
     mutationFn: (formData: any) => {
-      return UsePost('https://dummyjson.com/carts/add', formData);
+      return UsePost("https://dummyjson.com/carts/add", formData);
     },
     onSettled: (data, error, variables, context) => {
-     if(data){
-      console.log(data);
-      
-     }
-     
-    }
+      if (data) {
+        console.log(data);
+      }
+    },
   });
 
   const addToCart = (id: number) => {
     const updatedCart: mapObject[] = [...cart, { id: id, quantity: 1 }];
-  
+
     if (user === true) {
       CartData.mutate({
         userId: 5,
         products: updatedCart,
       });
-  
+
       setCart(updatedCart);
     } else {
       setCart(updatedCart);
-      localStorage.setItem('product_id', JSON.stringify(updatedCart));
+      localStorage.setItem("product_id", JSON.stringify(updatedCart));
     }
   };
 
   const removeFromCart = (id: number) => {
-
     if (user == false) {
-    let temp = cart.filter((item: mapObject) => {
-      if (item.id != id) {
-        return item
-      }
-    })
+      let temp = cart.filter((item: mapObject) => {
+        if (item.id != id) {
+          return item;
+        }
+      });
 
-    setCart(temp);
-    localStorage.setItem('product_id', JSON.stringify(temp));
-  }
-  }
+      setCart(temp);
+      localStorage.setItem("product_id", JSON.stringify(temp));
+    }
+  };
 
   return (
-    <Context.Provider value={{ setIsLoading, isLoading, user, addToCart, cart, removeFromCart }}>
+    <Context.Provider
+      value={{ setIsLoading, isLoading, user, addToCart, cart, removeFromCart }}
+    >
       {children}
     </Context.Provider>
   );
