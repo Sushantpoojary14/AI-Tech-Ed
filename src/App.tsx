@@ -1,29 +1,25 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Index from './Pages/Website/Index';
-import UserIndex from './Pages/User/UserIndex';
-import AdminIndex from './Pages/Admin/AdminIndex';
-import { AppContext } from './Context/AppContext';
+import { createContext, useContext, useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Index from "./Pages/Website/Index";
+import UserIndex from "./Pages/User/UserIndex";
+import AdminIndex from "./Pages/Admin/AdminIndex";
+import { AppContext } from "./Context/AppContext";
 // import Navbar from './Components/Headers/Navbar';
-import { MainCartContext } from '../src/Context/CartContext';
-import ErrorPage from './Pages/Error';
+import { MainCartContext } from "../src/Context/CartContext";
+import ErrorPage from "./Pages/Error";
+import LoginComponent from "./Components/BodyComponent/AdminLoginComponent";
 function App() {
-
-
   return (
     <>
-
-      <MainCartContext >
+      <MainCartContext>
         <Routes>
-          <Route path='/*' element={<Index />} />
+          <Route path="/*" element={<Index />} />
 
-
-          <Route path='/user/*' element={<UserIndex />} />
-          <Route path='/admin/*' element={<AdminIndex />} />
-
+          <Route path="/user/*" element={<UserIndex />} />
+          <Route path="/admin/*" element={<AdminIndex />} />
+          <Route path="/adminlogin" element={<LoginComponent />} />
         </Routes>
       </MainCartContext>
-
     </>
   );
 }

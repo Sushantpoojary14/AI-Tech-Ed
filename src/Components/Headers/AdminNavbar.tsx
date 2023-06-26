@@ -7,9 +7,11 @@ import { Header4 } from "../Common/HeaderText";
 import { ParaText1 } from "../Common/ParaText";
 import SideBar from "../Sidebar/SideBar";
 import EventRepeatOutlinedIcon from "@mui/icons-material/EventRepeatOutlined";
+import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import AnalyticsOutlinedIcon from "@mui/icons-material/AnalyticsOutlined";
 import PersonIcon from "@mui/icons-material/Person";
+import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import MenuModel from "../Model/MenuModel";
@@ -31,24 +33,33 @@ const pCss = {
 const pages: Type[] = [
   {
     name: "Dashboard",
-    url: "/user",
+    url: "/admin",
     icon: <DashboardOutlinedIcon sx={pCss} />,
   },
   {
-    name: "Test Result Analysis",
-    url: "/user/Test-result-analysis",
-    icon: <AnalyticsOutlinedIcon sx={pCss} />,
+    name: "Students",
+    url: "/admin/students",
+    icon: <PeopleAltOutlinedIcon sx={pCss} />,
   },
   {
-    name: "Test Schedules",
-    url: "/user/",
+    name: "Test Series",
+    url: "/admin/test-series",
     icon: <EventRepeatOutlinedIcon sx={pCss} />,
   },
-  { name: "Logout", url: "/user", icon: <ExitToAppOutlinedIcon sx={pCss} /> },
+  {
+    name: "Profile",
+    url: "/admin/profile",
+    icon: <AccountBoxOutlinedIcon sx={pCss} />,
+  },
+  {
+    name: "Logout",
+    url: "/adminlogin",
+    icon: <ExitToAppOutlinedIcon sx={pCss} />,
+  },
 ];
 
-const UserNavbar = () => {
-  const { user } = AppContext();
+const AdminNavbar = () => {
+  const { admin } = AppContext();
   // const { handleClickOpen } = UserContext();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -101,7 +112,7 @@ const UserNavbar = () => {
           setAnchorElNav={setAnchorElNav}
           anchorElNav={anchorElNav}
           setAnchorElUser={setAnchorElUser}
-          user={user}
+          user={admin}
           boxStyle={{ display: "flex" }}
         />
 
@@ -117,7 +128,7 @@ const UserNavbar = () => {
           direction="row"
           padding={1}
         >
-          <Link to="/user/profile">
+          <Link to="/admin/profile">
             <PIButton
               css={{
                 p: "2px",
@@ -144,4 +155,4 @@ const UserNavbar = () => {
   );
 };
 
-export default UserNavbar;
+export default AdminNavbar;
