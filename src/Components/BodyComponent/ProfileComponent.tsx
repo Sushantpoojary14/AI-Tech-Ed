@@ -27,7 +27,7 @@ const ProfileComponent = (props: props) => {
             my: "auto",
           }}
         />
-        <Header1 header="Profile" css={{}} />
+        <Header1 header="PROFILE" css={{}} />
       </Stack>
       <Container maxWidth="xl">
         <Card

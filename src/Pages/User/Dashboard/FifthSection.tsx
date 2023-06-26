@@ -29,7 +29,7 @@ const FifthSection = () => {
         <TableContainer >
           <Table sx={{ minWidth: 650 }}>
             <TableHeader header={header} />
-            <TableData data={tableData} />
+            <TableData data={tableData} url="/user/Test-result-analysis" />
           </Table>
         </TableContainer>
       </Card>

@@ -126,9 +126,9 @@ const Navbar = () => {
                 handleCloseNavMenu={handleCloseNavMenu}
                 pages={pages}
                 handleOpenUserMenu={handleOpenUserMenu}
-                setAnchorElNav={setAnchorElNav}
-                anchorElNav={anchorElNav}
-                setAnchorElUser={setAnchorElUser}
+                // setAnchorElNav={setAnchorElNav}
+                // anchorElNav={anchorElNav}
+                // setAnchorElUser={setAnchorElUser}
                 user={user}
                 boxStyle={{
                   display: { xs: "flex", sm: "flex", md: "flex", lg: "none" },

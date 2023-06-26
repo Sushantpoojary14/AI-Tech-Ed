@@ -41,7 +41,7 @@ const pages: Type[] = [
   },
   {
     name: "Test Schedules",
-    url: "/user/",
+    url: "/user/Test-schedule",
     icon: <EventRepeatOutlinedIcon sx={pCss} />,
   },
   { name: "Logout", url: "/user", icon: <ExitToAppOutlinedIcon sx={pCss} /> },
@@ -98,9 +98,9 @@ const UserNavbar = () => {
           handleCloseNavMenu={handleCloseNavMenu}
           pages={pages}
           handleOpenUserMenu={handleOpenUserMenu}
-          setAnchorElNav={setAnchorElNav}
-          anchorElNav={anchorElNav}
-          setAnchorElUser={setAnchorElUser}
+          // setAnchorElNav={setAnchorElNav}
+          // anchorElNav={anchorElNav}
+          // setAnchorElUser={setAnchorElUser}
           user={user}
           boxStyle={{ display: "flex" }}
         />

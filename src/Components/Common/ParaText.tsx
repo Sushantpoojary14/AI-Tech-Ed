@@ -51,4 +51,18 @@ const ParaText3 = (props: props) => {
   );
 };
 
-export { ParaText1, ParaText2, ParaText3 };
+const ParaText4 = (props: props) => {
+  return (
+    <Typography
+      onClick={props.func}
+      sx={{
+        ...props.css,
+        fontSize: "20px",
+        color: "#000000",
+      }}
+    >
+      {props.text}
+    </Typography>
+  );
+};
+export { ParaText1, ParaText2, ParaText3, ParaText4 };

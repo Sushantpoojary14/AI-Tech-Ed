@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Navigate, Route, Routes } from 'react-router-dom'
-import UserNavbar from '../../Components/Headers/UserNavbar'
+import { Navigate, Route, Routes } from 'react-router-dom';
+import UserNavbar from '../../Components/Headers/UserNavbar';
 import { AppContext } from '../../Context/AppContext';
 import { UserContext } from '../../Context/UserContext';
 import ErrorPage from '../Error';
@@ -13,7 +13,9 @@ import SuccessModel from '../../Components/Model/SuccessModel';
 import img from '../../Assets/images/password_success.jpg';
 import ProfileIndex from './Profile/ProfileIndex'
 import ProfileEditModal from '../../Components/Model/ProfileEditModel';
-import TestRA from './TestResultAnalysis/TestRA';
+import TestRAIndex from './TestResultAnalysis/TestRAIndex';
+import TestScheduleIndex from './TestSchedule/TestScheduleIndex';
+
 
 const UserIndex = () => {
   const { user } = AppContext();
@@ -48,7 +50,8 @@ const UserIndex = () => {
               <Routes>
                 <Route index element={<MainDash />} />
                 <Route path='/profile' element={<ProfileIndex />} />
-                <Route path='/Test-result-analysis' element={<TestRA />} />
+                <Route path='/Test-result-analysis/*' element={<TestRAIndex />} />
+                <Route path='/Test-schedule/*' element={<TestScheduleIndex />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </Container>

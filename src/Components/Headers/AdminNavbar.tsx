@@ -109,9 +109,9 @@ const AdminNavbar = () => {
           handleCloseNavMenu={handleCloseNavMenu}
           pages={pages}
           handleOpenUserMenu={handleOpenUserMenu}
-          setAnchorElNav={setAnchorElNav}
-          anchorElNav={anchorElNav}
-          setAnchorElUser={setAnchorElUser}
+          // setAnchorElNav={setAnchorElNav}
+          // anchorElNav={anchorElNav}
+          // setAnchorElUser={setAnchorElUser}
           user={admin}
           boxStyle={{ display: "flex" }}
         />
