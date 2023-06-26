@@ -16,8 +16,6 @@ function App() {
       <MainCartContext >
         <Routes>
           <Route path='/*' element={<Index />} />
-
-
           <Route path='/user/*' element={<UserIndex />} />
           <Route path='/admin/*' element={<AdminIndex />} />
 

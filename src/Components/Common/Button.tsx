@@ -1,9 +1,10 @@
 import Button from '@mui/material/Button';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { ReactElement, ReactNode } from 'react';
 
 interface props {
-  name?: string;
+  name?: ReactNode;
   func?: ((e: any) => void) ;
   css?:object;
   type?:"button" | "submit" | "reset" | undefined;
@@ -49,7 +50,7 @@ const BButton = (props: props) => {
     <Button variant="contained"  type={props.type} sx={{
       ...props.css,
       backgroundColor: '#3A9BDC',
-      borderRadius: '0px',
+      borderRadius: '3px',
       
     }} size="large" disableElevation onClick={props.func}>{props.name}</Button>
   )

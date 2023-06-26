@@ -25,7 +25,7 @@ const ProfileComponent = (props:props) => {
             mx: '8px',
             my: 'auto'
         }} />
-        <Header1 header="Profile" css={{}} />
+        <Header1 header="PROFILE" css={{}} />
     </Stack>
     <Container maxWidth="xl">
         <Card sx={{
