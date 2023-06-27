@@ -20,9 +20,9 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <MainContext>
         <MainUserContext>
-          <HashRouter>
+          <BrowserRouter>
             <App />
-          </HashRouter>
+          </BrowserRouter>
         </MainUserContext>
       </MainContext>
       <ReactQueryDevtools initialIsOpen={false} />

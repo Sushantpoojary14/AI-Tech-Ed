@@ -17,7 +17,7 @@ function App() {
 
           <Route path="/user/*" element={<UserIndex />} />
           <Route path="/admin/*" element={<AdminIndex />} />
-          <Route path="/adminlogin" element={<LoginComponent />} />
+          {/* <Route path="/admin/login" element={<LoginComponent />} /> */}
         </Routes>
       </MainCartContext>
     </>

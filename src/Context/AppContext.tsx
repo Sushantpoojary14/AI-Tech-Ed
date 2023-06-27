@@ -6,21 +6,26 @@ interface MainContextProps {
 interface ContextValue {
   user: boolean;
   admin: boolean;
+  setUser:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultValue: ContextValue = {
   user: false,
+  setUser:()=>{},
   admin: false,
 };
 
 const Context = createContext<ContextValue>(defaultValue);
 
 const MainContext: React.FC<MainContextProps> = ({ children }) => {
-  const [user, setUser] = useState<boolean>(true);
+  const [user, setUser] = useState<boolean>(false);
   const [admin, setAdmin] = useState<boolean>(true);
 
+
+
+
   return (
-    <Context.Provider value={{ user, admin }}>{children}</Context.Provider>
+    <Context.Provider value={{ user, admin,setUser }}>{children}</Context.Provider>
   );
 };
 

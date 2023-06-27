@@ -8,8 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 
 const header =['Test name','Valid from','Valid till'];
 const tableData =[ 
-    {name:'test1',valid_from:'29/9/2022',valid_till:'29/10/2022'},
-    {name:'test2',valid_from:'29/10/2022',valid_till:'29/12/2022'}];
+    {id:'1',name:'test1',valid_from:'29/9/2022',valid_till:'29/10/2022'},
+    {id:'2',name:'test2',valid_from:'29/10/2022',valid_till:'29/12/2022'}];
 
 
 

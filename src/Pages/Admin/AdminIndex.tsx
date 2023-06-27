@@ -7,6 +7,7 @@ import ErrorPage from "../Error";
 
 import AdminMainDash from "./Dashboard/AdminMainDash";
 import AdminNavbar from "../../Components/Headers/AdminNavbar";
+import LoginComponent from "../../Components/BodyComponent/AdminLoginComponent";
 
 const AdminIndex = () => {
   const { admin } = AppContext();
@@ -32,7 +33,7 @@ const AdminIndex = () => {
               {/* <Route index element={<MainDash />} />
       <Route path='/profile' element={<ProfileIndex />} />
       <Route path='/Test-result-analysis' element={<TestRA />} /> */}
-
+              {/* <Route path="/login" element={<LoginComponent />} /> */}
               <Route index element={<AdminMainDash />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
@@ -40,7 +41,17 @@ const AdminIndex = () => {
         </>
       ) : (
         <>
-          <Navigate to="/admin" replace={true} />
+          {/* {admin ? (
+            <Routes>
+              <Route path="/login" element={<LoginComponent />} />
+            </Routes>
+          ) : (
+            <Navigate to="/admin" replace={true} />
+          )} */}
+          <Routes>
+            <Route path="/login" element={<LoginComponent />} />
+          </Routes>
+          <Navigate to="/admin/login" replace={true} />
         </>
       )}
     </>

@@ -24,7 +24,7 @@ const TableHeader = (props: headerProps) => {
           })
         }
 
-        <TableCell align="center" sx={{ border: 0 }} colSpan={3}><ParaText3 text="Details" /></TableCell>
+        <TableCell align="center" sx={{ border: 0 }} colSpan={1}><ParaText3 text="Details" /></TableCell>
 
       </TableRow>
     </TableHead>
@@ -32,20 +32,18 @@ const TableHeader = (props: headerProps) => {
 }
 const TableData = (props: dataProps) => {
 
-
   return (
     <TableBody>
       {
         props.data?.map((item: any, key) => {
-         
-          let temp:any = Object.values(item);
+          const { id, ...item2 } = item;
+          let temp:any = Object.values(item2);
           return (
             <TableRow key={key} >
               <TableCell align="center" sx={{ border: 0 }}>{key + 1}</TableCell>
               {temp.map((val: any, key: number) => {
-                 console.log(temp);
-                return <TableCell key={key} align="center" sx={{ border: 0 }}>
-                  <ParaText1 text={temp[++key]} />
+                       return <TableCell key={key} align="center" sx={{ border: 0 }}>
+                  <ParaText1 text={val} />
                 </TableCell>
               })
               }
