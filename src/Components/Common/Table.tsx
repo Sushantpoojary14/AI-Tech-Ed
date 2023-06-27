@@ -22,17 +22,9 @@ const TableHeader = (props: headerProps) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell align="center" sx={{ border: 0 }}>
-          <ParaText3 text="Sr. No" />
-        </TableCell>
-        {props.header.map((item, key) => {
-          console.log("ITEM", item);
-          return (
-            <TableCell key={key} align="center" sx={{ border: 0 }}>
-              <ParaText3 text={item} />
-            </TableCell>
-          );
-        })}
+        <TableCell align="center" sx={{ border: 0 }}><ParaText3 text="Sr. No" /></TableCell>
+        {
+          props.header.map((item, key) => {
 
             return <TableCell key={key} align="center" sx={{ border: 0 }}><ParaText3 text={item} /></TableCell>
           })
@@ -40,6 +32,9 @@ const TableHeader = (props: headerProps) => {
 
         <TableCell align="center" sx={{ border: 0 }} colSpan={1}><ParaText3 text="Details" /></TableCell>
 
+        <TableCell align="center" sx={{ border: 0 }} colSpan={3}>
+          <ParaText3 text="Details" />
+        </TableCell>
       </TableRow>
     </TableHead>
   );
@@ -59,7 +54,7 @@ const TableData = (props: dataProps) => {
                        return <TableCell key={key} align="center" sx={{ border: 0 }}>
                   <ParaText1 text={val} />
                 </TableCell>
-              );
+              
             })}
             <TableCell align="center" sx={{ border: 0 }}>
               <Link to={`${props.url}/${item.id}`}>
