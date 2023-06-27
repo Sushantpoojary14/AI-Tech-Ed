@@ -86,7 +86,7 @@ const AdminNavbar = () => {
         boxShadow: "none",
         height: {
           xs: "4.375rem",
-          lg: "6.813rem",
+          lg: "5rem",
           md: "6rem",
           sm: "4.375rem",
         },
@@ -132,16 +132,16 @@ const AdminNavbar = () => {
             <PIButton
               css={{
                 p: "2px",
-                height: { md: "60px", sm: "40px", xs: "30px", lg: "60px" },
-                width: { md: "60px", sm: "40px", xs: "30px", lg: "60px" },
+                height: { md: "60px", sm: "40px", xs: "30px", lg: "50px" },
+                width: { md: "60px", sm: "40px", xs: "30px", lg: "50px" },
               }}
             />
           </Link>
           <SIButton
             css={{
               p: "2px",
-              height: { md: "60px", sm: "40px", xs: "30px", lg: "60px" },
-              width: { md: "60px", sm: "40px", xs: "30px", lg: "60px" },
+              height: { md: "60px", sm: "40px", xs: "30px", lg: "50px" },
+              width: { md: "60px", sm: "40px", xs: "30px", lg: "50px" },
             }}
             func={handleOpenUserMenu}
           />

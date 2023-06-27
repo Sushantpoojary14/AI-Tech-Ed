@@ -25,10 +25,10 @@ const Header2 = (props: props) => {
   return (
     <Typography
       sx={{
-        ...props.css,
         fontSize: { xs: "18px", md: "16px", lg: "16px" },
         fontWeight: 600,
         color: "#000000",
+        ...props.css,
       }}
     >
       {props.header}
