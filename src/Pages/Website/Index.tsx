@@ -1,19 +1,19 @@
-import Container from '@mui/material/Container';
-import { useEffect } from 'react';
-import { Navigate, Route, Routes, useLocation, } from 'react-router-dom';
-import Footer from '../../Components/Footer/Footer';
-import LoadingBar from '../../Components/Headers/LoadingBar';
-import Navbar from '../../Components/Headers/Navbar';
-import { AppContext } from '../../Context/AppContext';
-import { UserContext } from '../../Context/UserContext';
-import ErrorPage from '../Error';
-import MainAuth from './Auth/MainAuth';
-import HomePage from './Home/Main';
-import Cart from './Product/Cart';
-import Product from './Product/Product';
-import LogoutIcon from '@mui/icons-material/Logout';
-import ConfirmModel from '../../Components/Model/ConfirmModel';
-import PasswordChangeModal from '../../Components/Model/PasswordChangeModal';
+import Container from "@mui/material/Container";
+import { useEffect } from "react";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import Footer from "../../Components/Footer/Footer";
+import LoadingBar from "../../Components/Headers/LoadingBar";
+import Navbar from "../../Components/Headers/Navbar";
+import { AppContext } from "../../Context/AppContext";
+import { UserContext } from "../../Context/UserContext";
+import ErrorPage from "../Error";
+import MainAuth from "./Auth/MainAuth";
+import HomePage from "./Home/Main";
+import Cart from "./Product/Cart";
+import Product from "./Product/Product";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ConfirmModel from "../../Components/Model/ConfirmModel";
+import PasswordChangeModal from "../../Components/Model/PasswordChangeModal";
 
 const Index = () => {
   const { user } = AppContext();
@@ -29,23 +29,46 @@ const Index = () => {
   //   }
   // }, [location]);
   return (
-    <Container maxWidth={false}
-      sx={{ width: '100%', m: 0, p: 0, minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F5F5F5' }} disableGutters>
-      <ConfirmModel handleClose={handleMenuClose} open={openMenu} icon={<LogoutIcon sx={{ height: '100px', width: '100px', color: '#FA8128', mx: 'auto' }} />} text="Are you sure you want to log out?" />
+    <Container
+      maxWidth={false}
+      sx={{
+        width: "100%",
+        m: 0,
+        p: 0,
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#F5F5F5",
+      }}
+      disableGutters
+    >
+      <ConfirmModel
+        handleClose={handleMenuClose}
+        open={openMenu}
+        icon={
+          <LogoutIcon
+            sx={{
+              height: "100px",
+              width: "100px",
+              color: "#FA8128",
+              mx: "auto",
+            }}
+          />
+        }
+        text="Are you sure you want to log out?"
+      />
       <PasswordChangeModal />
       <MainAuth />
       <Navbar />
       <Routes>
         <Route index element={<HomePage />} />
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/product/:id' element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<Product />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
-
-
     </Container>
-  )
-}
+  );
+};
 
-export default Index 
+export default Index;
