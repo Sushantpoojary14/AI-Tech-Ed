@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import './App.css';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter ,HashRouter} from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MainContext } from './Context/AppContext';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -20,9 +20,9 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <MainContext>
         <MainUserContext>
-          <BrowserRouter>
+          <HashRouter>
             <App />
-          </BrowserRouter>
+          </HashRouter>
         </MainUserContext>
       </MainContext>
       <ReactQueryDevtools initialIsOpen={false} />
