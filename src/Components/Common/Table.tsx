@@ -22,15 +22,16 @@ const TableHeader = (props: headerProps) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell align="center" sx={{ border: 0 }}><ParaText3 text="Sr. No" /></TableCell>
-        {
-          props.header.map((item, key) => {
-
-            return <TableCell key={key} align="center" sx={{ border: 0 }}><ParaText3 text={item} /></TableCell>
-          })
-        }
-
-        <TableCell align="center" sx={{ border: 0 }} colSpan={1}><ParaText3 text="Details" /></TableCell>
+        <TableCell align="center" sx={{ border: 0 }}>
+          <ParaText3 text="Sr. No" />
+        </TableCell>
+        {props.header.map((item, key) => {
+          return (
+            <TableCell key={key} align="center" sx={{ border: 0 }}>
+              <ParaText3 text={item} />
+            </TableCell>
+          );
+        })}
 
         <TableCell align="center" sx={{ border: 0 }} colSpan={3}>
           <ParaText3 text="Details" />
@@ -40,21 +41,22 @@ const TableHeader = (props: headerProps) => {
   );
 };
 const TableData = (props: dataProps) => {
-
   return (
     <TableBody>
-      {
-        props.data?.map((item: any, key) => {
-          const { id, ...item2 } = item;
-          let temp:any = Object.values(item2);
-          return (
-            <TableRow key={key} >
-              <TableCell align="center" sx={{ border: 0 }}>{key + 1}</TableCell>
-              {temp.map((val: any, key: number) => {
-                       return <TableCell key={key} align="center" sx={{ border: 0 }}>
+      {props.data?.map((item: any, key) => {
+        const { id, ...item2 } = item;
+        let temp: any = Object.values(item2);
+        return (
+          <TableRow key={key}>
+            <TableCell align="center" sx={{ border: 0 }}>
+              {key + 1}
+            </TableCell>
+            {temp.map((val: any, key: number) => {
+              return (
+                <TableCell key={key} align="center" sx={{ border: 0 }}>
                   <ParaText1 text={val} />
                 </TableCell>
-              
+              );
             })}
             <TableCell align="center" sx={{ border: 0 }}>
               <Link to={`${props.url}/${item.id}`}>

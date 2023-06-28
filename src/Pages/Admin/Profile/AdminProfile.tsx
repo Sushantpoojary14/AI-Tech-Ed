@@ -1,20 +1,21 @@
+import { Container } from "@mui/material";
+import ProfileComponent from "../../../Components/BodyComponent/ProfileComponent";
+import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { useQuery } from "@tanstack/react-query";
 import UseGet from "../../../Hooks/UseGet";
-import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { UserContext } from "../../../Context/UserContext";
-import ProfileComponent from "../../../Components/BodyComponent/ProfileComponent";
 
 interface Detail {
   title: string;
   data: string;
 }
 
-const ProfileIndex = () => {
+const AdminProfile = () => {
   const { handlePEOpen, dataSubmit } = UserContext();
 
   const { isLoading, data, refetch } = useQuery({
     queryKey: [dataSubmit],
-    queryFn: UseGet("https://dummyjson.com/users/1"),
+    queryFn: UseGet("https://dummyjson.com/users/2"),
   });
 
   if (isLoading) {
@@ -28,8 +29,11 @@ const ProfileIndex = () => {
     { title: "Email", data: data.email },
     { title: "Phone number", data: data.phone },
   ];
-
-  return <ProfileComponent details={details} func={handlePEOpen} />;
+  return (
+    <Container maxWidth="lg">
+      <ProfileComponent details={details} func={handlePEOpen} />
+    </Container>
+  );
 };
 
-export default ProfileIndex;
+export default AdminProfile;
