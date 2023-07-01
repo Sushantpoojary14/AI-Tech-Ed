@@ -5,39 +5,49 @@ import { OButton2 } from "../../../Components/Common/Button";
 import { useMutation } from "@tanstack/react-query";
 import axiosBaseURL from "../../../Hooks/BaseUrl";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
-import { Navigate } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
+import { UserContext } from "../../../Context/UserContext";
+
 type Inputs = {
   email: string;
   password: string;
 };
-
+type userData = {
+  id: number;
+  name: string;
+  email: string;
+};
 const Login = () => {
-  const { setUser } = AppContext();
+  const { login} = AppContext();
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
-    reset,
+  
   } = useForm<Inputs>();
+  
   const LoginMU = useMutation({
-    mutationFn: (data: Inputs) => {
-      return axiosBaseURL.post("/login", data);
+    mutationFn: async(data: Inputs) => {
+      return await axiosBaseURL.post("/login", data);
+
     },
+    onSuccess: (response) => {
+      const user = response.data?.user;
+      const accessToken = response.data?.access_token;
+
+      if (user && accessToken) {
+        login(user, accessToken);
+        
+      }
+    }
   });
 
   if (LoginMU.isLoading) {
     return <LoadingBar />;
   }
-  const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
-    LoginMU.mutate(para_data);
 
-    if (LoginMU?.data?.data.status != "failed") {
-     
-      setUser(true);
-      <Navigate to="/" replace={true} />;
-    }
+  const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
+     LoginMU.mutate(para_data);
+ 
   };
 
   return (
@@ -50,7 +60,7 @@ const Login = () => {
         px: "30px",
       }}
     >
-      {LoginMU?.data?.data.status == "failed" && (
+      {LoginMU?.status === "error" && (
         <Typography sx={{ color: "red", textAlign: "left" }}>
           *Email and Password does not match
         </Typography>

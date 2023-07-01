@@ -1,36 +1,30 @@
-import { useQuery } from '@tanstack/react-query';
-import UseGet from '../../../Hooks/UseGet';
-import LoadingBar from '../../../Components/Headers/LoadingBar';
-import { UserContext } from '../../../Context/UserContext';
-import ProfileComponent from '../../../Components/BodyComponent/ProfileComponent';
+import { useQuery } from "@tanstack/react-query";
+import UseGet from "../../../Hooks/UseGet";
+import LoadingBar from "../../../Components/Headers/LoadingBar";
+import { UserContext } from "../../../Context/UserContext";
+import ProfileComponent from "../../../Components/BodyComponent/ProfileComponent";
+import { AppContext } from "../../../Context/AppContext";
 
 interface Detail {
-    title: string;
-    data: string;
+  title: string;
+  data: any;
 }
 
 const ProfileIndex = () => {
-    const { handlePEOpen, dataSubmit } = UserContext();
+  const { handlePEOpen, dataSubmit } = UserContext();
+    const { user } = AppContext();
 
-    const { isLoading, data, refetch } = useQuery({
-        queryKey: [dataSubmit], queryFn: UseGet('https://dummyjson.com/users/1'),
-    })
+console.log( user);
 
-    if (isLoading) {
-        return <LoadingBar />
-    }
+  const details: Detail[] = [
+    { title: "Name", data: user?.name },
+    { title: "User id", data: user?.id },
+    { title: "Birth date", data: user?.DOB ? user?.DOB : "" },
+    { title: "Email", data: user?.email },
+    { title: "Phone number", data: user?.phone },
+  ];
 
-    const details: Detail[] = [
-        { title: 'Name', data: data.firstName }, { title: 'User id', data: data.id }, { title: 'Birth date', data: data.birthDate }, { title: 'Email', data: data.email }, { title: 'Phone number', data: data.phone }
-    ];
+  return <ProfileComponent details={details} func={handlePEOpen} />;
+};
 
-
-
-    return (
-      <ProfileComponent details={details} func={handlePEOpen}/>
-    )
-}
-
-export default ProfileIndex
-
-
+export default ProfileIndex;

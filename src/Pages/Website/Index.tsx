@@ -16,7 +16,7 @@ import ConfirmModel from "../../Components/Model/ConfirmModel";
 import PasswordChangeModal from "../../Components/Model/PasswordChangeModal";
 
 const Index = () => {
-  const { user } = AppContext();
+  const { Logout } = AppContext();
   // const {  handleClickOpen} = UserContext();
   const { handleMenuClose, openMenu } = UserContext();
   const location = useLocation();
@@ -56,6 +56,7 @@ const Index = () => {
           />
         }
         text="Are you sure you want to log out?"
+        func={Logout}
       />
       <PasswordChangeModal />
       <MainAuth />

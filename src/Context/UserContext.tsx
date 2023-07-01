@@ -27,6 +27,8 @@ interface ContextValue {
   openPE: boolean;
   openPE2: boolean;
   openPESuccess: boolean;
+  anchorElUser:null | HTMLElement;
+  handleCloseUserMenu:()=>void;
   handleClickOpen: (val: string) => void;
   handleClose: () => void;
   dispatch: Dispatch<Action>;
@@ -45,6 +47,7 @@ interface ContextValue {
   handlePE2Close: () => void;
   handlePESuccessOpen: () => void;
   handlePESuccessClose: () => void;
+  handleOpenUserMenu:(event:React.MouseEvent<HTMLElement>)=>void;
 }
 
 type State = {
@@ -58,6 +61,7 @@ type State = {
   openPE: boolean;
   openPE2: boolean;
   openPESuccess: boolean;
+  anchorElUser:null | HTMLElement;
 };
 
 //PE PRofile edit
@@ -75,6 +79,7 @@ const defaultValue: ContextValue = {
   openPE: false,
   openPE2: false,
   openPESuccess: false,
+  anchorElUser:null,
   dispatch: () => {},
   handleClickOpen: (val) => {},
   handleClose: () => {},
@@ -93,6 +98,8 @@ const defaultValue: ContextValue = {
   handlePE2Close: () => {},
   handlePESuccessOpen: () => {},
   handlePESuccessClose: () => {},
+  handleCloseUserMenu:()=>{},
+  handleOpenUserMenu:(event:React.MouseEvent<HTMLElement>)=>{},
 };
 
 const initialState = {
@@ -106,6 +113,7 @@ const initialState = {
   openPE: false,
   openPE2: false,
   openPESuccess: false,
+  anchorElUser:null,
 };
 
 const reducer = (state: State, action: Action) => {
@@ -130,6 +138,8 @@ const reducer = (state: State, action: Action) => {
       return { ...state, openPESuccess: action.payload };
     case "SET_VALUES":
       return { ...state, values: action.payload };
+    case "SET_setAnchorElUser":
+        return { ...state, anchorElUser: action.payload };
     default:
       return state;
   }
@@ -149,7 +159,10 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
     openPE,
     openPE2,
     openPESuccess,
+    anchorElUser,
+    
   } = state;
+  // const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleClickOpen = (val: string) => {
     dispatch({ type: "SET_VALUES", payload: val });
@@ -217,6 +230,15 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
     dispatch({ type: "SET_openPE2", payload: false });
   };
 
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    dispatch({ type: "SET_setAnchorElUser", payload: event.currentTarget });
+
+  };
+
+  const handleCloseUserMenu = () => {
+    dispatch({ type: "SET_setAnchorElUser", payload:null});
+  };
+
   return (
     <Context.Provider
       value={{
@@ -248,6 +270,9 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
         handlePE2Open,
         handlePESuccessOpen,
         openPESuccess,
+        anchorElUser,
+        handleCloseUserMenu,
+        handleOpenUserMenu
       }}
     >
       {children}

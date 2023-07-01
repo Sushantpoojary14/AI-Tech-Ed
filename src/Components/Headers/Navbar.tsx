@@ -60,26 +60,17 @@ const pages: Type[] = [
 ];
 
 const Navbar = () => {
-  const { handleClickOpen } = UserContext();
+  const { handleClickOpen, handleOpenUserMenu } = UserContext();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const { user } = AppContext();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    console.log("click");
-    setAnchorElUser(null);
   };
 
   return (
@@ -123,9 +114,9 @@ const Navbar = () => {
               }}
             >
               <SideBar
-                handleCloseNavMenu={handleCloseNavMenu}
+                // handleCloseNavMenu={handleCloseNavMenu}
                 pages={pages}
-                handleOpenUserMenu={handleOpenUserMenu}
+                // handleOpenUserMenu={handleOpenUserMenu}
                 // setAnchorElNav={setAnchorElNav}
                 // anchorElNav={anchorElNav}
                 // setAnchorElUser={setAnchorElUser}
@@ -189,9 +180,11 @@ const Navbar = () => {
               >
                 {user ? (
                   <Stack spacing={2} direction="row" padding={1}>
-                    <PIButton
-                      css={{ p: "6px", height: "60px", width: "60px" }}
-                    />
+                    <Link to="/user/profile">
+                      <PIButton
+                        css={{ p: "6px", height: "60px", width: "60px" }}
+                      />
+                    </Link>
                     <SIButton
                       css={{ p: "6px", height: "60px", width: "60px" }}
                       func={handleOpenUserMenu}
@@ -212,10 +205,8 @@ const Navbar = () => {
                   </Stack>
                 )}
               </Tooltip>
-              <MenuModel
-                anchorElUser={anchorElUser}
-                handleCloseUserMenu={handleCloseUserMenu}
-              />
+
+              <MenuModel />
             </Box>
           </Toolbar>
         </Container>

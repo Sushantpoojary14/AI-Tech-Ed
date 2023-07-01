@@ -21,13 +21,13 @@ const sCss = {
   mx: "8px",
 };
 
-interface props {
-  anchorElUser: null | HTMLElement;
-  handleCloseUserMenu: () => void;
-}
+// interface props {
+//   anchorElUser: null | HTMLElement;
+//   handleCloseUserMenu: () => void;
+// }
 
-const MenuModel = (props: props) => {
-  const { handleMenuOpen, handlePCOpen } = UserContext();
+const MenuModel = () => {
+  const { handleMenuOpen, handlePCOpen,handleCloseUserMenu,anchorElUser } = UserContext();
   return (
     <Menu
       sx={{
@@ -36,7 +36,7 @@ const MenuModel = (props: props) => {
         mt: { md: "45px", lg: "65px", xs: "45px" },
       }}
       id="menu-appbar"
-      anchorEl={props.anchorElUser}
+      anchorEl={anchorElUser}
       anchorOrigin={{
         vertical: "top",
         horizontal: "right",
@@ -46,17 +46,17 @@ const MenuModel = (props: props) => {
         vertical: "top",
         horizontal: "right",
       }}
-      open={Boolean(props.anchorElUser)}
-      onClose={props.handleCloseUserMenu}
+      open={Boolean(anchorElUser)}
+      onClose={handleCloseUserMenu}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <Link to="/user/profile">
           <Stack spacing={1} direction="row">
             <PersonIcon sx={sCss} />
             <ParaText1 text="Profile" />
           </Stack>
         </Link>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handlePCOpen}>
         <Stack spacing={1} direction="row">
           <LockOutlinedIcon sx={sCss} />

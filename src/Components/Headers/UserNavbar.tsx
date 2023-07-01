@@ -13,12 +13,20 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import MenuModel from "../Model/MenuModel";
+import { UserContext } from "../../Context/UserContext";
+
+type userData= {
+  id: number,
+  name: string,
+  email: string,
+}
 
 interface Type {
   name: string;
   url: string;
   icon: ReactElement;
 }
+
 
 const pCss = {
   height: "38px",
@@ -49,24 +57,19 @@ const pages: Type[] = [
 
 const UserNavbar = () => {
   const { user } = AppContext();
-  // const { handleClickOpen } = UserContext();
+  const { handleOpenUserMenu } = UserContext();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+ 
   return (
     <AppBar
       position="sticky"
@@ -95,9 +98,9 @@ const UserNavbar = () => {
         }}
       >
         <SideBar
-          handleCloseNavMenu={handleCloseNavMenu}
+          // handleCloseNavMenu={handleCloseNavMenu}
           pages={pages}
-          handleOpenUserMenu={handleOpenUserMenu}
+          // handleOpenUserMenu={handleOpenUserMenu}
           // setAnchorElNav={setAnchorElNav}
           // anchorElNav={anchorElNav}
           // setAnchorElUser={setAnchorElUser}
@@ -135,10 +138,7 @@ const UserNavbar = () => {
             func={handleOpenUserMenu}
           />
         </Stack>
-        <MenuModel
-          anchorElUser={anchorElUser}
-          handleCloseUserMenu={handleCloseUserMenu}
-        />
+        <MenuModel/>
       </Box>
     </AppBar>
   );

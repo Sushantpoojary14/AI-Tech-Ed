@@ -31,10 +31,6 @@ const TableHeader = (props: headerProps) => {
         }
 
         <TableCell align="center" sx={{ border: 0 }} colSpan={1}><ParaText3 text="Details" /></TableCell>
-
-        <TableCell align="center" sx={{ border: 0 }} colSpan={3}>
-          <ParaText3 text="Details" />
-        </TableCell>
       </TableRow>
     </TableHead>
   );

@@ -16,21 +16,26 @@ import { Header3 } from "../Common/HeaderText";
 import { ParaText2 } from "../Common/ParaText";
 import { HashLink } from "react-router-hash-link";
 import { UserContext } from "../../Context/UserContext";
+import { Link } from "react-router-dom";
 
 interface pageType {
   name: string;
   url: string;
   icon: ReactElement;
 }
-
+type userData= {
+  id: number,
+  name: string,
+  email: string,
+}
 interface props {
   pages: pageType[];
-  handleCloseNavMenu: () => void;
-  handleOpenUserMenu: (p: any) => void;
+  // handleCloseNavMenu: () => void;
+  // handleOpenUserMenu: (p: any) => void;
   // setAnchorElNav: Dispatch<SetStateAction<null | HTMLElement>>;
   // anchorElNav: null | HTMLElement;
   // setAnchorElUser: Dispatch<SetStateAction<null | HTMLElement>>;
-  user: boolean;
+  user:userData | null;
   boxStyle: object;
 }
 
@@ -88,6 +93,7 @@ const SideBar = (props: props) => {
           >
             {props.user ? (
               <>
+               <Link to="/user/profile">
                 <PIButton
                   css={{
                     height: { md: "90px", sm: "90px", xs: "60px" },
@@ -95,14 +101,15 @@ const SideBar = (props: props) => {
                     mx: { xs: "auto", md: "0", sm: "0" },
                   }}
                 />
+               </Link>
                 <Box
                   sx={{
                     ml: { sm: "10px", xs: 0, md: "30px" },
                     mt: { sm: 0, xs: "10px", md: 0 },
                   }}
                 >
-                  <Header3 header={"Sushant Poojari"} />
-                  <ParaText2 text="abc@gmail.com " />
+                  <Header3 header={props.user.name} />
+                  <ParaText2 text={props.user.email} />
                 </Box>
               </>
             ) : (
