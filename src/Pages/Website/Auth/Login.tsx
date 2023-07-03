@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import Input from "../../../Components/Common/Input";
+import {Input,InputPassword }from "../../../Components/Common/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { OButton2 } from "../../../Components/Common/Button";
 import { useMutation } from "@tanstack/react-query";
@@ -7,6 +7,7 @@ import axiosBaseURL from "../../../Hooks/BaseUrl";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { AppContext } from "../../../Context/AppContext";
 import { UserContext } from "../../../Context/UserContext";
+
 
 type Inputs = {
   email: string;
@@ -19,6 +20,7 @@ type userData = {
 };
 const Login = () => {
   const { login} = AppContext();
+
   const {
     register,
     handleSubmit,
@@ -68,15 +70,13 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label="Email"
-          val={false}
+
           type="email"
           reg={register("email")}
           css={{ my: "20px" }}
         />
-        <Input
+        <InputPassword
           label="Password"
-          val={false}
-          type="password"
           reg={register("password")}
           css={{ my: "30px" }}
         />

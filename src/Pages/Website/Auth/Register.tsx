@@ -1,5 +1,5 @@
 import { Box, Checkbox, FormControlLabel, Typography } from "@mui/material";
-import Input from "../../../Components/Common/Input";
+import {Input} from "../../../Components/Common/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { OButton2 } from "../../../Components/Common/Button";
 import { useMutation } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ type Inputs = {
 };
 
 const Register = () => {
-    const { login } = AppContext();
+  const { login } = AppContext();
   const {
     register,
     handleSubmit,
@@ -25,7 +25,7 @@ const Register = () => {
     reset,
   } = useForm<Inputs>();
   const RegisterMU = useMutation({
-    mutationFn: async(data: Inputs) => {
+    mutationFn: async (data: Inputs) => {
       return await axiosBaseURL.post("/register", data);
     },
     onSuccess: (response) => {
@@ -34,25 +34,21 @@ const Register = () => {
 
       if (user && accessToken) {
         login(user, accessToken);
-        
       }
     },
     // onError:(err) => {
     //     console.log(err.response);
-        
+
     // }
   });
   const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
     RegisterMU.mutate(para_data);
   };
-  const errorResponse:any = (RegisterMU.error as AxiosError)?.response?.data;
+  const errorResponse: any = (RegisterMU.error as AxiosError)?.response?.data;
   if (errorResponse && errorResponse.email) {
     const emailErrorMessage = errorResponse.email[0];
   }
 
-
-
-  
   return (
     <Box
       sx={{
@@ -63,31 +59,33 @@ const Register = () => {
         px: "30px",
       }}
     >
-        { errorResponse?.email && 
+      {errorResponse?.email && (
         <Typography sx={{ color: "red", textAlign: "left" }}>
-        *Email is already taken
-      </Typography>}
-      { errorResponse?.phone && 
+          *Email is already taken
+        </Typography>
+      )}
+      {errorResponse?.phone && (
         <Typography sx={{ color: "red", textAlign: "left" }}>
-        *Phone Number is already taken
-      </Typography>}
+          *Phone Number is already taken
+        </Typography>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input label="Email" val={false} type="email" reg={register("email")} />
+        <Input label="Email" type="email" reg={register("email")} />
         <Input
           label="Phone Number"
-          val={false}
+        
           type="tel"
-          reg={register("phone",{ minLength: 10, maxLength: 10 })}
+          reg={register("phone", { minLength: 10, maxLength: 10 })}
           css={{ my: "30px" }}
         />
-         {errors.phone && (
+        {errors.phone && (
           <Typography sx={{ mt: 3, p: 0, color: "red" }}>
             *It should contain 10 digits
           </Typography>
         )}
         <Input
           label="Password"
-          val={false}
+        
           type="password"
           reg={register("password", { minLength: 8, maxLength: 16 })}
           css={{ my: "30px" }}
@@ -106,14 +104,14 @@ const Register = () => {
         >
           <Input
             label="First Name"
-            val={false}
+           
             type="text"
             reg={register("fname")}
             css={{ pr: { lg: "10px", md: "10px", sm: "0", xs: "0" } }}
           />
           <Input
             label="Last Name"
-            val={false}
+            
             type="text"
             reg={register("lname")}
             css={{

@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Box, Container, Typography } from "@mui/material";
-import Input from "../Common/Input";
+import {Input} from "../Common/Input";
 import { OButton2 } from "../Common/Button";
 import { Header1 } from "../Common/HeaderText";
 
@@ -42,14 +42,12 @@ const LoginComponent = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             label="Email"
-            val={false}
             type="email"
             reg={register("email")}
             css={{ mb: "30px" }}
           />
           <Input
             label="Password"
-            val={false}
             type="password"
             reg={register("password")}
             css={{ my: "20px" }}

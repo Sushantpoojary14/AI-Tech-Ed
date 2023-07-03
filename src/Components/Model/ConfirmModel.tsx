@@ -15,15 +15,20 @@ interface props {
 
 const ConfirmModel = (props: props) => {
   return (
-    <Dialog onClose={props.handleClose} open={props.open}>
+    <Dialog
+      onClose={props.handleClose}
+      open={props.open}
+      sx={{ "& .MuiDialog-paper": { width: "100%", maxHeight: 435 } }}
+    >
       <Box
         sx={{
-          width: { lg: "482px", md: "482px", sm: "482px", xs: "330px" },
+          width: { lg: "482px", md: "482px", sm: "482px", xs: "300px" },
           height: "330px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           py: "40px",
+          px: { lg: "0px", md: "0px", sm: "0px", xs: "8px" },
         }}
       >
         {props.icon}
@@ -36,7 +41,7 @@ const ConfirmModel = (props: props) => {
           }}
         />
         <Stack
-          spacing={4}
+          spacing={{ lg: 4, md: 4, sm: 4, xs: 1 }}
           direction="row"
           margin="auto"
           sx={{ width: { lg: "330px", md: "330px", sm: "330px", xs: "300px" } }}

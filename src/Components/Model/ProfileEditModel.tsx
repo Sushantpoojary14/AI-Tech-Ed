@@ -3,7 +3,7 @@ import { UserContext } from "../../Context/UserContext";
 import { OButton, WButton } from "../Common/Button";
 import { Header1 } from "../Common/HeaderText";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import Input from "../Common/Input";
+import {Input} from "../Common/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -94,7 +94,7 @@ const ProfileEditModal = () => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Input
                 label="Name"
-                val={false}
+          
                 type="text"
                 reg={register("name")}
                 defaultVal={user?.name}
@@ -121,7 +121,7 @@ const ProfileEditModal = () => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Input
                 label="Birth Date"
-                val={false}
+                
                 type="date"
                 reg={register("birth_date")}
                 defaultVal={user?.DOB}
@@ -135,7 +135,7 @@ const ProfileEditModal = () => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Input
                 label="Email"
-                val={false}
+               
                 type="email"
                 reg={register("email")}
                 defaultVal={user?.email}
@@ -149,7 +149,7 @@ const ProfileEditModal = () => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Input
                 label="Phone Number"
-                val={false}
+                
                 type="telephone"
                 reg={register("phone")}
                 defaultVal={user?.phone}
