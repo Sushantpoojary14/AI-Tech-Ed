@@ -4,6 +4,7 @@ import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { useQuery } from "@tanstack/react-query";
 import UseGet from "../../../Hooks/UseGet";
 import { UserContext } from "../../../Context/UserContext";
+import { AppContext } from "../../../Context/AppContext";
 
 interface Detail {
   title: string;
@@ -11,10 +12,11 @@ interface Detail {
 }
 
 const AdminProfile = () => {
+  const { admin } = AppContext();
   const { handlePEOpen, dataSubmit } = UserContext();
 
   const { isLoading, data, refetch } = useQuery({
-    queryKey: [dataSubmit],
+    queryKey: ["adminData", dataSubmit],
     queryFn: UseGet("https://dummyjson.com/users/2"),
   });
 
@@ -31,7 +33,7 @@ const AdminProfile = () => {
   ];
   return (
     <Container maxWidth="lg">
-      <ProfileComponent details={details} func={handlePEOpen} />
+      <ProfileComponent admin={admin} details={details} func={handlePEOpen} />
     </Container>
   );
 };

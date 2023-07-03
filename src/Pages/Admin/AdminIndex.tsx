@@ -19,6 +19,10 @@ import PasswordChangeModal from "../../Components/Model/PasswordChangeModal";
 import ProfileEditModal from "../../Components/Model/ProfileEditModel";
 import SuccessModel from "../../Components/Model/SuccessModel";
 import StudentData from "./StudentData/StudentData";
+import StudentDetails from "./StudentDetails/StudentDetails";
+import TestResult from "./TestResult/TestResult";
+
+import TestAnswered from "./TestAnswered/TestAnswered";
 
 const AdminIndex = () => {
   const { admin } = AppContext();
@@ -157,6 +161,15 @@ const AdminIndex = () => {
               <Route index element={<AdminMainDash />} />
               <Route path="/profile" element={<AdminProfile />} />
               <Route path="/students" element={<StudentData />} />
+              <Route path="/students/:studentid" element={<StudentDetails />} />
+              <Route
+                path="/students/:studentid/testanswered"
+                element={<TestAnswered />}
+              />
+              <Route
+                path="/students/:studentid/testanswered/:testresult"
+                element={<TestResult />}
+              />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
           </Container>
