@@ -24,7 +24,7 @@ const FeatureCard = (props: props) => {
     };
 
     return (
-        <Card sx={{ width: { sm: '340px', xs: '370px', lg: '400px', md: '300px' }, height: '291px', border: '1px solid #ccc', borderRadius: '3px', p: { md: '25px', sm: '15px', xs: '15px' }, boxShadow: '13px 13px 20px 1px rgba(0, 0, 0, 0.16)', mb: '30px' }} onClick={handleChange}>
+        <Card sx={{ width: { sm: '340px', xs: '370px', lg: '390px', md: '300px' }, height: '291px', border: '1px solid #ccc', borderRadius: '3px', p: { md: '25px', sm: '15px', xs: '15px' }, boxShadow: '13px 13px 20px 1px rgba(0, 0, 0, 0.16)', mb: '30px' }} onClick={handleChange}>
             <CardContent sx={{ py: '6px', px: 0, textAlign: 'center' }}  >
                 <Header2 header={props.data.title} />
                 <Box sx={{py:'14px'}}>

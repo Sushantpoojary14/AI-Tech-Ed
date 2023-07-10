@@ -6,8 +6,7 @@ import { CartContext } from '../../../Context/CartContext';
 import UseGet from '../../../Hooks/UseGet';
 import { Link } from 'react-router-dom';
 import LoadingBar from '../../../Components/Headers/LoadingBar';
-import UsePost from '../../../Hooks/UsePost';
-import { useEffect, useState } from 'react';
+
 function createData(
     srNo: number,
     courses: string,

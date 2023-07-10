@@ -1,5 +1,8 @@
+import { useMutation } from "@tanstack/react-query";
+import { Axios } from "axios";
 import React, { createContext, useContext, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import tokenAxios from "../Hooks/TokenAxios";
 import { UserContext } from "./UserContext";
 
 interface MainContextProps {
@@ -21,6 +24,7 @@ interface ContextValue {
   login: (data: userData, token: string) => void;
   adminLogin:(data: userData, token: string) => void;
   Logout:() =>void;
+  refreshToken:(token: string)=>void;
 }
 
 interface Action {
@@ -36,7 +40,7 @@ const defaultValue: ContextValue = {
   login: (data: userData, token: string) => {},
   adminLogin:(data: userData, token: string) => {},
   Logout:() => {},
-
+  refreshToken:(token: string)=>{}
 };
 
 type State = {
@@ -78,9 +82,44 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { user, token, admin, adminToken} = state;
   const {handleClose,handleMenuClose,handleCloseUserMenu} = UserContext();
-  // const [user, setUser] = useState<boolean>(true);
-  // const [admin, setAdmin] = useState<boolean>(true);
 
+  const logout = useMutation({
+    mutationFn: async () => {
+      return await tokenAxios.post("/logout", null);
+    },
+    onSuccess: (response) => {
+      console.log(response);
+      localStorage.removeItem("token");
+      dispatch({ type: "SET_TOKEN", payload: "" });
+      localStorage.removeItem("user");
+      dispatch({ type: "SET_USER", payload: "" });
+      navigate('/');
+      handleCloseUserMenu();
+      handleMenuClose();   
+    },
+    onError: (error) => {
+      console.log(error);
+    }
+  });
+
+  const AdminLogout = useMutation({
+    mutationFn: async () => {
+      return await tokenAxios.post("/admin/logout", null);
+    },
+    onSuccess: (response) => {
+      console.log(response);
+      localStorage.removeItem("admin_token");
+      dispatch({ type: "SET_ADMINTOKEN", payload: "" });
+      localStorage.removeItem("admin");
+      dispatch({ type: "SET_ADMIN", payload: "" });
+      navigate('/');
+      handleCloseUserMenu();
+      handleMenuClose();   
+    },
+    onError: (error) => {
+      console.log(error);
+    }
+  });
   const login = (data: userData, token: string) => {
    
     localStorage.setItem("token", token);
@@ -91,6 +130,12 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     handleClose();
     // navigate("/");
   };
+  const refreshToken = (token: string) => {
+    console.log(token);
+    localStorage.setItem("token", token);
+    dispatch({ type: "SET_TOKEN", payload: token });
+
+  };
 
   const adminLogin = (data: userData, token: string) => {
     localStorage.setItem("admin_token", token);
@@ -100,17 +145,19 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
   };
 
   const Logout = () => {
-    localStorage.removeItem("token");
-    dispatch({ type: "SET_TOKEN", payload: "" });
-    localStorage.removeItem("user");
-    dispatch({ type: "SET_USER", payload: "" });
-    navigate('/');
-    handleCloseUserMenu();
-    handleMenuClose();   
+    
+    logout.mutate();
+    
+  };
+
+  const adminLogout = () => {
+    
+    AdminLogout.mutate();
+    
   };
 
   return (
-    <Context.Provider value={{ user, admin, token, login,adminToken,adminLogin ,Logout }}>
+    <Context.Provider value={{ user, admin, token, login,adminToken,adminLogin ,Logout,refreshToken }}>
       {children}
     </Context.Provider>
   );

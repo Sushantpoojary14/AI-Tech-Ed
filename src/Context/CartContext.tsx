@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { type } from "os";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import UsePost from "../Hooks/UsePost";
+import axiosBaseURL from "../Hooks/BaseUrl";
+import tokenAxios from "../Hooks/TokenAxios";
+
 
 type mapObject = {
   id: number;
@@ -39,7 +40,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
 
   const CartData = useMutation({
     mutationFn: (formData: any) => {
-      return UsePost("https://dummyjson.com/carts/add", formData);
+      return axiosBaseURL.post("", formData);
     },
     onSettled: (data, error, variables, context) => {
       if (data) {

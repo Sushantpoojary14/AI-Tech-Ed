@@ -18,11 +18,16 @@ const ConfirmModel = (props: props) => {
     <Dialog
       onClose={props.handleClose}
       open={props.open}
-      sx={{ "& .MuiDialog-paper": { width: "100%", maxHeight: 435 } }}
+      sx={{
+        "& .MuiDialog-paper": {
+          margin: { lg: "30px", md: "40px", sm: "40px", xs: "0px" },
+          maxHeight: 435,
+        },
+      }}
     >
       <Box
         sx={{
-          width: { lg: "482px", md: "482px", sm: "482px", xs: "300px" },
+          width: { lg: "450px", md: "450px", sm: "450px", xs: "340px" },
           height: "330px",
           display: "flex",
           flexDirection: "column",

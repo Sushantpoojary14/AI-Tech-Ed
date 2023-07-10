@@ -73,7 +73,7 @@ const ProfileEditModal = () => {
   };
 
   return (
-    <Dialog onClose={handlePEClose} open={openPE}>
+    <Dialog onClose={handlePEClose} open={openPE} sx={{ height: "630px",}}>
       <Box
         sx={{
           width: { lg: "482px", md: "482px", sm: "482px", xs: "320px" },
@@ -120,8 +120,7 @@ const ProfileEditModal = () => {
             </Box> */}
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Input
-                label="Birth Date"
-                
+                label="Birth Date"        
                 type="date"
                 reg={register("birth_date")}
                 defaultVal={user?.DOB}
@@ -135,7 +134,7 @@ const ProfileEditModal = () => {
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Input
                 label="Email"
-               
+                inputProps={{ disabled: true }}
                 type="email"
                 reg={register("email")}
                 defaultVal={user?.email}
@@ -164,6 +163,7 @@ const ProfileEditModal = () => {
               spacing={{ lg: 6, md: 6, sm: 6, xs: 2 }}
               direction="row"
               marginX="auto"
+             paddingTop={2}
             >
               <WButton
                 name="CANCEL"
