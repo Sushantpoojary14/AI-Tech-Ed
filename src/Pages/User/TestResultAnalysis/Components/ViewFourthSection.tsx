@@ -10,7 +10,7 @@ const ViewFourthSection = ({ barData }: any) => {
         boxShadow: "6px 6px 20px 0px #808080",
         my: "15px",
         width: { lg: "1020px", md: "900px", sm: "900px", xs: "360px" },
-        height: { lg: "300px", md: "286px", sm: "286px", xs: "286px" },
+        height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
         p: "14px",
       }}
     >
@@ -23,7 +23,7 @@ const ViewFourthSection = ({ barData }: any) => {
           width: "185px",
         }}
       />
-      <Box width={1 / 2}>
+      <Box>
         <BarChart barData={barData} />
       </Box>
     </Card>

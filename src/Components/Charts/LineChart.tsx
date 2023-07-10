@@ -19,6 +19,22 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+// const options: any = {
+//   plugins: {
+//     legend: {
+//       display: true,
+//       position: "right",
+//       width: 200,
+//       height: 200,
+//       // maxHeight: 1,
+//       labels: {
+//         padding: 20,
+//       },
+//     },
+//   },
+// };
+
 const LineChart = ({ lineData }: any) => {
   return <Line data={lineData} />;
 };

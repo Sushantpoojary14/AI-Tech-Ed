@@ -10,8 +10,9 @@ const ViewSecondSection = ({ pieData }: any) => {
           boxShadow: "6px 6px 20px 0px #808080",
           my: "15px",
           width: { lg: "500px", md: "400px", sm: "400px", xs: "360px" },
-          height: { lg: "256px", md: "286px", sm: "286px", xs: "286px" },
+          height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
           p: "14px",
+          // pl: "14px",
         }}
       >
         <ParaText3 text="Questions Distribution" />
@@ -23,7 +24,7 @@ const ViewSecondSection = ({ pieData }: any) => {
             width: "182px",
           }}
         />
-        <Box width={1 / 2}>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
           <PieChart pieData={pieData} />
         </Box>
       </Card>
@@ -33,7 +34,7 @@ const ViewSecondSection = ({ pieData }: any) => {
           boxShadow: "6px 6px 20px 0px #808080",
           my: "15px",
           width: { lg: "500px", md: "400px", sm: "400px", xs: "360px" },
-          height: { lg: "256px", md: "286px", sm: "286px", xs: "286px" },
+          height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
           p: "14px",
         }}
       >
@@ -46,7 +47,7 @@ const ViewSecondSection = ({ pieData }: any) => {
             width: "152px",
           }}
         />
-        <Box width={1 / 2}>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
           <PieChart pieData={pieData} />
         </Box>
       </Card>
