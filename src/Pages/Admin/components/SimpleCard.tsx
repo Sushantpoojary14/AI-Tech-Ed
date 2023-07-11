@@ -1,7 +1,11 @@
 import { Box, Card, CardContent, Typography } from "@mui/material";
-import React from "react";
 
-const SimpleCard = () => {
+interface Props {
+  title: string;
+  subtitle?: string | number;
+}
+
+const SimpleCard = ({ title, subtitle }: Props) => {
   return (
     <Card
       sx={{
@@ -16,10 +20,10 @@ const SimpleCard = () => {
       <CardContent>
         <Box textAlign="center">
           <Typography variant="h5" component="div">
-            Total Test
+            {title}
           </Typography>
           <Typography mt={1} variant="body1" color="textSecondary">
-            30
+            {subtitle}
           </Typography>
         </Box>
       </CardContent>

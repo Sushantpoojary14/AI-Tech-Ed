@@ -36,21 +36,22 @@ const TableHeader = (props: headerProps) => {
   );
 };
 const TableData = (props: dataProps) => {
-
   return (
     <TableBody>
-      {
-        props.data?.map((item: any, key) => {
-          const { id, ...item2 } = item;
-          let temp:any = Object.values(item2);
-          return (
-            <TableRow key={key} >
-              <TableCell align="center" sx={{ border: 0 }}>{key + 1}</TableCell>
-              {temp.map((val: any, key: number) => {
-                       return <TableCell key={key} align="center" sx={{ border: 0 }}>
+      {props.data?.map((item: any, key) => {
+        const { id, ...item2 } = item;
+        let temp: any = Object.values(item2);
+        return (
+          <TableRow key={key}>
+            <TableCell align="center" sx={{ border: 0 }}>
+              {key + 1}
+            </TableCell>
+            {temp.map((val: any, key: number) => {
+              return (
+                <TableCell key={key} align="center" sx={{ border: 0 }}>
                   <ParaText1 text={val} />
                 </TableCell>
-              
+              );
             })}
             <TableCell align="center" sx={{ border: 0 }}>
               <Link to={`${props.url}/${item.id}`}>

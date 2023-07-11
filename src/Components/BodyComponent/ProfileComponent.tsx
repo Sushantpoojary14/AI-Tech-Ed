@@ -11,23 +11,28 @@ interface Detail {
 
 interface props {
   details: Detail[];
-  func: () => void;
+  func?: () => void;
+  admin?: boolean;
 }
 
 const ProfileComponent = (props: props) => {
   return (
     <>
       <Stack direction="row" sx={{ my: "8px", justifyContent: "center" }}>
-        <AccountCircleIcon
-          sx={{
-            height: "28px",
-            width: "28px",
-            color: "#FA8128",
-            mx: "8px",
-            my: "auto",
-          }}
-        />
-        <Header1 header="PROFILE" css={{}} />
+        {!props?.admin && (
+          <>
+            <AccountCircleIcon
+              sx={{
+                height: "28px",
+                width: "28px",
+                color: "#FA8128",
+                mx: "8px",
+                my: "auto",
+              }}
+            />
+            <Header1 header="PROFILE" css={{}} />
+          </>
+        )}
       </Stack>
       <Container maxWidth="xl">
         <Card
@@ -69,11 +74,13 @@ const ProfileComponent = (props: props) => {
               );
             })}
           </Box>
-          <OButton
-            name="Edit"
-            css={{ width: "140px", m: "20px" }}
-            func={props.func}
-          />
+          {!props?.admin && (
+            <OButton
+              name="Edit"
+              css={{ width: "140px", m: "20px" }}
+              func={props.func}
+            />
+          )}
         </Card>
       </Container>
     </>

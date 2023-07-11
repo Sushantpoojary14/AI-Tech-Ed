@@ -16,7 +16,6 @@ const WButton = (props: props) => {
       variant="contained"
       type={props.type}
       sx={{
-        ...props.css,
         backgroundColor: "#FFFFFF",
         color: "#FA8128",
         borderRadius: "3px",
@@ -27,6 +26,7 @@ const WButton = (props: props) => {
         "&:hover": {
           backgroundColor: "#FFFFFF ",
         },
+        ...props.css,
       }}
       size="large"
       disableElevation
@@ -201,6 +201,14 @@ const OButton3 = (props: props) => {
     </Button>
   );
 };
+
+const OutlineButton = ({ name, func }: props) => {
+  return (
+    <Button size="small" variant="outlined" onClick={func}>
+      {name}
+    </Button>
+  );
+};
 export {
   WButton,
   OButton,
@@ -210,4 +218,5 @@ export {
   OButton2,
   BButton2,
   OButton3,
+  OutlineButton,
 };

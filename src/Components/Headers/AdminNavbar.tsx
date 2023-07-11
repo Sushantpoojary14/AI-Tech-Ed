@@ -114,7 +114,7 @@ const AdminNavbar = () => {
 
         {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
 
-        <Link to="/user/">
+        <Link to="/admin/">
           <Header4 header="AI Tech Ed" />
         </Link>
       </Box>
