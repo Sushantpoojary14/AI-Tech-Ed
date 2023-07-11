@@ -26,8 +26,5 @@ console.log( user);
 
   return <ProfileComponent details={details} func={handlePEOpen} />;
 };
-  return <ProfileComponent details={details} func={handlePEOpen} />;
-};
 
-export default ProfileIndex;
 export default ProfileIndex;

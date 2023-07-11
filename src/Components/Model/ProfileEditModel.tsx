@@ -17,11 +17,7 @@ type Inputs = {
   birth_date: Date;
   email: string;
   phone: string;
-  name: string;
-  user_id: number;
-  birth_date: Date;
-  email: string;
-  phone: string;
+
 };
 
 const ProfileEditModal = () => {
@@ -76,11 +72,7 @@ const ProfileEditModal = () => {
     handlePE2Open();
     setProfileData(para_data);
   };
-  const onSubmit: SubmitHandler<Inputs> = async (para_data: Object) => {
-    handlePEClose();
-    handlePE2Open();
-    setProfileData(para_data);
-  };
+
 
   return (
     <Dialog onClose={handlePEClose} open={openPE} sx={{ height: "630px",}}>

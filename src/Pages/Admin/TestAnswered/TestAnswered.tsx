@@ -48,7 +48,7 @@ const TestAnswered = () => {
       {
         accessorKey: "no",
         header: "No.",
-        Cell: ({ row }) => {
+        Cell: ({ row }: any) => {
           const { index } = row;
           return <span>{index + 1}</span>;
         },

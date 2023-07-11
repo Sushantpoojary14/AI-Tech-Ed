@@ -33,7 +33,7 @@ const AdminProfile = () => {
   ];
   return (
     <Container maxWidth="lg">
-      <ProfileComponent admin={admin} details={details} func={handlePEOpen} />
+      <ProfileComponent admin={true} details={details} func={handlePEOpen} />
     </Container>
   );
 };

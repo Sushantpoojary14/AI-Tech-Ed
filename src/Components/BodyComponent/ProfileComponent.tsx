@@ -19,7 +19,7 @@ const ProfileComponent = (props: props) => {
   return (
     <>
       <Stack direction="row" sx={{ my: "8px", justifyContent: "center" }}>
-        {!props?.admin && (
+        {/* {!props?.admin && ( */}
           <>
             <AccountCircleIcon
               sx={{
@@ -32,7 +32,7 @@ const ProfileComponent = (props: props) => {
             />
             <Header1 header="PROFILE" css={{}} />
           </>
-        )}
+        {/* // )} */}
       </Stack>
       <Container maxWidth="xl">
         <Card
