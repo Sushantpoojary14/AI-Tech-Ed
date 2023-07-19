@@ -1,7 +1,9 @@
 import Axios from "axios";
+import { Navigate } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 import axiosBaseURL from "./BaseUrl";
-
+import { useNavigate } from "react-router-dom";
+import decodeToken from "jwt-decode";
 const tokenAxios = Axios.create({
   baseURL: "http://127.0.0.1:8000/api/",
   headers: {
@@ -25,41 +27,47 @@ tokenAxios.interceptors.request.use(
 tokenAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-   
-
     const originalRequest = error.config;
-    
-    
+
     if (
       error.response &&
       error.response.status === 401 &&
       !originalRequest._retry
-    ) {
-      originalRequest._retry = true;
-  
-      try {
-        
-            
-        const refreshResponse = await tokenAxios.get("/refresh-token");
-        console.log(refreshResponse);
-        const newAccessToken = refreshResponse.data.access_token;
-
-        
-        tokenAxios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${newAccessToken}`;
-
-       
-        localStorage.setItem("token", newAccessToken);
-
-        return tokenAxios(originalRequest);
-      } catch (refreshError) {
-      
-      
-      }
+    ) 
+    {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.reload();
     }
+     
+      
 
-    return Promise.reject(error);
+          
+          // 
+        
+        
+//         {
+//           logoutUser()
+//         }
+//       if (isTokenExpired()) {
+//         LogoutUser(); 
+//         return;
+//       }
+//   //     try {
+//   //       const refreshResponse = await tokenAxios.get("/refresh-token");
+//   //       const newAccessToken = refreshResponse.data.access_token;
+
+//   //       tokenAxios.defaults.headers.common[
+//   //         "Authorization"
+//   //       ] = `Bearer ${newAccessToken}`;
+
+//   //       localStorage.setItem("token", newAccessToken);
+
+//   //       return tokenAxios(originalRequest);
+//   //     } catch (refreshError) {}
+//   //   }
+
+//   //   return Promise.reject(error);
   }
 );
 

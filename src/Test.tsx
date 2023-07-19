@@ -18,7 +18,7 @@
 //     //         'Authorization': 'Bearer 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' // Replace with your OpenAI API key
 //     //       }
 //     //     });
-    
+
 //     //     const question = response.data.choices[0].text.trim();
 //     //     return question;
 //     //   } catch (error) {
@@ -26,29 +26,29 @@
 //     //     return null;
 //     //   }
 //     // }
-    
+
 //     // Usage example
-    // const prompt = 'The capital city of France is';
-    // generateQuestion(prompt)
-    //   .then(question => {
-    //     console.log('Generated Question:', question);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error:', error);
-    //   });
+// const prompt = 'The capital city of France is';
+// generateQuestion(prompt)
+//   .then(question => {
+//     console.log('Generated Question:', question);
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//   });
 
 //       const configuration = new Configuration({
 //         apiKey: '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',
 //       });
-      
+
 //       const openai = new OpenAIApi(configuration)
-      
+
 //       const completion = openai.createCompletion({
 //         model:'text-davinci-003',
 //         prompt: process.argv.slice(2).toString(),
 //         max_tokens: 1000
 //       })
-      
+
 //       console.info('loading...')
 //       completion.then((r:any) =>{
 //         console.info(r.data.choices[0].text)
@@ -58,97 +58,224 @@
 // }
 
 // export default Testimport React, { useState } from 'react';
-import { Configuration, OpenAIApi } from "openai"
-import readline from "readline"
-import React, { useState } from 'react';
+import { Configuration, OpenAIApi } from "openai";
+import readline from "readline";
+import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 const openAi = new OpenAIApi(
   new Configuration({
-    apiKey: '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',
+    apiKey: "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",
   })
 );
 
+type Inputs = {
+  topic: string;
+  question: string;
+  a: string;
+  b: string;
+  c: string;
+  d: string;
+  answer: string;
+  explanation: string;
+};
+
 function Test() {
-  const [input, setInput] = useState('');
-  const [response, setResponse] = useState('');
+  const [input, setInput] = useState("");
+  const [response, setResponse] = useState("");
+  const [resData, setResData] = useState([]);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+    control,
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
+    console.log(para_data);
+    setInput(`Generate 3 unique multiple-choice questions (MCQs),keep the question sentence same just change the variable like number,name,gender and don't give the questions number after Question, it should be based on ${para_data.topic} , with options, correct answers ,explanations , the example provided below:
 
-  const handleInputChange = (event:any) => {
-    setInput(event.target.value);
-  };
-
-
-  const newRes= useMutation({
-    mutationFn:async (event:any) => {
-      event.preventDefault();
-  
-      const response = await openAi.createChatCompletion({
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: input }],
-      });
-      console.log(response);
-      return response ;
-      
+    Question:${para_data.question}
    
+    Options:
+    a. ${para_data.a},
+    b. ${para_data.b},
+    c. ${para_data.c},
+    d. ${para_data.d}
+    
+    Answer: ${para_data.answer}
+    
+    Explanation:${
+      para_data.explanation
+        ? para_data.explanation
+        : "Generate an explanation based questions and correct answer"
+    }
+    `);
+    newRes.mutate();
+  };
+  const newRes = useMutation({
+    mutationFn: async () => {
+      const response = await openAi.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: input }],
+      });
+
+      return response;
     },
-    onSuccess:(response)=>{
+    onSuccess: (response) => {
       const message = response?.data?.choices[0]?.message?.content;
       message && setResponse(message);
-      const questions = message?.split('Question:');
+      const questions = message?.split("Question:");
 
-// Initialize an empty object to store the extracted information
-const data: { [key: string]: { question: string; options: string[]; answer: string; explanation: string } } = {};
+      const data: {
+        [key: string]: {
+          question: string;
+          options: string[];
+          answer: string;
+          explanation: string;
+        };
+      } = {};
 
-console.log(questions);
-questions?.forEach((question:any, index:any) => {
-  if (index === 0) return; // Skip the empty entry at index 0
+      console.log(questions);
+      const tempArray: any = [];
 
-  // Separate the question, options, answer, and explanation
-  const [questionText, optionsText, answerText, explanationText] = question.split('Options:');
-  
-  // Extract the question
-  const questionMatch = questionText.match(/"([^"]+)"/);
-  const questionContent = questionMatch ? questionMatch[1] : '';
-  
-  // Extract the options
-  const options = optionsText.match(/(\d+)/g);
-  
-  // Extract the answer
-  const answerMatch = answerText.match(/"([^"]+)"/);
-  const answer = answerMatch ? answerMatch[1] : '';
-  
-  // Extract the explanation
-  const explanationMatch = explanationText.match(/"([^"]+)"/);
-  const explanation = explanationMatch ? explanationMatch[1] : '';
-  
-  // Store the extracted information in the data object
-  data[`Question ${index}`] = {
-    question: questionContent,
-    options,
-    answer,
-    explanation,
-  };
-});
+      questions?.map((question: string, index: any) => {
+        if (!question) return;
+        if (index == 0) return;
+        const objects: any = {};
+        const val1 = question?.split("Options:");
+        objects.question = val1[0];
+        const val2 = val1[1]?.split("Answer:");
+        objects.options = val2[0];
+        const val3 = val2[1]?.split("Explanation:");
+        objects.answer = val3[0].replace(/\s/g, "");
+        objects.explanation = val3[1];
 
-console.log(data);
-      setInput('');
-    }
-  })
+        objects.options = {
+          a: objects.options.split("a.")[1].split("b.")[0].replace(/\s/g, ""),
+          b: objects.options.split("b.")[1].split("c.")[0].replace(/\s/g, ""),
+          c: objects.options.split("c.")[1].split("d.")[0].replace(/\s/g, ""),
+          d: objects.options.split("d.")[1].replace(/\s/g, ""),
+        };
 
-  if(newRes.isLoading){
-    return <h1>Loading...</h1>
+        tempArray.push(objects);
+      });
+      setResData(tempArray);
+      console.log(tempArray);
+      setInput("");
+    },
+  });
+
+  if (newRes.isLoading) {
+    return <h1>Loading...</h1>;
   }
 
-
   return (
-    <div>
-      <form onSubmit={newRes.mutate}>
-        <textarea value={input} onChange={handleInputChange} cols={10}/>
-        <button type="submit">Send</button>
+    <div className="p-40">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="border border-black p-4 rounded">
+          <label htmlFor="topic" className="block mb-2">
+            Topic
+          </label>
+          <input
+            type="text"
+            {...register("topic")}
+            id="topic"
+            className="w-full h-10 border border-black rounded mb-4 px-2"
+          />
+
+          <label htmlFor="question" className="block mb-2">
+            Question
+          </label>
+          <input
+            type="text"
+            {...register("question")}
+            id="question"
+            className="w-full h-10 border border-black rounded mb-4 px-2"
+          />
+
+          <label htmlFor="a" className="block mb-2">
+            Option A
+          </label>
+          <input
+            type="text"
+            {...register("a")}
+            id="a"
+            className="w-full h-10 border border-black rounded mb-4 px-2"
+          />
+
+          <label htmlFor="b" className="block mb-2">
+            Option B
+          </label>
+          <input
+            type="text"
+            {...register("b")}
+            id="b"
+            className="w-full h-10 border border-black rounded mb-4 px-2"
+          />
+
+          <label htmlFor="c" className="block mb-2">
+            Option C
+          </label>
+          <input
+            type="text"
+            {...register("c")}
+            id="c"
+            className="w-full h-10 border border-black rounded mb-4 px-2"
+          />
+
+          <label htmlFor="d" className="block mb-2">
+            Option D
+          </label>
+          <input
+            type="text"
+            {...register("d")}
+            id="d"
+            className="w-full h-10 border border-black rounded mb-4 px-2"
+          />
+
+          <label htmlFor="answer" className="block mb-2">
+            Answer
+          </label>
+          <input
+            type="text"
+            {...register("answer")}
+            id="answer"
+            className="w-full h-10 border border-black rounded mb-4 px-2"
+          />
+
+          <label htmlFor="explanation" className="block mb-2">
+            Explanation
+          </label>
+          <input
+            type="text"
+            {...register("explanation")}
+            id="explanation"
+            className="w-full h-10 border border-black rounded mb-4 px-2"
+          />
+
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Send
+          </button>
+        </div>
       </form>
-      <div>
-        Response: {response}
-      </div>
+      {resData.length === 0
+        ? "Error try again"
+        : resData?.map((item: any, key: any) => {
+            return (
+              <div className="my-10">
+                <h1>{`question ${key + 1}: ${item.question} `}</h1>
+                <h1>{`option: a) ${item.options.a} b) ${item.options.b} c) ${item.options.c} d) ${item.options.d}`}</h1>
+                <h1>{`answer: ${item.answer} `}</h1>
+                <h1>{`explanation ${item.explanation} `}</h1>
+              </div>
+            );
+          })}
     </div>
   );
 }

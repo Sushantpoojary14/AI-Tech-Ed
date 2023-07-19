@@ -7,6 +7,7 @@ import axiosBaseURL from "../../../Hooks/BaseUrl";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { AppContext } from "../../../Context/AppContext";
 import { UserContext } from "../../../Context/UserContext";
+import { CartContext } from "../../../Context/CartContext";
 
 
 type Inputs = {
@@ -20,7 +21,7 @@ type userData = {
 };
 const Login = () => {
   const { login} = AppContext();
-
+  const {addToCartFL} = CartContext();
   const {
     register,
     handleSubmit,
@@ -38,8 +39,9 @@ const Login = () => {
 
       if (user && accessToken) {
         login(user, accessToken);
-        
+         addToCartFL(user.id);
       }
+ 
     }
   });
 

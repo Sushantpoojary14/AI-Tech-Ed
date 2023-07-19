@@ -13,7 +13,7 @@ import FeaturedPlayListOutlinedIcon from "@mui/icons-material/FeaturedPlayListOu
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
-
+import img from "../../Assets/images/logo/logo2.png";
 import { ReactElement, useState } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { Link } from "react-router-dom";
@@ -93,14 +93,15 @@ const Navbar = () => {
           <Toolbar disableGutters sx={{ mt: { sm: 0, lg: 5 } }}>
             {/* PC View Header and header*/}
             {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-            <Box>
+            <Box sx={{pb:'10px'}}>
               <Link to="/">
-                <Header4
+                {/* <Header4
                   header="AI Tech Ed"
                   css={{
                     display: { xs: "none", sm: "none", md: "none", lg: "flex" },
                   }}
-                />
+                /> */}
+                 <img src={img} style={{width:'240px',height:'200px',paddingBottom:'25px'}} />
               </Link>
             </Box>
 
@@ -129,7 +130,8 @@ const Navbar = () => {
               {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
               <Stack spacing={4} direction="row" sx={{ alignItems: "center" }}>
                 <Link to="/">
-                  <Header4 header="AI Tech Ed" />
+                  {/* <Header4 header="AI Tech Ed" /> */}
+                  <img src={img} style={{width:'90px',height:'90px'}} />
                 </Link>
                 {user && (
                   <SIButton

@@ -14,6 +14,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import MenuModel from "../Model/MenuModel";
 import { UserContext } from "../../Context/UserContext";
+import img from "../../Assets/images/logo/logo1.png";
+
 
 type userData= {
   id: number,
@@ -108,9 +110,10 @@ const UserNavbar = () => {
           boxStyle={{ display: "flex" }}
         />
 
-        {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+        
 
         <Link to="/user/">
+        <img src={img} style={{width:'60px',height:'60px'}} />
           <Header4 header="AI Tech Ed" />
         </Link>
       </Box>
