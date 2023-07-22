@@ -97,8 +97,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
   const isTokenExpired = () => {
     if (token) {
       const decodedToken: any = jwt_decode(token);
-      console.log(decodedToken);
-      
+     
       if (decodedToken && decodedToken?.exp) {
         const expirationTime = decodedToken?.exp * 1000;
         const currentTime = Date.now();

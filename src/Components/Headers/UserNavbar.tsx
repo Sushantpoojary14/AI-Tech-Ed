@@ -14,7 +14,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import MenuModel from "../Model/MenuModel";
 import { UserContext } from "../../Context/UserContext";
-import img from "../../Assets/images/logo/logo1.png";
+import img from "../../Assets/images/logo/logo2.png";
 
 
 type userData= {
@@ -113,8 +113,8 @@ const UserNavbar = () => {
         
 
         <Link to="/user/">
-        <img src={img} style={{width:'60px',height:'60px'}} />
-          <Header4 header="AI Tech Ed" />
+        <img src={img} style={{width:'240px',height:'180px',paddingBottom:'5px'}} />
+          {/* <Header4 header="AI Tech Ed" /> */}
         </Link>
       </Box>
       <Box>

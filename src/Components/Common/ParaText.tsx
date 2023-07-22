@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 
 interface props {
-  text: string;
+  text: string |number;
   css?: object;
   func?: () => void;
 }
