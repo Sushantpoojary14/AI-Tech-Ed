@@ -41,7 +41,7 @@ const SecondSection = () => {
   );
 
 
-  useEffect(() => {
+  // useEffect(() => {
     
     // if (user && cart?.length === 0) {
       
@@ -63,9 +63,9 @@ const SecondSection = () => {
     //   });
     //   setVal(temp);
     // }
-  }, [cdata]);
+  // }, [cdata]);
 
-  console.log(cart);
+  console.log(data);
 
   // if (loading && user && !cdata) {
   //   return <LoadingBar />;
@@ -107,7 +107,6 @@ const SecondSection = () => {
         >
           {data?.data?.product_data &&
             data.data?.product_data.map((item: any, key: number) => { 
-              
               return <TestSection data={item} key={key} val={cart?.includes(item?.id)} />;
             })}
         </Box>

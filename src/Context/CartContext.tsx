@@ -33,6 +33,9 @@ const Context = createContext<ContextValue>(defaultValue);
 
 const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const storedCart = localStorage.getItem("product_id");
+  const initialCart = storedCart ? JSON.parse(storedCart) :  [];
+  const [cart, setCart] = useState<Array<number>>(initialCart);
   const {user}=  AppContext();
 
   const { data} = useQuery(
@@ -48,15 +51,15 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
     return item.tsp_id;
   });
   
-  const storedCart = localStorage.getItem("product_id");
-  const initialCart = storedCart ? JSON.parse(storedCart) : temp ?? [];
-  const [cart, setCart] = useState<Array<number>>(initialCart);
+
   
 
   useEffect(()=>{
-    setCart(initialCart)
+    
+    temp && setCart(temp)
+    
   },[data])
-  console.log(cart);
+ 
   const CartData = useMutation({
     mutationFn: (formData: any) => {
       console.log(formData);
@@ -66,7 +69,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
     
     onSettled: (data, error, variables, context) => {
       if (data) {
-        console.log(data);
+   
       }
     },
   });
@@ -116,7 +119,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
   };
 
   const removeFromCart = (id: number) => {
-    console.log(id);
+   
     
     let temp = cart.filter((item: number) => {
       if (item != id) {

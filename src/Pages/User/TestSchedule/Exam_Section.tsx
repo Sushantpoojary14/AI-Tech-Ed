@@ -5,34 +5,73 @@ import ExamFirstSection from "./Components/ExamFirstSection";
 import ExamSecondSection from "./Components/ExamSecondSection";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import tokenAxios from "../../../Hooks/TokenAxios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { OButton, WButton } from "../../../Components/Common/Button";
 import { AppContext } from "../../../Context/AppContext";
 import { useEffect, useState } from "react";
+import LoadingBar from "../../../Components/Headers/LoadingBar";
 
 const Exam_Section = () => {
   const params = useParams();
   const { user } = AppContext();
-  
 
-  const { isLoading, data, refetch } = useQuery([], () =>
-    tokenAxios.get(`/generate-question/${params.id}`)
+  const updateTStatus = useMutation({
+    mutationFn: async (data: any) => {
+      return await tokenAxios.post(`/update-test-status/${data.id}`, {
+        complete_status: data.complete_status,
+      });
+    },
+    onSuccess: (res) => {},
+  });
+
+  const { isLoading, data } = useQuery([], async () =>
+    await tokenAxios.get(`/generate-question/${params.id}`)
   );
 
   const questions = data?.data.test_data;
-  
-  const [question, setQustion] = useState<any>(null);
+
+  const [question, setQuestion] = useState<any>(null);
   const [count, setCount] = useState<number>(0);
 
-  useEffect(()=>{
-    questions && setQustion(questions[count])
-  },[count])
-  console.log(question);
+  useEffect(() => {
   
-  // const paginate = (id:number)=>{
-  //   setQustion(questions[id])
-  // }
+      paginate(data?.data.current_qid);
+  
+   
+  }, [data]);
+
+ 
+  
+  
+  const paginate = (id: number | null) => {
+    let q_id = 0;
+    if (id == null) {
+      q_id = questions && questions[0]?.id;
+      updateTStatus.mutate({
+        id: q_id,
+        complete_status: 2,
+      });
+      questions &&  setQuestion( questions[0]);
+    } else {
+      const temp = questions?.filter((item: any, key: number) => {
+        if (item.q_id === id) {
+          updateTStatus.mutate({
+            id: item.id,
+            complete_status: 2,
+          });
+          setCount(key);
+          return item;
+        }
+      });
+      q_id = temp[0].id;
+      temp && setQuestion(temp[0]);
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingBar />;
+  }
 
   return (
     <Container maxWidth="xl">
@@ -72,14 +111,14 @@ const Exam_Section = () => {
           spacing={2}
           sx={{ width: "100%", my: "15px" }}
         >
-          <ExamFirstSection data={question} count={count}/>
-          <ExamSecondSection questions={questions} func={setCount}/>
+          <ExamFirstSection data={question} count={count} />
+          <ExamSecondSection questions={questions} func={paginate} />
         </Stack>
         <Stack direction={"row"} spacing={2}>
           <OButton name="MARKED FOR REVIEW" css={{ width: "220px" }} />
           <OButton name="CLEAR RESPONSE" css={{ width: "220px" }} />
           <OButton name="SAVE & CONTINUE LATER" css={{ width: "300px" }} />
-          <WButton name="SAVE & NEXT"/>
+          <WButton name="SAVE & NEXT" />
         </Stack>
       </Stack>
     </Container>

@@ -5,7 +5,8 @@ import axiosBaseURL from "./BaseUrl";
 import { useNavigate } from "react-router-dom";
 import decodeToken from "jwt-decode";
 const tokenAxios = Axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
+  // baseURL: "http://127.0.0.1:8000/api/",
+  baseURL:'https://commcop.in/ai_tech_ed/api/',
   headers: {
     "Content-Type": "application/json",
   },

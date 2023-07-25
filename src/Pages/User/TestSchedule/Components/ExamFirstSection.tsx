@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { ParaText4 } from "../../../../Components/Common/ParaText";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useEffect, useState } from "react";
 type Inputs = {
   number: string;
   A: string;
@@ -17,7 +18,7 @@ type Inputs = {
 };
 interface props {
   data: any;
-  count:number;
+  count: number;
 }
 const ExamFirstSection = (props: props) => {
   const {
@@ -27,8 +28,13 @@ const ExamFirstSection = (props: props) => {
     formState: { errors },
   } = useForm<Inputs>();
 
+  const [question, setQuestion] = useState<any>(null);
+
+  useEffect(() => {
+    setQuestion(props.data?.questions);
+  }, [props.data]);
+
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-console.log(props.data?.question);
 
   return (
     <Card
@@ -41,12 +47,15 @@ console.log(props.data?.question);
         width: "1000px",
       }}
     >
-      {props.data &&
+      {props.data && (
         <>
           <Stack direction="column" spacing={2} margin="auto">
-            <ParaText4 text={`Question ${props.count+1}`} css={{ fontWeight: "600" }} />
             <ParaText4
-              text={props.data.questions.question}
+              text={`Question ${props.count + 1}`}
+              css={{ fontWeight: "600" }}
+            />
+            <ParaText4
+              text={question?.question}
               css={{ fontWeight: "400", maxWidth: "443px" }}
             />
           </Stack>
@@ -62,25 +71,25 @@ console.log(props.data?.question);
                 <FormControlLabel
                   value="A"
                   control={<Radio />}
-                  label={`(A) ${props.data.questions.A}`}
+                  label={`(A) ${question?.A}`}
                   {...register("A")}
                 />
                 <FormControlLabel
                   value="B"
                   control={<Radio />}
-                  label={`(A) ${props.data.questions.B}`}
+                  label={`(A) ${question?.B}`}
                   {...register("B")}
                 />
                 <FormControlLabel
                   value="C"
                   control={<Radio />}
-                  label={`(A) ${props.data.questions.C}`}
+                  label={`(A) ${question?.C}`}
                   {...register("C")}
                 />
                 <FormControlLabel
                   value="D"
                   control={<Radio />}
-                  label={`(A) ${props.data.questions.D}`}
+                  label={`(A) ${question?.D}`}
                   {...register("D")}
                 />
               </RadioGroup>
@@ -91,7 +100,7 @@ console.log(props.data?.question);
     <ParaText4 text="(A) 74" css={{ fontWeight: '400', maxWidth: '443px' }} /> */}
           </Stack>
         </>
-      }
+      )}
     </Card>
   );
 };

@@ -152,7 +152,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(data));
     dispatch({ type: "SET_USER", payload: data });
 
-    navigate("/");
+    navigate("/user");
     handleClose();
     // navigate("/");
   };
