@@ -10,7 +10,7 @@ const ExamStatus = (props:props) => {
     <Stack spacing={7} direction={"row"}>
           {props.questions?.map((item: any, key: number) => {
              
-            const val = parseInt(item.status_id);
+            const val = item.status_id;
             // {console.log(val == 3,val,parseInt(item.status_id))}
 
             if (val === 1) {
@@ -48,7 +48,7 @@ const ExamStatus = (props:props) => {
                     left: "0",
                   },
                 }}
-                onClick={()=>{props.func(item.q_id)}}
+                onClick={()=>{props.func(item.id,key)}}
               >
                 <Typography
                   sx={{
@@ -101,7 +101,7 @@ const ExamStatus = (props:props) => {
                     },
                   }}
 
-                  onClick={()=>{props.func(item.q_id)}}
+                  onClick={()=>{props.func(item.id,key)}}
                 >
                   <Typography
                     sx={{
@@ -131,7 +131,7 @@ const ExamStatus = (props:props) => {
                     textAlign: "center",
                     py: "3px",
                   }}
-                  onClick={()=>{props.func(item.q_id)}}
+                  onClick={()=>{props.func(item.id,key)}}
                 >
                   <Typography
                     sx={{
@@ -157,7 +157,7 @@ const ExamStatus = (props:props) => {
                     py: "3px",
                     borderRadius: "100%",
                   }}
-                  onClick={()=>{props.func(item.q_id)}}
+                  onClick={()=>{props.func(item.id,key)}}
                 >
                   <Typography
                     sx={{
@@ -173,12 +173,12 @@ const ExamStatus = (props:props) => {
             }
             else if (val === 5) {
                 return (
-                  <Box
+                  <Box key={key}
                     sx={{
                       position: "relative",
                       width: "30px",
                       height: "30px",
-                      backgroundColor: "#820AA0",
+                      backgroundColor: "#820AAA",
                       textAlign: "center",
                       py: "3px",
                       borderRadius: "100%",

@@ -7,6 +7,7 @@ import ThirdSection from './ThirdSection';
 import FourthSection from './FourthSection';
 import FifthSection from './FifthSection';
 import SixthSection from './SixthSection';
+import FirstSectionTwo from './FirstSectionTwo';
 const MainDash = () => {
     return (
         <>
@@ -20,6 +21,7 @@ const MainDash = () => {
                 <Header1 header="DashBoard" />
             </Stack>
             <FirstSection />
+            <FirstSectionTwo />
             <SecondSection />
             <ThirdSection />
             <FourthSection />

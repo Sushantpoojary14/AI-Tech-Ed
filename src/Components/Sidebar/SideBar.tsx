@@ -17,6 +17,7 @@ import { ParaText2 } from "../Common/ParaText";
 import { HashLink } from "react-router-hash-link";
 import { UserContext } from "../../Context/UserContext";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../Context/AppContext";
 
 interface pageType {
   name: string;
@@ -42,7 +43,8 @@ interface props {
 const SideBar = (props: props) => {
   const [state, setState] = useState<boolean>(false);
   const { handleClickOpen } = UserContext();
-
+  const {user}=  AppContext();
+  
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -129,6 +131,7 @@ const SideBar = (props: props) => {
           </Stack>
 
           {props.pages.map((item: pageType, key) => (
+             !user && item.name === "Dashboard" ? null : (
             <HashLink to={item.url} key={key}>
               <ListItemButton
                 sx={{ px: "10px", fontSize: "20px", fontWeight: 600 }}
@@ -138,7 +141,7 @@ const SideBar = (props: props) => {
                 </ListItem>
                 <ListItem>{item.name}</ListItem>
               </ListItemButton>
-            </HashLink>
+            </HashLink>)
           ))}
         </List>
       </SwipeableDrawer>

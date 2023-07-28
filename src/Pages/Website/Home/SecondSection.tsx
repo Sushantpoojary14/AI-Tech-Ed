@@ -65,13 +65,13 @@ const SecondSection = () => {
     // }
   // }, [cdata]);
 
-  console.log(data);
+  console.log(cart);
 
   // if (loading && user && !cdata) {
   //   return <LoadingBar />;
   // }
   
-  if (isLoading) {
+  if (isLoading || !cart) {
     return <LoadingBar />;
   }
   return (
@@ -107,6 +107,8 @@ const SecondSection = () => {
         >
           {data?.data?.product_data &&
             data.data?.product_data.map((item: any, key: number) => { 
+             
+              
               return <TestSection data={item} key={key} val={cart?.includes(item?.id)} />;
             })}
         </Box>

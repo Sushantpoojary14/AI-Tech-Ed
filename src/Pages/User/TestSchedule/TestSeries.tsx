@@ -23,11 +23,18 @@ const TestSeries = () => {
       });
     },
     onSuccess: (response) => {
+      
+      
       navigate(`/user/Test-schedule/Exam-section/${response?.data?.user_test.id}`);
+      
+      // let url =`/user/Test-schedule/Exam-section/${response?.data?.user_test.id}`;
+      // window.open(url, '_blank', 'width=800,height=600');
     },
   });
 
   const tsp = data?.data?.tsp[0];
+
+  
   if (isLoading) {
     return <LoadingBar />;
   }

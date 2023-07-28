@@ -4,13 +4,19 @@ import { AppContext } from "../Context/AppContext";
 import axiosBaseURL from "./BaseUrl";
 import { useNavigate } from "react-router-dom";
 import decodeToken from "jwt-decode";
+
+
+
+
 const tokenAxios = Axios.create({
-  // baseURL: "http://127.0.0.1:8000/api/",
-  baseURL:'https://commcop.in/ai_tech_ed/api/',
+  baseURL: "http://127.0.0.1:8000/api/",
+  // baseURL:'https://commcop.in/ai_tech_ed/api/',
   headers: {
     "Content-Type": "application/json",
   },
-});
+})
+
+
 
 tokenAxios.interceptors.request.use(
   (config) => {
@@ -23,13 +29,14 @@ tokenAxios.interceptors.request.use(
   (error) => {
     return Promise.reject(error);
   }
-);
+)
 
 tokenAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
+    console.log("server error "+error);
+    
     if (
       error.response &&
       error.response.status === 401 &&
@@ -40,35 +47,8 @@ tokenAxios.interceptors.response.use(
       localStorage.removeItem("user");
       window.location.reload();
     }
-     
-      
 
-          
-          // 
-        
-        
-//         {
-//           logoutUser()
-//         }
-//       if (isTokenExpired()) {
-//         LogoutUser(); 
-//         return;
-//       }
-//   //     try {
-//   //       const refreshResponse = await tokenAxios.get("/refresh-token");
-//   //       const newAccessToken = refreshResponse.data.access_token;
-
-//   //       tokenAxios.defaults.headers.common[
-//   //         "Authorization"
-//   //       ] = `Bearer ${newAccessToken}`;
-
-//   //       localStorage.setItem("token", newAccessToken);
-
-//   //       return tokenAxios(originalRequest);
-//   //     } catch (refreshError) {}
-//   //   }
-
-//   //   return Promise.reject(error);
+ 
   }
 );
 

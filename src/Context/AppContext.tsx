@@ -87,7 +87,9 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const { user, token, admin, adminToken } = state;
-  const { handleClose } = UserContext();
+  const { handleClose, handleMenuClose, handleCloseUserMenu } = UserContext();
+
+  
 
   const logoutUser = () => {
     localStorage.removeItem("token");
@@ -97,7 +99,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
   const isTokenExpired = () => {
     if (token) {
       const decodedToken: any = jwt_decode(token);
-     
+
       if (decodedToken && decodedToken?.exp) {
         const expirationTime = decodedToken?.exp * 1000;
         const currentTime = Date.now();
@@ -118,7 +120,6 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
       return await tokenAxios.post("/logout", null);
     },
     onSuccess: (response) => {
-      console.log(response);
       localStorage.removeItem("token");
       dispatch({ type: "SET_TOKEN", payload: null });
       localStorage.removeItem("user");
@@ -170,6 +171,8 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
   };
 
   const Logout = () => {
+    handleMenuClose();
+    handleCloseUserMenu();
     logout.mutate();
   };
 
@@ -177,11 +180,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     AdminLogout.mutate();
   };
 
-  // if (decodedToken?.exp * 1000 < currentDate.getTime()) {
-  //   console.log(currentDate.getTime());
-  // } else {
-  //   Logout();
-  // }
+ 
   return (
     <Context.Provider
       value={{

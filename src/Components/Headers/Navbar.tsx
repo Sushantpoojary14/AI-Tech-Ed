@@ -44,27 +44,32 @@ const pCss = {
   color: "#FA8128",
 };
 
-const pages: Type[] = [
-  { name: "Home", url: "/#home", icon: <HomeOutlinedIcon sx={pCss} /> },
-  {
-    name: "Buy Test Series",
-    url: "/#product",
-    icon: <FeedOutlinedIcon sx={pCss} />,
-  },
-  {
-    name: "Features",
-    url: "/#third",
-    icon: <FeaturedPlayListOutlinedIcon sx={pCss} />,
-  },
-  { name: "Cart", url: "/cart", icon: <ShoppingCartOutlinedIcon sx={pCss} /> },
-];
-
 const Navbar = () => {
   const { handleClickOpen, handleOpenUserMenu } = UserContext();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const { user } = AppContext();
 
+  const pages: Type[] = [
+    { name: "Dashboard", url: "/user", icon: <HomeOutlinedIcon sx={pCss} /> },
+
+    { name: "Home", url: "/#home", icon: <HomeOutlinedIcon sx={pCss} /> },
+    {
+      name: "Buy Test Series",
+      url: "/#product",
+      icon: <FeedOutlinedIcon sx={pCss} />,
+    },
+    {
+      name: "Features",
+      url: "/#third",
+      icon: <FeaturedPlayListOutlinedIcon sx={pCss} />,
+    },
+    {
+      name: "Cart",
+      url: "/cart",
+      icon: <ShoppingCartOutlinedIcon sx={pCss} />,
+    },
+  ];
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -93,7 +98,7 @@ const Navbar = () => {
           <Toolbar disableGutters sx={{ mt: { sm: 0, lg: 5 } }}>
             {/* PC View Header and header*/}
             {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-            <Box sx={{pb:'10px'}}>
+            <Box sx={{ pb: "10px", display: { xs: "none", md: "flex" } }}>
               <Link to="/">
                 {/* <Header4
                   header="AI Tech Ed"
@@ -101,7 +106,14 @@ const Navbar = () => {
                     display: { xs: "none", sm: "none", md: "none", lg: "flex" },
                   }}
                 /> */}
-                 <img src={img} style={{width:'240px',height:'200px',paddingBottom:'25px'}} />
+                <img
+                  src={img}
+                  style={{
+                    width: "240px",
+                    height: "200px",
+                    paddingBottom: "25px",
+                  }}
+                />
               </Link>
             </Box>
 
@@ -128,10 +140,17 @@ const Navbar = () => {
               />
 
               {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-              <Stack spacing={4} direction="row" sx={{ alignItems: "center" }}>
+              <Stack
+                spacing={4}
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                  display: { xs: "flex", md: "none" },
+                }}
+              >
                 <Link to="/">
                   {/* <Header4 header="AI Tech Ed" /> */}
-                  <img src={img} style={{width:'90px',height:'90px'}} />
+                  <img src={img} style={{ width: "200px", height: "100px" }} />
                 </Link>
                 {user && (
                   <SIButton
@@ -151,25 +170,23 @@ const Navbar = () => {
                 justifyContent: "space-evenly",
               }}
             >
-              {pages.map((item: Type, key) => (
-                <HashLink
-                  smooth={true}
-                  to={item.url}
-                  key={key}
-                  style={{}} // Add top margin here
-                >
-                  <Typography
-                    sx={{
-                      color: "white",
-                      display: "block",
-                      fontSize: "20px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {item.name}
-                  </Typography>
-                </HashLink>
-              ))}
+              {pages.map((item, key) =>
+                // Check if the user is present and the item's name is "Dashboard"
+                !user && item.name === "Dashboard" ? null : (
+                  <HashLink smooth to={item.url} key={key} style={{}}>
+                    <Typography
+                      sx={{
+                        color: "white",
+                        display: "block",
+                        fontSize: "20px",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {item.name}
+                    </Typography>
+                  </HashLink>
+                )
+              )}
             </Box>
 
             {/* PC View setting option */}

@@ -6,6 +6,7 @@ import AdminIndex from "./Pages/Admin/AdminIndex";
 import { MainCartContext } from "../src/Context/CartContext";
 import Test from "./Test";
 import Test2 from "./Test2";
+import Exam_Section from "./Pages/User/TestSchedule/Exam_Section";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/admin/*" element={<AdminIndex />} />
           <Route path="/test" element={<Test />} />
           <Route path="/test2" element={<Test2 />} />
+          <Route path="/user/Test-schedule/Exam-section/:id" element={<Exam_Section />} />
           {/* <Route path="/admin/login" element={<LoginComponent />} /> */}
         </Routes>
       </MainCartContext>

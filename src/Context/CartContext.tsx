@@ -40,7 +40,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
 
   const { data} = useQuery(
     [user],
-    () => tokenAxios.get(`/get-cart-data/${user?.id}`),
+    async () =>  await tokenAxios.get(`/get-cart-data/${user?.id}`),
     {
       enabled: !!user,
     }
@@ -61,10 +61,10 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
   },[data])
  
   const CartData = useMutation({
-    mutationFn: (formData: any) => {
+    mutationFn: async(formData: any) => {
       console.log(formData);
      
-      return tokenAxios.post("/add-to-cart", formData);
+      return await tokenAxios.post("/add-to-cart", formData);
     },
     
     onSettled: (data, error, variables, context) => {
@@ -74,8 +74,8 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
     },
   });
   const CartRemove = useMutation({
-    mutationFn: (id: number) => {
-      return tokenAxios.get(`/remove-from-cart/${id}`);
+    mutationFn: async (id: number) => {
+      return await tokenAxios.get(`/remove-from-cart/${id}`);
     },
     
     onSuccess: (res) => {

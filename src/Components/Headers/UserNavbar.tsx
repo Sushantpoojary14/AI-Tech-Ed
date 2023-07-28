@@ -15,7 +15,7 @@ import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import MenuModel from "../Model/MenuModel";
 import { UserContext } from "../../Context/UserContext";
 import img from "../../Assets/images/logo/logo2.png";
-
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 
 type userData= {
   id: number,
@@ -39,6 +39,8 @@ const pCss = {
 };
 
 const pages: Type[] = [
+
+  { name: "Home", url: "/#home", icon: <HomeOutlinedIcon sx={pCss} /> },
   {
     name: "Dashboard",
     url: "/user",
