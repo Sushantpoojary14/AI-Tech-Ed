@@ -1,8 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Box, Container, Typography } from "@mui/material";
-import {Input} from "../Common/Input";
+import { Input } from "../Common/Input";
 import { OButton2 } from "../Common/Button";
 import { Header1 } from "../Common/HeaderText";
+import { AppContext } from "../../Context/AppContext";
+import { useMutation } from "@tanstack/react-query";
+import axiosBaseURL from "../../Hooks/BaseUrl";
+import { response } from "express";
+import LoadingBar from "../Headers/LoadingBar";
 
 type Inputs = {
   email: string;
@@ -10,15 +15,35 @@ type Inputs = {
 };
 
 const LoginComponent = () => {
+  const { adminLogin } = AppContext();
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
-    reset,
+    // watch,
+    // formState: { errors },
+    // reset,
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async (para_data: Object) => {
-    console.log(para_data);
+
+  const adminLoginMutation = useMutation({
+    mutationFn: async (data: Inputs) => {
+      return await axiosBaseURL.post("/admin/login", data);
+    },
+    onSuccess: (response) => {
+      const user = response.data?.user;
+      const accessToken = response.data?.access_token;
+
+      if (user && accessToken) {
+        adminLogin(user, accessToken);
+      }
+    },
+  });
+
+  if (adminLoginMutation.isLoading) {
+    return <LoadingBar />;
+  }
+
+  const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
+    adminLoginMutation.mutate(para_data);
   };
   return (
     <Container
@@ -39,6 +64,11 @@ const LoginComponent = () => {
         }}
       >
         <Header1 header="Admin Login" css={{ mb: "1rem" }} />
+        {adminLoginMutation?.status === "error" && (
+          <Typography sx={{ color: "red", textAlign: "left" }}>
+            *Email and Password does not match
+          </Typography>
+        )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             label="Email"
@@ -55,7 +85,11 @@ const LoginComponent = () => {
           <Typography sx={{ color: "#FA8128", textAlign: "right" }}>
             Forgot Password?
           </Typography>
-          <OButton2 name="Login" css={{ my: "30px", width: "100%" }} />
+          <OButton2
+            name="Login"
+            css={{ my: "30px", width: "100%" }}
+            type="submit"
+          />
         </form>
       </Box>
     </Container>

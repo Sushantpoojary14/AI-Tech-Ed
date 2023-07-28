@@ -2,16 +2,16 @@ import Axios from "axios";
 import { AppContext } from "../Context/AppContext";
 import axiosBaseURL from "./BaseUrl";
 
-const tokenAxios = Axios.create({
+const adminTokenAxios = Axios.create({
   baseURL: "http://127.0.0.1:8000/api/",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-tokenAxios.interceptors.request.use(
+adminTokenAxios.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("admin_token");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -22,7 +22,7 @@ tokenAxios.interceptors.request.use(
   }
 );
 
-tokenAxios.interceptors.response.use(
+adminTokenAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -35,17 +35,17 @@ tokenAxios.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshResponse = await tokenAxios.get("/refresh-token");
+        const refreshResponse = await adminTokenAxios.get("/refresh-token");
         console.log(refreshResponse);
         const newAccessToken = refreshResponse.data.access_token;
 
-        tokenAxios.defaults.headers.common[
+        adminTokenAxios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${newAccessToken}`;
 
-        localStorage.setItem("token", newAccessToken);
+        localStorage.setItem("admin_token", newAccessToken);
 
-        return tokenAxios(originalRequest);
+        return adminTokenAxios(originalRequest);
       } catch (refreshError) {}
     }
 
@@ -53,4 +53,4 @@ tokenAxios.interceptors.response.use(
   }
 );
 
-export default tokenAxios;
+export default adminTokenAxios;

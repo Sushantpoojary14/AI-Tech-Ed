@@ -8,6 +8,7 @@ interface props {
   func?: (e: any) => void;
   css?: object;
   type?: "button" | "submit" | "reset" | undefined;
+  children?: ReactNode;
 }
 
 const WButton = (props: props) => {
@@ -32,6 +33,7 @@ const WButton = (props: props) => {
       disableElevation
       onClick={props.func}
     >
+      {props.children}
       {props.name}
     </Button>
   );
@@ -55,6 +57,7 @@ const OButton = (props: props) => {
       size="large"
       disableElevation
       onClick={props.func}
+      startIcon={props.children}
     >
       {props.name}{" "}
     </Button>
@@ -192,6 +195,7 @@ const OButton3 = (props: props) => {
         fontWeight: 600,
         border: "1px solid #F0F0F0",
         m: "auto",
+        ...props.css,
       }}
       size="large"
       disableElevation

@@ -23,9 +23,12 @@ import StudentDetails from "./StudentDetails/StudentDetails";
 import TestResult from "./TestResult/TestResult";
 
 import TestAnswered from "./TestAnswered/TestAnswered";
+import TestSeries from "./TestSeries/TestSeries";
+import AddTestSeries from "./TestSeries/AddTestSeries/AddTestSeries";
+import TestSeriesIndex from "./TestSeries/TestSeriesIndex";
 
 const AdminIndex = () => {
-  const { admin } = AppContext();
+  const { admin, adminLogout } = AppContext();
   const {
     handleMenuClose,
     openMenu,
@@ -57,7 +60,7 @@ const AdminIndex = () => {
               />
             }
             text="Are you sure you want to log out?"
-            // func={}
+            func={adminLogout}
           />
 
           <ConfirmModel
@@ -161,6 +164,7 @@ const AdminIndex = () => {
               <Route index element={<AdminMainDash />} />
               <Route path="/profile" element={<AdminProfile />} />
               <Route path="/students" element={<StudentData />} />
+
               <Route path="/students/:studentid" element={<StudentDetails />} />
               <Route
                 path="/students/:studentid/testanswered"
@@ -170,6 +174,9 @@ const AdminIndex = () => {
                 path="/students/:studentid/testanswered/:testresult"
                 element={<TestResult />}
               />
+
+              <Route path="/test-series/*" element={<TestSeriesIndex />} />
+
               <Route path="*" element={<ErrorPage />} />
             </Routes>
           </Container>
