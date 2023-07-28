@@ -6,6 +6,7 @@ import tokenAxios from "../Hooks/TokenAxios";
 import { CartContext } from "./CartContext";
 import { UserContext } from "./UserContext";
 import jwt_decode from "jwt-decode";
+import adminTokenAxios from "../Hooks/AdminTokenAxios";
 
 interface MainContextProps {
   children: React.ReactNode;
@@ -27,7 +28,6 @@ interface ContextValue {
   adminLogin: (data: userData, token: string) => void;
   Logout: () => void;
   refreshToken: (token: string) => void;
-  logoutUser: () => void;
 }
 
 interface Action {
@@ -43,8 +43,8 @@ const defaultValue: ContextValue = {
   login: (data: userData, token: string) => {},
   adminLogin: (data: userData, token: string) => {},
   Logout: () => {},
+  adminLogout: () => {},
   refreshToken: (token: string) => {},
-  logoutUser: () => {},
 };
 
 type State = {
@@ -89,8 +89,6 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
   const { user, token, admin, adminToken } = state;
   const { handleClose, handleMenuClose, handleCloseUserMenu } = UserContext();
 
-  
-
   const logoutUser = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -133,7 +131,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
 
   const AdminLogout = useMutation({
     mutationFn: async () => {
-      return await tokenAxios.post("/admin/logout", null);
+      return await adminTokenAxios.post("/admin/logout", null);
     },
     onSuccess: (response) => {
       console.log(response);
@@ -141,7 +139,9 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
       dispatch({ type: "SET_ADMINTOKEN", payload: "" });
       localStorage.removeItem("admin");
       dispatch({ type: "SET_ADMIN", payload: "" });
-      navigate(0);
+      navigate("/");
+      handleCloseUserMenu();
+      handleMenuClose();
     },
     onError: (error) => {
       console.log(error);
@@ -168,6 +168,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     dispatch({ type: "SET_ADMINTOKEN", payload: token });
     localStorage.setItem("admin", JSON.stringify(data));
     dispatch({ type: "SET_ADMIN", payload: JSON.stringify(data) });
+    navigate("/admin");
   };
 
   const Logout = () => {
@@ -180,17 +181,24 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     AdminLogout.mutate();
   };
 
- 
   return (
     <Context.Provider
       value={{
         user,
+
         admin,
+
         token,
+
         login,
+
         adminToken,
+
         adminLogin,
+
+        adminLogout,
         Logout,
+
         refreshToken,
         logoutUser,
       }}
