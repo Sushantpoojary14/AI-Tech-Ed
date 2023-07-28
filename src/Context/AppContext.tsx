@@ -27,6 +27,8 @@ interface ContextValue {
   login: (data: userData, token: string) => void;
   adminLogin: (data: userData, token: string) => void;
   Logout: () => void;
+  adminLogout: () => void;
+  logoutUser: () => void;
   refreshToken: (token: string) => void;
 }
 
@@ -44,6 +46,7 @@ const defaultValue: ContextValue = {
   adminLogin: (data: userData, token: string) => {},
   Logout: () => {},
   adminLogout: () => {},
+  logoutUser: () => {},
   refreshToken: (token: string) => {},
 };
 
@@ -185,20 +188,13 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     <Context.Provider
       value={{
         user,
-
         admin,
-
         token,
-
         login,
-
         adminToken,
-
         adminLogin,
-
         adminLogout,
         Logout,
-
         refreshToken,
         logoutUser,
       }}
