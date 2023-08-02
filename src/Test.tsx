@@ -66,7 +66,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 const openAi = new OpenAIApi(
   new Configuration({
-    apiKey: "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",
+    apiKey: "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",
   })
 );
 
@@ -93,10 +93,12 @@ function Test() {
     reset,
     control,
   } = useForm<Inputs>();
-  
+
   const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
     console.log(para_data);
-    setInput(`Generate 3 unique multiple-choice questions (MCQs),keep the question sentence same just change the variable like number,name,gender and don't give the questions number after Question, it should be based on ${para_data.topic} , with options, correct answers ,explanations , the example provided below:
+    setInput(`Generate 3 unique multiple-choice questions (MCQs),keep the question sentence same just change the variable like number,name,gender and don't give the questions number after Question, it should be based on ${
+      para_data.topic
+    } , with options, correct answers ,explanations , the example provided below:
 
     Question:${para_data.question}
    

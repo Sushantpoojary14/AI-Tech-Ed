@@ -7,6 +7,8 @@ import { MainCartContext } from "../src/Context/CartContext";
 import Test from "./Test";
 import Test2 from "./Test2";
 import Exam_Section from "./Pages/User/TestSchedule/Exam_Section";
+import TestResult from "./Pages/User/TestSchedule/TestResult";
+// import TestResult from "./Pages/";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/test2" element={<Test2 />} />
           <Route path="/user/Test-schedule/Exam-section/:id" element={<Exam_Section />} />
+          <Route path="/user/Test-result/:id" element={<TestResult />} />
           {/* <Route path="/admin/login" element={<LoginComponent />} /> */}
         </Routes>
       </MainCartContext>

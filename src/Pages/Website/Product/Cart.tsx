@@ -34,6 +34,24 @@ const tHead = ["Sr.No", "Courses", "Test Series", "Price", " "];
 const Cart = () => {
   const { cart, removeFromCart } = CartContext();
   const { user } = AppContext();
+  
+  const purchaseMU = useMutation({
+    mutationFn: async (p_id: number ) => {
+      return await tokenAxios.post(`add-user-purchase`, {
+        p_id: p_id,
+      });
+    },
+    onSuccess: (res) => {
+      console.log(res);
+      
+    
+    },
+    onError:(err)=>{
+      console.log(err);
+      
+    }
+  });
+  
   const { data: cdata, isLoading: Loading } = useQuery(
     [user,cart],
     () => tokenAxios.get(`/get-cart-data/${user?.id}`),
@@ -97,8 +115,8 @@ const Cart = () => {
                   return (
                     <TableRow key={key}>
                       <TableCell align="center" sx={{ border: "none" }}>
-                        {" "}
-                        {key + 1}{" "}
+                     
+                        {key + 1}
                       </TableCell>
                       <TableCell align="center" sx={{ border: "none" }}>
                         {item.p_name}

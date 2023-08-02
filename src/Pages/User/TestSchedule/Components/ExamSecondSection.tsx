@@ -1,20 +1,24 @@
 import { Card, Box, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { ParaText1 } from "../../../../Components/Common/ParaText";
-import img1 from "../../../../Assets/images/Icon/answered.jpg";
-import img2 from "../../../../Assets/images/Icon/not_answered.jpg";
-import img3 from "../../../../Assets/images/Icon/not_visted.jpg";
-import img4 from "../../../../Assets/images/Icon/Review.jpg";
 import { BButton2 } from "../../../../Components/Common/Button";
 import ExamStatus from "./ExamStatus";
+import {
+  answered,
+  markFR,
+  notAnswered,
+  notVisited,
+  whiteText,
+  answeredMarkFR
+} from "../../../../Assets/Css/TestStatus";
 
 interface props {
   questions: any;
-  func:any;
+  func: (id: number, key: number) => void;
+  submit: () => void;
 }
 
-const ExamSecondSection = (props: props) => {  
- 
+const ExamSecondSection = (props: props) => {
   return (
     <Card
       sx={{
@@ -28,23 +32,66 @@ const ExamSecondSection = (props: props) => {
     >
       <Box sx={{ paddingX: "20px" }}>
         <Stack direction="row" spacing={2} marginBottom="10px">
-          <img src={img1} style={{ width: "30px", height: "30px" }} />
+          <Box sx={answered}>
+            <Typography
+              sx={{
+                // zIndex: "5",
+                // position: "absolute",
+                // top: "16%",
+                // left: "36%",
+                fontSize: "16px",
+                fontWeight: 400,
+                color: "#FFFFFF",
+              }}
+            >
+              1
+            </Typography>
+          </Box>
           <ParaText1 text="Answered" />
         </Stack>
         <Stack direction="row" spacing={2} marginBottom="10px">
-          <img src={img2} style={{ width: "30px", height: "30px" }} />
+          <Box sx={notAnswered}>
+            <Typography
+              sx={{
+                // zIndex: "5",
+                // position: "absolute",
+                // top: "16%",
+                // left: "36%",
+                // transform: "rotate(180deg)",
+                fontSize: "16px",
+                fontWeight: 400,
+                color: "#FFFFFF",
+              }}
+            >
+              1
+            </Typography>
+          </Box>
           <ParaText1 text="Not Answered" />
         </Stack>
         <Stack direction="row" spacing={2} marginBottom="10px">
-          <img src={img3} style={{ width: "30px", height: "30px" }} />
+          <Box sx={notVisited}>
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: 400,
+                color: "#000000",
+              }}
+            >
+              1
+            </Typography>
+          </Box>
           <ParaText1 text="Not Visited" />
         </Stack>
         <Stack direction="row" spacing={2} marginBottom="10px">
-          <img src={img4} style={{ width: "30px", height: "30px" }} />
+          <Box sx={markFR}>
+            <Typography sx={whiteText}>0</Typography>
+          </Box>
           <ParaText1 text="Marked for Review" />
         </Stack>
         <Stack direction="row" spacing={2} marginBottom="10px">
-          <img src={img4} style={{ width: "30px", height: "30px" }} />
+          <Box sx={answeredMarkFR}>
+            <Typography sx={whiteText}>0</Typography>
+          </Box>
           <ParaText1 text="Answered And Marked for Review" />
         </Stack>
       </Box>
@@ -248,9 +295,9 @@ const ExamSecondSection = (props: props) => {
               }
           })}
         </Stack> */}
-        <ExamStatus questions={props.questions} func={props.func}/>
+        <ExamStatus questions={props.questions} func={props.func} />
 
-        <BButton2 name="Submit Test" />
+        <BButton2 name="Submit Test" func={props.submit} />
       </Stack>
     </Card>
   );

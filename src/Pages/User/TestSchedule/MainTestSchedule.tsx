@@ -26,6 +26,7 @@ const options: option[] = [
 ];
 
 const header = [
+  "Sr. No",
   "Test Name",
   "Subject",
   "Time Limit",
@@ -44,6 +45,7 @@ const MainTestSchedule = () => {
   const tableData:any = data?.data?.tsp;
    
   
+console.log(data);
 
   
   if (isLoading) {

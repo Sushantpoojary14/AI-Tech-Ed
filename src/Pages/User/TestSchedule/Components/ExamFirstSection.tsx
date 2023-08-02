@@ -14,7 +14,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import tokenAxios from "../../../../Hooks/TokenAxios";
 import { RestartAlt } from "@mui/icons-material";
 type Inputs = {
-
   A?: string;
   B?: string;
   C?: string;
@@ -59,6 +58,7 @@ interface props {
   data: questionType | null;
   count: number;
   isLoading: boolean;
+  preventCopyPaste: (e: any) => void;
 }
 const ExamFirstSection = (props: props) => {
   const {
@@ -73,30 +73,28 @@ const ExamFirstSection = (props: props) => {
   const queryClient = useQueryClient();
   useEffect(() => {
     reset({
-      Answer:''
-    })
+      Answer: "",
+    });
     setQuestion(props.data?.questions);
   }, [props.data]);
-  // console.log(props.data);
-  
+
   const updateTStatus = useMutation({
     mutationFn: async (data: any) => {
       console.log(data);
       return await tokenAxios.post(`/update-test-status/${data.id}`, {
         status_id: 1,
-        test_answer:data.answer
+        test_answer: data.answer,
       });
     },
     onSuccess: (res) => {
       console.log(res);
       queryClient.setQueryData(["data"], res);
-      // setQuestion(res.data.question);
     },
   });
-
+  // console.log(props.data);
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    updateTStatus.mutate({id:props.data?.id,answer:data.Answer});
+ 
+    updateTStatus.mutate({ id: props.data?.id, answer: data.Answer });
   };
 
   return (
@@ -115,7 +113,13 @@ const ExamFirstSection = (props: props) => {
       ) : (
         props.data && (
           <>
-            <Stack direction="column" spacing={2} margin="auto">
+            <Stack
+              direction="column"
+              spacing={2}
+              margin="auto"
+              sx={{}}
+              onCopy={(e) => props.preventCopyPaste(e)}
+            >
               <ParaText4
                 text={`Question ${props.count + 1}`}
                 css={{ fontWeight: "600" }}
@@ -130,6 +134,7 @@ const ExamFirstSection = (props: props) => {
               direction="column"
               spacing={2}
               margin={{ lg: "auto", md: "auto", sm: "auto", xs: "20px" }}
+              onCopy={(e) => props.preventCopyPaste(e)}
             >
               <ParaText4 text="Option" css={{ fontWeight: "600" }} />
               <form onChange={handleSubmit(onSubmit)}>
@@ -138,68 +143,42 @@ const ExamFirstSection = (props: props) => {
                   defaultValue=""
                   control={control}
                   render={({ field }) => (
-                    <RadioGroup
-                      {...field}
-                     
-                      name="radio-buttons-group"
-                    >
+                    <RadioGroup {...field} name="radio-buttons-group">
                       <FormControlLabel
-                        checked={props.data ? props.data?.test_answer=="A" :false}
+                        checked={
+                          props.data ? props.data?.test_answer == "A" : false
+                        }
                         value="A"
                         control={<Radio />}
                         label={`(A) ${question?.A}`}
-                       
                       />
                       <FormControlLabel
                         value="B"
-                        checked={props.data ? props.data?.test_answer=="B" :false}
+                        checked={
+                          props.data ? props.data?.test_answer == "B" : false
+                        }
                         control={<Radio />}
                         label={`(B) ${question?.B}`}
-                       
                       />
                       <FormControlLabel
                         value="C"
-                        checked={props.data ? props.data?.test_answer=="C" :false}
+                        checked={
+                          props.data ? props.data?.test_answer == "C" : false
+                        }
                         control={<Radio />}
                         label={`(C) ${question?.C}`}
-                       
                       />
                       <FormControlLabel
                         value="D"
-                        checked={props.data ? props.data?.test_answer=="D" :false}
+                        checked={
+                          props.data ? props.data?.test_answer == "D" : false
+                        }
                         control={<Radio />}
                         label={`(D) ${question?.D}`}
-                       
                       />
                     </RadioGroup>
                   )}
                 />
-                {/* <RadioGroup {...register("number")}>
-                  <FormControlLabel
-                    value="A"
-                    control={<Radio />}
-                    label={`(A) ${question?.A}`}
-                    {...register("A")}
-                  />
-                  <FormControlLabel
-                    value="B"
-                    control={<Radio />}
-                    label={`(A) ${question?.B}`}
-                    {...register("B")}
-                  />
-                  <FormControlLabel
-                    value="C"
-                    control={<Radio />}
-                    label={`(A) ${question?.C}`}
-                    {...register("C")}
-                  />
-                  <FormControlLabel
-                    value="D"
-                    control={<Radio />}
-                    label={`(A) ${question?.D}`}
-                    {...register("D")}
-                  />
-                </RadioGroup> */}
               </form>
             </Stack>
           </>

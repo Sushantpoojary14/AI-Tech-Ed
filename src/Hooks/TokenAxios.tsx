@@ -1,9 +1,4 @@
 import Axios from "axios";
-import { Navigate } from "react-router-dom";
-import { AppContext } from "../Context/AppContext";
-import axiosBaseURL from "./BaseUrl";
-import { useNavigate } from "react-router-dom";
-import decodeToken from "jwt-decode";
 
 const tokenAxios = Axios.create({
   baseURL: "http://127.0.0.1:8000/api/",

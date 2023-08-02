@@ -18,17 +18,12 @@ const TestSeries = () => {
     mutationFn: async (id: number) => {
       return await tokenAxios.post("/post-user-test-status", {
         id: id,
-        complete_status: 0,
-        time_taken: null,
       });
     },
-    onSuccess: (response) => {
-      
-      
-      navigate(`/user/Test-schedule/Exam-section/${response?.data?.user_test.id}`);
-      
-      // let url =`/user/Test-schedule/Exam-section/${response?.data?.user_test.id}`;
-      // window.open(url, '_blank', 'width=800,height=600');
+    onSuccess: (response) => {      
+      // navigate(`/user/Test-schedule/Exam-section/${response?.data?.user_test.id}`);
+      let url =`/user/Test-schedule/Exam-section/${response?.data?.user_test}`;
+      window.open(url, '_blank', 'width=1400,height=600');
     },
   });
 

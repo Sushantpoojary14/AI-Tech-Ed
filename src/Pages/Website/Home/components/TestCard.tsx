@@ -44,7 +44,7 @@ const TestCard = (props: props) => {
         />
         <CardContent sx={{ py: "0px", px: { lg: 0, md: "27px" } }}>
           <Header2 header={props.data.p_name} />
-          <ParaText1 text={props.data.p_price} />
+          <ParaText1 text={`$ ${ props.data.p_price}`} />
         </CardContent>
       </Link>
 

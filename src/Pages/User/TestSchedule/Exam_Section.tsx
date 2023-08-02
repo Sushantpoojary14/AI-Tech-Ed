@@ -6,7 +6,7 @@ import ExamSecondSection from "./Components/ExamSecondSection";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import tokenAxios from "../../../Hooks/TokenAxios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { OButton, WButton } from "../../../Components/Common/Button";
 import { AppContext } from "../../../Context/AppContext";
 import { useEffect, useState } from "react";
@@ -15,8 +15,9 @@ import { useTimer } from "react-timer-hook";
 
 type mutateType = {
   id: number;
-  complete_status: number;
+  complete_status?: number;
   current_timer: string;
+  test_answer?:string | number;
 };
 
 type questionType = {
@@ -48,8 +49,31 @@ type questionType = {
   };
 };
 const Exam_Section = () => {
-  const queryClient = useQueryClient();
 
+  // document.addEventListener('contextmenu', (e:any) => e.preventDefault());
+
+  // function ctrlShiftKey(e:any, keyCode:any) {
+  //   return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
+  // }
+  
+  // document.onkeydown = (e:any) => {
+  //   if (
+  
+  //     ctrlShiftKey(e, 'I') ||
+  //     ctrlShiftKey(e, 'J') ||
+  //     ctrlShiftKey(e, 'C') ||
+  //     (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
+  //   )
+  //     return false;
+  // };
+
+  const preventCopyPaste = (e: any) => {
+    e.preventDefault()
+    alert("Copying and pasting is not allowed!")
+  }
+
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const params = useParams();
   const { user } = AppContext();
   const [timer, setTimer] = useState<boolean>(true);
@@ -59,17 +83,21 @@ const Exam_Section = () => {
 
   const updateTStatus = useMutation({
     mutationFn: async (data: mutateType) => {
-      console.log(data);
-      return await tokenAxios.post(`/update-test-status/${data.id}`, {
+      let object: any = {
         status_id: data.complete_status,
         current_timer: data.current_timer,
-      });
+        ...(data.test_answer && { test_answer: null }),
+      };
+    
+      console.log(object,data);
+      return await tokenAxios.post(`/update-test-status/${data.id}`, object);
     },
     onSuccess: (res) => {
+      console.log(res);
       queryClient.setQueryData(["data"], res);
     },
   });
-
+  
   const updateTimer = useMutation({
     mutationFn: async ({
       id,
@@ -78,30 +106,50 @@ const Exam_Section = () => {
       id: number;
       current_timer: string;
     }) => {
-      console.log(data);
+      
       return await tokenAxios.post(`/update-test-timer/${id}`, {
         current_timer: current_timer,
       });
     },
     onSuccess: (res) => {
       console.log(res);
-      
     },
   });
 
+  const submitTest = useMutation({
+    mutationFn: async ({
+      id,
+      current_timer,
+    }: {
+      id: number;
+      current_timer: string;
+    }) => {
+    
+      return await tokenAxios.post(`/submit-test/${id}`, {
+        current_timer: current_timer,
+      });
+    },
+    onSuccess: (res) => {
+      console.log(`/user/Test-result/${res.data.uts_id}`);
+      navigate(`/user/Test-result/${res.data.uts_id}`);
+    },
+  });
   const { isLoading, data } = useQuery(
     ["data"],
     async () => await tokenAxios.get(`/generate-question/${params.id}`)
   );
 
+
   const time = data?.data?.timer
     ? new Date(Date.now() + parseFloat(data?.data?.timer) * 60 * 1000)
     : new Date(Date.now() + 60 * 1000);
 
-  const { seconds, minutes, restart, start } = useTimer({
+  const { seconds, minutes, restart } = useTimer({
     expiryTimestamp: time,
     autoStart: false,
-    onExpire: () => console.warn("onExpire called"),
+    onExpire: () => [
+      SubmitTestData()
+    ],
   });
 
   useEffect(() => {
@@ -120,7 +168,7 @@ const Exam_Section = () => {
         setQuestion(item);
       }
     });
-  }, [data, questions]);
+  }, [data,questions]);
 
   const paginate = (id: number, key: number) => {
     updateTStatus.mutate({
@@ -137,16 +185,14 @@ const Exam_Section = () => {
     submitTimer(false);
   }, [minutes]);
 
-
-  const submitTimer = (nav:boolean)=>{
-    question &&  updateTimer.mutate({
-      id:question?.uts_id,
-      current_timer: `${minutes}.${seconds}`,
-    });
-    nav && console.log('nav');
-    
-
-  }
+  const submitTimer = (nav: boolean) => {
+    question &&
+      updateTimer.mutate({
+        id: question?.uts_id,
+        current_timer: `${minutes}.${seconds}`,
+      });
+    nav && window.close();
+  };
 
   const MarkForReview = () => {
     console.log(question?.test_answer);
@@ -161,16 +207,30 @@ const Exam_Section = () => {
     updateTStatus.mutate({
       id: data?.data.current_qid,
       complete_status: 2,
+      test_answer:1,
       current_timer: `${minutes}.${seconds}`,
     });
   };
 
-  const Save = () => {
+  const SubmitTestData = () => {
+    question &&
+      submitTest.mutate({
+        id: question?.uts_id,
+        current_timer: `${minutes}.${seconds}`,
+      });
+  };
+
+  const SaveNext = () => {
+    question &&
     updateTStatus.mutate({
-      id: data?.data.current_qid,
-      complete_status: 2,
-      current_timer: `${minutes}.${seconds}`,
-    });
+        id: data?.data.current_qid,
+        complete_status:
+        questions && question?.status_id === 3
+          ? 2
+          : question?.status_id,
+        current_timer: `${minutes}.${seconds}`,
+      });
+      questions && paginate(questions[count+1]?.id,count+1)
   };
   return (
     <Container maxWidth="xl">
@@ -217,8 +277,14 @@ const Exam_Section = () => {
             data={question}
             count={count}
             isLoading={isLoading}
+            preventCopyPaste={preventCopyPaste}
           />
-          <ExamSecondSection questions={questions} func={paginate} />
+          <ExamSecondSection
+          
+            questions={questions}
+            func={paginate}
+            submit={SubmitTestData}
+          />
         </Stack>
         <Stack direction={"row"} spacing={2}>
           <OButton
@@ -226,15 +292,19 @@ const Exam_Section = () => {
             css={{ width: "220px" }}
             func={MarkForReview}
           />
-          <OButton name="CLEAR RESPONSE" css={{ width: "220px" }} />
+          <OButton
+            name="CLEAR RESPONSE"
+            css={{ width: "220px" }}
+            func={ClearResponse}
+          />
 
-            <OButton
-              name="SAVE & CONTINUE LATER"
-              css={{ width: "300px" }}
-              func={()=>submitTimer(true)}
-            />
-          
-          {/* <WButton name="SAVE & NEXT" /> */}
+          <OButton
+            name="SAVE & CONTINUE LATER"
+            css={{ width: "300px" }}
+            func={() => submitTimer(true)}
+          />
+
+          <WButton name="SAVE & NEXT"  func={SaveNext}/>
         </Stack>
       </Stack>
     </Container>
