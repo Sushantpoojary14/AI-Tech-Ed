@@ -115,7 +115,7 @@ const UserNavbar = () => {
         
 
         <Link to="/user/">
-        <img src={img} style={{width:'240px',height:'180px',paddingBottom:'5px'}} />
+        <img src={img} style={{width:'200px',height:'100px',paddingBottom:'5px'}} />
           {/* <Header4 header="AI Tech Ed" /> */}
         </Link>
       </Box>

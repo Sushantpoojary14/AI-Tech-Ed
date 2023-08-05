@@ -11,16 +11,9 @@ import { Link } from "react-router-dom";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { CartContext } from "../../../Context/CartContext";
 import tokenAxios from "../../../Hooks/TokenAxios";
+import axiosBaseURL from "../../../Hooks/BaseUrl";
 
-interface option {
-  name: string;
-  value: number;
-}
 
-const options: option[] = [
-  { name: "OC Online Trial test", value: 1 },
-  { name: "Selective Test", value: 2 },
-];
 
 const SecondSection = () => {
   const [selectVal, setSelectVal] = useState<number>(1);
@@ -28,48 +21,23 @@ const SecondSection = () => {
   const { user } = AppContext();
   const [val, setVal] = useState<number[]>([]);
 
-  const { isLoading, data, refetch } = useQuery([selectVal],
+  const {  data:ts_data } = useQuery( 
+    ['ts'],
+    ()=> axiosBaseURL.get(`/get-test-series`),
+  );
+
+  const { isLoading, data, refetch } = useQuery([selectVal,'product-data'],
     () => tokenAxios.get(`/get-product-data/${selectVal}`),
   );
 
   const { data: cdata ,isLoading:loading} = useQuery(
-    [cart],
+    [cart,'cart-data'],
     () => tokenAxios.get(`/get-cart-data/${user?.id}`),
     {
       enabled: !!user,
     }
   );
 
-
-  // useEffect(() => {
-    
-    // if (user && cart?.length === 0) {
-      
-    //   const temp = cdata?.data.cart_data?.map((item:any)=>{
-    //     return item.tsp_id;
-    //   });
-    //   // setCart(temp);
-    //   // setVal(temp);
-
-    // }
-    // }
-    //  else {
-    //   const temp = cart?.filter((item: any) => {
-    //     return data?.product_data.map((element: any) => {
-    //       if (element.id === item.tsp_id) {
-    //         return item.tsp_id;
-    //       }
-    //     });
-    //   });
-    //   setVal(temp);
-    // }
-  // }, [cdata]);
-
-  console.log(cart);
-
-  // if (loading && user && !cdata) {
-  //   return <LoadingBar />;
-  // }
   
   if (isLoading || !cart) {
     return <LoadingBar />;
@@ -86,7 +54,7 @@ const SecondSection = () => {
           <SelectBox
             name="choose test type"
             selectName="test_type"
-            options={options}
+            options={ts_data?.data.ts}
             func={setSelectVal}
           />
         </Box>

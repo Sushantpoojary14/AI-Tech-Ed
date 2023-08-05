@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import axiosBaseURL from "../../../Hooks/BaseUrl";
 import { AppContext } from "../../../Context/AppContext";
 import { AxiosError } from "axios";
+import { CartContext } from "../../../Context/CartContext";
 
 type Inputs = {
   email: string;
@@ -17,6 +18,7 @@ type Inputs = {
 
 const Register = () => {
   const { login } = AppContext();
+  const {addToCartFL} = CartContext();
   const {
     register,
     handleSubmit,
@@ -34,6 +36,7 @@ const Register = () => {
 
       if (user && accessToken) {
         login(user, accessToken);
+        addToCartFL(user.id);
       }
     },
     // onError:(err) => {

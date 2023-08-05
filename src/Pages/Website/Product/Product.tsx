@@ -7,33 +7,68 @@ import {
   CardActions,
   Stack,
 } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { OButton, WButton } from "../../../Components/Common/Button";
 import { Header1 } from "../../../Components/Common/HeaderText";
 import UseGet from "../../../Hooks/UseGet";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { ParaText1 } from "../../../Components/Common/ParaText";
 import axiosBaseURL from "../../../Hooks/BaseUrl";
+import tokenAxios from "../../../Hooks/TokenAxios";
+import { UserContext } from "../../../Context/UserContext";
+import { AppContext } from "../../../Context/AppContext";
 
 
 const Product = () => {
   const params = useParams();
-  // const { isLoading, data } = useQuery({
-  //  [], async () => await axiosBaseURL.get(`/get-product-data/${params.id}`),
-  // });
+  const navigate = useNavigate();
+  const {handlePUSuccessOpen,handlePUSuccessOpen2,handleClickOpen}= UserContext();
+  const { user } = AppContext();
   const { isLoading, data } = useQuery(
-    [],
+    [params],
     async () => await  axiosBaseURL.get(`/one-product-data/${params.id}`)
   );
+
+  const purchaseMU = useMutation({
+    mutationFn: async (p_id: number ) => {
+      return await tokenAxios.post(`add-user-purchase`, {
+        p_id: p_id,
+      });
+    },
+    onSuccess: (res:any) => {
+      // console.log(res?.response?.status);
+
+      if(res?.status==200){
+        handlePUSuccessOpen2();
+      }
+      else{
+        handlePUSuccessOpen();
+        navigate('/');
+      }  
+    },
+    onError:(err)=>{
+      console.log(err);
+      
+    }
+  });
+  
+  const loginCheck = (id:number)=>{
+    if(user){
+      purchaseMU.mutate(id)
+      return 0;
+    }
+    handleClickOpen('1');
+  }
+
+
   let product = data?.data.product_data;
-
-
 
   if (isLoading) {
     return <LoadingBar />;
   }
+
   return (
     <Container maxWidth="xl" sx={{ my: "50px" }}>
       <Header1 header={product.p_name} />
@@ -72,7 +107,7 @@ const Product = () => {
               <Link to="/">
                 <WButton name="Back" css={{ width: "127px" }} />
               </Link>
-              <OButton name="Checkout" />
+              <OButton name="Checkout" func={()=>loginCheck(product.id)}/>
             </Stack>
           </CardActions>
         </Stack>

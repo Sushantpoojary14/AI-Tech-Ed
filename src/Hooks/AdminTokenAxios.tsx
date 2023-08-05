@@ -46,7 +46,9 @@ adminTokenAxios.interceptors.response.use(
         localStorage.setItem("admin_token", newAccessToken);
 
         return adminTokenAxios(originalRequest);
-      } catch (refreshError) {}
+      } catch (refreshError) {
+        
+      }
     }
 
     return Promise.reject(error);

@@ -27,8 +27,10 @@ interface ContextValue {
   openPE: boolean;
   openPE2: boolean;
   openPESuccess: boolean;
-  anchorElUser:null | HTMLElement;
-  handleCloseUserMenu:()=>void;
+  openPuSuccess: boolean;
+  openPuSuccess2: boolean;
+  anchorElUser: null | HTMLElement;
+  handleCloseUserMenu: () => void;
   handleClickOpen: (val: string) => void;
   handleClose: () => void;
   dispatch: Dispatch<Action>;
@@ -47,7 +49,11 @@ interface ContextValue {
   handlePE2Close: () => void;
   handlePESuccessOpen: () => void;
   handlePESuccessClose: () => void;
-  handleOpenUserMenu:(event:React.MouseEvent<HTMLElement>)=>void;
+  handlePUSuccessOpen: () => void;
+  handlePUSuccessClose: () => void;
+  handlePUSuccessOpen2: () => void,
+  handlePUSuccessClose2:()=>void,
+  handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 type State = {
@@ -61,7 +67,9 @@ type State = {
   openPE: boolean;
   openPE2: boolean;
   openPESuccess: boolean;
-  anchorElUser:null | HTMLElement;
+  anchorElUser: null | HTMLElement;
+  openPuSuccess: boolean;
+  openPuSuccess2: boolean;
 };
 
 //PE PRofile edit
@@ -79,7 +87,9 @@ const defaultValue: ContextValue = {
   openPE: false,
   openPE2: false,
   openPESuccess: false,
-  anchorElUser:null,
+  openPuSuccess:false,
+  openPuSuccess2:false,
+  anchorElUser: null,
   dispatch: () => {},
   handleClickOpen: (val) => {},
   handleClose: () => {},
@@ -98,8 +108,12 @@ const defaultValue: ContextValue = {
   handlePE2Close: () => {},
   handlePESuccessOpen: () => {},
   handlePESuccessClose: () => {},
-  handleCloseUserMenu:()=>{},
-  handleOpenUserMenu:(event:React.MouseEvent<HTMLElement>)=>{},
+  handlePUSuccessOpen: () => {},
+  handlePUSuccessClose:()=>{},
+  handlePUSuccessOpen2: () => {},
+  handlePUSuccessClose2:()=>{},
+  handleCloseUserMenu: () => {},
+  handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => {},
 };
 
 const initialState = {
@@ -113,7 +127,9 @@ const initialState = {
   openPE: false,
   openPE2: false,
   openPESuccess: false,
-  anchorElUser:null,
+  anchorElUser: null,
+  openPuSuccess: false,
+  openPuSuccess2: false,
 };
 
 const reducer = (state: State, action: Action) => {
@@ -136,10 +152,14 @@ const reducer = (state: State, action: Action) => {
       return { ...state, openPE2: action.payload };
     case "SET_openPESuccess":
       return { ...state, openPESuccess: action.payload };
+    case "SET_openPUSuccess":
+      return { ...state, openPuSuccess: action.payload };
+    case "SET_openPUSuccess2":
+        return { ...state, openPuSuccess2: action.payload };
     case "SET_VALUES":
       return { ...state, values: action.payload };
     case "SET_setAnchorElUser":
-        return { ...state, anchorElUser: action.payload };
+      return { ...state, anchorElUser: action.payload };
     default:
       return state;
   }
@@ -160,7 +180,8 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
     openPE2,
     openPESuccess,
     anchorElUser,
-    
+    openPuSuccess,
+    openPuSuccess2,
   } = state;
   // const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -214,6 +235,22 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
   const handlePESuccessClose = () => {
     dispatch({ type: "SET_openPESuccess", payload: false });
   };
+
+  const handlePUSuccessOpen = () => {
+    dispatch({ type: "SET_openPUSuccess", payload: true });
+  };
+
+  const handlePUSuccessClose = () => {
+    dispatch({ type: "SET_openPUSuccess", payload: false });
+  };
+  const handlePUSuccessOpen2 = () => {
+    dispatch({ type: "SET_openPUSuccess2", payload: true });
+  };
+
+  const handlePUSuccessClose2 = () => {
+    dispatch({ type: "SET_openPUSuccess2", payload: false });
+  };
+
   const handlePEOpen = () => {
     dispatch({ type: "SET_openPE", payload: true });
   };
@@ -232,11 +269,10 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     dispatch({ type: "SET_setAnchorElUser", payload: event.currentTarget });
-
   };
 
   const handleCloseUserMenu = () => {
-    dispatch({ type: "SET_setAnchorElUser", payload:null});
+    dispatch({ type: "SET_setAnchorElUser", payload: null });
   };
 
   return (
@@ -272,7 +308,13 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
         openPESuccess,
         anchorElUser,
         handleCloseUserMenu,
-        handleOpenUserMenu
+        handleOpenUserMenu,
+        openPuSuccess,
+        handlePUSuccessOpen,
+        handlePUSuccessClose,
+        openPuSuccess2,
+        handlePUSuccessOpen2,
+        handlePUSuccessClose2,
       }}
     >
       {children}

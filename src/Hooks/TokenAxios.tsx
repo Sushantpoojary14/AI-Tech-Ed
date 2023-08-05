@@ -22,11 +22,11 @@ tokenAxios.interceptors.request.use(
 );
 
 tokenAxios.interceptors.response.use(
-  (response) => response,
+  (response) => response ,
+ 
   async (error) => {
     const originalRequest = error.config;
-    console.log("server error " + error);
-
+    console.log("server error " + error );
     if (
       error.response &&
       error.response.status === 401 &&
@@ -36,6 +36,8 @@ tokenAxios.interceptors.response.use(
       localStorage.removeItem("user");
       window.location.reload();
     }
+    // originalRequest._retry = true;
+    return error;
   }
 );
 

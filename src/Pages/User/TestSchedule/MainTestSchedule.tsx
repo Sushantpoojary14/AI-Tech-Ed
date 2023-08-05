@@ -15,15 +15,8 @@ import { TableData, TableHeader } from "../../../Components/Common/Table";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import tokenAxios from "../../../Hooks/TokenAxios";
 import TestPurchasesTable from "./Components/TestPurchasesTable";
+import axiosBaseURL from "../../../Hooks/BaseUrl";
 
-interface option {
-  name: string;
-  value: number;
-}
-const options: option[] = [
-  { name: "OC Online Trial test", value: 1 },
-  { name: "Selective Test", value: 2 },
-];
 
 const header = [
   "Sr. No",
@@ -38,9 +31,15 @@ const header = [
 const MainTestSchedule = () => {
   const [selectVal, setSelectVal] = useState<number>(1);
 
-  const { isLoading, data, refetch } = useQuery( 
-    [],
-    ()=> tokenAxios.get("/get-user-purchases"),
+  const {  data:ts_data } = useQuery( 
+    ['ts'],
+    ()=> axiosBaseURL.get(`/get-test-series`),
+  );
+
+
+  const { isLoading, data } = useQuery( 
+    [selectVal,'purchases'],
+    ()=> tokenAxios.get(`/get-user-purchases/${selectVal}`),
   );
   const tableData:any = data?.data?.tsp;
    
@@ -73,12 +72,12 @@ console.log(data);
         />
         <Header1 header="TEST SCHEDULE" />
       </Stack>
-      {/* <SelectBox
+      <SelectBox
         name="choose test type"
         selectName="test_type"
-        options={options}
+        options={ts_data?.data.ts}
         func={setSelectVal}
-      /> */}
+      />
       <Card
         sx={{
           boxShadow: "6px 6px 20px 0px #808080",

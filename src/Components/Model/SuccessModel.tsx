@@ -10,8 +10,8 @@ interface props {
   open: boolean;
   header: string;
   icon: ReactElement;
-  link: string;
-  text: string;
+  link?: string;
+  text?: string;
 }
 
 const SuccessModel = (props: props) => {
@@ -41,7 +41,7 @@ const SuccessModel = (props: props) => {
           align="center"
           onClick={handleModel}
         >
-          <Link to={props.link}>{props.text}</Link>
+         { props.link && <Link to={props.link}>{props.text}</Link> }
         </Typography>
       </Box>
     </Dialog>

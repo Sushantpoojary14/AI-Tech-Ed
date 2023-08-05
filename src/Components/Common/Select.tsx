@@ -8,8 +8,8 @@ import {
 import { useState } from "react";
 
 interface option {
-  name: string;
-  value: number;
+  test_type: string;
+  id: number;
 }
 interface props {
   name: string;
@@ -18,9 +18,9 @@ interface props {
   func?: (val: number) => void;
 }
 
+
 const SelectBox = (props: props) => {
   const [val, setVal] = useState<string>("");
-
   const handleChange = (event: SelectChangeEvent) => {
     setVal(event.target.value as string);
     if (props.func) {
@@ -48,10 +48,10 @@ const SelectBox = (props: props) => {
         <MenuItem value="" disabled>
           <em>{props.name}</em>
         </MenuItem>
-        {props.options.map((item: option, key) => {
+        {props.options?.map((item: option, key) => {
           return (
-            <MenuItem key={key} value={item.value}>
-              {item.name}
+            <MenuItem key={key} value={item.id}>
+              {item.test_type}
             </MenuItem>
           );
         })}

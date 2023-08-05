@@ -14,11 +14,12 @@ import Product from "./Product/Product";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ConfirmModel from "../../Components/Model/ConfirmModel";
 import PasswordChangeModal from "../../Components/Model/PasswordChangeModal";
-
+import img from "../../Assets/images/password_success.jpg";
+import SuccessModel from "../../Components/Model/SuccessModel";
 const Index = () => {
   const { Logout } = AppContext();
   // const {  handleClickOpen} = UserContext();
-  const { handleMenuClose, openMenu } = UserContext();
+  const { handleMenuClose, openMenu,handlePUSuccessClose,openPuSuccess } = UserContext();
   const location = useLocation();
   // useEffect(() => {
 
@@ -58,6 +59,9 @@ const Index = () => {
         text="Are you sure you want to log out?"
         func={Logout}
       />
+
+     
+
       <PasswordChangeModal />
       <MainAuth />
       <Navbar />

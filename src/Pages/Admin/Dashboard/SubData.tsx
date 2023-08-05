@@ -46,12 +46,12 @@ const SubData = ({
   return (
     <Container maxWidth={false} sx={{ p: 0, border: 1 }}>
       <Box my={1}>
-        <SelectBox
+        {/* <SelectBox
           name="Select Test"
           selectName="Select_Test"
           options={options}
           func={func}
-        />
+        /> */}
       </Box>
       <Box mt={0} mb={1} sx={{ flexGrow: 1 }}>
         <Box display={"flex"} justifyContent={"space-around"} gap={2}>

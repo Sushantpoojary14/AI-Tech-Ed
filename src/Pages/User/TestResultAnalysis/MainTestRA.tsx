@@ -12,15 +12,10 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import SelectBox from "../../../Components/Common/Select";
 import { TableData, TableHeader } from "../../../Components/Common/Table";
+import tokenAxios from "../../../Hooks/TokenAxios";
+import axiosBaseURL from "../../../Hooks/BaseUrl";
 
-interface option {
-  name: string;
-  value: number;
-}
-const options: option[] = [
-  { name: "OC Online Trial test", value: 1 },
-  { name: "Selective Test", value: 2 },
-];
+
 
 const header = [
   "Sr. No",
@@ -76,6 +71,11 @@ const tableData = [
 const MainTestRA = () => {
   const [selectVal, setSelectVal] = useState<number>(1);
 
+  const {  data:ts_data } = useQuery( 
+    ['ts'],
+    ()=> axiosBaseURL.get(`/get-test-series`),
+  );
+  
   const { isLoading, data, refetch } = useQuery({
     queryKey: [],
     queryFn: UseGet("https://dummyjson.com/products?limit=100"),
@@ -89,7 +89,7 @@ const MainTestRA = () => {
       <SelectBox
         name="choose test type"
         selectName="test_type"
-        options={options}
+        options={ts_data?.data.ts}
         func={setSelectVal}
       />
       <Card

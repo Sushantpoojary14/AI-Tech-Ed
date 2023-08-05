@@ -155,9 +155,9 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     dispatch({ type: "SET_TOKEN", payload: token });
     localStorage.setItem("user", JSON.stringify(data));
     dispatch({ type: "SET_USER", payload: data });
-
     navigate("/user");
     handleClose();
+ 
     // navigate("/");
   };
   const refreshToken = (token: string) => {
