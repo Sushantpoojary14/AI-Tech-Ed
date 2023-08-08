@@ -60,13 +60,15 @@
 // export default Testimport React, { useState } from 'react';
 import { Configuration, OpenAIApi } from "openai";
 import readline from "readline";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { Stack } from "@mui/material";
+import QuestionCard from "./Pages/Admin/TestSeries/ViewTestSeriesTopics/AddTopics/QuestionCard";
 
 const openAi = new OpenAIApi(
   new Configuration({
-    apiKey: "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",
+    apiKey: "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",
   })
 );
 
@@ -81,101 +83,129 @@ type Inputs = {
   explanation: string;
 };
 
-function Test() {
-  const [input, setInput] = useState("");
-  const [response, setResponse] = useState("");
-  const [resData, setResData] = useState([]);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-    reset,
-    control,
-  } = useForm<Inputs>();
-  
-  const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
-    console.log(para_data);
-    setInput(`Generate 3 unique multiple-choice questions (MCQs),keep the question sentence same just change the variable like number,name,gender and don't give the questions number after Question, it should be based on ${para_data.topic} , with options, correct answers ,explanations , the example provided below:
+interface TestProps {
+  csvData?: any;
+  item?: any;
+  topic: string;
+  generate?: boolean;
+  resData?: any;
+  totalQuestions?: any;
+}
 
-    Question:${para_data.question}
-   
-    Options:
-    a. ${para_data.a},
-    b. ${para_data.b},
-    c. ${para_data.c},
-    d. ${para_data.d}
-    
-    Answer: ${para_data.answer}
-    
-    Explanation:${
-      para_data.explanation
-        ? para_data.explanation
-        : "Generate an explanation based questions and correct answer"
-    }
-    `);
-    newRes.mutate();
-  };
-  const newRes = useMutation({
-    mutationFn: async () => {
-      const response = await openAi.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: input }],
-      });
+function Test({
+  csvData,
+  item,
+  topic,
+  generate,
+  resData,
+  totalQuestions,
+}: TestProps) {
+  // const [input, setInput] = useState("");
+  // const [response, setResponse] = useState("");
+  // const [resData, setResData] = useState([]);
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors },
+  //   reset,
+  //   control,
+  // } = useForm<Inputs>();
 
-      return response;
-    },
-    onSuccess: (response) => {
-      const message = response?.data?.choices[0]?.message?.content;
-      message && setResponse(message);
-      const questions = message?.split("Question:");
+  // useEffect(() => {
+  //   console.log("Input updated:", input);
+  //   // if (generate) {
+  //   //   onSubmit();
+  //   onSubmit();
+  //   // }
+  // }, [input]);
+  // console.log("testttt", item);
+  // console.log(topic);
 
-      const data: {
-        [key: string]: {
-          question: string;
-          options: string[];
-          answer: string;
-          explanation: string;
-        };
-      } = {};
+  // const onSubmit = async () => {
+  //   setInput(`Generate 3 unique multiple-choice questions (MCQs),keep the question sentence same just change the variable like number, name, gender and don't give the questions number after Question, it should be based on ${topic}, with options, correct answers, explanations, the example provided below:
 
-      console.log(questions);
-      const tempArray: any = [];
+  //   Question:${item.Question}
 
-      questions?.map((question: string, index: any) => {
-        if (!question) return;
-        if (index == 0) return;
-        const objects: any = {};
-        const val1 = question?.split("Options:");
-        objects.question = val1[0];
-        const val2 = val1[1]?.split("Answer:");
-        objects.options = val2[0];
-        const val3 = val2[1]?.split("Explanation:");
-        objects.answer = val3[0].replace(/\s/g, "");
-        objects.explanation = val3[1];
+  //   Options:
+  //   a. ${item.Option_A},
+  //   b. ${item.Option_B},
+  //   c. ${item.Option_C},
+  //   d. ${item.Option_C}
 
-        objects.options = {
-          a: objects.options.split("a.")[1].split("b.")[0].replace(/\s/g, ""),
-          b: objects.options.split("b.")[1].split("c.")[0].replace(/\s/g, ""),
-          c: objects.options.split("c.")[1].split("d.")[0].replace(/\s/g, ""),
-          d: objects.options.split("d.")[1].replace(/\s/g, ""),
-        };
+  //   Answer: ${item.Answer}
 
-        tempArray.push(objects);
-      });
-      setResData(tempArray);
-      console.log(tempArray);
-      setInput("");
-    },
-  });
+  //   Explanation:${
+  //     item.Explanation
+  //       ? item.Explanation
+  //       : "Generate an explanation based questions and correct answer"
+  //   }
+  //   `);
+  //   console.log("Input", input);
+  //   newRes.mutate();
+  // };
 
-  if (newRes.isLoading) {
-    return <h1>Loading...</h1>;
-  }
+  // const newRes = useMutation({
+  //   mutationFn: async () => {
+  //     console.log("object");
+  //     const response = await openAi.createChatCompletion({
+  //       model: "gpt-3.5-turbo",
+  //       messages: [{ role: "user", content: input }],
+  //     });
+
+  //     return response;
+  //   },
+  //   onSuccess: (response) => {
+  //     const message = response?.data?.choices[0]?.message?.content;
+  //     message && setResponse(message);
+  //     const questions = message?.split("Question:");
+
+  //     const data: {
+  //       [key: string]: {
+  //         question: string;
+  //         options: string[];
+  //         answer: string;
+  //         explanation: string;
+  //       };
+  //     } = {};
+
+  //     console.log(questions);
+  //     const tempArray: any = [];
+
+  //     questions?.map((question: string, index: any) => {
+  //       if (!question) return;
+  //       if (index == 0) return;
+  //       const objects: any = {};
+  //       const val1 = question?.split("Options:");
+  //       objects.question = val1[0];
+  //       const val2 = val1[1]?.split("Answer:");
+  //       objects.options = val2[0];
+  //       const val3 = val2[1]?.split("Explanation:");
+  //       objects.answer = val3[0].replace(/\s/g, "");
+  //       objects.explanation = val3[1];
+
+  //       objects.options = {
+  //         a: objects.options.split("a.")[1].split("b.")[0].replace(/\s/g, ""),
+  //         b: objects.options.split("b.")[1].split("c.")[0].replace(/\s/g, ""),
+  //         c: objects.options.split("c.")[1].split("d.")[0].replace(/\s/g, ""),
+  //         d: objects.options.split("d.")[1].replace(/\s/g, ""),
+  //       };
+
+  //       tempArray.push(objects);
+  //     });
+  //     setResData(tempArray);
+  //     console.log(tempArray);
+  //     setInput("");
+  //   },
+  // });
+
+  // if (newRes.isLoading) {
+  //   return <h1>Loading...</h1>;
+  // }
 
   return (
-    <div className="p-40">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="">
+      {/* <form onSubmit={handleSubmit(onSubmit)}>
         <div className="border border-black p-4 rounded">
           <label htmlFor="topic" className="block mb-2">
             Topic
@@ -264,19 +294,43 @@ function Test() {
             Send
           </button>
         </div>
-      </form>
-      {resData.length === 0
-        ? "Error try again"
-        : resData?.map((item: any, key: any) => {
-            return (
-              <div className="my-10">
-                <h1>{`question ${key + 1}: ${item.question} `}</h1>
-                <h1>{`option: a) ${item.options.a} b) ${item.options.b} c) ${item.options.c} d) ${item.options.d}`}</h1>
-                <h1>{`answer: ${item.answer} `}</h1>
-                <h1>{`explanation ${item.explanation} `}</h1>
-              </div>
-            );
-          })}
+      </form> */}
+      {/* <button type="button" onClick={onSubmit}>
+        Submit
+      </button> */}
+      {totalQuestions.length === 0 ? (
+        <div>
+          <div>Error try again</div>
+        </div>
+      ) : (
+        <Stack spacing={2}>
+          {totalQuestions?.map((item: any, key: any) => (
+            <QuestionCard
+              key={key}
+              questionNo={key + 1}
+              question={item.question}
+              Option_A={item.options.a}
+              Option_B={item.options.b}
+              Option_C={item.options.c}
+              Option_D={item.options.d}
+              answer={item.answer}
+              explanation={item.explanation}
+            />
+          ))}
+        </Stack>
+
+        // totalQuestions?.map((item: any, key: any) => {
+        //   return (
+
+        //     <div key={key} className="my-10">
+        //       <h1>{`question ${key + 1}: ${item.question} `}</h1>
+        //       <h1>{`option: a) ${item.options.a} b) ${item.options.b} c) ${item.options.c} d) ${item.options.d}`}</h1>
+        //       <h1>{`answer: ${item.answer} `}</h1>
+        //       <h1>{`explanation ${item.explanation} `}</h1>
+        //     </div>
+        //   );
+        // })
+      )}
     </div>
   );
 }

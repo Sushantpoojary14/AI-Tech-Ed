@@ -1,9 +1,11 @@
 import {
   Box,
   Button,
+  Checkbox,
   Container,
   FormControl,
   FormControlLabel,
+  FormGroup,
   FormLabel,
   Grid,
   Radio,
@@ -21,6 +23,16 @@ import Select from "react-select";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import { useNavigate } from "react-router-dom";
 import UploadModal from "../../../../Components/Model/UploadModal";
+import AddTestSetModal from "../../../../Components/Model/AddTestSetModal";
+
+interface Categories {
+  id: any;
+  tsc_type: string;
+}
+
+interface TestSeriesData {
+  tsc: Categories[];
+}
 
 type Option = {
   label: string;
@@ -29,8 +41,9 @@ type Option = {
 
 type FormValues = {
   ts_id: string;
-  tsc_id: string;
-  tst_id: Option[];
+  // tsc_id: string;
+  tsc_id: string[];
+  // tst_id: Option[];
   p_name: string;
   p_description: string;
   p_price: string;
@@ -38,10 +51,19 @@ type FormValues = {
   test_month_limit: string;
   total_question: string;
   duration: string;
+  release_date: string;
 };
 
 const AddTestSeries = () => {
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [subTopics, setSubTopics] = useState<any>([]);
+  const [data, setData] = useState<any>([]);
+  const [category, setCategory] = useState<any>({});
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const {
     register,
@@ -50,34 +72,71 @@ const AddTestSeries = () => {
     getValues,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm<FormValues>();
+
+  // const image = watch("p_image");
+  // console.log(image);
+  const isTopicSelected = (topicId: string, selectedTopics: string[]) =>
+    selectedTopics.includes(topicId);
+
+  const addTestSeriesProductMutation = useMutation({
+    mutationFn: async (formattedData: FormValues) => {
+      return await adminTokenAxios.post(
+        `/admin/add-test-series-product`,
+        formattedData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+    },
+    onError: (error: any) => {
+      console.error("Error creating user:", error.response?.data);
+    },
+    onSuccess: (res: any) => {
+      console.log("Mutation Reponse", res?.data?.data);
+      setData(res?.data?.data);
+      setCategory(res?.data?.tspc);
+      setOpen(true);
+    },
+  });
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const formattedData = {
-      ts_id: data.ts_id,
-      tsc_id: data.tsc_id,
-      tst_id: data.tst_id.map((option) => option.value),
-      p_name: data.p_name,
-      p_description: data.p_description,
-      p_price: data.p_price,
-      p_image: data.p_image,
-      test_month_limit: data.test_month_limit,
-      total_question: data.total_question,
-      duration: data.duration,
-    };
+    // const formData = new FormData();
+    // formData.append("ts_id", data.ts_id);
+    // formData.append("tsc_id", JSON.stringify(data.tsc_id));
+    // formData.append("p_name", data.p_name);
+    // formData.append("p_description", data.p_description);
+    // formData.append("p_price", data.p_price);
+    // formData.append("p_image", data.p_image);
+    // formData.append("test_month_limit", data.test_month_limit);
+    // formData.append("total_question", data.total_question);
+    // formData.append("duration", data.duration);
+    // formData.append("release_date", data.release_date);
+    // console.log(data);
+    // const formatteData = {
+    //   ts_id: data.ts_id,
+    //   tsc_id: data.tsc_id,
+    //   p_name: data.p_name,
+    //   p_description: data.p_description,
+    //   p_price: data.p_price,
+    //   p_image: data.p_image[0],
+    //   test_month_limit: data.test_month_limit,
+    //   total_question: data.total_question,
+    //   duration: data.duration,
+    //   release_date: data.release_date,
+    // };
 
     try {
-      await adminTokenAxios.post(
-        `/admin/add-test-series-product`,
-        formattedData
-      );
-      console.log("Data submitted successfully", formattedData);
-    } catch (error: any) {
-      console.error("Error creating user:", error.response.data);
+      await addTestSeriesProductMutation.mutateAsync(data);
+      console.log("Data submitted successfully", data);
+    } catch (error) {
+      // The error will be handled by the onError callback in the mutation options
     }
   };
-
-  const [subTopics, setSubTopics] = useState<any>([]);
 
   const getTestSeries = async () => {
     try {
@@ -93,26 +152,30 @@ const AddTestSeries = () => {
     queryFn: getTestSeries,
   });
 
-  const mutation = useMutation({
-    mutationFn: (selectedTopic: any) => {
-      return adminTokenAxios.get(
-        `admin/get-test-series-topics/${selectedTopic}`
-      );
-    },
-    onSuccess: (data) => {
-      const transformedData =
-        data?.data?.tst.map((item: any) => ({
-          value: item.id,
-          label: item.t_name,
-        })) || []; // Set the data to the state variable
+  console.log("TESTSERIES", testSeries.data);
 
-      setSubTopics(transformedData);
-    },
-  });
+  const callApi = async (selectedTopic: any) => {
+    const response = await adminTokenAxios.get(
+      `admin/get-test-series-topics/${selectedTopic}`
+    );
+    return (
+      response.data?.tst.map((item: any) => ({
+        value: item.id,
+        label: item.t_name,
+      })) || []
+    );
+  };
 
-  console.log("MUTATE", mutation.data?.data?.tst);
+  // const mutation = useMutation({
+  //   mutationFn: callApi,
+  //   onSuccess: (data) => {
+  //     setSubTopics((prevSubTopics: any) => [...prevSubTopics, data]);
+  //   },
+  // });
 
-  console.log("SUB Array", subTopics);
+  // console.log("MUTATE", mutation);
+
+  // console.log("SUB Array", subTopics);
 
   return (
     <>
@@ -175,7 +238,7 @@ const AddTestSeries = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <FormControl>
+                {/* <FormControl>
                   <FormLabel id="select-topic">Select Topic</FormLabel>
                   <Controller
                     name="tsc_id"
@@ -203,14 +266,60 @@ const AddTestSeries = () => {
                       </RadioGroup>
                     )}
                   />
+                </FormControl> */}
+                <FormControl>
+                  <FormLabel id="select-topic">Select Categories</FormLabel>
+                  <Controller
+                    name="tsc_id"
+                    control={control}
+                    defaultValue={[]}
+                    rules={{ required: "Please select at least one category" }}
+                    render={({ field }) => (
+                      <FormGroup aria-labelledby="select-topic">
+                        {testSeries?.data?.tsc.map((item: Categories) => (
+                          <FormControlLabel
+                            key={item.id}
+                            control={
+                              <Checkbox
+                                {...field}
+                                value={item.id.toString()}
+                                checked={field.value.includes(
+                                  item.id.toString()
+                                )}
+                                onChange={(event, checked) => {
+                                  if (checked) {
+                                    field.onChange([
+                                      ...field.value,
+                                      event.target.value,
+                                    ]);
+                                  } else {
+                                    field.onChange(
+                                      field.value.filter(
+                                        (value) => value !== event.target.value
+                                      )
+                                    );
+                                  }
+                                }}
+                                // onClick={console.log("click")}
+                                // onClick={(e: any) =>
+                                //   mutation.mutate(e.target.value)
+                                // }
+                              />
+                            }
+                            label={item.tsc_type}
+                          />
+                        ))}
+                      </FormGroup>
+                    )}
+                  />
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControl fullWidth>
-                  {/* <FormLabel id="demo-controlled-radio-buttons-group">
+                  <FormLabel id="demo-controlled-radio-buttons-group">
                     Select Sub Topic
-                  </FormLabel> */}
+                  </FormLabel>
 
                   <Controller
                     name="tst_id"
@@ -229,11 +338,12 @@ const AddTestSeries = () => {
                     )}
                   />
                 </FormControl>
-              </Grid>
+              </Grid> */}
               {/* Product Name */}
               <Grid item xs={12}>
                 <Controller
                   name="p_name"
+                  defaultValue=""
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -253,6 +363,7 @@ const AddTestSeries = () => {
               <Grid item xs={12}>
                 <Controller
                   name="p_description"
+                  defaultValue=""
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -274,6 +385,7 @@ const AddTestSeries = () => {
               <Grid item xs={12} sm={6}>
                 <Controller
                   name="p_price"
+                  defaultValue=""
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -293,6 +405,8 @@ const AddTestSeries = () => {
               <Grid item xs={12} sm={6}>
                 <Controller
                   name="p_image"
+                  defaultValue=""
+                  // accept="image/*"
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -312,6 +426,7 @@ const AddTestSeries = () => {
               <Grid item xs={12} sm={4}>
                 <Controller
                   name="test_month_limit"
+                  defaultValue=""
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -331,6 +446,7 @@ const AddTestSeries = () => {
               <Grid item xs={12} sm={4}>
                 <Controller
                   name="total_question"
+                  defaultValue=""
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -350,6 +466,7 @@ const AddTestSeries = () => {
               <Grid item xs={12} sm={4}>
                 <Controller
                   name="duration"
+                  defaultValue=""
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -365,13 +482,42 @@ const AddTestSeries = () => {
                 />
               </Grid>
 
+              {/*Product Release Date */}
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="release_date"
+                  defaultValue=""
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      fullWidth
+                      // label="Product Price"
+                      placeholder="Product Release Date"
+                      variant="outlined"
+                      required
+                      sx={{ backgroundColor: "white" }}
+                    />
+                  )}
+                />
+              </Grid>
+
               <OButton3 type="submit" name="Add" css={{ marginTop: "1rem" }} />
             </Grid>
           </Stack>
         </form>
       </Container>
 
-      {/* <UploadModal /> */}
+      <AddTestSetModal
+        open={open}
+        // handleOpen={handleOpen}
+        handleClose={handleClose}
+        // handleSubmit={handleSubmit}
+        // setCsvData={setCsvData}
+        restAddProduct={reset}
+        data={data}
+        categoryObj={category}
+      />
     </>
   );
 };
