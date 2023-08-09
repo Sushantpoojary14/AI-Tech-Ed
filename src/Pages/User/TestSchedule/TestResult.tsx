@@ -34,7 +34,7 @@ const TestResult = () => {
   const params = useParams();
 
   const { isLoading, data } = useQuery<AxiosResponse<dataType, any>>(
-    [],
+    ['test-result'],
     async () => await tokenAxios.get<dataType>(`/get-test-result/${params.id}`)
   );
 

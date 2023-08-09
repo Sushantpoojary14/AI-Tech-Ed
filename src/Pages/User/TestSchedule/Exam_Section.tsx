@@ -17,7 +17,7 @@ type mutateType = {
   id: number;
   complete_status?: number;
   current_timer: string;
-  test_answer?:string | number;
+  test_answer?: string | number;
 };
 
 type questionType = {
@@ -27,38 +27,31 @@ type questionType = {
   test_answer: null | string;
   uts_id: number;
   test_time: number;
-  created_at: any;
-  updated_at: any;
   questions: {
     id: number;
     question: string;
-    A: string;
-    B: string;
-    C: string;
-    D: string;
-    E: string | null;
-    answer: string;
+    option_1: string;
+    option_2: string;
+    option_3: string;
+    option_4: string;
+    option_5: string | null;
+    correct_option: string;
     explanation: string;
-    ts_id: number;
-    tsc_id: number;
     tst_id: number;
     marks: null | number;
     status: number;
-    created_at: null;
-    updated_at: null;
   };
 };
 const Exam_Section = () => {
-
   // document.addEventListener('contextmenu', (e:any) => e.preventDefault());
 
   // function ctrlShiftKey(e:any, keyCode:any) {
   //   return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
   // }
-  
+
   // document.onkeydown = (e:any) => {
   //   if (
-  
+
   //     ctrlShiftKey(e, 'I') ||
   //     ctrlShiftKey(e, 'J') ||
   //     ctrlShiftKey(e, 'C') ||
@@ -68,9 +61,9 @@ const Exam_Section = () => {
   // };
 
   const preventCopyPaste = (e: any) => {
-    e.preventDefault()
-    alert("Copying and pasting is not allowed!")
-  }
+    e.preventDefault();
+    alert("Copying and pasting is not allowed!");
+  };
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -88,16 +81,16 @@ const Exam_Section = () => {
         current_timer: data.current_timer,
         ...(data.test_answer && { test_answer: null }),
       };
-    
-      console.log(object,data);
+
+      
       return await tokenAxios.post(`/update-test-status/${data.id}`, object);
     },
     onSuccess: (res) => {
       console.log(res);
-      queryClient.setQueryData(["data"], res);
+      queryClient.setQueryData(["question-data"], res);
     },
   });
-  
+
   const updateTimer = useMutation({
     mutationFn: async ({
       id,
@@ -106,13 +99,12 @@ const Exam_Section = () => {
       id: number;
       current_timer: string;
     }) => {
-      
       return await tokenAxios.post(`/update-test-timer/${id}`, {
         current_timer: current_timer,
       });
     },
     onSuccess: (res) => {
-      console.log(res);
+      // console.log(res);
     },
   });
 
@@ -124,7 +116,6 @@ const Exam_Section = () => {
       id: number;
       current_timer: string;
     }) => {
-    
       return await tokenAxios.post(`/submit-test/${id}`, {
         current_timer: current_timer,
       });
@@ -135,10 +126,9 @@ const Exam_Section = () => {
     },
   });
   const { isLoading, data } = useQuery(
-    ["data"],
+    ["question-data"],
     async () => await tokenAxios.get(`/generate-question/${params.id}`)
   );
-
 
   const time = data?.data?.timer
     ? new Date(Date.now() + parseFloat(data?.data?.timer) * 60 * 1000)
@@ -147,9 +137,7 @@ const Exam_Section = () => {
   const { seconds, minutes, restart } = useTimer({
     expiryTimestamp: time,
     autoStart: false,
-    onExpire: () => [
-      SubmitTestData()
-    ],
+    onExpire: () => [SubmitTestData()],
   });
 
   useEffect(() => {
@@ -162,7 +150,9 @@ const Exam_Section = () => {
     }
 
     setQuestions(data?.data.test_data);
-    questions?.filter((item: questionType, key: number) => {
+    console.log(!question);
+    
+    !question && questions?.filter((item: questionType, key: number) => {
       if (item.id === data?.data.current_qid) {
         setCount(key);
         setQuestion(item);
@@ -171,6 +161,8 @@ const Exam_Section = () => {
   }, [data,questions]);
 
   const paginate = (id: number, key: number) => {
+    setCount(key);
+    setQuestion(questions[key]);
     updateTStatus.mutate({
       id: id,
       complete_status:
@@ -179,6 +171,7 @@ const Exam_Section = () => {
           : questions[key].status_id,
       current_timer: `${minutes}.${seconds}`,
     });
+    
   };
 
   useEffect(() => {
@@ -195,7 +188,7 @@ const Exam_Section = () => {
   };
 
   const MarkForReview = () => {
-    console.log(question?.test_answer);
+    // console.log(question?.test_answer);
     updateTStatus.mutate({
       id: data?.data.current_qid,
       complete_status: question?.test_answer ? 5 : 4,
@@ -204,10 +197,17 @@ const Exam_Section = () => {
   };
 
   const ClearResponse = () => {
+
+    setQuestion((prevQuestion: any) => ({
+      ...prevQuestion,
+      test_answer: null,
+      status_id:2
+    }));
+
     updateTStatus.mutate({
       id: data?.data.current_qid,
       complete_status: 2,
-      test_answer:1,
+      test_answer: 1,
       current_timer: `${minutes}.${seconds}`,
     });
   };
@@ -222,15 +222,13 @@ const Exam_Section = () => {
 
   const SaveNext = () => {
     question &&
-    updateTStatus.mutate({
+      updateTStatus.mutate({
         id: data?.data.current_qid,
         complete_status:
-        questions && question?.status_id === 3
-          ? 2
-          : question?.status_id,
+          questions && question?.status_id === 3 ? 2 : question?.status_id,
         current_timer: `${minutes}.${seconds}`,
       });
-      questions && paginate(questions[count+1]?.id,count+1)
+    questions && paginate(questions[count + 1]?.id, count + 1);
   };
   return (
     <Container maxWidth="xl">
@@ -280,7 +278,6 @@ const Exam_Section = () => {
             preventCopyPaste={preventCopyPaste}
           />
           <ExamSecondSection
-          
             questions={questions}
             func={paginate}
             submit={SubmitTestData}
@@ -304,7 +301,7 @@ const Exam_Section = () => {
             func={() => submitTimer(true)}
           />
 
-          <WButton name="SAVE & NEXT"  func={SaveNext}/>
+          <WButton name="SAVE & NEXT" func={SaveNext} />
         </Stack>
       </Stack>
     </Container>

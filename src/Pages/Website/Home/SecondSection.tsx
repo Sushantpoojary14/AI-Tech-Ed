@@ -13,32 +13,32 @@ import { CartContext } from "../../../Context/CartContext";
 import tokenAxios from "../../../Hooks/TokenAxios";
 import axiosBaseURL from "../../../Hooks/BaseUrl";
 
-
-
 const SecondSection = () => {
   const [selectVal, setSelectVal] = useState<number>(1);
   const { cart, setCart } = CartContext();
   const { user } = AppContext();
   const [val, setVal] = useState<number[]>([]);
 
-  const {  data:ts_data } = useQuery( 
-    ['ts'],
-    ()=> axiosBaseURL.get(`/get-test-series`),
+  const { data: ts_data } = useQuery(["ts"], () =>
+    axiosBaseURL.get(`/get-test-series`)
   );
 
-  const { isLoading, data, refetch } = useQuery([selectVal,'product-data'],
-    () => tokenAxios.get(`/get-product-data/${selectVal}`),
+  const { isLoading, data, refetch } = useQuery(
+    [selectVal, "product-data"],
+    () => tokenAxios.get(`/get-product-data/${selectVal}`)
   );
 
-  const { data: cdata ,isLoading:loading} = useQuery(
-    [cart,'cart-data'],
+  const { data: cdata, isLoading: loading } = useQuery(
+    [cart, "cart-data"],
     () => tokenAxios.get(`/get-cart-data/${user?.id}`),
     {
       enabled: !!user,
     }
   );
 
-  
+  let p = data?.data?.product_data;
+  p &&  console.log( p.length === 0);
+    
   if (isLoading || !cart) {
     return <LoadingBar />;
   }
@@ -50,7 +50,7 @@ const SecondSection = () => {
         id="product"
       >
         <Box style={{ display: "flex", alignItems: "left", width: "100%" }}>
-          <Header1 header="Buy Test Series" />
+          <Header1 header="Buy Test Series" css={{mr:'10px'}} />
           <SelectBox
             name="choose test type"
             selectName="test_type"
@@ -73,12 +73,17 @@ const SecondSection = () => {
             width: "100%",
           }}
         >
-          {data?.data?.product_data &&
-            data.data?.product_data.map((item: any, key: number) => { 
-             
-              
-              return <TestSection data={item} key={key} val={cart?.includes(item?.id)} />;
-            })}
+          {p && p.length === 0 ? (
+            <Header1 header="No Product Available" />
+          ) : (
+            p.map((item: any, key: number) => (
+              <TestSection
+                data={item}
+                key={key}
+                val={cart?.includes(item?.id)}
+              />
+            ))
+          )}
         </Box>
       </Container>
       {/* <Box sx={{ width: "100%", height: "100px", textAlign: "center" }}>

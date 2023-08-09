@@ -32,25 +32,19 @@ type questionType = {
   test_answer: null | string;
   uts_id: number;
   test_time: number;
-  created_at: any;
-  updated_at: any;
   questions: {
     id: number;
     question: string;
-    A: string;
-    B: string;
-    C: string;
-    D: string;
-    E: string | null;
-    answer: string;
+    option_1: string;
+    option_2: string;
+    option_3: string;
+    option_4: string;
+    option_5: string | null;
+    correct_option: string;
     explanation: string;
-    ts_id: number;
-    tsc_id: number;
     tst_id: number;
     marks: null | number;
     status: number;
-    created_at: null;
-    updated_at: null;
   };
 };
 
@@ -75,7 +69,7 @@ const ExamFirstSection = (props: props) => {
     reset({
       Answer: "",
     });
-    setQuestion(props.data?.questions);
+    setQuestion(props.data);
   }, [props.data]);
 
   const updateTStatus = useMutation({
@@ -88,15 +82,23 @@ const ExamFirstSection = (props: props) => {
     },
     onSuccess: (res) => {
       console.log(res);
-      queryClient.setQueryData(["data"], res);
+      queryClient.setQueryData(["question-data"], res);
     },
   });
-  // console.log(props.data);
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
- 
+    reset({
+      Answer: "",
+    });
+    setQuestion((prevQuestion: any) => ({
+      ...prevQuestion,
+      test_answer: data.Answer,
+      status_id:1
+    }));
+
+    console.log(question?.test_answer);
     updateTStatus.mutate({ id: props.data?.id, answer: data.Answer });
   };
-
   return (
     <Card
       sx={{
@@ -125,7 +127,7 @@ const ExamFirstSection = (props: props) => {
                 css={{ fontWeight: "600" }}
               />
               <ParaText4
-                text={question?.question}
+                text={question?.questions.question}
                 css={{ fontWeight: "400", maxWidth: "443px" }}
               />
             </Stack>
@@ -146,35 +148,35 @@ const ExamFirstSection = (props: props) => {
                     <RadioGroup {...field} name="radio-buttons-group">
                       <FormControlLabel
                         checked={
-                          props.data ? props.data?.test_answer == "A" : false
+                          props.data ? question?.test_answer == "1" : false
                         }
-                        value="A"
+                        value="1"
                         control={<Radio />}
-                        label={`(A) ${question?.A}`}
+                        label={`(A) ${question?.questions.option_1}`}
                       />
                       <FormControlLabel
-                        value="B"
+                        value="2"
                         checked={
-                          props.data ? props.data?.test_answer == "B" : false
+                          props.data ? question?.test_answer == "2" : false
                         }
                         control={<Radio />}
-                        label={`(B) ${question?.B}`}
+                        label={`(B) ${question?.questions.option_2}`}
                       />
                       <FormControlLabel
-                        value="C"
+                        value="3"
                         checked={
-                          props.data ? props.data?.test_answer == "C" : false
+                          props.data ? question?.test_answer == "3" : false
                         }
                         control={<Radio />}
-                        label={`(C) ${question?.C}`}
+                        label={`(C) ${question?.questions.option_3}`}
                       />
                       <FormControlLabel
-                        value="D"
+                        value="4"
                         checked={
-                          props.data ? props.data?.test_answer == "D" : false
+                          props.data ? question?.test_answer == "4" : false
                         }
                         control={<Radio />}
-                        label={`(D) ${question?.D}`}
+                        label={`(D) ${question?.questions.option_4}`}
                       />
                     </RadioGroup>
                   )}

@@ -10,33 +10,38 @@ import tokenAxios from "../../../Hooks/TokenAxios";
 const TestSeries = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { isLoading, data } = useQuery([], () =>
-    tokenAxios.get(`/get-user-purchases/${params.id}`)
+  const { isLoading, data } = useQuery(['details'], () =>
+    tokenAxios.get(`/get-user-test-details/${params.id}`)
   );
 
-  const TestMU = useMutation({
-    mutationFn: async (id: number) => {
-      return await tokenAxios.post("/post-user-test-status", {
-        id: id,
-      });
-    },
-    onSuccess: (response) => {      
-      // navigate(`/user/Test-schedule/Exam-section/${response?.data?.user_test.id}`);
-      let url =`/user/Test-schedule/Exam-section/${response?.data?.user_test}`;
-      window.open(url, '_blank', 'width=1400,height=600');
-    },
-  });
+  // const TestMU = useMutation({
+  //   mutationFn: async (id: number) => {
+  //     return await tokenAxios.post("/post-user-test-status", {
+  //       id: id,
+  //     });
+  //   },
+  //   onSuccess: (response) => {
+  //     // navigate(`/user/Test-schedule/Exam-section/${response?.data?.user_test.id}`);
+  //     let url =`/user/Test-schedule/Exam-section/${response?.data?.user_test}`;
+  //     window.open(url, '_blank', 'width=1400,height=600');
+  //   },
+  // });
 
-  const tsp = data?.data?.tsp[0];
+  console.log(data);
+  const tsp = data?.data?.tsp;
+  const td = data?.data.test_detail;
+  const sub = td?.get_ts_p_c.test_series_categories.tsc_type;
 
-  
+
+  const redirect = () => {};
+
   if (isLoading) {
     return <LoadingBar />;
   }
 
-  if (TestMU.isLoading) {
-    return <LoadingBar />;
-  }
+  // if (TestMU.isLoading) {
+  //   return <LoadingBar />;
+  // }
   return (
     <Container maxWidth="xl">
       <Stack
@@ -70,36 +75,42 @@ const TestSeries = () => {
       >
         <Stack flexDirection="column" spacing={2} paddingX={6} paddingY={4}>
           <Header1 header={tsp.ts_product.p_name} />
-          <ParaText3 text="Description" />
+          {/* <ParaText3 text="Description" />
           <ParaText1
             text={tsp.ts_product.p_description}
             css={{ maxWidth: "327px" }}
-          />
-          <Stack direction="row" spacing={2}>
+          /> */}
+          {/* <Stack direction="row" spacing={2}>
             <ParaText3 text="Validity:" />
             <ParaText1 text={`${tsp.valid_from} - ${tsp.valid_till}`} />
-          </Stack>
-          {/* <ParaText3 text="Marks Distribution" />
-                    <Stack direction="row" spacing={9} >
-                        <ParaText1 text="Reading:" />
-                        <ParaText1 text="30" />
-                    </Stack> */}
+          </Stack> */}
 
-          {/* <Stack direction="row" spacing={3}>
-                        <ParaText1 text="Thinking Skills:" />
-                        <ParaText1 text="30" />
-                    </Stack> */}
-          <Stack direction="row" spacing={2}>
+          {/*            
+          <ParaText3 text={`Subject: ${sub}` } />  <ParaText1 text="30" />
+          <ParaText3 text={`Test Name: ${sub} set - ${td.set_id}` } />  */}
+          <Stack direction="row" spacing={1}>
+            <ParaText3 text="Subject:" />
+            <ParaText1 text={`${sub}`} />
+          </Stack>
+
+          <Stack direction="row" spacing={1}>
+            <ParaText3 text="Test Name:" />
+            <ParaText1 text={`${sub} set - ${td.set_id}`} />
+          </Stack>
+          <Stack direction="row" spacing={1}>
+            <ParaText3 text="Total question:" />
+            <ParaText1 text={`${tsp.ts_product.total_question}`} />
+          </Stack>
+          <Stack direction="row" spacing={1}>
             <ParaText3 text="Time Limit:" />
             <ParaText1 text={tsp.ts_product.duration + " min"} />
           </Stack>
-          {/* <Link to={`/user/Test-schedule/Exam-section/${tsp.id}`}> */}
-          <BButton
-            name="ANSWER TEST"
-            css={{ width: "256px", height: "58px" }}
-            func={() => TestMU.mutate(tsp.id)}
-          />
-          {/* </Link> */}
+          <Link to={`/user/Test-schedule/Exam-section/${data?.data.uts_id}`}>
+            <BButton
+              name="ANSWER TEST"
+              css={{ width: "256px", height: "58px" }}
+            />
+          </Link>
         </Stack>
       </Card>
     </Container>
