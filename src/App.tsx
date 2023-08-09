@@ -62,7 +62,7 @@ function App() {
 
           <Route path="/user/*" element={<UserIndex />} />
           <Route path="/admin/*" element={<AdminIndex />} />
-          <Route path="/test" element={<Test />} />
+          {/* <Route path="/test" element={<Test />} /> */}
           <Route path="/test2" element={<Test2 />} />
           <Route
             path="/user/Test-schedule/Exam-section/:id"

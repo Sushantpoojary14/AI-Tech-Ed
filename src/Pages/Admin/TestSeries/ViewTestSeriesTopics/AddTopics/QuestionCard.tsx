@@ -36,17 +36,20 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
         <Typography variant="h6" component="h2">
           Question {questionNo}: {question}
         </Typography>
-        {/* <Typography variant="h6" component="h2">
-          {question}
-        </Typography> */}
         <List>
           <ListItem>
             <ListItemIcon>A.</ListItemIcon>
             <ListItemText primary={Option_A} />
+          </ListItem>
+          <ListItem>
             <ListItemIcon>B.</ListItemIcon>
             <ListItemText primary={Option_B} />
+          </ListItem>
+          <ListItem>
             <ListItemIcon>C.</ListItemIcon>
             <ListItemText primary={Option_C} />
+          </ListItem>
+          <ListItem>
             <ListItemIcon>D.</ListItemIcon>
             <ListItemText primary={Option_D} />
           </ListItem>
