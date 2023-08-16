@@ -124,8 +124,7 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
     },
   });
 
-  console.log(!!newRes.data ||
-    topic1[0] == 2);
+  console.log(!!newRes.data ||topic1[0] == 2);
 
   return (
     <>
