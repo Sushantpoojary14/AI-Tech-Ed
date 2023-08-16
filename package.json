@@ -17,13 +17,16 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.0.4",
     "apexcharts": "^3.41.0",
+    "autoprefixer": "^10.4.15",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
     "dotenv": "^16.3.1",
     "jwt-decode": "^3.1.2",
     "material-react-table": "^1.14.0",
     "openai": "^3.3.0",
+    "postcss": "^8.4.28",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-chartjs-2": "^5.2.0",
@@ -33,17 +36,18 @@
     "react-papaparse": "^4.1.0",
     "react-router-dom": "^6.11.2",
     "react-router-hash-link": "^2.4.3",
-    "react-scripts": "5.0.1",
     "react-select": "^5.7.4",
     "react-timer-hook": "^3.0.7",
     "typescript": "^4.4.2",
+    "vite": "^4.4.9",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.0",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
   },
   "eslintConfig": {
     "extends": [
@@ -65,6 +69,6 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3",
-    "tailwindcss": "^3.3.2"
+    "tailwindcss": "^3.3.3"
   }
 }
