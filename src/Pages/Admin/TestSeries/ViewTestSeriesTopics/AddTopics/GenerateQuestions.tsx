@@ -60,7 +60,7 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
       const responses: any[] = [];
 
       for (const item of csvData) {
-        // console.log("loop", item);
+        console.log("loop", item);
 
         const query = `Generate five unique multiple-choice questions (MCQs), keeping the question  sentence the same as the provided example, but changing variables like numbers, names, and genders. Do not include question numbers after 'Question'. An example is provided below with options, correct answer, explanation, and question based on the topic ${
           topic1[1]
