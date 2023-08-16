@@ -1,15 +1,11 @@
 import { Card, CardActions, CardContent, CardMedia } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { OButton2, WButton } from "../../../../Components/Common/Button";
 import { Header2 } from "../../../../Components/Common/HeaderText";
 import { ParaText1 } from "../../../../Components/Common/ParaText";
-import LoadingBar from "../../../../Components/Headers/LoadingBar";
-import { AppContext } from "../../../../Context/AppContext";
+// import { AppContext } from "../../../../Context/AppContext";
 import { CartContext } from "../../../../Context/CartContext";
-import tokenAxios from "../../../../Hooks/TokenAxios";
-import UseGet from "../../../../Hooks/UseGet";
+
 
 interface props {
   data: any;
@@ -17,9 +13,10 @@ interface props {
 }
 
 const TestCard = (props: props) => {
-  const { addToCart, cart, setCart } = CartContext();
-  const { user } = AppContext();
+  const { addToCart } = CartContext();
+  // const { user } = AppContext();
   // console.log(props.val?.includes(props.data?.id));
+console.log(import.meta.env.VITE_IMAGE_URL+props.data.p_image);
 
   return (
     <Card
@@ -40,7 +37,7 @@ const TestCard = (props: props) => {
             height: "317px",
             width: { sm: "301px", xs: "301px", md: "331px", lg: "361px" },
           }}
-          image={props.data.p_image}
+          image={import.meta.env.VITE_IMAGE_URL+props.data.p_image}
         />
         <CardContent sx={{ py: "0px", px: { lg: 0, md: "27px" } }}>
           <Header2 header={props.data.p_name} />

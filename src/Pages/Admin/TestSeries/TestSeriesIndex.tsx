@@ -4,6 +4,7 @@ import TestSeries from "./TestSeries";
 import AddTestSeries from "./AddTestSeries/AddTestSeries";
 import ViewTestSeriesTopics from "./ViewTestSeriesTopics/ViewTestSeriesTopics";
 import AddTopics from "./ViewTestSeriesTopics/AddTopics/AddTopics";
+import ViewProductDetail from "./ViewProductDetail/ViewProductDetail";
 
 const TestSeriesIndex = () => {
   return (
@@ -17,6 +18,10 @@ const TestSeriesIndex = () => {
       <Route
         path="view-test-series-topics/add-topics"
         element={<AddTopics />}
+      />
+      <Route
+        path="view-product-detail/:productdetails"
+        element={<ViewProductDetail />}
       />
     </Routes>
   );

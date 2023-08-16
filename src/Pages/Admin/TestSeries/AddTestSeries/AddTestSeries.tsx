@@ -8,6 +8,7 @@ import {
   FormGroup,
   FormLabel,
   Grid,
+  Input,
   Radio,
   RadioGroup,
   Stack,
@@ -106,29 +107,11 @@ const AddTestSeries = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     // const formData = new FormData();
-    // formData.append("ts_id", data.ts_id);
-    // formData.append("tsc_id", JSON.stringify(data.tsc_id));
-    // formData.append("p_name", data.p_name);
-    // formData.append("p_description", data.p_description);
-    // formData.append("p_price", data.p_price);
-    // formData.append("p_image", data.p_image);
-    // formData.append("test_month_limit", data.test_month_limit);
-    // formData.append("total_question", data.total_question);
-    // formData.append("duration", data.duration);
-    // formData.append("release_date", data.release_date);
-    // console.log(data);
-    // const formatteData = {
-    //   ts_id: data.ts_id,
-    //   tsc_id: data.tsc_id,
-    //   p_name: data.p_name,
-    //   p_description: data.p_description,
-    //   p_price: data.p_price,
-    //   p_image: data.p_image[0],
-    //   test_month_limit: data.test_month_limit,
-    //   total_question: data.total_question,
-    //   duration: data.duration,
-    //   release_date: data.release_date,
-    // };
+
+    // formData.append("p_image", data.p_image[0]);
+    // data = { ...data, p_image: data.p_image[0] };
+    // formData.append("data", JSON.stringify(data));
+    console.log("DATA", data);
 
     try {
       await addTestSeriesProductMutation.mutateAsync(data);
@@ -408,13 +391,17 @@ const AddTestSeries = () => {
                   defaultValue=""
                   // accept="image/*"
                   control={control}
-                  render={({ field }) => (
-                    <TextField
+                  render={({ field: { value, onChange, ...field } }) => (
+                    <Input
                       {...field}
                       type="file"
                       fullWidth
                       // label="Product Image"
-                      variant="outlined"
+                      // variant="outlined"
+                      value={value?.fileName}
+                      onChange={(event: any) => {
+                        onChange(event.target.files[0]);
+                      }}
                       required
                       sx={{ backgroundColor: "white" }}
                     />

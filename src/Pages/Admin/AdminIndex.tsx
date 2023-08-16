@@ -99,7 +99,7 @@ const AdminIndex = () => {
 
           <PasswordChangeModal />
 
-          <ProfileEditModal />
+          {/* <ProfileEditModal /> */}
 
           <SuccessModel
             handleClose={handleSuccessClose}

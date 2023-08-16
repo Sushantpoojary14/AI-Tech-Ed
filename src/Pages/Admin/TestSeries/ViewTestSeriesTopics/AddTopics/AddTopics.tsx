@@ -27,6 +27,7 @@ import adminTokenAxios from "../../../../../Hooks/AdminTokenAxios";
 import CSVParser from "./CSVParser";
 
 import GenerateQuestions from "./GenerateQuestions";
+import LoadingBar from "../../../../../Components/Headers/LoadingBar";
 
 type FormValues = {
   // ts_id: string;
@@ -54,12 +55,11 @@ const AddTopics = () => {
   // };
 
   const {
-    register,
+
     control,
     handleSubmit,
-    getValues,
-    setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -101,6 +101,9 @@ const AddTopics = () => {
     queryFn: getTestSeries,
   });
 
+  if(testSeries.isLoading){
+    <LoadingBar/>
+  }
   // const mutation = useMutation({
   //   mutationFn: (selectedTopic: any) => {
   //     return adminTokenAxios.get(
@@ -280,7 +283,7 @@ const AddTopics = () => {
         </Stack> */}
 
         {/* {generate ? ( */}
-        <GenerateQuestions topic1={topic1} csvData={csvData} topic={topic} />
+        <GenerateQuestions topic1={topic1} csvData={csvData} topic={topic} setCsvData={setCsvData} reset={reset}/>
 
         {/* {GenerateQuestions()} */}
       </Container>

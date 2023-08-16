@@ -5,8 +5,13 @@ import React from "react";
 import { Header1 } from "../../../Components/Common/HeaderText";
 import { OButton } from "../../../Components/Common/Button";
 import { Link } from "react-router-dom";
-import SOTT from "./AddTestSeries/SOTT";
-import OTT from "./AddTestSeries/OTT";
+import SOTT from "./SOTT";
+import OTT from "./OTT";
+import adminTokenAxios from "../../../Hooks/AdminTokenAxios";
+import { useQuery } from "@tanstack/react-query";
+import ExpandingTable from "../../../Components/Common/ExpandingTable";
+import SimpleTable from "../../../Components/Common/SimpleTable";
+import TableComp from "./TableComp";
 
 const TestSeries = () => {
   const [value, setValue] = React.useState("1");
@@ -14,6 +19,26 @@ const TestSeries = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  const handleClick = (id: number) => {
+    console.log(id);
+  };
+
+  const getTestSeries = async () => {
+    try {
+      const response = await adminTokenAxios.get(`admin/get-test-series`);
+      console.log(response.data?.ts);
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const testSeries = useQuery({
+    queryKey: ["TestSeriesTopics"],
+    queryFn: getTestSeries,
+  });
 
   return (
     <Container
@@ -57,16 +82,27 @@ const TestSeries = () => {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 2, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="Tabs">
-            <Tab label="SOTT" value="1" />
-            <Tab label="OTT" value="2" />
+            {testSeries?.data?.ts.map((item: any) => (
+              <Tab
+                label={item.test_type}
+                value={JSON.stringify(item.id)}
+                key={item.id}
+                onClick={() => handleClick(item.id)}
+              />
+            ))}
+
+            {/* <Tab label="SOTT" value="1" />
+            <Tab label="OTT" value="2" /> */}
           </TabList>
         </Box>
-        <TabPanel value="1">
-          <SOTT />
-        </TabPanel>
-        <TabPanel value="2">
-          <OTT />
-        </TabPanel>
+        {testSeries?.data?.tsc.map((item: any) => (
+          <TabPanel value={JSON.stringify(item.id)} key={item.id}>
+            {/* Render dynamic content based on the tab value */}
+            {/* For example, you can fetch content related to this tab */}
+            {/* {getContentForTab(item.id)} */}
+            <TableComp tabId={item.id} />
+          </TabPanel>
+        ))}
       </TabContext>
     </Container>
   );

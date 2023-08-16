@@ -6,27 +6,8 @@ const answered = {
   py: "3px",
   // clipPath: "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)",
   textAlign: "center",
-
-  // "&::before, &::after": {
-  //   content: '""',
-  //   position: "absolute",
-  //   width: 0,
-  //   height: 0,
-  // },
-  // "&::before": {
-  //   borderLeft: "50px solid transparent",
-  //   borderRight: "50px solid transparent",
-  //   borderBottom: "87px solid #2C9806",
-  //   top: "-43px",
-  //   left: "0",
-  // },
-  // "&::after": {
-  //   borderLeft: "50px solid transparent",
-  //   borderRight: "50px solid transparent",
-  //   borderTop: "87px solid #2C9806",
-  //   bottom: "-43px",
-  //   left: "0",
-  // },
+  cursor:'pointer',
+ 
 };
 
 const notAnswered = {
@@ -37,27 +18,7 @@ const notAnswered = {
   // clipPath: "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)",
   textAlign: "center",
   py: "3px",
-  // transform: "rotate(180deg)",
-  // "&::before, &::after": {
-  //   content: '""',
-  //   position: "absolute",
-  //   width: 0,
-  //   height: 0,
-  // },
-  // "&::before": {
-  //   borderLeft: "50px solid transparent",
-  //   borderRight: "50px solid transparent",
-  //   borderBottom: "87px solid #B93826",
-  //   top: "-43px",
-  //   left: "0",
-  // },
-  // "&::after": {
-  //   borderLeft: "50px solid transparent",
-  //   borderRight: "50px solid transparent",
-  //   borderTop: "87px solid #B93826",
-  //   bottom: "-43px",
-  //   left: "0",
-  // },
+  cursor:'pointer',
 };
 
 const notVisited = {
@@ -66,7 +27,7 @@ const notVisited = {
   height: "30px",
   backgroundColor: "#D9D9D9",
   textAlign: "center",
-  py: "3px",
+  py: "3px",cursor:'pointer',
 };
 
 const markFR = {
@@ -76,7 +37,7 @@ const markFR = {
   backgroundColor: "#820AA0",
   textAlign: "center",
   py: "3px",
-  borderRadius: "100%",
+  borderRadius: "100%",cursor:'pointer',
 };
 const answeredMarkFR = {
   position: "relative",
@@ -85,7 +46,7 @@ const answeredMarkFR = {
   backgroundColor: "#2C9806",
   textAlign: "center",
   py: "3px",
-  borderRadius: "100%",
+  borderRadius: "100%",cursor:'pointer',
 };
 const whiteText = {
   fontSize: "16px",

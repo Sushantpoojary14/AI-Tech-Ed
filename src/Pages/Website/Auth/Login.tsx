@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography,Alert } from "@mui/material";
 import {Input,InputPassword }from "../../../Components/Common/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { OButton2 } from "../../../Components/Common/Button";
@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import axiosBaseURL from "../../../Hooks/BaseUrl";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { AppContext } from "../../../Context/AppContext";
-import { UserContext } from "../../../Context/UserContext";
+
 import { CartContext } from "../../../Context/CartContext";
 
 
@@ -14,11 +14,11 @@ type Inputs = {
   email: string;
   password: string;
 };
-type userData = {
-  id: number;
-  name: string;
-  email: string;
-};
+// type userData = {
+//   id: number;
+//   name: string;
+//   email: string;
+// };
 const Login = () => {
   const { login} = AppContext();
   const {addToCartFL} = CartContext();
@@ -41,7 +41,7 @@ const Login = () => {
         login(user, accessToken);
          addToCartFL(user.id);
       }
- 
+      <Alert severity="success">SuccessFully Logged</Alert>
     }
   });
 

@@ -3,7 +3,7 @@ import { AppContext } from "../Context/AppContext";
 import axiosBaseURL from "./BaseUrl";
 
 const adminTokenAxios = Axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
+  baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -24,35 +24,21 @@ adminTokenAxios.interceptors.request.use(
 
 adminTokenAxios.interceptors.response.use(
   (response) => response,
+
   async (error) => {
     const originalRequest = error.config;
-
+    console.log("server error " + error);
     if (
       error.response &&
       error.response.status === 401 &&
       !originalRequest._retry
     ) {
-      originalRequest._retry = true;
-
-      try {
-        const refreshResponse = await adminTokenAxios.get("/refresh-token");
-        console.log(refreshResponse);
-        const newAccessToken = refreshResponse.data.access_token;
-
-        adminTokenAxios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${newAccessToken}`;
-
-        localStorage.setItem("admin_token", newAccessToken);
-
-        return adminTokenAxios(originalRequest);
-      } catch (refreshError) {
-        
-      }
+      localStorage.removeItem("admin_token");
+      localStorage.removeItem("admin");
+      window.location.reload();
     }
-
-    return Promise.reject(error);
+    // originalRequest._retry = true;
+    return error;
   }
 );
-
 export default adminTokenAxios;

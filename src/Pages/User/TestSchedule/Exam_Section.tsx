@@ -1,12 +1,12 @@
 import { Container, Stack, Button, Box } from "@mui/material";
 import { Header1 } from "../../../Components/Common/HeaderText";
-import { ParaText3, ParaText4 } from "../../../Components/Common/ParaText";
+import { ParaText3 } from "../../../Components/Common/ParaText";
 import ExamFirstSection from "./Components/ExamFirstSection";
 import ExamSecondSection from "./Components/ExamSecondSection";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import tokenAxios from "../../../Hooks/TokenAxios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import { OButton, WButton } from "../../../Components/Common/Button";
 import { AppContext } from "../../../Context/AppContext";
 import { useEffect, useState } from "react";
@@ -60,7 +60,7 @@ const Exam_Section = () => {
   //     return false;
   // };
 
-  const preventCopyPaste = (e: any) => {
+  const preventCopyPaste = (e: Event) => {
     e.preventDefault();
     alert("Copying and pasting is not allowed!");
   };
@@ -76,9 +76,9 @@ const Exam_Section = () => {
 
   const updateTStatus = useMutation({
     mutationFn: async (data: mutateType) => {
-      let object: any = {
-        status_id: data.complete_status,
-        current_timer: data.current_timer,
+      const  object: {status_id: number | undefined, current_timer:string}= {
+        status_id: data?.complete_status,
+        current_timer: data?.current_timer,
         ...(data.test_answer && { test_answer: null }),
       };
 
@@ -188,10 +188,10 @@ const Exam_Section = () => {
   };
 
   const MarkForReview = () => {
-    // console.log(question?.test_answer);
+    console.log(questions[count]);
     updateTStatus.mutate({
       id: data?.data.current_qid,
-      complete_status: question?.test_answer ? 5 : 4,
+      complete_status: questions[count]?.test_answer ? 5 : 4,
       current_timer: `${minutes}.${seconds}`,
     });
   };
@@ -222,10 +222,8 @@ const Exam_Section = () => {
 
   const SaveNext = () => {
     question &&
-      updateTStatus.mutate({
-        id: data?.data.current_qid,
-        complete_status:
-          questions && question?.status_id === 3 ? 2 : question?.status_id,
+    updateTimer.mutate({
+        id: question?.uts_id,
         current_timer: `${minutes}.${seconds}`,
       });
     questions && paginate(questions[count + 1]?.id, count + 1);
@@ -276,6 +274,7 @@ const Exam_Section = () => {
             count={count}
             isLoading={isLoading}
             preventCopyPaste={preventCopyPaste}
+        
           />
           <ExamSecondSection
             questions={questions}

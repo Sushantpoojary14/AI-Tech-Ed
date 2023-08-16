@@ -2,254 +2,170 @@ import React, { useEffect, useRef, useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
 
 import Test from "../../../../../Test";
-import { useMutation } from "@tanstack/react-query";
-import { Stack } from "@mui/material";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Alert, Box, Dialog, Stack } from "@mui/material";
 import { BButton2 } from "../../../../../Components/Common/Button";
 import adminTokenAxios from "../../../../../Hooks/AdminTokenAxios";
+import PdfMaker from "../../PdfMaker";
 
-// type Form ={
-//   tsc_id : string;
-//   t_name : string
-// }
+type CsvItem = {
+  Answer: string;
+  Explanation: string;
+  Option_A: string;
+  Option_B: string;
+  Option_C: string;
+  Option_D: string;
+  Question: string;
+};
 
-const GenerateQuestions = ({
-  csvData,
-
-  topic,
-
-  topic1,
-}: any) => {
-  const [input, setInput] = useState("");
-  const [response, setResponse] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [resData, setResData] = useState([]);
-  const [totalQuestions, setTotalQuestions] = useState([]);
-  const [shouldMoveNext, setShouldMoveNext] = useState(false);
-  const [generate, setGenerate] = useState<boolean>(false);
-  // const [topic, setTopic] = useState<string>("");
-
-  const addTestCategoryTopicMutation = useMutation({
-    mutationFn: async (formatedData: any) => {
-      return await adminTokenAxios.post(
-        `/admin/add-update-test-series-topics`,
-        formatedData
-      );
+const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => {
+  const addTestCTMu = useMutation({
+    mutationFn: async (data: object[]) => {
+      return await adminTokenAxios.post(`/admin/add-test-series-topics`, {
+        tsc_id: topic1[0],
+        t_name: topic1[1],
+        question: data,
+      });
     },
     onError: (error: any) => {
       console.error("Error creating user:", error.response?.data);
     },
     onSuccess: (res: any) => {
-      console.log("Mutation Reponse Success", res?.data);
-      // handleNextClick();
+      // navigate(`/admin/test-series/view-test-series-topics`);
+      reset({
+        tsc_id:"",
+        topic:"",
+      });
+      setCsvData([]);
+      <Alert severity="success">SuccessFully Generated</Alert>;
     },
   });
 
   const handleGenerate = async () => {
-    // setTopic(generate.topic);
-    setGenerate(true);
-    const formatedData = {
-      tsc_id: topic1[0],
-      t_name: topic1[1],
-    };
-    // console.log("Topic", formatedData);
-    try {
-      // await addTestCategoryTopicMutation.mutateAsync(formatedData);
-
-      console.log("Data submitted successfully", formatedData);
-      handleNextClick();
-    } catch (error) {
-      // The error will be handled by the onError callback in the mutation options
-    }
+    // setButton(false);
+    newRes.mutate(csvData);
+    // const currentData = csvData[currentIndex];
   };
-
-  const currentData = csvData[currentIndex];
-
-  useEffect(() => {
-    console.log("useEffect", input);
-  }, [input]);
-
-  useEffect(() => {
-    // Push the new resData to the existing totalQuestions
-    if (resData.length > 0) {
-      console.log("resDAta");
-      setTotalQuestions((prevTotal) => [...prevTotal, ...resData]);
-      setShouldMoveNext(true);
-    }
-  }, [resData]);
-
-  const initialRender = useRef(true); // Ref to track initial render
-
-  useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false; // Set initial render to false
-      return; // Skip running the effect on initial render
-    }
-    console.log("TOTAL Questions", totalQuestions);
-
-    if (shouldMoveNext) {
-      console.log("should move next");
-
-      handleNextClick();
-      setShouldMoveNext(false); // Reset the flag
-    }
-  }, [totalQuestions, shouldMoveNext]);
 
   const openAi = new OpenAIApi(
     new Configuration({
-      apiKey: "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",
+      apiKey: import.meta.env.VITE_OPENAI_KEY,
     })
   );
 
-  const handleNextClick = () => {
-    // console.log("NEXTT");
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, csvData.length - 1));
-    setResData([]);
-    handleGenerateQuestions();
-  };
+  const newRes = useMutation({
+    mutationFn: async (csvData: CsvItem[]) => {
+      // console.log("object");
+      // console.log("object 2", input);
+      const responses: any[] = [];
 
-  const isLastIndex = currentIndex === csvData.length - 1;
+      for (const item of csvData) {
+        // console.log("loop", item);
 
-  const handleGenerateQuestions = async () => {
-    // let query = csvData.map((item: any) => {
-    //   return `Generate 3 unique multiple-choice questions (MCQs),keep the question sentence same just change the variable like number, name, gender and don't give the questions number after Question, it should be based on ${topic}, with options, correct answers, explanations, the examples provided below:
-
-    //   Question:${item.Question}
-
-    //   Options:
-    //   a. ${item.Option_A},
-    //   b. ${item.Option_B},
-    //   c. ${item.Option_C},
-    //   d. ${item.Option_C}
-
-    //   Answer: ${item.Answer}
-
-    //   Explanation:${
-    //     item.Explanation
-    //       ? item.Explanation
-    //       : "Generate an explanation based questions and correct answer"
-    //   }
-    //   `;
-    // });
-    // console.log("GENERATE1", query);
-
-    setInput(`Generate 2 unique multiple-choice questions (MCQs),keep the question sentence same just change the variable like number, name, gender and don't give the questions number after Question, it should be based on ${topic}, with options, correct answers, explanations, the examples provided below:
-
-    Question:${currentData.Question}
-   
+        const query = `Generate five unique multiple-choice questions (MCQs), keeping the question  sentence the same as the provided example, but changing variables like numbers, names, and genders. Do not include question numbers after 'Question'. An example is provided below with options, correct answer, explanation, and question based on the topic ${
+          topic1[1]
+        }. Also keep the explanation similar:
+          
+    Question:${item.Question}
     Options:
-    a. ${currentData.Option_A},
-    b. ${currentData.Option_B},
-    c. ${currentData.Option_C},
-    d. ${currentData.Option_C}
-    
-    Answer: ${currentData.Answer}
-    
+    a. ${item.Option_A},
+    b. ${item.Option_B},
+    c. ${item.Option_C},
+    d. ${item.Option_D}
+    Answer: ${item.Answer}
     Explanation:${
-      currentData.Explanation
-        ? currentData.Explanation
+      item.Explanation
+        ? item.Explanation
         : "Generate an explanation based questions and correct answer"
     }
-    `);
-    console.log("GENERATE2", input);
-    newRes.mutate();
-  };
+    `;
 
-  const newRes = useMutation({
-    mutationFn: async () => {
-      // console.log("object");
-      const response = await openAi.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: input }],
-      });
+        const response = await openAi.createChatCompletion({
+          model: "gpt-3.5-turbo-16k",
+          messages: [{ role: "user", content: query }],
+        });
 
-      return response;
+        const message = response?.data?.choices[0]?.message?.content;
+        const questions = message?.split("Question:");
+        console.log(message);
+        console.log(response);
+        
+        questions?.map((question: string, index: any) => {
+          if (!question) return;
+          if (index == 0) return;
+          const objects: any = {};
+          const val1 = question?.split("Options:");
+          objects.question = val1?.length != 0 && val1[0];
+          const val2 = val1[1]?.split("Answer:");
+          objects.options = val2?.length != 0 && val2[0];
+          const val3 = val2[1]?.split("Explanation:");
+          objects.answer = val3?.length != 0 && val3[0];
+          objects.explanation = val3?.length != 0 && val3[1];
+
+          objects.options = {
+            a: objects.options.split("a.")[1].split("b.")[0],
+            b: objects.options.split("b.")[1].split("c.")[0],
+            c: objects.options.split("c.")[1].split("d.")[0],
+            d: objects.options.split("d.")[1],
+          };
+
+          responses.push(objects);
+        });
+      }
+
+      return responses;
     },
-    onSuccess: (response) => {
-      const message = response?.data?.choices[0]?.message?.content;
-      console.log("MESSAGE", message);
-
-      message && setResponse(message);
-      const questions = message?.split("Question:");
-
-      const data: {
-        [key: string]: {
-          question: string;
-          options: string[];
-          answer: string;
-          explanation: string;
-        };
-      } = {};
-
-      console.log("Questions", questions);
-      const tempArray: any = [];
-
-      questions?.map((question: string, index: any) => {
-        if (!question) return;
-        if (index == 0) return;
-        const objects: any = {};
-        const val1 = question?.split("Options:");
-        objects.question = val1[0];
-        const val2 = val1[1]?.split("Answer:");
-        objects.options = val2[0];
-        const val3 = val2[1]?.split("Explanation:");
-        objects.answer = val3[0].replace(/\s/g, "");
-        objects.explanation = val3[1];
-
-        objects.options = {
-          a: objects.options.split("a.")[1].split("b.")[0].replace(/\s/g, ""),
-          b: objects.options.split("b.")[1].split("c.")[0].replace(/\s/g, ""),
-          c: objects.options.split("c.")[1].split("d.")[0].replace(/\s/g, ""),
-          d: objects.options.split("d.")[1].replace(/\s/g, ""),
-        };
-
-        tempArray.push(objects);
-      });
-      setResData(tempArray);
-      console.log(tempArray);
-      setInput("");
+    onSuccess: (data) => {
+      console.log("Success Data", data);
+      <Alert severity="success">SuccessFully Generated</Alert>;
+    },
+    onError: () => {
+      <Alert severity="error">Error fetching data:</Alert>;
     },
   });
 
-  if (newRes.isLoading) {
-    return <h1>Loading...</h1>;
-  }
+  console.log(!!newRes.data ||
+    topic1[0] == 2);
+
   return (
     <>
-      {/* {csvData.map(
-          (item: any, index: number) => ( */}
-      {/* // Render the Test component only up to the current index */}
-      {/* // index <= currentIndex && ( */}
-      {csvData.length > 0 ? (
-        <Stack marginY="1rem" direction="row">
-          <BButton2 type="button" func={handleGenerate} name="Generate" />
-          {/* <OButton3
-                  type="submit"
-                  name="Upload"
-                  css={{ width: "360px" }}
-                /> */}
+      {csvData.length > 0 && (
+        <Stack marginY="1rem" direction="row" spacing={2}>
+          {topic1[0] != 2 && !newRes.data && (
+            <BButton2
+              type="button"
+              func={handleGenerate}
+              name={newRes.isLoading ? "Generating..." : "Generate"}
+            />
+          )}
+          {!!newRes.data && (
+            <PdfMaker
+              data={newRes.data}
+              bol={!!newRes.data}
+              topic={topic1[1]}
+            />
+          )}
+          {
+            (!!newRes.data || topic1[0] == 2) && (
+              <BButton2
+                type="button"
+                func={() => addTestCTMu.mutate(newRes.data)}
+                name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
+              />
+            )}
         </Stack>
-      ) : (
-        <></>
       )}
-      {/* <button onClick={handleNextClick} disabled={isLastIndex}> */}
-      {/* Next */}
-      {/* </button> */}
-      {generate ? (
+      {/* { csvData.length - 2 < currentIndex && <PdfMaker data={resData} />} */}
+      {/* {generate ? (
         <Test
           key={currentData.Question}
           item={currentData}
           topic={topic1[1]}
           totalQuestions={totalQuestions}
-          // resData={resData}
-          //   generate={generate}
-        />
-      ) : (
-        <></>
-      )}
-
-      {/* )
-          // )
-        )} */}
+        /> */}
+      {/* ) : ( */}
+      {/* <></> */}
+      {/* )} */}
     </>
   );
 };

@@ -6,7 +6,7 @@ import { ParaText1, ParaText3 } from "../Common/ParaText";
 
 interface Detail {
   title: string;
-  data: string;
+  data: string | number;
 }
 
 interface props {
@@ -16,6 +16,9 @@ interface props {
 }
 
 const ProfileComponent = (props: props) => {
+
+
+  
   return (
     <>
       <Stack direction="row" sx={{ my: "8px", justifyContent: "center" }}>

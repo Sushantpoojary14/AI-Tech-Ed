@@ -30,6 +30,7 @@ interface ContextValue {
   adminLogout: () => void;
   logoutUser: () => void;
   refreshToken: (token: string) => void;
+  updateUser:(data: userData,)=>void;
 }
 
 interface Action {
@@ -48,6 +49,7 @@ const defaultValue: ContextValue = {
   adminLogout: () => {},
   logoutUser: () => {},
   refreshToken: (token: string) => {},
+  updateUser:(data: userData,)=>{}
 };
 
 type State = {
@@ -120,7 +122,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     mutationFn: async () => {
       return await tokenAxios.post("/logout", null);
     },
-    onSuccess: (response) => {
+    onSuccess: () => {
       localStorage.removeItem("token");
       dispatch({ type: "SET_TOKEN", payload: null });
       localStorage.removeItem("user");
@@ -157,9 +159,15 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     dispatch({ type: "SET_USER", payload: data });
     navigate("/user");
     handleClose();
- 
-    // navigate("/");
   };
+
+  const updateUser = (data: userData)=>{
+    console.log('useer');
+    
+    localStorage.setItem("user", JSON.stringify(data));
+    dispatch({ type: "SET_USER", payload: data });
+  }
+
   const refreshToken = (token: string) => {
     console.log(token);
     localStorage.setItem("token", token);
@@ -171,6 +179,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     dispatch({ type: "SET_ADMINTOKEN", payload: token });
     localStorage.setItem("admin", JSON.stringify(data));
     dispatch({ type: "SET_ADMIN", payload: JSON.stringify(data) });
+    
     navigate("/admin");
   };
 
@@ -197,6 +206,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
         Logout,
         refreshToken,
         logoutUser,
+        updateUser
       }}
     >
       {children}

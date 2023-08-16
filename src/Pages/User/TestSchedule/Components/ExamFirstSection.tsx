@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   Divider,
   FormControlLabel,
@@ -12,7 +13,7 @@ import { useEffect, useState } from "react";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import tokenAxios from "../../../../Hooks/TokenAxios";
-import { RestartAlt } from "@mui/icons-material";
+
 type Inputs = {
   A?: string;
   B?: string;
@@ -20,11 +21,7 @@ type Inputs = {
   D?: string;
   Answer: string;
 };
-type mutateType = {
-  id: number;
-  complete_status: number;
-  current_timer: string;
-};
+
 type questionType = {
   id: number;
   q_id: 1;
@@ -52,18 +49,18 @@ interface props {
   data: questionType | null;
   count: number;
   isLoading: boolean;
-  preventCopyPaste: (e: any) => void;
+  preventCopyPaste: (e: Event) => void;
+
 }
 const ExamFirstSection = (props: props) => {
   const {
-    register,
     handleSubmit,
     reset,
     control,
-    formState: { errors },
+
   } = useForm<Inputs>();
 
-  const [question, setQuestion] = useState<any>(null);
+  const [question, setQuestion] = useState<questionType | null>(null);
   const queryClient = useQueryClient();
   useEffect(() => {
     reset({
@@ -72,8 +69,8 @@ const ExamFirstSection = (props: props) => {
     setQuestion(props.data);
   }, [props.data]);
 
-  const updateTStatus = useMutation({
-    mutationFn: async (data: any) => {
+  const updateAstatus = useMutation({
+    mutationFn: async (data: {id:number,answer:string}) => {
       console.log(data);
       return await tokenAxios.post(`/update-test-status/${data.id}`, {
         status_id: 1,
@@ -97,7 +94,7 @@ const ExamFirstSection = (props: props) => {
     }));
 
     console.log(question?.test_answer);
-    updateTStatus.mutate({ id: props.data?.id, answer: data.Answer });
+    props.data && updateAstatus.mutate({ id: props.data?.id, answer: data.Answer });
   };
   return (
     <Card
@@ -126,10 +123,13 @@ const ExamFirstSection = (props: props) => {
                 text={`Question ${props.count + 1}`}
                 css={{ fontWeight: "600" }}
               />
+              <Box sx={{overflow: 'auto', maxHeight:'500px'}}>
               <ParaText4
                 text={question?.questions.question}
                 css={{ fontWeight: "400", maxWidth: "443px" }}
               />
+              </Box>
+            
             </Stack>
             <Divider orientation="vertical" flexItem sx={{}} />
             <Stack

@@ -1,8 +1,6 @@
 import { TableBody, TableCell, TableRow } from "@mui/material";
-import React, { useState } from "react";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import { Link ,useNavigate} from "react-router-dom";
-import { ParaText1 } from "../../../../Components/Common/ParaText";
+import { useNavigate} from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import tokenAxios from "../../../../Hooks/TokenAxios";
 
@@ -42,12 +40,12 @@ const TestPurchasesTable = (props: dataProps) => {
           </TableCell>
         </TableRow>
       ) : (
-        props.data?.map((purchase_item: any, key: number) => {
-          let ps_id:number   = purchase_item.id;
-          let ts_pc = purchase_item.ts_product.get_ts_product_category;
-          let ts_p = purchase_item.ts_product;
-          return ts_pc.map((ts_pc_item: any, innerKey: number) => {
-            let tsc = ts_pc_item.test_series_categories;
+        props.data?.map((purchase_item: any,) => {
+          const ps_id:number   = purchase_item.id;
+          const ts_pc = purchase_item.ts_product.get_ts_product_category;
+          const ts_p = purchase_item.ts_product;
+          return ts_pc.map((ts_pc_item: any) => {
+            const tsc = ts_pc_item.test_series_categories;
             return ts_pc_item.ts_p_c_set.map((set_item: any) => {
               count++;
               return (
@@ -75,7 +73,7 @@ const TestPurchasesTable = (props: dataProps) => {
                       to={`/user/Test-schedule/Test-section/${purchase_item.id}`}
                     > */}
                       <EventAvailableIcon
-                        sx={{ width: "25px", height: "25px", color: "#3A9BDC" }}
+                        sx={{ width: "25px", height: "25px", color: "#3A9BDC",cursor:'pointer' }}
                       onClick={()=>TestMU.mutate({ps_id:ps_id,set_id:set_item.id})}/>
                     {/* </Link> */}
                   </TableCell>

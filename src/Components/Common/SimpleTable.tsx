@@ -1,53 +1,26 @@
 import React, { useMemo } from "react";
-import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
+import { MaterialReactTable } from "material-react-table";
 import { data, type Person } from "./makeData";
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
-export const SimpleTable = () => {
-  const columns = useMemo<MRT_ColumnDef<Person>[]>(
-    //column definitions...
-    () => [
-      {
-        accessorKey: "SrNo",
-        header: "Sr No",
-      },
-      {
-        accessorKey: "packageName",
-        header: "Package Name",
-      },
-      {
-        accessorKey: "totalPurchases",
-        header: "Total Purchases",
-      },
-    ],
-    []
-    //end
-  );
+export const SimpleTable = ({ columns, data }: any) => {
   return (
     <MaterialReactTable
       columns={columns}
-      data={data}
+      data={data ?? []}
       enableColumnActions={false}
       enableColumnFilters={false}
       enablePagination={false}
       enableSorting={false}
       enableBottomToolbar={false}
       enableTopToolbar={false}
-      muiTableBodyRowProps={{ hover: false }}
-      //   muiTableProps={{
-      //     sx: {
-      //       border: "1px solid rgba(81, 81, 81, 1)",
-      //     },
-      //   }}
-      //   muiTableHeadCellProps={{
-      //     sx: {
-      //       border: "1px solid rgba(81, 81, 81, 1)",
-      //     },
-      //   }}
-      //   muiTableBodyCellProps={{
-      //     sx: {
-      //       border: "1px solid rgba(81, 81, 81, 1)",
-      //     },
-      //   }}
+      // state={{ isLoading: true }}
+      // onRowClick={handleRowClick}
+      // muiTableBodyRowProps={{ hover: false }}
+      // enableMultiRowSelection={false} //shows radio buttons instead of checkboxes
+      // enableRowSelection
+      // enableSelectAll={false}
     />
   );
 };
