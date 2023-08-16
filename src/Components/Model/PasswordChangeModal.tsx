@@ -55,9 +55,13 @@ const PasswordChangeModal = () => {
     mutationFn: async (data: para_data) => {
       return await tokenAxios.post("/password-check", data);
     },
-    onSuccess: (response) => {
-      handlePCClose();
-      handlePC2Open();
+    onSuccess: (res) => {
+      console.log(res?.status);
+      if(res?.status===200){
+        handlePCClose();
+        handlePC2Open();
+
+      }
     },
   });
 
@@ -91,6 +95,7 @@ const PasswordChangeModal = () => {
     passwordCheck.mutate(para_data);
     setPasswordData(para_data);
   };
+console.log(passwordCheck?.data?.status);
 
   return (
     <Dialog onClose={handlePCClose} open={openPC}>
@@ -120,7 +125,7 @@ const PasswordChangeModal = () => {
               <Header1 header="CHANGE PASSWORD" />
             </Stack>
 
-            {passwordCheck?.status === "error" && (
+            {passwordCheck?.data?.status !== 200 && (
               <Typography sx={{ color: "red", textAlign: "left", mb: "6px" }}>
                 *Incorrect Current Password
               </Typography>

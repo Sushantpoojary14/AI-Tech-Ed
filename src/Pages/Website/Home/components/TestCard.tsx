@@ -5,7 +5,7 @@ import { Header2 } from "../../../../Components/Common/HeaderText";
 import { ParaText1 } from "../../../../Components/Common/ParaText";
 // import { AppContext } from "../../../../Context/AppContext";
 import { CartContext } from "../../../../Context/CartContext";
-
+import img from "../../../../Assets/images/product.jpg"
 
 interface props {
   data: any;
@@ -16,7 +16,7 @@ const TestCard = (props: props) => {
   const { addToCart } = CartContext();
   // const { user } = AppContext();
   // console.log(props.val?.includes(props.data?.id));
-console.log(import.meta.env.VITE_IMAGE_URL+props.data.p_image);
+
 
   return (
     <Card
@@ -37,7 +37,7 @@ console.log(import.meta.env.VITE_IMAGE_URL+props.data.p_image);
             height: "317px",
             width: { sm: "301px", xs: "301px", md: "331px", lg: "361px" },
           }}
-          image={import.meta.env.VITE_IMAGE_URL+props.data.p_image}
+          image={props.data.p_image  ? import.meta.env.VITE_IMAGE_URL+props.data.p_image : img }
         />
         <CardContent sx={{ py: "0px", px: { lg: 0, md: "27px" } }}>
           <Header2 header={props.data.p_name} />
