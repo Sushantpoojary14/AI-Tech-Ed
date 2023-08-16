@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
@@ -64,7 +64,7 @@ const LineAndBarChart = () => {
   };
 
   return (
-    <div>
+    <>
       <Chart
         options={options}
         series={series}
@@ -72,7 +72,7 @@ const LineAndBarChart = () => {
         // width={300}
         height={300}
       />
-    </div>
+    </>
   );
 };
 

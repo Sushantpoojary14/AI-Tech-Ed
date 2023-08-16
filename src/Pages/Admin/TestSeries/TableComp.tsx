@@ -81,7 +81,6 @@ const TableComp = ({ tabId }: TableCompProps) => {
 
   return (
     <>
-      {tabId}
       {products.isLoading ? (
         <div>Loading....</div>
       ) : products.isSuccess ? (

@@ -476,14 +476,16 @@ const AddTestSeries = () => {
                   defaultValue=""
                   control={control}
                   render={({ field }) => (
-                    <TextField
+                    <input
                       {...field}
-                      fullWidth
+                      type="date"
+                      // fullWidth
                       // label="Product Price"
                       placeholder="Product Release Date"
-                      variant="outlined"
+                      // variant="outlined"
                       required
-                      sx={{ backgroundColor: "white" }}
+                      className="py-2 px-6"
+                      // sx={{ backgroundColor: "white" }}
                     />
                   )}
                 />

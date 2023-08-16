@@ -60,7 +60,7 @@ const Exam_Section = () => {
   //     return false;
   // };
 
-  const preventCopyPaste = (e: Event) => {
+  const preventCopyPaste = (e:  React.ClipboardEvent<HTMLDivElement>) => {
     e.preventDefault();
     alert("Copying and pasting is not allowed!");
   };

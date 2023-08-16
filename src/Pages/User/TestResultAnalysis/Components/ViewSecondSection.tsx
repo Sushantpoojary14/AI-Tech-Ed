@@ -25,7 +25,7 @@ const ViewSecondSection = ({ pieData }: any) => {
           }}
         />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <PieChart pieData={pieData} />
+          {/* <PieChart pieData={pieData} /> */}
         </Box>
       </Card>
 
@@ -48,7 +48,7 @@ const ViewSecondSection = ({ pieData }: any) => {
           }}
         />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <PieChart pieData={pieData} />
+          {/* <PieChart pieData={pieData} /> */}
         </Box>
       </Card>
     </Stack>

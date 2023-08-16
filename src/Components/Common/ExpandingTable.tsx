@@ -10,7 +10,7 @@ export type Person = {
   subRows?: Person[]; //Each person can have sub rows of more people
 };
 
-export const data = [
+const data = [
   {
     id: "Dylan",
     lastName: "Murray",
@@ -69,18 +69,20 @@ const ExpandingTable = () => {
   );
 
   return (
-    <MaterialReactTable
-      columns={columns}
-      enableColumnActions={false}
-      enableColumnFilters={false}
-      enablePagination={false}
-      enableSorting={false}
-      enableBottomToolbar={false}
-      enableTopToolbar={false}
-      data={data}
-      enableExpanding
-      enableExpandAll //default
-    />
+    <div>
+    </div>
+    // <MaterialReactTable
+    //   columns={columns}
+    //   enableColumnActions={false}
+    //   enableColumnFilters={false}
+    //   enablePagination={false}
+    //   enableSorting={false}
+    //   enableBottomToolbar={false}
+    //   enableTopToolbar={false}
+    //   data={data}
+    //   enableExpanding
+    //   enableExpandAll //default
+    // />
   );
 };
 

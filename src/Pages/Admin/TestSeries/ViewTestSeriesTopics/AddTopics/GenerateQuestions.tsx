@@ -149,7 +149,7 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
             (!!newRes.data || topic1[0] == 2) && (
               <BButton2
                 type="button"
-                func={() => addTestCTMu.mutate(newRes.data)}
+                func={() => newRes.data && addTestCTMu.mutate(newRes.data)}
                 name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
               />
             )}

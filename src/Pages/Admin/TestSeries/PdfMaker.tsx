@@ -37,8 +37,7 @@ const styles = {
   header:{
     fontSize: 20,
     marginBottom: 5,
-    color:'green',
-    textAlign:'center'
+    textAlign: 'center' as const
   }
 };
 
@@ -60,7 +59,7 @@ interface props {
 }
 const PdfMaker = (props: props) => {
   return (
-    props.bol && (
+    (
       <PDFDownloadLink
         document={
           <MyDocument data={props.data} bol={props.bol} topic={props.topic} />

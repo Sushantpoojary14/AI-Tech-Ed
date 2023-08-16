@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { ReactElement, ReactNode } from "react";
+import {  ReactNode } from "react";
 
 interface props {
   name?: ReactNode;

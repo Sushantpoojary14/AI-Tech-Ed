@@ -49,7 +49,7 @@ interface props {
   data: questionType | null;
   count: number;
   isLoading: boolean;
-  preventCopyPaste: (e: Event) => void;
+  preventCopyPaste: (e:  React.ClipboardEvent<HTMLDivElement>) => void;
 
 }
 const ExamFirstSection = (props: props) => {
@@ -124,10 +124,10 @@ const ExamFirstSection = (props: props) => {
                 css={{ fontWeight: "600" }}
               />
               <Box sx={{overflow: 'auto', maxHeight:'500px'}}>
-              <ParaText4
+            {  question&&  <ParaText4
                 text={question?.questions.question}
                 css={{ fontWeight: "400", maxWidth: "443px" }}
-              />
+              />}
               </Box>
             
             </Stack>

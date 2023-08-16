@@ -1,6 +1,4 @@
 import Axios from "axios";
-import { AppContext } from "../Context/AppContext";
-import axiosBaseURL from "./BaseUrl";
 
 const adminTokenAxios = Axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,

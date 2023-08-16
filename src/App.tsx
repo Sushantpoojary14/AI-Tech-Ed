@@ -1,10 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
+
 import { Route, Routes } from "react-router-dom";
 import Index from "./Pages/Website/Index";
 import UserIndex from "./Pages/User/UserIndex";
 import AdminIndex from "./Pages/Admin/AdminIndex";
 import { MainCartContext } from "../src/Context/CartContext";
-import Test from "./Test";
 import Test2 from "./Test2";
 import Exam_Section from "./Pages/User/TestSchedule/Exam_Section";
 import TestResult from "./Pages/User/TestSchedule/TestResult";
@@ -13,7 +12,7 @@ import { UserContext } from "./Context/UserContext";
 // import TestResult from "./Pages/";
 import img from "./Assets/images/password_success.jpg";
 function App() {
-  const { handleMenuClose, openMenu, handlePUSuccessClose, openPuSuccess,openPuSuccess2,handlePUSuccessClose2 } =
+  const {  handlePUSuccessClose, openPuSuccess,openPuSuccess2,handlePUSuccessClose2 } =
     UserContext();
   return (
     <>

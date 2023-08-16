@@ -49,9 +49,9 @@ import ReactApexChart from "react-apexcharts";
 // };
 
 // const series = [12, 19, 3];
-
-const PieChart = ({ pieData }: any) => {
-  const [pieData1, setPieData] = useState<any>({
+const PieChart = () => {
+// const PieChart = ({ pieData }: unknown) => {
+  const [pieData1, setPieData] = useState< any>({
     series: [12, 19, 3],
     options: {
       chart: {

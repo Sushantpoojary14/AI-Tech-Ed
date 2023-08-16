@@ -11,10 +11,12 @@ export const SimpleTable = ({ columns, data }: any) => {
       data={data ?? []}
       enableColumnActions={false}
       enableColumnFilters={false}
-      enablePagination={false}
+      // enablePagination={true}
       enableSorting={false}
-      enableBottomToolbar={false}
+      // enableBottomToolbar={false}
       enableTopToolbar={false}
+      enableRowNumbers
+      rowNumberMode="static"
       // state={{ isLoading: true }}
       // onRowClick={handleRowClick}
       // muiTableBodyRowProps={{ hover: false }}
