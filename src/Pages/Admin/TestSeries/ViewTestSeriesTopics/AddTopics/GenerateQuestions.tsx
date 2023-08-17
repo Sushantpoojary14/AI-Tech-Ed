@@ -31,12 +31,14 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
       console.error("Error creating user:", error.response?.data);
     },
     onSuccess: (res: any) => {
+      console.log(res);
+      
       // navigate(`/admin/test-series/view-test-series-topics`);
       reset({
         tsc_id:"",
         topic:"",
       });
-      setCsvData([]);
+      // setCsvData([]);
       <Alert severity="success">SuccessFully Generated</Alert>;
     },
   });
@@ -148,7 +150,7 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
             (!!newRes.data || topic1[0] == 2) && (
               <BButton2
                 type="button"
-                func={() => newRes.data && addTestCTMu.mutate(newRes.data)}
+                func={() => newRes.data ? addTestCTMu.mutate(newRes.data) : addTestCTMu.mutate(csvData) }
                 name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
               />
             )}
