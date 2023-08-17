@@ -12,10 +12,31 @@ import {
 } from "@mui/material";
 
 import { ParaText3 } from "../../../../Components/Common/ParaText";
-import { Category } from "@mui/icons-material";
+import { QueryClient } from "@tanstack/react-query";
 
-const SectionTwo = ({ sets }: any) => {
+const SectionTwo = ({ sets, updateSetStatus }: any) => {
   console.log("SETS", sets);
+
+  const queryClient = new QueryClient();
+
+  const handleSwitchToggle = (setId, currentStatus) => {
+    const newStatus = !currentStatus ? 1 : 0; // Toggle the status
+
+    console.log("handleSwitchToggle", setId, currentStatus, newStatus);
+    // Call the mutation function
+    updateSetStatus.mutate({ setId, newStatus });
+
+    // const updatedData = queryClient
+    //   .getQueryData(["ViewProductDetails"])
+    //   .map((category) => ({
+    //     ...category,
+    //     sets: category.sets.map((set) =>
+    //       set.id === setId ? { ...set, status: newStatus } : set
+    //     ),
+    //   }));
+
+    // queryClient.setQueryData(["ViewProductDetails"], updatedData);
+  };
 
   return (
     <Card
@@ -40,13 +61,16 @@ const SectionTwo = ({ sets }: any) => {
       <Box width={"full"}>
         <Grid container spacing={2}>
           {sets.map((set: any) => (
-            <Grid item xs={12} md={12}>
+            <Grid key={set.id} item xs={12} md={12}>
               <Typography component={"span"}>
                 Category - {set.tsc_type}
               </Typography>
               <List>
                 {set.sets.map((item: any) => (
-                  <ListItem sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <ListItem
+                    key={item.id}
+                    sx={{ borderBottom: 1, borderColor: "divider" }}
+                  >
                     <ListItemText
                       primary={`Set - ${item.set_id}`}
                       secondary={`Topics - ${item.topics
@@ -54,7 +78,12 @@ const SectionTwo = ({ sets }: any) => {
                         .join(", ")}`}
                     />
                     <ListItemSecondaryAction>
-                      <Switch />
+                      <Switch
+                        checked={item.status === 1} // Set the initial state based on API response
+                        onChange={() =>
+                          handleSwitchToggle(item.id, item.status)
+                        } // Attach the event handler
+                      />
                     </ListItemSecondaryAction>
                   </ListItem>
                 ))}
