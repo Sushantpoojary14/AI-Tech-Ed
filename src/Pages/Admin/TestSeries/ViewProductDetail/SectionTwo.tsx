@@ -19,7 +19,7 @@ const SectionTwo = ({ sets, updateSetStatus }: any) => {
 
   const queryClient = new QueryClient();
 
-  const handleSwitchToggle = (setId, currentStatus) => {
+  const handleSwitchToggle = (setId:number | string, currentStatus:number | string) => {
     const newStatus = !currentStatus ? 1 : 0; // Toggle the status
 
     console.log("handleSwitchToggle", setId, currentStatus, newStatus);
