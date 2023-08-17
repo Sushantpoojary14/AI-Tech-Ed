@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../../Context/UserContext";
@@ -19,6 +19,7 @@ import { OButton } from "../../../../Components/Common/Button";
 import { useState } from "react";
 
 import Grid from "@mui/material/Unstable_Grid2";
+import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 
 interface Detail {
   title: string;
@@ -29,9 +30,30 @@ const SectionOne = ({ product }: any) => {
 
   const { handlePEOpen, dataSubmit } = UserContext();
 
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState<boolean>(product?.status === 1);
+
+  const productStatus = useMutation({
+    mutationFn: async (checked: boolean) => {
+      const newStatusValue = checked ? 1 : 0;
+      console.log("value", newStatusValue);
+
+      return await adminTokenAxios.post(
+        `/admin/update-product-status/${product.id}`,
+        { status: newStatusValue }
+      );
+    },
+    onError: (error: any) => {
+      console.error("Error creating user:", error.response?.data);
+    },
+    onSuccess: (res: any) => {
+      console.log("Mutation Reponse", res?.data);
+      // setChecked();
+    },
+  });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newSwitchStatus = event.target.checked;
+    productStatus.mutate(newSwitchStatus);
     setChecked(event.target.checked);
   };
 

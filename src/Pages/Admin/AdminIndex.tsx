@@ -97,7 +97,7 @@ const AdminIndex = () => {
             func={handleSubmit}
           />
 
-          <PasswordChangeModal />
+          {/* <PasswordChangeModal /> */}
 
           {/* <ProfileEditModal /> */}
 
