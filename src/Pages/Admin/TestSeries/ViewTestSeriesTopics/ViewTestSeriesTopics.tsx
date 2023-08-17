@@ -7,6 +7,7 @@ import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import { useQuery } from "@tanstack/react-query";
 
 import { Link } from "react-router-dom";
+import TSTComp from "../Components/TSTComp";
 
 const ViewTestSeriesTopics = () => {
   const [value, setValue] = React.useState("1");
@@ -85,9 +86,14 @@ const ViewTestSeriesTopics = () => {
             <Tab label="OTT" value="2" /> */}
           </TabList>
         </Box>
-        <TabPanel value="1">hello</TabPanel>
-        <TabPanel value="2">hello2</TabPanel>
-        <TabPanel value="3">hello3</TabPanel>
+        {testSeries?.data?.tsc.map((item: any) => (
+          <TabPanel value={JSON.stringify(item.id)} key={item.id}>
+            {/* Render dynamic content based on the tab value */}
+            {/* For example, you can fetch content related to this tab */}
+            {/* {getContentForTab(item.id)} */}
+            <TSTComp tabId={item.id} />
+          </TabPanel>
+        ))}
       </TabContext>
     </Container>
   );
