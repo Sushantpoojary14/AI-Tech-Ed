@@ -5,9 +5,10 @@ import SectionOne from "./SectionOne";
 import ViewFirstSection from "../../../User/TestResultAnalysis/Components/ViewFirstSection";
 import SectionTwo from "./SectionTwo";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const ViewProductDetail = () => {
+  const queryClient = useQueryClient();
   const { productdetails } = useParams();
 
   const testSeries = useQuery({
@@ -26,7 +27,7 @@ const ViewProductDetail = () => {
     },
   });
 
-  const updateSetStatus = useMutation({
+  const updateSetStatusMutation = useMutation({
     mutationFn: async ({ setId, newStatus }: any) => {
       console.log("mutation data", setId, newStatus);
       return await adminTokenAxios.post(`/admin/update-set-status/${setId}`, {
@@ -36,11 +37,40 @@ const ViewProductDetail = () => {
     onError: (error: any) => {
       console.error("Error creating user:", error.response?.data);
     },
-    onSuccess: (res: any) => {
-      console.log("Mutation Reponse", res?.data);
-      // setChecked();
-    },
+    // onSuccess: (res: any) => {
+    //   console.log("Mutation Reponse", res?.data);
+    //   // setChecked();
+    // },
   });
+
+  const handleSwitchToggle = (
+    setId: number | string,
+    currentStatus: number | string
+  ) => {
+    const newStatus = currentStatus === 1 ? 0 : 1; // Toggle the status locally
+
+    // Call the mutation function to update the cache
+    updateSetStatusMutation.mutate({ setId, newStatus });
+
+    // Update the cache directly
+    const updatedData: any = queryClient.getQueryData([
+      "ViewProductDetails",
+      productdetails,
+    ]);
+
+    console.log("Cached data", updatedData);
+    updatedData.categories.forEach((category: any) => {
+      category.sets.forEach((set: any) => {
+        if (set.id === setId) {
+          set.status = newStatus; // Update the status
+        }
+      });
+    });
+    queryClient.setQueryData(
+      ["ViewProductDetails", productdetails],
+      updatedData
+    );
+  };
 
   if (testSeries.isLoading) {
     return <div>Loading...</div>;
@@ -59,7 +89,7 @@ const ViewProductDetail = () => {
         {/* <Stack direction="column" spacing={3} useFlexGap flexWrap="wrap"> */}
         <SectionTwo
           sets={testSeries?.data?.categories}
-          updateSetStatus={updateSetStatus}
+          onSwitchToggle={handleSwitchToggle}
         />
         {/* </Stack> */}
       </Stack>

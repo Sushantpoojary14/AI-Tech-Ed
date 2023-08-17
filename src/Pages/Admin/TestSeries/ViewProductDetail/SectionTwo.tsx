@@ -12,31 +12,9 @@ import {
 } from "@mui/material";
 
 import { ParaText3 } from "../../../../Components/Common/ParaText";
-import { QueryClient } from "@tanstack/react-query";
 
-const SectionTwo = ({ sets, updateSetStatus }: any) => {
+const SectionTwo = ({ sets, onSwitchToggle }: any) => {
   console.log("SETS", sets);
-
-  const queryClient = new QueryClient();
-
-  const handleSwitchToggle = (setId:number | string, currentStatus:number | string) => {
-    const newStatus = !currentStatus ? 1 : 0; // Toggle the status
-
-    console.log("handleSwitchToggle", setId, currentStatus, newStatus);
-    // Call the mutation function
-    updateSetStatus.mutate({ setId, newStatus });
-
-    // const updatedData = queryClient
-    //   .getQueryData(["ViewProductDetails"])
-    //   .map((category) => ({
-    //     ...category,
-    //     sets: category.sets.map((set) =>
-    //       set.id === setId ? { ...set, status: newStatus } : set
-    //     ),
-    //   }));
-
-    // queryClient.setQueryData(["ViewProductDetails"], updatedData);
-  };
 
   return (
     <Card
@@ -80,9 +58,7 @@ const SectionTwo = ({ sets, updateSetStatus }: any) => {
                     <ListItemSecondaryAction>
                       <Switch
                         checked={item.status === 1} // Set the initial state based on API response
-                        onChange={() =>
-                          handleSwitchToggle(item.id, item.status)
-                        } // Attach the event handler
+                        onChange={() => onSwitchToggle(item.id, item.status)} // Attach the event handler
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
