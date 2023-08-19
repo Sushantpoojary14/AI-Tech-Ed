@@ -1,5 +1,13 @@
-import { Box, Checkbox, FormControlLabel, Typography } from "@mui/material";
-import {Input} from "../../../Components/Common/Input";
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  InputAdornment,
+  TextField,
+  Typography,
+  outlinedInputClasses,
+} from "@mui/material";
+import { Input } from "../../../Components/Common/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { OButton2 } from "../../../Components/Common/Button";
 import { useMutation } from "@tanstack/react-query";
@@ -7,6 +15,8 @@ import axiosBaseURL from "../../../Hooks/BaseUrl";
 import { AppContext } from "../../../Context/AppContext";
 import { AxiosError } from "axios";
 import { CartContext } from "../../../Context/CartContext";
+import LoadingBar from "../../../Components/Headers/LoadingBar";
+import { ParaText1 } from "../../../Components/Common/ParaText";
 
 type Inputs = {
   email: string;
@@ -18,7 +28,7 @@ type Inputs = {
 
 const Register = () => {
   const { login } = AppContext();
-  const {addToCartFL} = CartContext();
+  const { addToCartFL } = CartContext();
   const {
     register,
     handleSubmit,
@@ -74,13 +84,47 @@ const Register = () => {
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input label="Email" type="email" reg={register("email")} />
-        <Input
+        {/* <Input
           label="Phone Number"
-        
+         InputProps={InputProps={
+            startAdornment: <InputAdornment position="start">kg</InputAdornment>,
+          }}
           type="tel"
-          reg={register("phone", { minLength: 10, maxLength: 10 })}
+          reg={register("phone", { maxLength: 10 })}
           css={{ my: "30px" }}
+        /> */}
+        <Box sx={{my:4}}>
+        <ParaText1 text="Phone Number" css={{ textAlign: "left" }} />
+         <TextField
+         type="tel"
+         required={true}
+          InputLabelProps={{
+            sx: {
+              color: "#000000",
+              fontWeight: "500",
+            },
+          }}
+          sx={{
+            width: "100%",
+            height: "36px",
+            "& .MuiOutlinedInput-root": {
+              backgroundColor: "#FFFFFF",
+              color: "#000000",
+              [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+                borderColor: "#FA8128",
+              },
+              [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+                border: "1px solid #FA8128",
+              },
+            },
+          }}
+         {...register("phone", { maxLength: 10 })}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">+61</InputAdornment>,
+          }}
         />
+        </Box>
+        
         {errors.phone && (
           <Typography sx={{ mt: 3, p: 0, color: "red" }}>
             *It should contain 10 digits
@@ -88,7 +132,6 @@ const Register = () => {
         )}
         <Input
           label="Password"
-        
           type="password"
           reg={register("password", { minLength: 8, maxLength: 16 })}
           css={{ my: "30px" }}
@@ -107,14 +150,12 @@ const Register = () => {
         >
           <Input
             label="First Name"
-           
             type="text"
             reg={register("fname")}
             css={{ pr: { lg: "10px", md: "10px", sm: "0", xs: "0" } }}
           />
           <Input
             label="Last Name"
-            
             type="text"
             reg={register("lname")}
             css={{
@@ -128,11 +169,22 @@ const Register = () => {
           label="By signing up you agree to our terms and conditions."
           sx={{ fontSize: "14px" }}
         />
-        <OButton2
-          name="Login"
-          css={{ my: "20px", width: "100%" }}
-          type={"submit"}
-        />
+        {RegisterMU.isLoading ? (
+          <Box
+            sx={{
+              height: "60px",
+              width: "80%",
+            }}
+          >
+            <LoadingBar />
+          </Box>
+        ) : (
+          <OButton2
+            name="Login"
+            css={{ my: "30px", width: "100%" }}
+            type="submit"
+          />
+        )}
       </form>
     </Box>
   );

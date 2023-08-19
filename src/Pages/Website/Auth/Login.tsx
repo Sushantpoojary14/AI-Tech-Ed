@@ -1,14 +1,14 @@
-import { Box, Typography,Alert } from "@mui/material";
-import {Input,InputPassword }from "../../../Components/Common/Input";
+import { Box, Typography, Alert, InputAdornment } from "@mui/material";
+import { Input, InputPassword } from "../../../Components/Common/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { OButton2 } from "../../../Components/Common/Button";
+import { LoadingButton, OButton2 } from "../../../Components/Common/Button";
 import { useMutation } from "@tanstack/react-query";
 import axiosBaseURL from "../../../Hooks/BaseUrl";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { AppContext } from "../../../Context/AppContext";
 
 import { CartContext } from "../../../Context/CartContext";
-
+// import { LoadingButton } from "@mui/lab";
 
 type Inputs = {
   email: string;
@@ -20,18 +20,13 @@ type Inputs = {
 //   email: string;
 // };
 const Login = () => {
-  const { login} = AppContext();
-  const {addToCartFL} = CartContext();
-  const {
-    register,
-    handleSubmit,
-  
-  } = useForm<Inputs>();
-  
-  const LoginMU = useMutation({
-    mutationFn: async(data: Inputs) => {
-      return await axiosBaseURL.post("/login", data);
+  const { login } = AppContext();
+  const { addToCartFL } = CartContext();
+  const { register, handleSubmit } = useForm<Inputs>();
 
+  const LoginMU = useMutation({
+    mutationFn: async (data: Inputs) => {
+      return await axiosBaseURL.post("/login", data);
     },
     onSuccess: (response) => {
       const user = response.data?.user;
@@ -39,19 +34,18 @@ const Login = () => {
 
       if (user && accessToken) {
         login(user, accessToken);
-         addToCartFL(user.id);
+        addToCartFL(user.id);
       }
-      <Alert severity="success">SuccessFully Logged</Alert>
-    }
+      <Alert severity="success">SuccessFully Logged</Alert>;
+    },
   });
 
-  if (LoginMU.isLoading) {
-    return <LoadingBar />;
-  }
+  // if (LoginMU.isLoading) {
+  //   return <LoadingBar />;
+  // }
 
   const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
-     LoginMU.mutate(para_data);
- 
+    LoginMU.mutate(para_data);
   };
 
   return (
@@ -72,7 +66,6 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label="Email"
-
           type="email"
           reg={register("email")}
           css={{ my: "20px" }}
@@ -85,11 +78,22 @@ const Login = () => {
         <Typography sx={{ color: "#FA8128", textAlign: "right" }}>
           Forgot Password?
         </Typography>
-        <OButton2
-          name="Login"
-          css={{ my: "30px", width: "100%" }}
-          type="submit"
-        />
+        {LoginMU.isLoading ? (
+          <Box
+            sx={{
+              height: "60px",
+              width: "80%",
+            }}
+          >
+            <LoadingBar />
+          </Box>
+        ) : (
+          <OButton2
+            name="Login"
+            css={{ my: "30px", width: "100%" }}
+            type="submit"
+          />
+        )}
       </form>
     </Box>
   );

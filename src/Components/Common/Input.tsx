@@ -17,7 +17,7 @@ const Input = (props: props) => {
     <Box sx={{ ...props.css }}>
       <ParaText1 text={props.label} css={{ textAlign: "left" }} />
       <TextField
-      
+ 
         type={props.type}
         required={true}
         defaultValue={props.defaultVal}

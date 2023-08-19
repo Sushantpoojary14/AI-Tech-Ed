@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {  ReactNode } from "react";
+import LoadingBar from "../Headers/LoadingBar";
 
 interface props {
   name?: ReactNode;
@@ -150,7 +151,7 @@ const OButton2 = (props: props) => {
       disableElevation
       onClick={props.func}
     >
-      {props.name}{" "}
+      {props.name}
     </Button>
   );
 };
@@ -205,7 +206,34 @@ const OButton3 = (props: props) => {
     </Button>
   );
 };
-
+const LoadingButton = (props: props) => {
+  return (
+    // <LoadingButton sx={{
+    //   ...props.css,
+    //   borderRadius: "3px",
+    //   height: "60px",
+    //   fontSize: "16px",
+    //   fontWeight: 600,
+    //   border: "1px solid #F0F0F0",
+    // }}/>
+    <Button
+      variant="outlined"
+      sx={{
+        ...props.css,
+        borderRadius: "3px",
+        backgroundColor: "#FFFFFF",
+        height: "60px",
+        fontSize: "16px",
+        fontWeight: 600,
+        border: "1px solid #F0F0F0",
+      }}
+      disableElevation
+      startIcon={props.children}
+    >
+      <LoadingBar />
+    </Button>
+  );
+};
 const OutlineButton = ({ name, func }: props) => {
   return (
     <Button size="small" variant="outlined" onClick={func}>
@@ -214,6 +242,7 @@ const OutlineButton = ({ name, func }: props) => {
   );
 };
 export {
+  LoadingButton,
   WButton,
   OButton,
   BButton,

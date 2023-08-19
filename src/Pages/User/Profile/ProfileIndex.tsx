@@ -23,7 +23,7 @@ const ProfileIndex = () => {
     { title: "User id", data: data?.data.id },
     { title: "Birth date", data: data?.data.DOB ? user?.DOB : "" },
     { title: "Email", data: data?.data.email },
-    { title: "Phone number", data: data?.data.phone },
+    { title: "Phone number", data: `+61 ${data?.data.phone}` },
   ];
   if(isLoading){
     return <LoadingBar/>
