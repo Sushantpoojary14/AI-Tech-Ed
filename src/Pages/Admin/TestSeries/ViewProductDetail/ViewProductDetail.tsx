@@ -1,5 +1,5 @@
-import { Container, Stack } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Box, Button, Container, Stack } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 import SectionOne from "./SectionOne";
 
 import ViewFirstSection from "../../../User/TestResultAnalysis/Components/ViewFirstSection";
@@ -7,9 +7,15 @@ import SectionTwo from "./SectionTwo";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+
+import { Header1 } from "../../../../Components/Common/HeaderText";
+
 const ViewProductDetail = () => {
   const queryClient = useQueryClient();
   const { productdetails } = useParams();
+  const navigate = useNavigate();
 
   const testSeries = useQuery({
     queryKey: ["ViewProductDetails", productdetails],
@@ -78,12 +84,47 @@ const ViewProductDetail = () => {
 
   return (
     <Container maxWidth="lg">
+      <Stack marginTop={2} direction="row">
+        <Button
+          onClick={() => navigate(-1)}
+          size="small"
+          variant="contained"
+          color="primary"
+          sx={{ paddingRight: "1rem" }}
+        >
+          <ArrowBackIosNewRoundedIcon />
+          Back
+        </Button>
+
+        <Stack
+          direction="row"
+          sx={{
+            // my: "18px",
+            justifyContent: "center",
+            mx: "auto",
+            pr: { lg: "100px", xs: "0px", sm: "100px", md: "100px" },
+          }}
+        >
+          <AssignmentOutlinedIcon
+            sx={{
+              height: "28px",
+              width: "28px",
+              color: "#FA8128",
+              mx: "8px",
+              my: "auto",
+            }}
+          />
+          <Header1 header="Package Detail" />
+        </Stack>
+      </Stack>
       <Stack
         mt={2}
         // direction="row"
         spacing={2}
         // flexWrap="wrap"
         // sx={{ width: "100%" }}
+
+        alignItems={"center"}
       >
         <SectionOne product={testSeries?.data} />
         {/* <Stack direction="column" spacing={3} useFlexGap flexWrap="wrap"> */}

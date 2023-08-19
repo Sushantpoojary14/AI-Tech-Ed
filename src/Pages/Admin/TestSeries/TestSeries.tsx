@@ -66,15 +66,15 @@ const TestSeries = () => {
         paddingY={2}
       >
         <Box>
-          <Header1 header="Test Series" />
+          <Header1 header="Test Packages" />
         </Box>
 
         <Stack direction="row" spacing={1}>
-          <Link to="view-test-series-topics">
+          {/* <Link to="view-test-series-topics">
             <OButton name="View Topics" />
-          </Link>
-          <Link to="add-test-series">
-            <OButton name="Add Series" />
+          </Link> */}
+          <Link to="add-test-packages">
+            <OButton name="Add Packages" />
           </Link>
         </Stack>
       </Stack>

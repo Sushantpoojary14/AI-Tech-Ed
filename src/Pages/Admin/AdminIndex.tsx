@@ -25,7 +25,11 @@ import TestResult from "./TestResult/TestResult";
 import TestAnswered from "./TestAnswered/TestAnswered";
 import TestSeries from "./TestSeries/TestSeries";
 import AddTestSeries from "./TestSeries/AddTestSeries/AddTestSeries";
-import TestSeriesIndex from "./TestSeries/TestSeriesIndex";
+
+import ViewTestSeriesTopics from "./TestSeries/ViewTestSeriesTopics/ViewTestSeriesTopics";
+import AddTopics from "./TestSeries/ViewTestSeriesTopics/AddTopics/AddTopics";
+import ViewProductDetail from "./TestSeries/ViewProductDetail/ViewProductDetail";
+import ViewTopicDetail from "./TestSeries/ViewTestSeriesTopics/TopicView/ViewProductDetail/ViewTopicDetail";
 
 const AdminIndex = () => {
   const { admin, adminLogout } = AppContext();
@@ -175,7 +179,27 @@ const AdminIndex = () => {
                 element={<TestResult />}
               />
 
-              <Route path="/test-series/*" element={<TestSeriesIndex />} />
+              {/* <Route path="/test-series/*" element={<TestSeriesIndex />} /> */}
+
+              {/* Test Package Routes */}
+              <Route path="/test-packages" element={<TestSeries />} />
+              <Route
+                path="/test-packages/add-test-packages"
+                element={<AddTestSeries />}
+              />
+
+              <Route
+                path="/test-packages/package-details/:productdetails"
+                element={<ViewProductDetail />}
+              />
+
+              {/* view topic routes */}
+              <Route path="/view-topics" element={<ViewTestSeriesTopics />} />
+              <Route path="/view-topics/add-topics" element={<AddTopics />} />
+              <Route
+                path="/view-topics/view-topic-questions/:topicId"
+                element={<ViewTopicDetail />}
+              />
 
               <Route path="*" element={<ErrorPage />} />
             </Routes>

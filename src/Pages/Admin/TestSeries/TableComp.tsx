@@ -69,7 +69,7 @@ const TableComp = ({ tabId }: TableCompProps) => {
         accessorKey: "id",
         header: "",
         Cell: ({ cell }) => (
-          <Link to={`view-product-detail/${cell.getValue<string>()}`}>
+          <Link to={`package-details/${cell.getValue<string>()}`}>
             <Button variant="outlined">View</Button>
           </Link>
         ),

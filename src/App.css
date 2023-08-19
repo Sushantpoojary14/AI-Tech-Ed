@@ -1,10 +1,8 @@
-*{
-  font-family: 'Roboto';
-
+* {
+  font-family: "Roboto";
 }
 body {
-  overflow-y: scroll; 
- 
+  overflow-y: scroll;
 }
 body::-webkit-scrollbar {
   display: none;
@@ -14,6 +12,6 @@ html {
 }
 /* Hide scrollbar for IE, Edge and Firefox */
 body {
--ms-overflow-style: none;  /* IE and Edge */
-scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

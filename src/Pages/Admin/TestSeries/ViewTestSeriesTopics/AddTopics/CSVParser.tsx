@@ -13,6 +13,9 @@ const styles = {
     width: "20%",
     height: "3rem",
     background: "lightblue",
+    fontSize: "1.3rem",
+    fontWeight: "bold",
+    fontFamily: "sans-serif",
   } as CSSProperties,
   acceptedFile: {
     // border: "1px solid #ccc",
@@ -26,6 +29,9 @@ const styles = {
     padding: "0 20px",
     color: "white",
     backgroundColor: "#E72926",
+    fontSize: "1.3rem",
+    fontWeight: "bold",
+    fontFamily: "sans-serif",
   } as CSSProperties,
   progressBarBackgroundColor: {
     backgroundColor: "lightblue",

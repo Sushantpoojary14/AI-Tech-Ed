@@ -33,7 +33,7 @@ const pCss = {
 
 const pages: Type[] = [
   {
-    name: "Dashboard",
+    name: "Dashboard ", //don't remove space at the end
     url: "/admin",
     icon: <DashboardOutlinedIcon sx={pCss} />,
   },
@@ -43,19 +43,19 @@ const pages: Type[] = [
     icon: <PeopleAltOutlinedIcon sx={pCss} />,
   },
   {
-    name: "Test Series",
-    url: "/admin/test-series",
+    name: "Test Packages",
+    url: "/admin/test-packages",
+    icon: <EventRepeatOutlinedIcon sx={pCss} />,
+  },
+  {
+    name: "View Topics",
+    url: "/admin/view-topics",
     icon: <EventRepeatOutlinedIcon sx={pCss} />,
   },
   {
     name: "Profile",
     url: "/admin/profile",
     icon: <AccountBoxOutlinedIcon sx={pCss} />,
-  },
-  {
-    name: "Logout",
-    url: "/adminlogin",
-    icon: <ExitToAppOutlinedIcon sx={pCss} />,
   },
 ];
 
@@ -68,11 +68,9 @@ const AdminNavbar = () => {
     setAnchorElNav(event.currentTarget);
   };
 
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
 
   return (
     <AppBar
@@ -142,7 +140,7 @@ const AdminNavbar = () => {
             func={handleOpenUserMenu}
           />
         </Stack>
-        <MenuModel  />
+        <MenuModel />
       </Box>
     </AppBar>
   );

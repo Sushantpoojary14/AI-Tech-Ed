@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   Divider,
   Grid,
@@ -7,14 +6,62 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
+  Stack,
   Switch,
-  Typography,
 } from "@mui/material";
 
-import { ParaText3 } from "../../../../Components/Common/ParaText";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
+import { ParaText1, ParaText3 } from "../../../../Components/Common/ParaText";
+import { useState } from "react";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { Link } from "react-router-dom";
+import { inherits } from "util";
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <Box
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </Box>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 const SectionTwo = ({ sets, onSwitchToggle }: any) => {
   console.log("SETS", sets);
+
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+  const handleClick = (id: number) => {
+    console.log(id);
+  };
 
   return (
     <Card
@@ -37,7 +84,7 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
         }}
       />
       <Box width={"full"}>
-        <Grid container spacing={2}>
+        {/* <Grid container spacing={2}>
           {sets.map((set: any) => (
             <Grid key={set.id} item xs={12} md={12}>
               <Typography component={"span"}>
@@ -66,7 +113,76 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
               </List>
             </Grid>
           ))}
-        </Grid>
+        </Grid> */}
+
+        <Box sx={{ width: "100%" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
+          >
+            {sets.map((category: any, index: number) => (
+              <Tab key={index} label={category.tsc_type} />
+            ))}
+          </Tabs>
+          {sets.map((category: any, index: number) => (
+            <CustomTabPanel key={index} value={value} index={index}>
+              <Stack spacing={2}>
+                {category.sets.map((set: any) => (
+                  <Box
+                    paddingBottom={1}
+                    borderBottom={1}
+                    borderColor={"gray"}
+                    key={set.id}
+                  >
+                    <Stack direction={"row"} justifyContent={"space-between"}>
+                      <Typography variant="h6" fontWeight={"bold"}>
+                        Set - {set.set_id}
+                      </Typography>
+                      <Switch
+                        checked={set.status === 1} // Set the initial state based on API response
+                        onChange={() => onSwitchToggle(set.id, set.status)} // Attach the event handler
+                      />
+                    </Stack>
+
+                    <Typography
+                      marginBottom={1}
+                      variant="subtitle2"
+                      color={"gray"}
+                    >
+                      Topics
+                    </Typography>
+                    {set.topics.map((topic: any) => (
+                      <Link
+                        key={topic.id}
+                        to={`/admin/view-topics/view-topic-questions/${topic.id}`}
+                      >
+                        <Typography
+                          sx={{
+                            padding: "0 1rem",
+                            paddingBottom: "4px",
+                            "&:hover": {
+                              borderLeft: "4px solid orange",
+                              fontWeight: 600,
+                            },
+                          }}
+                        >
+                          {topic.t_name}
+                        </Typography>
+                      </Link>
+
+                      // <div key={topic.id}>{topic.t_name}</div>
+                    ))}
+                  </Box>
+                ))}
+              </Stack>
+            </CustomTabPanel>
+          ))}
+        </Box>
       </Box>
     </Card>
   );
