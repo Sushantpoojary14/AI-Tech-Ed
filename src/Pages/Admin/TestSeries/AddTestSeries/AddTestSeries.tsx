@@ -9,22 +9,27 @@ import {
   FormLabel,
   Grid,
   Input,
+  InputLabel,
+  MenuItem,
   Radio,
   RadioGroup,
   Stack,
   TextField,
 } from "@mui/material";
+import Select from "@mui/material/Select";
 import { useState } from "react";
 import { OButton3 } from "../../../../Components/Common/Button";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import Select from "react-select";
+
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import { useNavigate } from "react-router-dom";
 import UploadModal from "../../../../Components/Model/UploadModal";
 import AddTestSetModal from "../../../../Components/Model/AddTestSetModal";
+import { Header1 } from "../../../../Components/Common/HeaderText";
 
 interface Categories {
   id: any;
@@ -50,8 +55,8 @@ type FormValues = {
   p_price: string;
   p_image: any;
   test_month_limit: string;
-  total_question: string;
-  duration: string;
+  // total_question: string;
+  // duration: string;
   release_date: string;
 };
 
@@ -167,18 +172,13 @@ const AddTestSeries = () => {
         sx={{
           width: "96%",
           my: 1,
-          // mx: "auto",
-          // py: 2,
-          // minHeight: "100vh",
-          // display: "flex",
-          // flexDirection: "column",
-          // border: 1,
-          height: "85vh",
+
+          // height: "85vh",
           backgroundColor: "#F5F5F5",
         }}
         disableGutters
       >
-        <Box>
+        <Stack direction="row">
           <Button
             onClick={() => navigate(-1)}
             size="small"
@@ -189,9 +189,31 @@ const AddTestSeries = () => {
             <ArrowBackIosNewRoundedIcon />
             Back
           </Button>
-        </Box>
+
+          <Stack
+            direction="row"
+            sx={{
+              // my: "18px",
+              justifyContent: "center",
+              mx: "auto",
+              pr: { lg: "100px", xs: "0px", sm: "100px", md: "100px" },
+            }}
+          >
+            <AddBoxOutlinedIcon
+              sx={{
+                height: "28px",
+                width: "28px",
+                color: "#FA8128",
+                mx: "8px",
+                my: "auto",
+              }}
+            />
+            <Header1 header="Add Package" />
+          </Stack>
+        </Stack>
+
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack marginX="auto" spacing={1} sx={{ width: 1 / 2 }}>
+          <Stack marginX="auto" mt={4} spacing={1} sx={{ width: 1 / 2 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <FormControl>
@@ -221,35 +243,6 @@ const AddTestSeries = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                {/* <FormControl>
-                  <FormLabel id="select-topic">Select Topic</FormLabel>
-                  <Controller
-                    name="tsc_id"
-                    control={control}
-                    defaultValue="" // Set default value as needed
-                    rules={{ required: "This field is required" }} // Add validation rules as needed
-                    render={({ field }) => (
-                      <RadioGroup
-                        row
-                        aria-labelledby="select-topic"
-                        {...field}
-                        // onChange={handleRadioChange}
-                      >
-                        {testSeries?.data?.tsc.map((item: any) => (
-                          <FormControlLabel
-                            onClick={(e: any) =>
-                              mutation.mutate(e.target.value)
-                            }
-                            key={item.tsc_type}
-                            value={item.id}
-                            control={<Radio />}
-                            label={item.tsc_type}
-                          />
-                        ))}
-                      </RadioGroup>
-                    )}
-                  />
-                </FormControl> */}
                 <FormControl>
                   <FormLabel id="select-topic">Select Categories</FormLabel>
                   <Controller
@@ -298,30 +291,6 @@ const AddTestSeries = () => {
                 </FormControl>
               </Grid>
 
-              {/* <Grid item xs={12}>
-                <FormControl fullWidth>
-                  <FormLabel id="demo-controlled-radio-buttons-group">
-                    Select Sub Topic
-                  </FormLabel>
-
-                  <Controller
-                    name="tst_id"
-                    control={control}
-                    defaultValue={[]}
-                    render={({ field }) => (
-                      <Select
-                        {...field}
-                        isMulti
-                        isClearable
-                        // cacheOptions
-                        // defaultOptions
-                        options={subTopics}
-                        placeholder="Select Sub Topic"
-                      />
-                    )}
-                  />
-                </FormControl>
-              </Grid> */}
               {/* Product Name */}
               <Grid item xs={12}>
                 <Controller
@@ -329,15 +298,16 @@ const AddTestSeries = () => {
                   defaultValue=""
                   control={control}
                   render={({ field }) => (
-                    <TextField
-                      {...field}
-                      fullWidth
-                      // label="Product Name"
-                      variant="outlined"
-                      placeholder="Product Name"
-                      required
-                      sx={{ backgroundColor: "white" }}
-                    />
+                    <FormControl fullWidth sx={{ bgcolor: "white" }}>
+                      <TextField
+                        {...field}
+                        label="Product Name"
+                        variant="outlined"
+                        // placeholder="Product Name"
+                        required
+                        sx={{ backgroundColor: "white" }}
+                      />
+                    </FormControl>
                   )}
                 />
               </Grid>
@@ -349,17 +319,19 @@ const AddTestSeries = () => {
                   defaultValue=""
                   control={control}
                   render={({ field }) => (
-                    <TextField
-                      {...field}
-                      fullWidth
-                      multiline
-                      rows={2}
-                      // label="Product Description"
-                      placeholder="Product Description"
-                      variant="outlined"
-                      required
-                      sx={{ backgroundColor: "white" }}
-                    />
+                    <FormControl fullWidth sx={{ bgcolor: "white" }}>
+                      <TextField
+                        {...field}
+                        // fullWidth
+                        multiline
+                        rows={2}
+                        label="Product Description"
+                        // placeholder="Product Description"
+                        variant="outlined"
+                        required
+                        sx={{ backgroundColor: "white" }}
+                      />
+                    </FormControl>
                   )}
                 />
               </Grid>
@@ -371,15 +343,17 @@ const AddTestSeries = () => {
                   defaultValue=""
                   control={control}
                   render={({ field }) => (
-                    <TextField
-                      {...field}
-                      fullWidth
-                      // label="Product Price"
-                      placeholder="Product Price"
-                      variant="outlined"
-                      required
-                      sx={{ backgroundColor: "white" }}
-                    />
+                    <FormControl fullWidth sx={{ bgcolor: "white" }}>
+                      <TextField
+                        {...field}
+                        fullWidth
+                        label="Product Price"
+                        // placeholder="Product Price"
+                        variant="outlined"
+                        required
+                        sx={{ backgroundColor: "white" }}
+                      />
+                    </FormControl>
                   )}
                 />
               </Grid>
@@ -392,45 +366,56 @@ const AddTestSeries = () => {
                   // accept="image/*"
                   control={control}
                   render={({ field: { value, onChange, ...field } }) => (
-                    <Input
-                      {...field}
-                      type="file"
-                      fullWidth
-                      // label="Product Image"
-                      // variant="outlined"
-                      value={value?.fileName}
-                      onChange={(event: any) => {
-                        onChange(event.target.files[0]);
-                      }}
-                      required
-                      sx={{ backgroundColor: "white" }}
-                    />
+                    <FormControl fullWidth sx={{ bgcolor: "white" }}>
+                      <Input
+                        {...field}
+                        type="file"
+                        // fullWidth
+                        // label="Product Image"
+                        // variant="outlined"
+                        value={value?.fileName}
+                        onChange={(event: any) => {
+                          onChange(event.target.files[0]);
+                        }}
+                        required
+                        sx={{ backgroundColor: "white" }}
+                      />
+                    </FormControl>
                   )}
                 />
               </Grid>
 
               {/* Product Month Limit */}
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={6}>
+                <InputLabel id="demo-controlled-open-select-label">
+                  Test Month Limit
+                </InputLabel>
                 <Controller
                   name="test_month_limit"
-                  defaultValue=""
                   control={control}
+                  defaultValue=""
                   render={({ field }) => (
-                    <TextField
-                      {...field}
-                      fullWidth
-                      // label="Product Month Limit"
-                      placeholder="Product Month Limit"
-                      variant="outlined"
-                      required
-                      sx={{ backgroundColor: "white" }}
-                    />
+                    <FormControl fullWidth sx={{ bgcolor: "white" }}>
+                      <Select
+                        {...field}
+                        labelId="demo-controlled-open-select-label"
+                        id="demo-controlled-open-select"
+                        placeholder="select"
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={3}>3 Months</MenuItem>
+                        <MenuItem value={6}>6 Months</MenuItem>
+                        <MenuItem value={12}>12 Months</MenuItem>
+                      </Select>
+                    </FormControl>
                   )}
                 />
               </Grid>
 
               {/* Total Questions */}
-              <Grid item xs={12} sm={4}>
+              {/* <Grid item xs={12} sm={4}>
                 <Controller
                   name="total_question"
                   defaultValue=""
@@ -447,10 +432,10 @@ const AddTestSeries = () => {
                     />
                   )}
                 />
-              </Grid>
+              </Grid> */}
 
               {/* Duration */}
-              <Grid item xs={12} sm={4}>
+              {/* <Grid item xs={12} sm={4}>
                 <Controller
                   name="duration"
                   defaultValue=""
@@ -467,26 +452,23 @@ const AddTestSeries = () => {
                     />
                   )}
                 />
-              </Grid>
+              </Grid> */}
 
               {/*Product Release Date */}
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} md={6}>
+                <InputLabel id="release-date">Release Date</InputLabel>
                 <Controller
                   name="release_date"
                   defaultValue=""
                   control={control}
                   render={({ field }) => (
-                    <input
-                      {...field}
-                      type="date"
-                      // fullWidth
-                      // label="Product Price"
-                      placeholder="Product Release Date"
-                      // variant="outlined"
-                      required
-                      className="py-2 px-6"
-                      // sx={{ backgroundColor: "white" }}
-                    />
+                    <FormControl fullWidth sx={{ bgcolor: "white" }}>
+                      <TextField
+                        {...field}
+                        type="date"
+                        sx={{ text: "hidden" }}
+                      />
+                    </FormControl>
                   )}
                 />
               </Grid>

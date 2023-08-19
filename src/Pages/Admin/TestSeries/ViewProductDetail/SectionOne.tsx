@@ -58,10 +58,10 @@ const SectionOne = ({ product }: any) => {
   };
 
   const details: Detail[] = [
-    { title: "Product Name", data: product.p_name },
+    { title: "Package Name", data: product.p_name },
     { title: "Description", data: product.p_name },
     { title: "Price", data: product.p_price },
-    { title: "Duration", data: product.duration },
+    // { title: "Duration", data: product.duration },
     { title: "Test Month Limit", data: product.test_month_limit },
     { title: "Total Question", data: product.total_question },
     { title: "Release Date", data: product.release_date },
@@ -78,7 +78,7 @@ const SectionOne = ({ product }: any) => {
       }}
     >
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <ParaText3 text="Product Details" />
+        <ParaText3 text="Package Details" />
         <Switch
           checked={checked}
           onChange={handleChange}

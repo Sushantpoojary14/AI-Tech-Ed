@@ -1,12 +1,15 @@
 import {
   Box,
+  Button,
   Container,
   FormControl,
   FormControlLabel,
   FormLabel,
   Grid,
+  MenuItem,
   Radio,
   RadioGroup,
+  Select,
   Stack,
   TextField,
 } from "@mui/material";
@@ -18,6 +21,9 @@ import {
   OButton3,
 } from "../../../../../Components/Common/Button";
 
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import UploadIcon from "@mui/icons-material/Upload";
@@ -28,11 +34,13 @@ import CSVParser from "./CSVParser";
 
 import GenerateQuestions from "./GenerateQuestions";
 import LoadingBar from "../../../../../Components/Headers/LoadingBar";
+import { useNavigate } from "react-router-dom";
 
 type FormValues = {
-  // ts_id: string;
+  ts_id: string;
   tsc_id: string;
   topic: string;
+  total_questions: string | number;
 };
 
 const AddTopics = () => {
@@ -42,6 +50,8 @@ const AddTopics = () => {
   // const [generate, setGenerate] = useState<boolean>(false);
   // const [currentIndex, setCurrentIndex] = useState(0);
   const [formData, setFormData] = useState<any>(null);
+
+  const navigate = useNavigate();
 
   // console.log(csvData.length);
   console.log("csvData", csvData);
@@ -55,7 +65,6 @@ const AddTopics = () => {
   // };
 
   const {
-
     control,
     handleSubmit,
     watch,
@@ -69,7 +78,7 @@ const AddTopics = () => {
   //   setGenerate(true);
   // };
 
-  const topic1 = watch(["tsc_id", "topic"]);
+  const topic1 = watch(["tsc_id", "topic", "total_questions"]);
 
   const handleSubmitData = () => {
     // setGenerate(false);
@@ -101,8 +110,8 @@ const AddTopics = () => {
     queryFn: getTestSeries,
   });
 
-  if(testSeries.isLoading){
-    <LoadingBar/>
+  if (testSeries.isLoading) {
+    <LoadingBar />;
   }
   // const mutation = useMutation({
   //   mutationFn: (selectedTopic: any) => {
@@ -140,6 +149,40 @@ const AddTopics = () => {
         }}
         disableGutters
       >
+        <Stack direction="row">
+          <Button
+            onClick={() => navigate(-1)}
+            size="small"
+            variant="contained"
+            color="primary"
+            sx={{ paddingRight: "1rem" }}
+          >
+            <ArrowBackIosNewRoundedIcon />
+            Back
+          </Button>
+
+          <Stack
+            direction="row"
+            sx={{
+              // my: "18px",
+              justifyContent: "center",
+              mx: "auto",
+              pr: { lg: "100px", xs: "0px", sm: "100px", md: "100px" },
+            }}
+          >
+            <AddBoxOutlinedIcon
+              sx={{
+                height: "28px",
+                width: "28px",
+                color: "#FA8128",
+                mx: "8px",
+                my: "auto",
+              }}
+            />
+            <Header1 header="Add Topics" />
+          </Stack>
+        </Stack>
+
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -147,9 +190,9 @@ const AddTopics = () => {
           // spacing={2}
           paddingY={2}
         >
-          <Box>
+          {/* <Box>
             <Header1 header="Add Topics" />
-          </Box>
+          </Box> */}
 
           {/* <Stack direction="row" spacing={1}>
             <OButton
@@ -163,9 +206,14 @@ const AddTopics = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={1}>
             <Grid container spacing={2}>
-              {/* <Grid item xs={12}>
+              <Grid item xs={12}>
                 <FormControl>
-                  <FormLabel id="select-test-type">Select Test Type</FormLabel>
+                  <FormLabel
+                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                    id="select-test-type"
+                  >
+                    Select Test Type
+                  </FormLabel>
                   <Controller
                     name="ts_id"
                     control={control}
@@ -189,10 +237,15 @@ const AddTopics = () => {
                     )}
                   />
                 </FormControl>
-              </Grid> */}
+              </Grid>
               <Grid item xs={12}>
                 <FormControl>
-                  <FormLabel id="select-category">Select Category</FormLabel>
+                  <FormLabel
+                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                    id="select-category"
+                  >
+                    Select Subject
+                  </FormLabel>
                   <Controller
                     name="tsc_id"
                     control={control}
@@ -222,9 +275,14 @@ const AddTopics = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <Stack spacing={1}>
-                  <FormLabel id="enter-topic">Enter Topic</FormLabel>
+                  <FormLabel
+                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                    id="enter-topic"
+                  >
+                    Enter Topic
+                  </FormLabel>
                   <Controller
                     name="topic"
                     control={control}
@@ -236,7 +294,7 @@ const AddTopics = () => {
                         // label="Enter Topic
                         placeholder="Enter Topic"
                         variant="outlined"
-                        sx={{ width: "50%" }}
+                        // sx={{ width: "50%" }}
                         // error={!!errors.inputField}
                         // helperText={errors.inputField ? errors.inputField.message : ''}
                       />
@@ -245,9 +303,50 @@ const AddTopics = () => {
                 </Stack>
               </Grid>
 
+              <Grid item xs={12} sm={4}>
+                <Stack spacing={1}>
+                  <FormLabel
+                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                    id="demo-controlled-open-select-label"
+                  >
+                    Total Questions
+                  </FormLabel>
+                  <Controller
+                    name="total_questions"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <FormControl fullWidth>
+                        <Select
+                          {...field}
+                          labelId="demo-controlled-open-select-label"
+                          id="demo-controlled-open-select"
+                          placeholder="select"
+                          // sx={{ width: "50%" }}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value={15}>15</MenuItem>
+                          <MenuItem value={20}>20</MenuItem>
+                          <MenuItem value={25}>25</MenuItem>
+                          <MenuItem value={30}>30</MenuItem>
+                          <MenuItem value={50}>50</MenuItem>
+                        </Select>
+                      </FormControl>
+                    )}
+                  />
+                </Stack>
+              </Grid>
+
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <FormLabel id="upload-csv">Upload CSV</FormLabel>
+                  <FormLabel
+                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                    id="upload-csv"
+                  >
+                    Upload CSV
+                  </FormLabel>
                   <CSVParser csvData={csvData} setCsvData={setCsvData} />
                 </Stack>
               </Grid>
@@ -283,7 +382,13 @@ const AddTopics = () => {
         </Stack> */}
 
         {/* {generate ? ( */}
-        <GenerateQuestions topic1={topic1} csvData={csvData} topic={topic} setCsvData={setCsvData} reset={reset}/>
+        <GenerateQuestions
+          topic1={topic1}
+          csvData={csvData}
+          topic={topic}
+          setCsvData={setCsvData}
+          reset={reset}
+        />
 
         {/* {GenerateQuestions()} */}
       </Container>
