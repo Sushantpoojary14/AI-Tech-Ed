@@ -19,6 +19,11 @@ import {
 import { UserContext } from "../../../../../../Context/UserContext";
 import { MRT_ColumnDef } from "material-react-table";
 import SimpleTable from "../../../../../../Components/Common/SimpleTable";
+import {
+  DeleteIconButton,
+  DownloadIconButton,
+  OButton,
+} from "../../../../../../Components/Common/Button";
 import { BButton2, OButton } from "../../../../../../Components/Common/Button";
 import PdfMaker from "../../../PdfMaker";
 
@@ -134,10 +139,12 @@ const TSectionOne = ({ topics, questions }: props) => {
           onChange={handleChange}
           inputProps={{ "aria-label": "controlled" }}
         />*/}
+        <Stack direction={"row"} alignItems={"center"} spacing={2}>
+          <PdfMaker bol={true} topic={topics.t_name} data={questions} />
 
-        <PdfMaker bol={true}  topic={topics.t_name} data={questions} button={<BButton2 type="button" name="Download" />}/>
-      </Stack> 
-
+          <DeleteIconButton type="button" func={() => console.log("v")} />
+        </Stack>
+      </Stack>
 
       <Box marginY={2}>
         {questions ? (

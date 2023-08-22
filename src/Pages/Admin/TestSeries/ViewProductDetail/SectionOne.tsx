@@ -15,7 +15,7 @@ import { UserContext } from "../../../../Context/UserContext";
 import UseGet from "../../../../Hooks/UseGet";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
 import { ParaText1, ParaText3 } from "../../../../Components/Common/ParaText";
-import { OButton } from "../../../../Components/Common/Button";
+import { OButton, SwitchComp } from "../../../../Components/Common/Button";
 import { useState } from "react";
 
 import Grid from "@mui/material/Unstable_Grid2";
@@ -79,10 +79,10 @@ const SectionOne = ({ product }: any) => {
     >
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <ParaText3 text="Package Details" />
-        <Switch
+        <SwitchComp
           checked={checked}
           onChange={handleChange}
-          inputProps={{ "aria-label": "controlled" }}
+          // inputProps={{ "aria-label": "controlled" }}
         />
       </Stack>
 

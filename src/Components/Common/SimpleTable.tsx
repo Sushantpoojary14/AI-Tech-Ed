@@ -16,7 +16,7 @@ export const SimpleTable = ({ columns, data }: any) => {
       // enableBottomToolbar={false}
       enableTopToolbar={false}
       enableRowNumbers
-      rowNumberMode="static"
+      rowNumberMode="original"
       // state={{ isLoading: true }}
       // onRowClick={handleRowClick}
       // muiTableBodyRowProps={{ hover: false }}
