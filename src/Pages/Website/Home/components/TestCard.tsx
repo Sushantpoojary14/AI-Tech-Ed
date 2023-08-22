@@ -17,7 +17,6 @@ const TestCard = (props: props) => {
   // const { user } = AppContext();
   // console.log(props.val?.includes(props.data?.id));
 
-
   return (
     <Card
       sx={{

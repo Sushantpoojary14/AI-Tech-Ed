@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryObserverResult, useMutation, useQuery } from "@tanstack/react-query";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axiosBaseURL from "../Hooks/BaseUrl";
 import tokenAxios from "../Hooks/TokenAxios";
@@ -16,6 +16,7 @@ interface ContextValue {
   setCart: React.Dispatch<React.SetStateAction<Array<number>>>;
   removeFromCart: (id: number) => void;
   addToCartFL: (id: number) => void;
+  refetch:QueryObserverResult['refetch']; 
 }
 
 const defaultValue: ContextValue = {
@@ -26,6 +27,7 @@ const defaultValue: ContextValue = {
   setCart: () => {},
   removeFromCart: (id: number) => {},
   addToCartFL: (id: number) => {},
+  refetch: () => {}, 
 };
 
 const Context = createContext<ContextValue>(defaultValue);
@@ -52,7 +54,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
       setPurchases(PUdata?.data.tsp);
     }, [PUdata]);
 
-    const { data } = useQuery(
+    const { data,refetch } = useQuery(
       [user,PUdata,'cartData'],
       async () => await tokenAxios.get(`/get-cart-data/${user?.id}`),
       {
@@ -74,7 +76,9 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
       return await tokenAxios.post("/add-to-cart", formData);
     },
 
-    onSettled: (data) => {},
+    onSuccess: (res) => {
+      refetch();
+    },
   });
   const CartRemove = useMutation({
     mutationFn: async (id: number) => {
@@ -93,8 +97,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
 
   const addToCart = (id: number) => {
     const updatedCart: number[] = [...(cart ? [...cart, id] : [id])];
-    console.log(purchases);
-
+ 
     if (user) {
       if (purchases.includes(id)) {
         handlePUSuccessOpen();
@@ -106,6 +109,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
         p_id: id,
       });
       setCart(updatedCart);
+     
     } else {
       localStorage.setItem("product_id", JSON.stringify(updatedCart));
       setCart(updatedCart);
@@ -148,6 +152,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
         setCart,
         removeFromCart,
         addToCartFL,
+        refetch
       }}
     >
       {children}

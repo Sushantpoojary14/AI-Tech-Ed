@@ -28,17 +28,14 @@ const SecondSection = () => {
     () => tokenAxios.get(`/get-product-data/${selectVal}`)
   );
 
-  const { data: cdata, isLoading: loading } = useQuery(
-    [cart, "cart-data"],
-    () => tokenAxios.get(`/get-cart-data/${user?.id}`),
-    {
-      enabled: !!user,
-    }
-  );
+  // const { data: cdata, isLoading: loading } = useQuery(
+  //   [cart, "cart-data"],
+  //   () => tokenAxios.get(`/get-product-data/${selectVal}`),
+  // );
 
   let p = data?.data?.product_data;
-  p &&  console.log( p.length === 0);
-    
+  // p &&  console.log( p.length === 0);
+
   if (isLoading || !cart) {
     return <LoadingBar />;
   }
@@ -76,7 +73,7 @@ const SecondSection = () => {
           {p && p.length === 0 ? (
             <Header1 header="No Product Available" />
           ) : (
-            p.map((item: any, key: number) => (
+            p?.map((item: any, key: number) => (
               <TestSection
                 data={item}
                 key={key}

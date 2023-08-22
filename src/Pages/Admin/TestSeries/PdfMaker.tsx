@@ -6,6 +6,7 @@ import {
   PDFDownloadLink,
 } from "@react-pdf/renderer";
 import { BButton2 } from "../../../Components/Common/Button";
+import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 const styles = {
   page: {
     padding: 20,
@@ -99,6 +100,7 @@ interface props {
   // data2?:questionList[];
   bol: boolean;
   topic: string;
+  button?:ReactJSXElement;
 }
 const PdfMaker = (props: props) => {
   return (
@@ -109,7 +111,7 @@ const PdfMaker = (props: props) => {
       fileName={`${props.topic}.pdf`}
     >
       {({ loading }) =>
-        loading ? "Downloading..." : <BButton2 type="button" name="Download" />
+        loading ? "Downloading..." : props.button
       }
     </PDFDownloadLink>
   );
@@ -139,7 +141,7 @@ const MyDocument = (props: props) => {
         <View style={styles.mainContainer}>
           {random.length != 0 &&
             random?.map((item: questions, key) => (
-              <View style={styles.Container}>
+              <View style={styles.Container} key={key}>
                 {item.options ? (
                   <>
                     <Text style={styles.question}>
@@ -171,7 +173,7 @@ const MyDocument = (props: props) => {
           <View style={styles.Container}>
           {random.length != 0 &&
             random?.map((item: questions, key) => (
-              <Text style={styles.answer}>
+              <Text style={styles.answer} key={key}>
                 {item.answer
                   ? `${key + 1}. ${item.answer} `
                   : `${key + 1}. ${item.correct_option} `}
@@ -183,7 +185,7 @@ const MyDocument = (props: props) => {
           <Text style={styles.header2}>Explanation:</Text>
           {random.length != 0 &&
             random?.map((item: questions, key) => (
-              <View style={styles.Container}>
+              <View style={styles.Container} key={key}>
                 <Text style={styles.answer2}>
                   {item.answer
                     ? `${key + 1}.  ${item.answer} `

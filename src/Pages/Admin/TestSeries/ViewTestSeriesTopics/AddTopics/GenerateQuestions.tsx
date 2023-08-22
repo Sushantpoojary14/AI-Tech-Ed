@@ -7,6 +7,8 @@ import { Alert, Box, Dialog, Stack } from "@mui/material";
 import { BButton2 } from "../../../../../Components/Common/Button";
 import adminTokenAxios from "../../../../../Hooks/AdminTokenAxios";
 import PdfMaker from "../../PdfMaker";
+import AlertBox from "../../../../../Components/Common/AlertBox";
+import { UserContext } from "../../../../../Context/UserContext";
 
 type CsvItem = {
   Answer: string;
@@ -18,7 +20,28 @@ type CsvItem = {
   Question: string;
 };
 
-const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => {
+type mapData = {
+  answer: string;
+  explanation: string;
+  options: string[];
+  question: string;
+};
+
+const GenerateQuestions = ({
+  csvData,
+  topic,
+  topic1,
+  setCsvData,
+  reset,
+}: any) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const handleAlertBoxOpen = () => {
+    setOpen(true);
+  };
+
+  const handleAlertBoxClose = () => {
+    setOpen(false);
+  };
   const addTestCTMu = useMutation({
     mutationFn: async (data: object[]) => {
       return await adminTokenAxios.post(`/admin/add-test-series-topics`, {
@@ -32,21 +55,18 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
     },
     onSuccess: (res: any) => {
       console.log(res);
-      
+
       // navigate(`/admin/test-series/view-test-series-topics`);
       reset({
-        tsc_id:"",
-        topic:"",
+        tsc_id: "",
+        topic: "",
       });
       // setCsvData([]);
-      <Alert severity="success">SuccessFully Generated</Alert>;
     },
   });
 
   const handleGenerate = async () => {
-    // setButton(false);
     newRes.mutate(csvData);
-    // const currentData = csvData[currentIndex];
   };
 
   const openAi = new OpenAIApi(
@@ -57,16 +77,18 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
 
   const newRes = useMutation({
     mutationFn: async (csvData: CsvItem[]) => {
-      // console.log("object");
       // console.log("object 2", input);
+      const exception = new Error();
+      exception.name = "CustomError";
+      // throw exception;
       const responses: any[] = [];
 
       for (const item of csvData) {
-        console.log("loop", item);
-
-        const query = `Generate five unique multiple-choice questions (MCQs), keeping the question  sentence the same as the provided example, but changing variables like numbers, names, and genders. Do not include question numbers after 'Question'. An example is provided below with options, correct answer, explanation, and question based on the topic ${
+        // console.log("loop", item);
+        const query = `Generate five unique multiple-choice questions (MCQs), keeping the question  sentence the same as the provided example, but changing variables like numbers, names, and genders. Do not include question numbers after 'Question'. An example is provided below with options, correct answer, explanation, and question based on the topic 
+        ${
           topic1[1]
-        }. Also keep the explanation similar:
+        }. Also keep the explanation similar and give me in json and wrap it array keep options in object:
           
     Question:${item.Question}
     Options:
@@ -88,30 +110,28 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
         });
 
         const message = response?.data?.choices[0]?.message?.content;
-        const questions = message?.split("Question:");
-        console.log(message);
-        console.log(response);
-        
-        questions?.map((question: string, index: any) => {
-          if (!question) return;
-          if (index == 0) return;
-          const objects: any = {};
-          const val1 = question?.split("Options:");
-          objects.question = val1?.length != 0 && val1[0];
-          const val2 = val1[1]?.split("Answer:");
-          objects.options = val2?.length != 0 && val2[0];
-          const val3 = val2[1]?.split("Explanation:");
-          objects.answer = val3?.length != 0 && val3[0];
-          objects.explanation = val3?.length != 0 && val3[1];
+        // const questions = message?.split("Question:");
+        // console.log(response);
+        const questions = message && JSON.parse(message);
 
-          objects.options = {
-            a: objects.options.split("a.")[1].split("b.")[0],
-            b: objects.options.split("b.")[1].split("c.")[0],
-            c: objects.options.split("c.")[1].split("d.")[0],
-            d: objects.options.split("d.")[1],
-          };
+        questions?.map((item: mapData, index: any) => {
+          // const objects: any = {};
+          // objects.question = item.question;
+          // item?.options.forEach((element: string, key: number) => {
+          //   key++; 
+          //   objects.option_[key] = element;  
+          // });
+          // objects.answer = item.answer;
+          // objects.explanation = item.explanation;
 
-          responses.push(objects);
+          // objects.options = {
+          //   a: objects.options.split("a.")[1].split("b.")[0],
+          //   b: objects.options.split("b.")[1].split("c.")[0],
+          //   c: objects.options.split("c.")[1].split("d.")[0],
+          //   d: objects.options.split("d.")[1],
+          // };
+
+          responses.push(item);
         });
       }
 
@@ -119,41 +139,52 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
     },
     onSuccess: (data) => {
       console.log("Success Data", data);
-      <Alert severity="success">SuccessFully Generated</Alert>;
     },
-    onError: () => {
-      <Alert severity="error">Error fetching data:</Alert>;
+    onError: (error) => {
+      console.log(error);
+      handleAlertBoxOpen();
+      // <AlertBox />
     },
   });
 
-  console.log(!!newRes.data ||topic1[0] == 2);
+  // console.log(!newRes.data);
 
   return (
     <>
+      <AlertBox
+        name="There is something wrong with Generator"
+        type="error"
+        bol={open}
+        handleAlertBoxClose={handleAlertBoxClose}
+      />
+
       {csvData.length > 0 && (
         <Stack marginY="1rem" direction="row" spacing={2}>
-          {topic1[0] != 2 && !newRes.data && (
-            <BButton2
-              type="button"
-              func={handleGenerate}
-              name={newRes.isLoading ? "Generating..." : "Generate"}
-            />
-          )}
+          {!newRes.data &&
+            (topic1[0] != 2 && newRes.isLoading ? (
+              <BButton2 type="button" name="Generating..." />
+            ) : (
+              <BButton2 type="button" func={handleGenerate} name="Generate" />
+            ))}
           {!!newRes.data && (
             <PdfMaker
               data={newRes.data}
               bol={!!newRes.data}
               topic={topic1[1]}
+              button={<BButton2 type="button" name="Download" />}
             />
           )}
-          {
-            (!!newRes.data || topic1[0] == 2) && (
-              <BButton2
-                type="button"
-                func={() => newRes.data ? addTestCTMu.mutate(newRes.data) : addTestCTMu.mutate(csvData) }
-                name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
-              />
-            )}
+          {(!!newRes.data || topic1[0] == 2) && (
+            <BButton2
+              type="button"
+              func={() =>
+                newRes.data
+                  ? addTestCTMu.mutate(newRes.data)
+                  : addTestCTMu.mutate(csvData)
+              }
+              name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
+            />
+          )}
         </Stack>
       )}
       {/* { csvData.length - 2 < currentIndex && <PdfMaker data={resData} />} */}

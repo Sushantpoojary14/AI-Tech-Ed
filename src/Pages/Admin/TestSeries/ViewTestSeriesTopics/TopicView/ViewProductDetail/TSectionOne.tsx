@@ -19,7 +19,7 @@ import {
 import { UserContext } from "../../../../../../Context/UserContext";
 import { MRT_ColumnDef } from "material-react-table";
 import SimpleTable from "../../../../../../Components/Common/SimpleTable";
-import { OButton } from "../../../../../../Components/Common/Button";
+import { BButton2, OButton } from "../../../../../../Components/Common/Button";
 import PdfMaker from "../../../PdfMaker";
 
 interface Detail {
@@ -135,7 +135,7 @@ const TSectionOne = ({ topics, questions }: props) => {
           inputProps={{ "aria-label": "controlled" }}
         />*/}
 
-        <PdfMaker bol={true}  topic={topics.t_name} data={questions}/>
+        <PdfMaker bol={true}  topic={topics.t_name} data={questions} button={<BButton2 type="button" name="Download" />}/>
       </Stack> 
 
 

@@ -30,6 +30,7 @@ import ViewTestSeriesTopics from "./TestSeries/ViewTestSeriesTopics/ViewTestSeri
 import AddTopics from "./TestSeries/ViewTestSeriesTopics/AddTopics/AddTopics";
 import ViewProductDetail from "./TestSeries/ViewProductDetail/ViewProductDetail";
 import ViewTopicDetail from "./TestSeries/ViewTestSeriesTopics/TopicView/ViewProductDetail/ViewTopicDetail";
+import AlertBox from "../../Components/Common/AlertBox";
 
 const AdminIndex = () => {
   const { admin, adminLogout } = AppContext();
@@ -125,7 +126,7 @@ const AdminIndex = () => {
             text="Back to Dashboard"
             link="/admin/login"
           />
-
+       
           <SuccessModel
             handleClose={handlePESuccessClose}
             open={openPESuccess}

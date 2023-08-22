@@ -30,10 +30,10 @@ function createData(
 ) {
   return { srNo, courses, testSeries, price };
 }
-const tHead = ["Sr.No", "Courses", "Test Series", "Price", " "];
+const tHead = ["#", "Package Names", "Test Series", "Price", "Action"];
 
 const Cart = () => {
-  const { cart, removeFromCart } = CartContext();
+  const { cart, removeFromCart,refetch } = CartContext();
   const { user } = AppContext();
   const navigate = useNavigate();
   const {handlePUSuccessOpen, handlePUSuccessOpen2,handleClickOpen}= UserContext();
@@ -50,6 +50,7 @@ const Cart = () => {
       
       if(res?.status==200){
         handlePUSuccessOpen2();
+        refetch();
       }
       else{
         handlePUSuccessOpen();

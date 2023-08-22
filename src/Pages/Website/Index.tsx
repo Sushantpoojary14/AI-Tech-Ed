@@ -16,10 +16,11 @@ import ConfirmModel from "../../Components/Model/ConfirmModel";
 import PasswordChangeModal from "../../Components/Model/PasswordChangeModal";
 import img from "../../Assets/images/password_success.jpg";
 import SuccessModel from "../../Components/Model/SuccessModel";
+import AlertBox from "../../Components/Common/AlertBox";
 const Index = () => {
   const { Logout } = AppContext();
   // const {  handleClickOpen} = UserContext();
-  const { handleMenuClose, openMenu,handlePUSuccessClose,openPuSuccess } = UserContext();
+  const { handleMenuClose, openMenu } = UserContext();
   const location = useLocation();
   // useEffect(() => {
 
@@ -60,7 +61,6 @@ const Index = () => {
         func={Logout}
       />
 
-     
 
       <PasswordChangeModal />
       <MainAuth />

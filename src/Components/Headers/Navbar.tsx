@@ -24,6 +24,7 @@ import { HashLink } from "react-router-hash-link";
 import { Header4 } from "../Common/HeaderText";
 import { AppContext } from "../../Context/AppContext";
 import MenuModel from "../Model/MenuModel";
+import { CartContext } from "../../Context/CartContext";
 
 type Type = {
   name: string;
@@ -47,7 +48,7 @@ const pCss = {
 const Navbar = () => {
   const { handleClickOpen, handleOpenUserMenu } = UserContext();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-
+  const { cart } = CartContext();
   const { user } = AppContext();
 
   const pages: Type[] = [
@@ -65,7 +66,7 @@ const Navbar = () => {
       icon: <FeaturedPlayListOutlinedIcon sx={pCss} />,
     },
     {
-      name: "Cart",
+      name: `Cart (${cart.length})`,
       url: "/cart",
       icon: <ShoppingCartOutlinedIcon sx={pCss} />,
     },

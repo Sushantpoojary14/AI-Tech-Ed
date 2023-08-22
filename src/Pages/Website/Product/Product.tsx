@@ -19,13 +19,15 @@ import axiosBaseURL from "../../../Hooks/BaseUrl";
 import tokenAxios from "../../../Hooks/TokenAxios";
 import { UserContext } from "../../../Context/UserContext";
 import { AppContext } from "../../../Context/AppContext";
-
+import img from "../../../Assets/images/product.jpg"
+import { CartContext } from "../../../Context/CartContext";
 
 const Product = () => {
   const params = useParams();
   const navigate = useNavigate();
   const {handlePUSuccessOpen,handlePUSuccessOpen2,handleClickOpen}= UserContext();
   const { user } = AppContext();
+  const {refetch } = CartContext();
   const { isLoading, data } = useQuery(
     [params],
     async () => await  axiosBaseURL.get(`/one-product-data/${params.id}`)
@@ -42,6 +44,7 @@ const Product = () => {
 
       if(res?.status==200){
         handlePUSuccessOpen2();
+        refetch();
       }
       else{
         handlePUSuccessOpen();
@@ -88,7 +91,7 @@ const Product = () => {
             height: "330px",
             width: { lg: "400px", xs: "330px", sm: "400px", md: "400px" },
           }}
-          image={product.p_image}
+          image={product.p_image ? import.meta.env.VITE_IMAGE_URL+product.p_image : img }
           
         />
         <Stack spacing={{ lg: 9, md: 9, sm: 9, xs: 4 }}>
