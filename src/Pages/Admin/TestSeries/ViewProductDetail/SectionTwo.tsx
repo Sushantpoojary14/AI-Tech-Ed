@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   Divider,
   Grid,
@@ -17,9 +18,12 @@ import Box from "@mui/material/Box";
 
 import { ParaText1, ParaText3 } from "../../../../Components/Common/ParaText";
 import { useState } from "react";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Link } from "react-router-dom";
-import { inherits } from "util";
+import {
+  DeleteIconButton,
+  DownloadIconButton,
+  SwitchComp,
+} from "../../../../Components/Common/Button";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -143,10 +147,29 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
                       <Typography variant="h6" fontWeight={"bold"}>
                         Set - {set.set_id}
                       </Typography>
-                      <Switch
-                        checked={set.status === 1} // Set the initial state based on API response
-                        onChange={() => onSwitchToggle(set.id, set.status)} // Attach the event handler
-                      />
+                      <Stack
+                        direction={"row"}
+                        alignItems={"center"}
+                        spacing={2}
+                      >
+                        <DownloadIconButton
+                          type="button"
+                          func={() => console.log(set.id)}
+                        />
+                        <DeleteIconButton
+                          type="button"
+                          func={() => console.log(set.id)}
+                        />
+
+                        {/* <Switch
+                          checked={set.status === 1} // Set the initial state based on API response
+                          onChange={() => onSwitchToggle(set.id, set.status)} // Attach the event handler
+                        /> */}
+                        <SwitchComp
+                          checked={set.status === 1}
+                          onChange={() => onSwitchToggle(set.id, set.status)}
+                        />
+                      </Stack>
                     </Stack>
 
                     <Typography
@@ -167,6 +190,7 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
                             paddingBottom: "4px",
                             "&:hover": {
                               borderLeft: "4px solid orange",
+                              borderRight: "4px solid orange",
                               fontWeight: 600,
                             },
                           }}

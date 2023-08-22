@@ -110,9 +110,7 @@ const AddTopics = () => {
     queryFn: getTestSeries,
   });
 
-  if (testSeries.isLoading) {
-    <LoadingBar />;
-  }
+  if (testSeries.isLoading) return <LoadingBar />;
   // const mutation = useMutation({
   //   mutationFn: (selectedTopic: any) => {
   //     return adminTokenAxios.get(

@@ -1,15 +1,49 @@
 import Button from "@mui/material/Button";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
-import {  ReactNode } from "react";
+import React, { ReactNode } from "react";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { Switch } from "@mui/material";
 
 interface props {
   name?: ReactNode;
   func?: (e: any) => void;
   css?: object;
   type?: "button" | "submit" | "reset" | undefined;
+  checked?: boolean;
   children?: ReactNode;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+const DownloadIconButton = (props: props) => {
+  return (
+    <Button type={props.type} variant="outlined" onClick={props.func}>
+      <FileDownloadOutlinedIcon />
+    </Button>
+  );
+};
+const DeleteIconButton = (props: props) => {
+  return (
+    <Button
+      type={props.type}
+      variant="outlined"
+      color="error"
+      onClick={props.func}
+    >
+      <DeleteOutlinedIcon />
+    </Button>
+  );
+};
+
+const SwitchComp = (props: props) => {
+  return (
+    <Switch
+      checked={props.checked} // Set the initial state based on API response
+      onChange={props.onChange} // Attach the event handler
+    />
+  );
+};
 
 const WButton = (props: props) => {
   return (
@@ -223,4 +257,7 @@ export {
   BButton2,
   OButton3,
   OutlineButton,
+  DownloadIconButton,
+  DeleteIconButton,
+  SwitchComp,
 };

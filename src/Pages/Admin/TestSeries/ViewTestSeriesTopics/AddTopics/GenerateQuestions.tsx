@@ -18,7 +18,13 @@ type CsvItem = {
   Question: string;
 };
 
-const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => {
+const GenerateQuestions = ({
+  csvData,
+  topic,
+  topic1,
+  setCsvData,
+  reset,
+}: any) => {
   const addTestCTMu = useMutation({
     mutationFn: async (data: object[]) => {
       return await adminTokenAxios.post(`/admin/add-test-series-topics`, {
@@ -33,8 +39,8 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
     onSuccess: (res: any) => {
       // navigate(`/admin/test-series/view-test-series-topics`);
       reset({
-        tsc_id:"",
-        topic:"",
+        tsc_id: "",
+        topic: "",
       });
       setCsvData([]);
       <Alert severity="success">SuccessFully Generated</Alert>;
@@ -42,8 +48,25 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
   });
 
   const handleGenerate = async () => {
+    const data = Object.keys(csvData[0]);
+    const arry = [
+      "Question",
+      "Option_A",
+      "Option_B",
+      "Option_C",
+      "Option_D",
+      "Answer",
+      "Explanation",
+    ];
+    if (JSON.stringify(data) === JSON.stringify(arry)) {
+      newRes.mutate(csvData);
+    } else {
+      alert("Reupload CSV in correct format");
+      setCsvData([]);
+    }
+
     // setButton(false);
-    newRes.mutate(csvData);
+
     // const currentData = csvData[currentIndex];
   };
 
@@ -89,7 +112,7 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
         const questions = message?.split("Question:");
         console.log(message);
         console.log(response);
-        
+
         questions?.map((question: string, index: any) => {
           if (!question) return;
           if (index == 0) return;
@@ -124,7 +147,7 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
     },
   });
 
-  console.log(!!newRes.data ||topic1[0] == 2);
+  console.log(!!newRes.data || topic1[0] == 2);
 
   return (
     <>
@@ -144,14 +167,13 @@ const GenerateQuestions = ({ csvData, topic, topic1,setCsvData,reset }: any) => 
               topic={topic1[1]}
             />
           )}
-          {
-            (!!newRes.data || topic1[0] == 2) && (
-              <BButton2
-                type="button"
-                func={() => newRes.data && addTestCTMu.mutate(newRes.data)}
-                name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
-              />
-            )}
+          {(!!newRes.data || topic1[0] == 2) && (
+            <BButton2
+              type="button"
+              func={() => newRes.data && addTestCTMu.mutate(newRes.data)}
+              name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
+            />
+          )}
         </Stack>
       )}
       {/* { csvData.length - 2 < currentIndex && <PdfMaker data={resData} />} */}
