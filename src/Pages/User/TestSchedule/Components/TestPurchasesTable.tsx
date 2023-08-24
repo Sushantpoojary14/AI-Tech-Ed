@@ -54,13 +54,13 @@ const TestPurchasesTable = (props: dataProps) => {
                     {count}
                   </TableCell>
                   <TableCell align="center" sx={{ border: 0 }}>
-                    {`${tsc.tsc_type} set - ${set_item.set_id}`}
+                    {`${set_item.set_name}`}
                   </TableCell>
                   <TableCell align="center" sx={{ border: 0 }}>
                     {tsc.tsc_type}
                   </TableCell>
                   <TableCell align="center" sx={{ border: 0 }}>
-                    {ts_p.duration}
+                    {tsc.duration}
                   </TableCell>
                   <TableCell align="center" sx={{ border: 0 }}>
                     {purchase_item.valid_from}

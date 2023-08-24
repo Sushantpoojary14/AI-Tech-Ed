@@ -28,9 +28,8 @@ const TestSeries = () => {
   // });
 
   console.log(data);
-  const tsp = data?.data?.tsp;
-  const td = data?.data.test_detail;
-  const sub = td?.get_ts_p_c.test_series_categories.tsc_type;
+  const tsp = data?.data;
+
 
 
   const redirect = () => {};
@@ -74,7 +73,7 @@ const TestSeries = () => {
         }}
       >
         <Stack flexDirection="column" spacing={2} paddingX={6} paddingY={4}>
-          <Header1 header={tsp.ts_product.p_name} />
+          <Header1 header={tsp.p_name} />
           {/* <ParaText3 text="Description" />
           <ParaText1
             text={tsp.ts_product.p_description}
@@ -90,22 +89,22 @@ const TestSeries = () => {
           <ParaText3 text={`Test Name: ${sub} set - ${td.set_id}` } />  */}
           <Stack direction="row" spacing={1}>
             <ParaText3 text="Subject:" />
-            <ParaText1 text={`${sub}`} />
+            <ParaText1 text={`${tsp.subject}`} />
           </Stack>
 
           <Stack direction="row" spacing={1}>
             <ParaText3 text="Test Name:" />
-            <ParaText1 text={`${sub} set - ${td.set_id}`} />
+            <ParaText1 text={`${tsp.set_name}`} />
           </Stack>
           <Stack direction="row" spacing={1}>
             <ParaText3 text="Total question:" />
-            <ParaText1 text={`${tsp.ts_product.total_question}`} />
+            <ParaText1 text={`${tsp.total_question}`} />
           </Stack>
           <Stack direction="row" spacing={1}>
             <ParaText3 text="Time Limit:" />
-            <ParaText1 text={tsp.ts_product.duration + " min"} />
+            <ParaText1 text={tsp.duration + " min"} />
           </Stack>
-          <Link to={`/user/Test-schedule/Exam-section/${data?.data.uts_id}`}>
+          <Link to={`/user/Test-schedule/Exam-section/${tsp.uts_id}`}>
             <BButton
               name="ANSWER TEST"
               css={{ width: "256px", height: "58px" }}

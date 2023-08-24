@@ -1,8 +1,11 @@
 import {
   Box,
   Card,
+  CardMedia,
   Divider,
   FormControlLabel,
+  ImageList,
+  ImageListItem,
   Radio,
   RadioGroup,
   Stack,
@@ -20,6 +23,12 @@ type Inputs = {
   C?: string;
   D?: string;
   Answer: string;
+};
+
+type image = {
+  id: number;
+  image_url: string;
+  q_id: number;
 };
 
 type questionType = {
@@ -42,6 +51,7 @@ type questionType = {
     tst_id: number;
     marks: null | number;
     status: number;
+    question_image: image[];
   };
 };
 
@@ -49,16 +59,10 @@ interface props {
   data: questionType | null;
   count: number;
   isLoading: boolean;
-  preventCopyPaste: (e:  React.ClipboardEvent<HTMLDivElement>) => void;
-
+  preventCopyPaste: (e: React.ClipboardEvent<HTMLDivElement>) => void;
 }
 const ExamFirstSection = (props: props) => {
-  const {
-    handleSubmit,
-    reset,
-    control,
-
-  } = useForm<Inputs>();
+  const { handleSubmit, reset, control } = useForm<Inputs>();
 
   const [question, setQuestion] = useState<questionType | null>(null);
   const queryClient = useQueryClient();
@@ -69,8 +73,8 @@ const ExamFirstSection = (props: props) => {
     setQuestion(props.data);
   }, [props.data]);
 
-  const updateAstatus = useMutation({
-    mutationFn: async (data: {id:number,answer:string}) => {
+  const updateAStatus = useMutation({
+    mutationFn: async (data: { id: number; answer: string }) => {
       console.log(data);
       return await tokenAxios.post(`/update-test-status/${data.id}`, {
         status_id: 1,
@@ -90,21 +94,21 @@ const ExamFirstSection = (props: props) => {
     setQuestion((prevQuestion: any) => ({
       ...prevQuestion,
       test_answer: data.Answer,
-      status_id:1
+      status_id: 1,
     }));
 
     console.log(question?.test_answer);
-    props.data && updateAstatus.mutate({ id: props.data?.id, answer: data.Answer });
+    props.data &&
+      updateAStatus.mutate({ id: props.data?.id, answer: data.Answer });
   };
   return (
     <Card
       sx={{
         boxShadow: "6px 6px 20px 0px #808080",
-        mb: "15px",
         display: "flex",
-        flexDirection: { lg: "row", md: "row", sm: "row", xs: "column" },
-        p: "25px",
-        width: "1000px",
+        flexDirection: { lg: "column", md: "row", sm: "row", xs: "column" },
+        width: "70%",
+        // minHeight:"500px"
       }}
     >
       {props.isLoading ? (
@@ -112,32 +116,58 @@ const ExamFirstSection = (props: props) => {
       ) : (
         props.data && (
           <>
-            <Stack
-              direction="column"
-              spacing={2}
-              margin="auto"
-              sx={{}}
-              onCopy={(e) => props.preventCopyPaste(e)}
-            >
+            <Box  width="950px"  marginX="auto"   marginTop={3}>
               <ParaText4
                 text={`Question ${props.count + 1}`}
                 css={{ fontWeight: "600" }}
               />
-              <Box sx={{overflow: 'auto', maxHeight:'500px'}}>
-            {  question&&  <ParaText4
-                text={question?.questions.question}
-                css={{ fontWeight: "400", maxWidth: "443px" }}
-              />}
-              </Box>
-            
-            </Stack>
-            <Divider orientation="vertical" flexItem sx={{}} />
+              <Divider orientation="horizontal" />
+            </Box>
             <Stack
               direction="column"
-              spacing={2}
-              margin={{ lg: "auto", md: "auto", sm: "auto", xs: "20px" }}
+              spacing={5}
+              marginX="auto"
+              marginTop={3}
+              maxWidth="950px"
+              maxHeight="350px"
+              sx={{ overflow: "auto" }}
               onCopy={(e) => props.preventCopyPaste(e)}
             >
+              <Stack>
+                {question && (
+                  <ParaText4
+                    text={question?.questions.question}
+                    css={{ fontWeight: "400", marginBottom: "10px" }}
+                  />
+                )}
+                {question?.questions.question_image &&
+                  question?.questions.question_image.length !== 0 && (
+                    <ImageList
+                      sx={{
+                        width: "100%",
+                        // maxHeight: "340px",
+                        maxWidth:"hidden"
+                      }}
+                      cols={3}
+                      gap={7}
+                      // rowHeight={164}
+                    >
+                      {question?.questions.question_image.map(
+                        (item: image, key: number) => (
+                          <ImageListItem key={key} sx={{ width: "300px" }} >
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL + item.image_url
+                              }
+                              alt={`Image ${key}`}
+                            />
+                          </ImageListItem>
+                        )
+                      )}
+                    </ImageList>
+                  )}
+              </Stack>
+              <Stack>
               <ParaText4 text="Option" css={{ fontWeight: "600" }} />
               <form onChange={handleSubmit(onSubmit)}>
                 <Controller
@@ -152,7 +182,7 @@ const ExamFirstSection = (props: props) => {
                         }
                         value="1"
                         control={<Radio />}
-                        label={`(A) ${question?.questions.option_1}`}
+                        label={`A. ${question?.questions.option_1}`}
                       />
                       <FormControlLabel
                         value="2"
@@ -160,7 +190,7 @@ const ExamFirstSection = (props: props) => {
                           props.data ? question?.test_answer == "2" : false
                         }
                         control={<Radio />}
-                        label={`(B) ${question?.questions.option_2}`}
+                        label={`B. ${question?.questions.option_2}`}
                       />
                       <FormControlLabel
                         value="3"
@@ -168,7 +198,7 @@ const ExamFirstSection = (props: props) => {
                           props.data ? question?.test_answer == "3" : false
                         }
                         control={<Radio />}
-                        label={`(C) ${question?.questions.option_3}`}
+                        label={`C. ${question?.questions.option_3}`}
                       />
                       <FormControlLabel
                         value="4"
@@ -176,12 +206,13 @@ const ExamFirstSection = (props: props) => {
                           props.data ? question?.test_answer == "4" : false
                         }
                         control={<Radio />}
-                        label={`(D) ${question?.questions.option_4}`}
+                        label={`D. ${question?.questions.option_4}`}
                       />
                     </RadioGroup>
                   )}
                 />
               </form>
+                </Stack>                
             </Stack>
           </>
         )

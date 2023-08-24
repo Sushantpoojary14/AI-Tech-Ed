@@ -6,7 +6,7 @@ import ExamSecondSection from "./Components/ExamSecondSection";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import tokenAxios from "../../../Hooks/TokenAxios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { OButton, WButton } from "../../../Components/Common/Button";
 import { AppContext } from "../../../Context/AppContext";
 import { useEffect, useState } from "react";
@@ -19,7 +19,11 @@ type mutateType = {
   current_timer: string;
   test_answer?: string | number;
 };
-
+type image ={
+  id:number,
+  image_url:string,
+  q_id:number
+}
 type questionType = {
   id: number;
   q_id: 1;
@@ -40,6 +44,7 @@ type questionType = {
     tst_id: number;
     marks: null | number;
     status: number;
+    question_image:image[];
   };
 };
 const Exam_Section = () => {
@@ -60,7 +65,7 @@ const Exam_Section = () => {
   //     return false;
   // };
 
-  const preventCopyPaste = (e:  React.ClipboardEvent<HTMLDivElement>) => {
+  const preventCopyPaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     e.preventDefault();
     alert("Copying and pasting is not allowed!");
   };
@@ -76,13 +81,12 @@ const Exam_Section = () => {
 
   const updateTStatus = useMutation({
     mutationFn: async (data: mutateType) => {
-      const  object: {status_id: number | undefined, current_timer:string}= {
+      const object: { status_id: number | undefined; current_timer: string } = {
         status_id: data?.complete_status,
         current_timer: data?.current_timer,
         ...(data.test_answer && { test_answer: null }),
       };
 
-      
       return await tokenAxios.post(`/update-test-status/${data.id}`, object);
     },
     onSuccess: (res) => {
@@ -150,15 +154,16 @@ const Exam_Section = () => {
     }
 
     setQuestions(data?.data.test_data);
-    console.log(!question);
-    
-    !question && questions?.filter((item: questionType, key: number) => {
-      if (item.id === data?.data.current_qid) {
-        setCount(key);
-        setQuestion(item);
-      }
-    });
-  }, [data,questions]);
+    // console.log(!question);
+
+    !question &&
+      questions?.filter((item: questionType, key: number) => {
+        if (item.id === data?.data.current_qid) {
+          setCount(key);
+          setQuestion(item);
+        }
+      });
+  }, [data, questions]);
 
   const paginate = (id: number, key: number) => {
     setCount(key);
@@ -171,7 +176,6 @@ const Exam_Section = () => {
           : questions[key].status_id,
       current_timer: `${minutes}.${seconds}`,
     });
-    
   };
 
   useEffect(() => {
@@ -188,7 +192,7 @@ const Exam_Section = () => {
   };
 
   const MarkForReview = () => {
-    console.log(questions[count]);
+    // console.log(questions[count]);
     updateTStatus.mutate({
       id: data?.data.current_qid,
       complete_status: questions[count]?.test_answer ? 5 : 4,
@@ -197,11 +201,10 @@ const Exam_Section = () => {
   };
 
   const ClearResponse = () => {
-
     setQuestion((prevQuestion: any) => ({
       ...prevQuestion,
       test_answer: null,
-      status_id:2
+      status_id: 2,
     }));
 
     updateTStatus.mutate({
@@ -222,15 +225,17 @@ const Exam_Section = () => {
 
   const SaveNext = () => {
     question &&
-    updateTimer.mutate({
+      updateTimer.mutate({
         id: question?.uts_id,
         current_timer: `${minutes}.${seconds}`,
       });
-    questions && paginate(questions[count + 1]?.id, count + 1);
+
+    if (count + 1 < questions.length)
+      questions && paginate(questions[count + 1]?.id, count + 1);
   };
   return (
-    <Container maxWidth="xl">
-      <Stack direction={"column"}>
+    <Container maxWidth="xl"  sx={{}}>
+      <Stack direction={"column"} >
         <Stack
           sx={{ width: "100%", my: "5px" }}
           direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
@@ -266,15 +271,15 @@ const Exam_Section = () => {
         </Stack>
         <Stack
           direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
-          spacing={2}
+          spacing={4}
           sx={{ width: "100%", my: "15px" }}
+          
         >
           <ExamFirstSection
             data={question}
             count={count}
             isLoading={isLoading}
             preventCopyPaste={preventCopyPaste}
-        
           />
           <ExamSecondSection
             questions={questions}
@@ -282,7 +287,7 @@ const Exam_Section = () => {
             submit={SubmitTestData}
           />
         </Stack>
-        <Stack direction={"row"} spacing={2}>
+        <Stack direction="row" spacing={2} marginTop={2}>
           <OButton
             name="MARKED FOR REVIEW"
             css={{ width: "220px" }}

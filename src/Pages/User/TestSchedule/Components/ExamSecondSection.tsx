@@ -9,7 +9,7 @@ import {
   notAnswered,
   notVisited,
   whiteText,
-  answeredMarkFR
+  answeredMarkFR,
 } from "../../../../Assets/Css/TestStatus";
 
 interface props {
@@ -23,11 +23,12 @@ const ExamSecondSection = (props: props) => {
     <Card
       sx={{
         boxShadow: "6px 6px 20px 0px #808080",
-        mb: "15px",
+        // mb: "15px",
         // display: "flex",
         // flexDirection: { lg: "row", md: "row", sm: "row", xs: "column" },
         paddingY: "25px",
-        width: "435px",
+        // width: "435px",
+   
       }}
     >
       <Box sx={{ paddingX: "20px" }}>
@@ -100,7 +101,6 @@ const ExamSecondSection = (props: props) => {
         }}
       ></Box>
       <Stack paddingX={"20px"} spacing={2} width={"400px"}>
-      
         <ExamStatus questions={props.questions} func={props.func} />
 
         <BButton2 name="Submit Test" func={props.submit} />

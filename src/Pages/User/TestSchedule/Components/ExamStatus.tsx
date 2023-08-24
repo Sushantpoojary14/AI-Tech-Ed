@@ -15,15 +15,16 @@ interface props {
 const ExamStatus = (props: props) => {
   let count = 1;
   return (
-    <Stack spacing={2} direction="column">
+    <Stack spacing={2} direction="column" width={"360px"}>
       {props.questions &&
         Array.from({ length: Math.ceil(props.questions.length / 5) }).map(
           (row, rowIndex) => (
             <Stack
               key={rowIndex}
-              spacing={7}
+              spacing={{lg:6,md:2}}
               direction="row"
               justifyContent="center"
+
             >
               {props.questions
                 .slice(rowIndex * 5, rowIndex * 5 + 5)
