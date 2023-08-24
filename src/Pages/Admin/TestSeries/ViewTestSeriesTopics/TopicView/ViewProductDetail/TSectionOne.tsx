@@ -22,9 +22,11 @@ import SimpleTable from "../../../../../../Components/Common/SimpleTable";
 import {
   DeleteIconButton,
   DownloadIconButton,
-  OButton,
+  EditIconButton,
 } from "../../../../../../Components/Common/Button";
+
 import PdfMaker from "../../../PdfMaker";
+import UploadModal from "../../../../../../Components/Model/UploadModal";
 
 interface Detail {
   title: string;
@@ -59,10 +61,14 @@ const TSectionOne = ({ topics, questions }: props) => {
   const { handlePEOpen, dataSubmit } = UserContext();
 
   const [checked, setChecked] = useState(true);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const columns = useMemo<MRT_ColumnDef<questionList>[]>(
     //column definitions...
@@ -120,40 +126,67 @@ const TSectionOne = ({ topics, questions }: props) => {
     []
     //end
   );
+
+  const handleEdit = () => {
+    console.log("click");
+    handleOpen();
+  };
+
   return (
-    <Card
-      sx={{
-        // boxShadow: "6px 6px 20px 0px #808080",
-        // my: "15px",
-        width: { lg: "1020px", md: "900px", sm: "900px", xs: "360px" },
-        // height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
-        py: "1rem",
-        px: "2rem",
-      }}
-    >
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <ParaText3 text={`Topic Name - ${topics.t_name}`} />
-        {/* <Switch
+    <>
+      <Card
+        sx={{
+          // boxShadow: "6px 6px 20px 0px #808080",
+          // my: "15px",
+          // width: { lg: "1020px", md: "900px", sm: "900px", xs: "360px" },
+          // height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
+          py: "1rem",
+          px: "2rem",
+        }}
+      >
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <ParaText3 text={`Topic Name - ${topics.t_name}`} />
+          {/* <Switch
           checked={checked}
           onChange={handleChange}
           inputProps={{ "aria-label": "controlled" }}
         />*/}
-        <Stack direction={"row"} alignItems={"center"} spacing={2}>
-          <PdfMaker bol={true} topic={topics.t_name} data={questions} />
+          <Stack direction={"row"} alignItems={"center"} spacing={2}>
+            <EditIconButton type="button" func={handleEdit} />
+            <PdfMaker
+              bol={true}
+              topic={topics.t_name}
+              data={questions}
+              button={<DownloadIconButton />}
+            />
 
-          <DeleteIconButton type="button" func={() => console.log("v")} />
+            <DeleteIconButton type="button" func={() => console.log("v")} />
+          </Stack>
         </Stack>
-      </Stack>
 
-      <Box marginY={2}>
-        {questions ? (
-          <SimpleTable columns={columns} data={questions} />
-        ) : (
-          <div>No Data</div>
-        )}
-      </Box>
-      <Box sx={{ width: "100%", textAlign: "right" }}></Box>
-    </Card>
+        <Box marginY={2}>
+          {questions ? (
+            <SimpleTable columns={columns} data={questions} />
+          ) : (
+            <div>No Data</div>
+          )}
+        </Box>
+        <Box sx={{ width: "100%", textAlign: "right" }}></Box>
+      </Card>
+
+      <UploadModal
+        open={open}
+        // handleOpen={handleOpen}
+        handleClose={handleClose}
+        topic={[topics.tsc_id, topics.t_name]}
+        // handleSubmit={handleSubmit}
+        // setCsvData={setCsvData}
+      />
+    </>
   );
 };
 

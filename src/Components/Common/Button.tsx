@@ -4,6 +4,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import React, { ReactNode } from "react";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Switch } from "@mui/material";
 import LoadingBar from "../Headers/LoadingBar";
 
@@ -24,6 +25,15 @@ const DownloadIconButton = (props: props) => {
     </Button>
   );
 };
+
+const EditIconButton = (props: props) => {
+  return (
+    <Button type={props.type} variant="outlined" onClick={props.func}>
+      <EditOutlinedIcon />
+    </Button>
+  );
+};
+
 const DeleteIconButton = (props: props) => {
   return (
     <Button
@@ -288,5 +298,6 @@ export {
   OutlineButton,
   DownloadIconButton,
   DeleteIconButton,
+  EditIconButton,
   SwitchComp,
 };

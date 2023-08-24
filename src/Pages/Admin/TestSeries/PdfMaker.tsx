@@ -7,6 +7,7 @@ import {
 } from "@react-pdf/renderer";
 import { BButton2 } from "../../../Components/Common/Button";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
+import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
 const styles = {
   page: {
     padding: 20,

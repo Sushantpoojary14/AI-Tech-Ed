@@ -390,14 +390,14 @@ const AddTopics = () => {
 
         {/* {GenerateQuestions()} */}
       </Container>
-
+      {/* 
       <UploadModal
         open={open}
         // handleOpen={handleOpen}
         handleClose={handleClose}
         // handleSubmit={handleSubmit}
         setCsvData={setCsvData}
-      />
+      /> */}
     </>
   );
 };

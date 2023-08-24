@@ -27,7 +27,21 @@ type mapData = {
   question: string;
 };
 
-const GenerateQuestions = ({ csvData, topic1, setCsvData, reset }: any) => {
+interface GenerateProps {
+  csvData?: any;
+  topic?: any;
+  topic1?: any;
+  setCsvData?: any;
+  reset?: any;
+}
+
+const GenerateQuestions = ({
+  csvData,
+  topic,
+  topic1,
+  setCsvData,
+  reset,
+}: GenerateProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const handleAlertBoxOpen = () => {
     setOpen(true);
@@ -123,6 +137,8 @@ const GenerateQuestions = ({ csvData, topic1, setCsvData, reset }: any) => {
           // const objects: any = {};
           // objects.question = item.question;
           // item?.options.forEach((element: string, key: number) => {
+          //   key++;
+          //   objects.option_[key] = element;
           //   key++;
           //   objects.option_[key] = element;
           // });
