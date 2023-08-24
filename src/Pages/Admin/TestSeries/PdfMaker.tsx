@@ -100,7 +100,7 @@ interface props {
   // data2?:questionList[];
   bol: boolean;
   topic: string;
-  button?:ReactJSXElement;
+  button?: ReactJSXElement;
 }
 const PdfMaker = (props: props) => {
   return (
@@ -110,21 +110,30 @@ const PdfMaker = (props: props) => {
       }
       fileName={`${props.topic}.pdf`}
     >
-      {({ loading }) =>
-        loading ? "Downloading..." : props.button
-      }
+      {({ loading }) => (loading ? "Downloading..." : props.button)}
     </PDFDownloadLink>
   );
 };
 
 const MyDocument = (props: props) => {
   const arr: number[] = [];
+  const selected_question: questions[] = [];
   const random: questions[] = [];
+  const questions = props.data;
   let count: number = 20;
   if (props.bol) {
-    if (props.data?.length < 20) {
+    if (questions?.length < 20) {
       count = 10;
     }
+    for (let i = questions?.length - 1; i < questions?.length - 1; i--) {
+      const ran = Math.floor(Math.random() * i + 1);
+      const temp = questions[i];
+      questions[i] = questions[ran];
+      questions[ran] = temp;
+      selected_question.push(questions[i]);
+    }
+    console.log(selected_question);
+
     while (random.length < count) {
       const ran = Math.floor(Math.random() * props.data?.length - 1 + 1);
       if (!arr.includes(ran)) {
@@ -171,15 +180,15 @@ const MyDocument = (props: props) => {
         <View style={styles.mainContainer}>
           <Text style={styles.header2}>Answers:</Text>
           <View style={styles.Container}>
-          {random.length != 0 &&
-            random?.map((item: questions, key) => (
-              <Text style={styles.answer} key={key}>
-                {item.answer
-                  ? `${key + 1}. ${item.answer} `
-                  : `${key + 1}. ${item.correct_option} `}
-              </Text>
-            ))}
-            </View>
+            {random.length != 0 &&
+              random?.map((item: questions, key) => (
+                <Text style={styles.answer} key={key}>
+                  {item.answer
+                    ? `${key + 1}. ${item.answer} `
+                    : `${key + 1}. ${item.correct_option} `}
+                </Text>
+              ))}
+          </View>
         </View>
         <View style={styles.mainContainer}>
           <Text style={styles.header2}>Explanation:</Text>
