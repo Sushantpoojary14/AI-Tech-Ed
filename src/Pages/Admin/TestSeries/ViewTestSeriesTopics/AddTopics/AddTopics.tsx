@@ -78,7 +78,7 @@ const AddTopics = () => {
   //   setGenerate(true);
   // };
 
-  const topic1 = watch(["tsc_id", "topic", "total_questions"]);
+  const topic1 = watch(["tsc_id", "topic", "total_questions","ts_id"]);
 
   const handleSubmitData = () => {
     // setGenerate(false);

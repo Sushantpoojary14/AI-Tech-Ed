@@ -18,13 +18,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <HashRouter >
+      <BrowserRouter >
         <MainUserContext>
           <MainContext>
             <App />
           </MainContext>
         </MainUserContext>
-      </HashRouter>
+      </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>

@@ -1,4 +1,3 @@
-
 import { Route, Routes } from "react-router-dom";
 import Index from "./Pages/Website/Index";
 import UserIndex from "./Pages/User/UserIndex";
@@ -11,11 +10,37 @@ import SuccessModel from "./Components/Model/SuccessModel";
 import { UserContext } from "./Context/UserContext";
 // import TestResult from "./Pages/";
 import img from "./Assets/images/password_success.jpg";
+import { useEffect, useState } from "react";
+import AlertBox from "./Components/Common/AlertBox";
 function App() {
-  const {  handlePUSuccessClose, openPuSuccess,openPuSuccess2,handlePUSuccessClose2 } =
-    UserContext();
+  const {
+    handlePUSuccessClose,
+    openPuSuccess,
+    openPuSuccess2,
+    handlePUSuccessClose2,
+  } = UserContext();
+  const [open, setOpen] = useState<boolean>(!navigator.onLine);
+  const handleAlertBoxOpen = () => {
+    setOpen(true);
+  };
+
+  const handleAlertBoxClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    setOpen(!navigator.onLine);
+  }, [navigator.onLine]);
+
+
   return (
     <>
+      <AlertBox
+        name="Please Check your Internet Connection"
+        type="error"
+        bol={open}
+        handleAlertBoxClose={handleAlertBoxClose}
+      />
       <SuccessModel
         handleClose={handlePUSuccessClose2}
         open={openPuSuccess2}

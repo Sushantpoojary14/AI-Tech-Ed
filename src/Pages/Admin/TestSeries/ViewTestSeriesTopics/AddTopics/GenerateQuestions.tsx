@@ -27,13 +27,7 @@ type mapData = {
   question: string;
 };
 
-const GenerateQuestions = ({
-  csvData,
-  topic,
-  topic1,
-  setCsvData,
-  reset,
-}: any) => {
+const GenerateQuestions = ({ csvData, topic1, setCsvData, reset }: any) => {
   const [open, setOpen] = useState<boolean>(false);
   const handleAlertBoxOpen = () => {
     setOpen(true);
@@ -42,12 +36,23 @@ const GenerateQuestions = ({
   const handleAlertBoxClose = () => {
     setOpen(false);
   };
+
+  const [open2, setOpen2] = useState<boolean>(false);
+  const handleAlertBoxOpen2 = () => {
+    setOpen2(true);
+  };
+
+  const handleAlertBoxClose2 = () => {
+    setOpen2(false);
+  };
+
   const addTestCTMu = useMutation({
     mutationFn: async (data: object[]) => {
       return await adminTokenAxios.post(`/admin/add-test-series-topics`, {
         tsc_id: topic1[0],
         t_name: topic1[1],
         question: data,
+        ts_id: topic1[3],
       });
     },
     onError: (error: any) => {
@@ -55,13 +60,13 @@ const GenerateQuestions = ({
     },
     onSuccess: (res: any) => {
       console.log(res);
-
+      handleAlertBoxOpen2();
       // navigate(`/admin/test-series/view-test-series-topics`);
       reset({
         tsc_id: "",
         topic: "",
       });
-      // setCsvData([]);
+      setCsvData([]);
     },
   });
 
@@ -118,8 +123,8 @@ const GenerateQuestions = ({
           // const objects: any = {};
           // objects.question = item.question;
           // item?.options.forEach((element: string, key: number) => {
-          //   key++; 
-          //   objects.option_[key] = element;  
+          //   key++;
+          //   objects.option_[key] = element;
           // });
           // objects.answer = item.answer;
           // objects.explanation = item.explanation;
@@ -158,10 +163,18 @@ const GenerateQuestions = ({
         handleAlertBoxClose={handleAlertBoxClose}
       />
 
+      <AlertBox
+        name="Successfully added Topic"
+        type="success"
+        bol={open2}
+        handleAlertBoxClose={handleAlertBoxClose2}
+      />
+
       {csvData.length > 0 && (
         <Stack marginY="1rem" direction="row" spacing={2}>
           {!newRes.data &&
-            (topic1[0] != 2 && newRes.isLoading ? (
+            topic1[0] != 2 &&
+            (newRes.isLoading ? (
               <BButton2 type="button" name="Generating..." />
             ) : (
               <BButton2 type="button" func={handleGenerate} name="Generate" />
@@ -174,13 +187,14 @@ const GenerateQuestions = ({
               button={<BButton2 type="button" name="Download" />}
             />
           )}
-          {(!!newRes.data || topic1[0] == 2) && (
+          {(!!newRes.data || topic1[0] == 1) && (
             <BButton2
               type="button"
               func={() =>
-                newRes.data
+                !addTestCTMu.isLoading &&
+                (newRes.data
                   ? addTestCTMu.mutate(newRes.data)
-                  : addTestCTMu.mutate(csvData)
+                  : addTestCTMu.mutate(csvData))
               }
               name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
             />

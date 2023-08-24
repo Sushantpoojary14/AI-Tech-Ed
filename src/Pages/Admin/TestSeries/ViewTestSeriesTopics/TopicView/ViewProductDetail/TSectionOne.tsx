@@ -24,7 +24,6 @@ import {
   DownloadIconButton,
   OButton,
 } from "../../../../../../Components/Common/Button";
-import { BButton2, OButton } from "../../../../../../Components/Common/Button";
 import PdfMaker from "../../../PdfMaker";
 
 interface Detail {

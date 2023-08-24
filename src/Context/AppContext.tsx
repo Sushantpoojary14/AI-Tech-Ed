@@ -127,6 +127,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
       dispatch({ type: "SET_TOKEN", payload: null });
       localStorage.removeItem("user");
       dispatch({ type: "SET_USER", payload: null });
+      localStorage.removeItem("product_id");
       navigate(0);
     },
     onError: (error) => {
