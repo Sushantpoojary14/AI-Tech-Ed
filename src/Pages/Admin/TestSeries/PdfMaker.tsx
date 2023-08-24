@@ -7,6 +7,7 @@ import {
 } from "@react-pdf/renderer";
 import { BButton2 } from "../../../Components/Common/Button";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
+import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
 const styles = {
   page: {
     padding: 20,
@@ -100,7 +101,7 @@ interface props {
   // data2?:questionList[];
   bol: boolean;
   topic: string;
-  button?:ReactJSXElement;
+  button?: ReactJSXElement;
 }
 const PdfMaker = (props: props) => {
   return (
@@ -110,9 +111,7 @@ const PdfMaker = (props: props) => {
       }
       fileName={`${props.topic}.pdf`}
     >
-      {({ loading }) =>
-        loading ? "Downloading..." : props.button
-      }
+      {({ loading }) => (loading ? "Downloading..." : props.button)}
     </PDFDownloadLink>
   );
 };
@@ -171,15 +170,15 @@ const MyDocument = (props: props) => {
         <View style={styles.mainContainer}>
           <Text style={styles.header2}>Answers:</Text>
           <View style={styles.Container}>
-          {random.length != 0 &&
-            random?.map((item: questions, key) => (
-              <Text style={styles.answer} key={key}>
-                {item.answer
-                  ? `${key + 1}. ${item.answer} `
-                  : `${key + 1}. ${item.correct_option} `}
-              </Text>
-            ))}
-            </View>
+            {random.length != 0 &&
+              random?.map((item: questions, key) => (
+                <Text style={styles.answer} key={key}>
+                  {item.answer
+                    ? `${key + 1}. ${item.answer} `
+                    : `${key + 1}. ${item.correct_option} `}
+                </Text>
+              ))}
+          </View>
         </View>
         <View style={styles.mainContainer}>
           <Text style={styles.header2}>Explanation:</Text>
