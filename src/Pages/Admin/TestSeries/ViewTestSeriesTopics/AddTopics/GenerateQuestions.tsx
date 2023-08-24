@@ -85,7 +85,23 @@ const GenerateQuestions = ({
   });
 
   const handleGenerate = async () => {
-    newRes.mutate(csvData);
+    const array1 = [
+      "Question",
+      "Option_A",
+      "Option_B",
+      "Option_C",
+      "Option_D",
+      "Answer",
+      "Explanation",
+    ];
+
+    const array2 = Object.keys(csvData[0]);
+    if (JSON.stringify(array1) === JSON.stringify(array2)) {
+      console.log(csvData);
+      newRes.mutate(csvData);
+    } else {
+      alert("upload csv in correct format");
+    }
   };
 
   const openAi = new OpenAIApi(
@@ -122,7 +138,7 @@ const GenerateQuestions = ({
         : "Generate an explanation based questions and correct answer"
     }
     `;
-
+        console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
           model: "gpt-3.5-turbo-16k",
           messages: [{ role: "user", content: query }],

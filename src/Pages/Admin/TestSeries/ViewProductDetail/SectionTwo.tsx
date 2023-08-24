@@ -54,7 +54,7 @@ function a11yProps(index: number) {
   };
 }
 
-const SectionTwo = ({ sets, onSwitchToggle }: any) => {
+const SectionTwo = ({ sets, onSwitchToggle, handleDeleteSet }: any) => {
   console.log("SETS", sets);
 
   const [value, setValue] = useState(0);
@@ -145,7 +145,7 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
                   >
                     <Stack direction={"row"} justifyContent={"space-between"}>
                       <Typography variant="h6" fontWeight={"bold"}>
-                        Set - {set.set_id}
+                        {set.set_name}
                       </Typography>
                       <Stack
                         direction={"row"}
@@ -158,7 +158,7 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
                         />
                         <DeleteIconButton
                           type="button"
-                          func={() => console.log(set.id)}
+                          func={() => handleDeleteSet(set.id)}
                         />
 
                         {/* <Switch

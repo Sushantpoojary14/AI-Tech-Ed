@@ -27,6 +27,7 @@ import {
 
 import PdfMaker from "../../../PdfMaker";
 import UploadModal from "../../../../../../Components/Model/UploadModal";
+import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
 
 interface Detail {
   title: string;
@@ -41,6 +42,8 @@ interface props {
     status: number;
   };
   questions: questionList[];
+  handleDeleteTopic: (id: any) => void;
+  topicCheck?: any;
 }
 
 type questionList = {
@@ -57,9 +60,15 @@ type questionList = {
   marks: null | number;
   status: number;
 };
-const TSectionOne = ({ topics, questions }: props) => {
+const TSectionOne = ({
+  topics,
+  questions,
+  handleDeleteTopic,
+  topicCheck,
+}: props) => {
   const { handlePEOpen, dataSubmit } = UserContext();
 
+  // const [topicId, setTopicId] = useState(null);
   const [checked, setChecked] = useState(true);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -127,9 +136,23 @@ const TSectionOne = ({ topics, questions }: props) => {
     //end
   );
 
+  // const topicCheck = useQuery({
+  //   queryKey: ["TopicCheck", topicId],
+  //   queryFn: async () => {
+  //     console.log("Query fn", topicId);
+  //     return await adminTokenAxios.get(`admin/check-topic/${topicId}`);
+  //   },
+  //   enabled: !!topicId,
+  // });
+
   const handleEdit = () => {
-    console.log("click");
-    handleOpen();
+    console.log("click", topicCheck?.data?.status);
+    // handleOpen();
+    if (topicCheck?.data?.status === 200) {
+      handleOpen();
+    } else {
+      alert("can't delete");
+    }
   };
 
   return (
@@ -156,7 +179,7 @@ const TSectionOne = ({ topics, questions }: props) => {
           inputProps={{ "aria-label": "controlled" }}
         />*/}
           <Stack direction={"row"} alignItems={"center"} spacing={2}>
-            <EditIconButton type="button" func={handleEdit} />
+            <EditIconButton type="button" func={() => handleEdit()} />
             <PdfMaker
               bol={true}
               topic={topics.t_name}
@@ -164,7 +187,10 @@ const TSectionOne = ({ topics, questions }: props) => {
               button={<DownloadIconButton />}
             />
 
-            <DeleteIconButton type="button" func={() => console.log("v")} />
+            <DeleteIconButton
+              type="button"
+              func={() => handleDeleteTopic(topics.id)}
+            />
           </Stack>
         </Stack>
 
