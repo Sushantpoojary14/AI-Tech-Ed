@@ -27,7 +27,7 @@ const Product = () => {
   const navigate = useNavigate();
   const {handlePUSuccessOpen,handlePUSuccessOpen2,handleClickOpen}= UserContext();
   const { user } = AppContext();
-  const {refetch } = CartContext();
+
   const { isLoading, data } = useQuery(
     [params],
     async () => await  axiosBaseURL.get(`/one-product-data/${params.id}`)
@@ -44,7 +44,6 @@ const Product = () => {
 
       if(res?.status==200){
         handlePUSuccessOpen2();
-        refetch();
       }
       else{
         handlePUSuccessOpen();

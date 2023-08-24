@@ -15,15 +15,16 @@ import axiosBaseURL from "../../../Hooks/BaseUrl";
 
 const SecondSection = () => {
   const [selectVal, setSelectVal] = useState<number>(1);
-  const { cart, setCart } = CartContext();
+  const { cart } = CartContext();
   const { user } = AppContext();
-  const [val, setVal] = useState<number[]>([]);
+
+console.log(cart);
 
   const { data: ts_data } = useQuery(["ts"], () =>
     axiosBaseURL.get(`/get-test-series`)
   );
 
-  const { isLoading, data, refetch } = useQuery(
+  const { isLoading, data } = useQuery(
     [selectVal, "product-data"],
     () => tokenAxios.get(`/get-product-data/${selectVal}`)
   );
@@ -36,7 +37,7 @@ const SecondSection = () => {
   let p = data?.data?.product_data;
   // p &&  console.log( p.length === 0);
 
-  if (isLoading || !cart) {
+  if (isLoading) {
     return <LoadingBar />;
   }
   return (

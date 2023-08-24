@@ -33,81 +33,86 @@ function createData(
 const tHead = ["#", "Package Names", "Test Series", "Price", "Action"];
 
 const Cart = () => {
-  const { cart, removeFromCart,refetch } = CartContext();
+  const { cart, removeFromCart, CRLoading, RAllFromCart } = CartContext();
   const { user } = AppContext();
   const navigate = useNavigate();
-  const {handlePUSuccessOpen, handlePUSuccessOpen2,handleClickOpen}= UserContext();
-  
+  const { handlePUSuccessOpen, handlePUSuccessOpen2, handleClickOpen } =
+    UserContext();
+
   const purchaseMU = useMutation({
-    mutationFn: async (p_id: number[] ) => {
-      console.log(p_id);  
+    mutationFn: async (p_id: number[]) => {
+      console.log(p_id);
       return await tokenAxios.post(`add-user-purchase`, {
         p_id: p_id,
       });
     },
-    onSuccess: (res:any) => {
-      console.log(res);
-      
-      if(res?.status==200){
+    onSuccess: (res: any) => {
+      if (res?.status == 200) {
+        RAllFromCart()
         handlePUSuccessOpen2();
-        refetch();
-      }
-      else{
+      } else {
         handlePUSuccessOpen();
-        navigate('/');
+        navigate("/");
       }
-      
     },
-    onError:(err)=>{
+    onError: (err) => {
       console.log(err);
-    }
+    },
   });
-  
-  const { data: newData, isLoading: Loading,error, } = useQuery(
-    [user,cart,purchaseMU.data,'userCart'],
-    () => tokenAxios.get(`/get-cart-data/${user?.id}`),
-    { enabled: !!user}
+
+  // const { data: newData, isLoading: Loading, } = useQuery(
+  //   [user,cart,purchaseMU.data,'userCart'],
+  //   () => tokenAxios.get(`/get-cart-data/${user?.id}`),
+  //   { enabled: !!user}
+  // );
+
+  const { isLoading, data } = useQuery(
+    [user, cart, "product"],
+    () => axiosBaseURL.get(`/get-product-data`)
+    // { enabled: !user }
   );
 
-  const { isLoading, data} = useQuery(
-    [user,cart,'product'],
-    () => axiosBaseURL.get(`/get-product-data`),
-    { enabled: !user }
-  );
+  let filter_data: any = [];
 
-  let filter_data:any = [];
- 
+  // console.log(newData);
 
-// console.log(newData);
+  const loginCheck = (id: number[]) => {
+    if (user) {
+      const lo = purchaseMU.mutate(id);
+      return 0;
+    }
+    handleClickOpen("1");
+  };
 
-const loginCheck = (id:number[])=>{
-  if(user){
-    purchaseMU.mutate(id)
-    return 0;
-  }
-  handleClickOpen('1');
-}
-
-  if (isLoading && !user) {
+  if (purchaseMU.isLoading && !user) {
     return <LoadingBar />;
   }
 
-  if (Loading && !!user) {
+  if (isLoading) {
     return <LoadingBar />;
   }
 
-
-  if (user) {
-    filter_data = newData?.data.cart_data?.map((item: any) => {
-      return item.ts_product;
-    });
-  } else {
-    filter_data = data?.data.product_data.filter((item: any) => {
-      return cart.includes(item.id);
-    });
-    
+  if (CRLoading) {
+    return <LoadingBar />;
   }
-  let arr:number[] = [];
+
+  // if (user) {
+  // filter_data = newData?.data.cart_data?.map((item: any) => {
+  //   return item.ts_product;
+  // });
+  // } else {
+  //   filter_data = data?.data.product_data.filter((item: any) => {
+  //     return cart.includes(item.id);
+  //   });
+
+  // }
+
+  filter_data = data?.data.product_data.filter((item: any) => {
+    return cart.includes(item.id);
+  });
+
+  let arr: number[] = [];
+
   return (
     <Container maxWidth="xl" sx={{ my: "50px" }}>
       <Header1 header="CHECKOUT CART" />
@@ -167,10 +172,9 @@ const loginCheck = (id:number[])=>{
           sx={{ maxWidth: "770px", display: "flex", justifyContent: "center" }}
         >
           <Link to="/">
-
             <WButton name="Back" css={{ width: "127px" }} />
           </Link>
-          <OButton name="Checkout" func={()=>loginCheck(arr)}/>
+          <OButton name="Checkout" func={() => loginCheck(arr)} />
         </Stack>
       ) : (
         <Stack

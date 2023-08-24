@@ -1,4 +1,8 @@
-import { QueryObserverResult, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  QueryObserverResult,
+  useMutation,
+  useQuery,
+} from "@tanstack/react-query";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axiosBaseURL from "../Hooks/BaseUrl";
 import tokenAxios from "../Hooks/TokenAxios";
@@ -12,22 +16,24 @@ interface ContextValue {
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   addToCart: (id: number) => void;
+  RAllFromCart: () => void;
   cart: Array<number>;
   setCart: React.Dispatch<React.SetStateAction<Array<number>>>;
   removeFromCart: (id: number) => void;
   addToCartFL: (id: number) => void;
-  refetch:QueryObserverResult['refetch']; 
+  CRLoading: boolean;
 }
 
 const defaultValue: ContextValue = {
   isLoading: false,
   setIsLoading: () => {},
   addToCart: (id: number) => {},
+  RAllFromCart: () => {},
   cart: [],
   setCart: () => {},
   removeFromCart: (id: number) => {},
   addToCartFL: (id: number) => {},
-  refetch: () => {}, 
+  CRLoading: false,
 };
 
 const Context = createContext<ContextValue>(defaultValue);
@@ -41,90 +47,89 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
   const [purchases, setPurchases] = useState<Array<number>>([]);
   const { user } = AppContext();
   const { handlePUSuccessOpen } = UserContext();
-  
+
   const { data: PUdata } = useQuery(
     [user, cart, "purchases"],
     async () => await tokenAxios.get(`get-user-purchases-id`),
     {
       enabled: !!user,
     }
-    );
-    
-    useEffect(() => {
-      setPurchases(PUdata?.data.tsp);
-    }, [PUdata]);
-
-    const { data,refetch } = useQuery(
-      [user,PUdata,'cartData'],
-      async () => await tokenAxios.get(`/get-cart-data/${user?.id}`),
-      {
-        enabled: !!user,
-      }
-    );
-    
-  let temp = data?.data.cart_data?.map((item: any) => {
-    return item.tsp_id;
-  });
+  );
 
   useEffect(() => {
-    temp && setCart(temp);
-  }, [data]);
+    setPurchases(PUdata?.data.tsp);
+  }, [PUdata,cart]);
+
+  const { data } = useQuery(
+    [user, "cartData"],
+    async () => await tokenAxios.get(`/get-cart-data/${user?.id}`),
+    {
+      enabled: !!user,
+    }
+  );
+
+  const RAllFromCart = () => {
+    setCart([]);
+    localStorage.removeItem("product_id");
+  };
+
+  useEffect(() => {
+    if (user) {
+      let updatedCart = data?.data.cart_data?.map((item: any) => {
+        return item.tsp_id;
+      });
+      updatedCart && setCart(updatedCart);
+
+      updatedCart &&
+        localStorage.setItem("product_id", JSON.stringify(updatedCart));
+    }
+  }, [user, data]);
 
   const CartData = useMutation({
     mutationFn: async (formData: any) => {
       // console.log(formData);
       return await tokenAxios.post("/add-to-cart", formData);
     },
-
-    onSuccess: (res) => {
-      refetch();
-    },
+    onSuccess: (res) => {},
   });
+
   const CartRemove = useMutation({
     mutationFn: async (id: number) => {
       return await tokenAxios.get(`/remove-from-cart/${id}`);
     },
 
-    onSuccess: (res) => {
-      let temp = cart.filter((item: number) => {
-        if (item != res.data.id) {
-          return item;
-        }
-      });
-      setCart(temp);
-    },
+    onSuccess: (res) => {},
   });
 
-  const addToCart = (id: number) => {
-    const updatedCart: number[] = [...(cart ? [...cart, id] : [id])];
- 
-    if (user) {
-      if (purchases.includes(id)) {
-        handlePUSuccessOpen();
-        return 0;
-      }
+  const CRLoading = CartRemove.isLoading;
 
+  const addToCart = (id: number) => {
+    const updatedCart: number[] = cart ? [...cart, id] : [id];
+
+    if (user && purchases?.includes(id)) {
+      handlePUSuccessOpen();
+      return 0;
+    }
+
+    setCart(updatedCart);
+
+    if (user) {
       CartData.mutate({
-        u_id: user?.id,
+        u_id: user.id,
         p_id: id,
       });
-      setCart(updatedCart);
-     
-    } else {
-      localStorage.setItem("product_id", JSON.stringify(updatedCart));
-      setCart(updatedCart);
     }
+    localStorage.setItem("product_id", JSON.stringify(updatedCart));
   };
 
   const addToCartFL = (id: number) => {
-    
     if (cart) {
       CartData.mutate({
         u_id: id,
         p_id: cart,
       });
     }
-    localStorage.removeItem("product_id");
+    // localStorage.removeItem("product_id");
   };
 
   const removeFromCart = (id: number) => {
@@ -134,10 +139,11 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
       }
     });
 
-    if (!user) {
-      setCart(temp);
-      localStorage.setItem("product_id", JSON.stringify(temp));
-    } else {
+    setCart(temp);
+    console.log(cart);
+    localStorage.setItem("product_id", JSON.stringify(temp));
+
+    if (user) {
       CartRemove.mutate(id);
     }
   };
@@ -145,6 +151,8 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        RAllFromCart,
+        CRLoading,
         setIsLoading,
         isLoading,
         addToCart,
@@ -152,7 +160,6 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
         setCart,
         removeFromCart,
         addToCartFL,
-        refetch
       }}
     >
       {children}
