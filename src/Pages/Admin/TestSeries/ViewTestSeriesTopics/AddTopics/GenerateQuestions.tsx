@@ -42,6 +42,7 @@ const GenerateQuestions = ({
   setCsvData,
   reset,
 }: GenerateProps) => {
+  const [resData ,  setResData] = useState([])
   const [open, setOpen] = useState<boolean>(false);
   const handleAlertBoxOpen = () => {
     setOpen(true);
@@ -66,6 +67,7 @@ const GenerateQuestions = ({
         tsc_id: topic1[0],
         t_name: topic1[1],
         question: data,
+        topic:topic1[4],
         ts_id: topic1[3],
       });
     },
@@ -73,14 +75,18 @@ const GenerateQuestions = ({
       console.error("Error creating user:", error.response?.data);
     },
     onSuccess: (res: any) => {
-      console.log(res);
-      handleAlertBoxOpen2();
-      // navigate(`/admin/test-series/view-test-series-topics`);
-      reset({
-        tsc_id: "",
-        topic: "",
-      });
-      setCsvData([]);
+      if(res.status==200){
+        console.log(res);
+        handleAlertBoxOpen2();
+        // navigate(`/admin/test-series/view-test-series-topics`);
+        reset({
+          tsc_id: "",
+          topic: "",
+        });
+        setCsvData([]);
+        setResData([])
+      }
+      
     },
   });
 
@@ -106,7 +112,7 @@ const GenerateQuestions = ({
         // console.log("loop", item);
         const query = `Generate five unique multiple-choice questions (MCQs), keeping the question  sentence the same as the provided example, but changing variables like numbers, names, and genders. Do not include question numbers after 'Question'. An example is provided below with options, correct answer, explanation, and question based on the topic 
         ${
-          topic1[1]
+          topic1[4]
         }. Also keep the explanation similar and give me in json and wrap it array keep options in object:
           
     Question:${item.Question}
@@ -158,7 +164,8 @@ const GenerateQuestions = ({
 
       return responses;
     },
-    onSuccess: (data) => {
+    onSuccess: (data:any) => {
+      setResData(data);
       console.log("Success Data", data);
     },
     onError: (error) => {
@@ -168,7 +175,7 @@ const GenerateQuestions = ({
     },
   });
 
-  // console.log(!newRes.data);
+  console.log(newRes.data);
 
   return (
     <>
@@ -188,14 +195,14 @@ const GenerateQuestions = ({
 
       {csvData.length > 0 && (
         <Stack marginY="1rem" direction="row" spacing={2}>
-          {!newRes.data &&
+          {resData.length ==0 &&
             topic1[0] != 2 &&
             (newRes.isLoading ? (
               <BButton2 type="button" name="Generating..." />
             ) : (
               <BButton2 type="button" func={handleGenerate} name="Generate" />
             ))}
-          {!!newRes.data && (
+          {resData.length !=0 && newRes.data && (
             <PdfMaker
               data={newRes.data}
               bol={!!newRes.data}
@@ -203,7 +210,7 @@ const GenerateQuestions = ({
               button={<BButton2 type="button" name="Download" />}
             />
           )}
-          {(!!newRes.data || topic1[0] == 1) && (
+          {(resData.length !=0  || topic1[0] == 2) && (
             <BButton2
               type="button"
               func={() =>

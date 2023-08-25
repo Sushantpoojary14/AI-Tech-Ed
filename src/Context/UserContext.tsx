@@ -29,7 +29,7 @@ interface ContextValue {
   openPESuccess: boolean;
   openPuSuccess: boolean;
   openPuSuccess2: boolean;
-  alertBox:boolean;
+  productEdit:boolean;
   anchorElUser: null | HTMLElement;
   handleCloseUserMenu: () => void;
   handleClickOpen: (val: string) => void;
@@ -54,8 +54,8 @@ interface ContextValue {
   handlePUSuccessClose: () => void;
   handlePUSuccessOpen2: () => void,
   handlePUSuccessClose2:()=>void,
-  handleAlertBoxOpen:()=>void,
-  handleAlertBoxClose:()=>void,
+  handlePREditOpen:()=>void,
+  handlePREditClose:()=>void,
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
@@ -73,7 +73,7 @@ type State = {
   anchorElUser: null | HTMLElement;
   openPuSuccess: boolean;
   openPuSuccess2: boolean;
-  alertBox:boolean;
+  productEdit:boolean;
 };
 
 //PE PRofile edit
@@ -94,7 +94,7 @@ const defaultValue: ContextValue = {
   openPuSuccess:false,
   openPuSuccess2:false,
   anchorElUser: null,
-  alertBox:false,
+  productEdit:false,
   dispatch: () => {},
   handleClickOpen: (val) => {},
   handleClose: () => {},
@@ -118,8 +118,8 @@ const defaultValue: ContextValue = {
   handlePUSuccessOpen2: () => {},
   handlePUSuccessClose2:()=>{},
   handleCloseUserMenu: () => {},
-  handleAlertBoxOpen:()=>{},
-  handleAlertBoxClose:()=>{},
+  handlePREditOpen:()=>{},
+  handlePREditClose:()=>{},
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => {},
 };
 
@@ -137,7 +137,7 @@ const initialState = {
   anchorElUser: null,
   openPuSuccess: false,
   openPuSuccess2: false,
-  alertBox:false,
+  productEdit:false,
 };
 
 const reducer = (state: State, action: Action) => {
@@ -166,8 +166,8 @@ const reducer = (state: State, action: Action) => {
         return { ...state, openPuSuccess2: action.payload };
     case "SET_VALUES":
       return { ...state, values: action.payload };
-    case "SET_alertBox":
-        return { ...state, alertBox: action.payload };
+    case "SET_productEdit":
+        return { ...state, productEdit: action.payload };
     case "SET_setAnchorElUser":
       return { ...state, anchorElUser: action.payload };
     default:
@@ -192,7 +192,7 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
     anchorElUser,
     openPuSuccess,
     openPuSuccess2,
-    alertBox,
+    productEdit,
   } = state;
   // const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -285,17 +285,18 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
   const handleCloseUserMenu = () => {
     dispatch({ type: "SET_setAnchorElUser", payload: null });
   };
-  const handleAlertBoxOpen = () => {
-    dispatch({ type: "SET_alertBox", payload: true });
+  const handlePREditOpen = () => {
+    console.log('click');
+    dispatch({ type: "SET_productEdit", payload: true });
   };
 
-  const handleAlertBoxClose = () => {
-    dispatch({ type: "SET_alertBox", payload: false });
+  const handlePREditClose = () => {
+    dispatch({ type: "SET_productEdit", payload: false });
   };
   return (
     <Context.Provider
       value={{
-        alertBox,
+        productEdit,
         open,
         handleClickOpen,
         handleClose,
@@ -333,8 +334,8 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
         openPuSuccess2,
         handlePUSuccessOpen2,
         handlePUSuccessClose2,
-        handleAlertBoxOpen,
-        handleAlertBoxClose
+        handlePREditOpen,
+        handlePREditClose
       }}
     >
       {children}

@@ -1,21 +1,19 @@
 import { Box, Button, Container, Stack } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import SectionOne from "./SectionOne";
-
 import ViewFirstSection from "../../../User/TestResultAnalysis/Components/ViewFirstSection";
 import SectionTwo from "./SectionTwo";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
-
 import { Header1 } from "../../../../Components/Common/HeaderText";
-
+ 
 const ViewProductDetail = () => {
   const queryClient = useQueryClient();
   const { productdetails } = useParams();
   const navigate = useNavigate();
+
 
   const testSeries = useQuery({
     queryKey: ["ViewProductDetails", productdetails],
@@ -24,9 +22,9 @@ const ViewProductDetail = () => {
         const response = await adminTokenAxios.get(
           `admin/show-product-details/${productdetails}`
         );
-        console.log("Products Details", response.data?.product_detail);
+        // console.log("Products Details", response.data?.product_detail);
 
-        return response.data?.product_detail;
+        return response?.data?.product_detail;
       } catch (error) {
         console.error(error);
       }
@@ -64,7 +62,7 @@ const ViewProductDetail = () => {
       productdetails,
     ]);
 
-    console.log("Cached data", updatedData);
+    // console.log("Cached data", updatedData);
     updatedData.categories.forEach((category: any) => {
       category.sets.forEach((set: any) => {
         if (set.id === setId) {
@@ -81,7 +79,7 @@ const ViewProductDetail = () => {
   if (testSeries.isLoading) {
     return <div>Loading...</div>;
   }
-
+  // console.log(testSeries?.data?.categories);
   return (
     <Container maxWidth="lg">
       <Stack marginTop={2} direction="row">

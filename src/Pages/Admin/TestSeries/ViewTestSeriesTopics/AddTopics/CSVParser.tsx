@@ -47,8 +47,6 @@ const CSVParser = ({ setCsvData, csvData }: CsvProps) => {
   const { CSVReader } = useCSVReader();
 
   const handleClick = () => {
-    console.log("click");
-
     setCsvData([]);
   };
 

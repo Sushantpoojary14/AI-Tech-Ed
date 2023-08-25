@@ -85,11 +85,11 @@ ModalProps) => {
   });
 
   const selectedCategories = Object.keys(categoryObj);
-  console.log("selectedCategories", selectedCategories);
+  // console.log("selectedCategories", selectedCategories);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     // const formattedData = [{setId: counter,}]
-    console.log("modal", data);
+    // console.log("modal", data);
 
     const formattedData = selectedCategories.map((category) => ({
       tspc_id: categoryObj[category],
@@ -101,7 +101,7 @@ ModalProps) => {
       total_set: counter,
     };
 
-    console.log("Formatted data:", formattedDatav2);
+    // console.log("Formatted data:", formattedDatav2);
 
     try {
       await addTestSeriesProductSetMutation.mutateAsync(formattedDatav2);
@@ -123,7 +123,7 @@ ModalProps) => {
     handleClose?.();
   };
 
-  console.log("MODAL", categoryObj, data);
+  // console.log("MODAL", categoryObj, data);
   return (
     <div>
       <Modal

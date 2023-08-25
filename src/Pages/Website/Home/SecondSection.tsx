@@ -18,15 +18,14 @@ const SecondSection = () => {
   const { cart } = CartContext();
   const { user } = AppContext();
 
-console.log(cart);
+  // console.log(cart);
 
   const { data: ts_data } = useQuery(["ts"], () =>
     axiosBaseURL.get(`/get-test-series`)
   );
 
-  const { isLoading, data } = useQuery(
-    [selectVal, "product-data"],
-    () => tokenAxios.get(`/get-product-data/${selectVal}`)
+  const { isLoading, data } = useQuery([selectVal, "product-data"], () =>
+    tokenAxios.get(`/get-product-data/${selectVal}`)
   );
 
   // const { data: cdata, isLoading: loading } = useQuery(
@@ -48,13 +47,14 @@ console.log(cart);
         id="product"
       >
         <Box style={{ display: "flex", alignItems: "left", width: "100%" }}>
-          <Header1 header="Buy Test Series" css={{mr:'10px'}} />
-          <SelectBox
+          <Header1 header="Buy Test Series" css={{ mr: "10px" }} />
+         {ts_data &&  <SelectBox
+            defaultValue={ts_data?.data.ts[selectVal - 1].id}
             name="choose test type"
             selectName="test_type"
             options={ts_data?.data.ts}
             func={setSelectVal}
-          />
+          />}
         </Box>
 
         <Box

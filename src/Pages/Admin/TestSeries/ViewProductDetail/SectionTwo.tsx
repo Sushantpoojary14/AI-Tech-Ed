@@ -24,6 +24,10 @@ import {
   DownloadIconButton,
   SwitchComp,
 } from "../../../../Components/Common/Button";
+import PdfMaker from "../PdfMaker";
+import { useMutation } from "@tanstack/react-query";
+import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
+import AlertBox from "../../../../Components/Common/AlertBox";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -31,8 +35,9 @@ interface TabPanelProps {
   value: number;
 }
 
-function CustomTabPanel(props: TabPanelProps) {
+const CustomTabPanel = (props: TabPanelProps) => {
   const { children, value, index, ...other } = props;
+  
 
   return (
     <Box
@@ -55,7 +60,24 @@ function a11yProps(index: number) {
 }
 
 const SectionTwo = ({ sets, onSwitchToggle }: any) => {
-  console.log("SETS", sets);
+  const [open, setOpen] = useState<boolean>(false);
+  const [open2, setOpen2] = useState<boolean>(false);
+
+  const handleAlertBoxOpen = () => {
+    setOpen(true);
+  };
+
+  const handleAlertBoxClose = () => {
+    setOpen(false);
+  };
+
+  const handleAlertBoxOpen2 = () => {
+    setOpen2(true);
+  };
+
+  const handleAlertBoxClose2 = () => {
+    setOpen2(false);
+  };
 
   const [value, setValue] = useState(0);
 
@@ -66,149 +88,178 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
   const handleClick = (id: number) => {
     console.log(id);
   };
-
+  const deleteSetMU = useMutation({
+    mutationFn: async (id: number) => {
+      return await adminTokenAxios.delete(`/admin/delete-set/${id}`);
+    },
+    onSuccess: (res) => {
+      console.log(res.status);
+      if (res.status == 200) {
+        handleAlertBoxOpen()
+      } else {
+        handleAlertBoxOpen()
+      }
+    },
+  });
   return (
-    <Card
-      sx={{
-        // boxShadow: "6px 6px 20px 0px #808080",
-        // my: "15px",
-        width: { lg: "1020px", md: "900px", sm: "900px", xs: "360px" },
-        // height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
-        py: "14px",
-        px: "2rem",
-      }}
-    >
-      <ParaText3 text="Sets" />
-      <Divider
-        sx={{
-          borderColor: "#FA8128",
-          borderWidth: "3px",
-          borderRadius: "3px",
-          width: "100px",
-        }}
+    <>
+      <AlertBox
+        name="Cannot Delete The Set"
+        type="error"
+        bol={open}
+        duration={6000}
+        handleAlertBoxClose={handleAlertBoxClose}
       />
-      <Box width={"full"}>
-        {/* <Grid container spacing={2}>
-          {sets.map((set: any) => (
-            <Grid key={set.id} item xs={12} md={12}>
-              <Typography component={"span"}>
-                Category - {set.tsc_type}
-              </Typography>
-              <List>
-                {set.sets.map((item: any) => (
-                  <ListItem
-                    key={item.id}
-                    sx={{ borderBottom: 1, borderColor: "divider" }}
-                  >
-                    <ListItemText
-                      primary={`Set - ${item.set_id}`}
-                      secondary={`Topics - ${item.topics
-                        .map((top: any) => top.t_name)
-                        .join(", ")}`}
-                    />
-                    <ListItemSecondaryAction>
-                      <Switch
-                        checked={item.status === 1} // Set the initial state based on API response
-                        onChange={() => onSwitchToggle(item.id, item.status)} // Attach the event handler
-                      />
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))}
-              </List>
-            </Grid>
-          ))}
-        </Grid> */}
+      <AlertBox
+        name="Successfully Deleted The Set"
+        type="success"
+        bol={open2}
+        handleAlertBoxClose={handleAlertBoxClose2}
+      />
 
-        <Box sx={{ width: "100%" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="scrollable"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs example"
-          >
-            {sets.map((category: any, index: number) => (
-              <Tab key={index} label={category.tsc_type} />
+      <Card
+        sx={{
+          width: { lg: "1020px", md: "900px", sm: "900px", xs: "360px" },
+          py: "14px",
+          px: "2rem",
+        }}
+      >
+        <ParaText3 text="Sets" />
+        <Divider
+          sx={{
+            borderColor: "#FA8128",
+            borderWidth: "3px",
+            borderRadius: "3px",
+            width: "100px",
+          }}
+        />
+        <Box width={"full"}>
+          {/* <Grid container spacing={2}>
+      {sets.map((set: any) => (
+        <Grid key={set.id} item xs={12} md={12}>
+          <Typography component={"span"}>
+            Category - {set.tsc_type}
+          </Typography>
+          <List>
+            {set.sets.map((item: any) => (
+              <ListItem
+                key={item.id}
+                sx={{ borderBottom: 1, borderColor: "divider" }}
+              >
+                <ListItemText
+                  primary={`Set - ${item.set_id}`}
+                  secondary={`Topics - ${item.topics
+                    .map((top: any) => top.t_name)
+                    .join(", ")}`}
+                />
+                <ListItemSecondaryAction>
+                  <Switch
+                    checked={item.status === 1} // Set the initial state based on API response
+                    onChange={() => onSwitchToggle(item.id, item.status)} // Attach the event handler
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
             ))}
-          </Tabs>
-          {sets.map((category: any, index: number) => (
-            <CustomTabPanel key={index} value={value} index={index}>
-              <Stack spacing={2}>
-                {category.sets.map((set: any) => (
-                  <Box
-                    paddingBottom={1}
-                    borderBottom={1}
-                    borderColor={"gray"}
-                    key={set.id}
-                  >
-                    <Stack direction={"row"} justifyContent={"space-between"}>
-                      <Typography variant="h6" fontWeight={"bold"}>
-                        Set - {set.set_id}
-                      </Typography>
-                      <Stack
-                        direction={"row"}
-                        alignItems={"center"}
-                        spacing={2}
-                      >
-                        <DownloadIconButton
-                          type="button"
-                          func={() => console.log(set.id)}
-                        />
-                        <DeleteIconButton
-                          type="button"
-                          func={() => console.log(set.id)}
-                        />
+          </List>
+        </Grid>
+      ))}
+    </Grid> */}
 
-                        {/* <Switch
-                          checked={set.status === 1} // Set the initial state based on API response
-                          onChange={() => onSwitchToggle(set.id, set.status)} // Attach the event handler
-                        /> */}
-                        <SwitchComp
-                          checked={set.status === 1}
-                          onChange={() => onSwitchToggle(set.id, set.status)}
-                        />
-                      </Stack>
-                    </Stack>
-
-                    <Typography
-                      marginBottom={1}
-                      variant="subtitle2"
-                      color={"gray"}
+          <Box sx={{ width: "100%" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="scrollable"
+              scrollButtons="auto"
+              aria-label="scrollable auto tabs example"
+            >
+              {sets.map((category: any, index: number) => (
+                <Tab key={index} label={category.tsc_type} />
+              ))}
+            </Tabs>
+            {sets.map((category: any, index: number) => (
+              <CustomTabPanel key={index} value={value} index={index}>
+                <Stack spacing={2}>
+                  {category.sets.map((set: any) => (
+                    <Box
+                      paddingBottom={1}
+                      borderBottom={1}
+                      borderColor={"gray"}
+                      key={set.id}
                     >
-                      Topics
-                    </Typography>
-                    {set.topics.map((topic: any) => (
-                      <Link
-                        key={topic.id}
-                        to={`/admin/view-topics/view-topic-questions/${topic.id}`}
-                      >
-                        <Typography
-                          sx={{
-                            padding: "0 1rem",
-                            paddingBottom: "4px",
-                            "&:hover": {
-                              borderLeft: "4px solid orange",
-                              borderRight: "4px solid orange",
-                              fontWeight: 600,
-                            },
-                          }}
-                        >
-                          {topic.t_name}
+                      <Stack direction={"row"} justifyContent={"space-between"}>
+                        <Typography variant="h6" fontWeight={"bold"}>
+                          {set.set_name}
                         </Typography>
-                      </Link>
+                        <Stack
+                          direction={"row"}
+                          alignItems={"center"}
+                          spacing={2}
+                        >
+                          {/* <DownloadIconButton type="button" /> */}
+                          <PdfMaker
+                            bol={true}
+                            data={set.questions}
+                            key={set.id}
+                            topic={set.set_name}
+                            button={<DownloadIconButton type="button" />}
+                          />
+                          <DeleteIconButton
+                            type="button"
+                            func={() => deleteSetMU.mutate(set.id)}
+                          />
 
-                      // <div key={topic.id}>{topic.t_name}</div>
-                    ))}
-                  </Box>
-                ))}
-              </Stack>
-            </CustomTabPanel>
-          ))}
+                          {/* <Switch
+                      checked={set.status === 1} // Set the initial state based on API response
+                      onChange={() => onSwitchToggle(set.id, set.status)} // Attach the event handler
+                    /> */}
+                          <SwitchComp
+                            checked={set.status === 1}
+                            onChange={() => onSwitchToggle(set.id, set.status)}
+                          />
+                        </Stack>
+                      </Stack>
+
+                      <Typography
+                        marginBottom={1}
+                        variant="subtitle2"
+                        color={"gray"}
+                      >
+                        Topics
+                      </Typography>
+                      {set.topics.map((topic: any) => (
+                        <Link
+                          key={topic.id}
+                          to={`/admin/view-topics/view-topic-questions/${topic.id}`}
+                        >
+                          <Typography
+                            sx={{
+                              padding: "0 1rem",
+                              paddingBottom: "4px",
+                              "&:hover": {
+                                borderLeft: "4px solid orange",
+                                borderRight: "4px solid orange",
+                                fontWeight: 600,
+                              },
+                            }}
+                          >
+                            {topic.t_name}
+                          </Typography>
+                        </Link>
+
+                        // <div key={topic.id}>{topic.t_name}</div>
+                      ))}
+                    </Box>
+                  ))}
+                </Stack>
+              </CustomTabPanel>
+            ))}
+          </Box>
         </Box>
-      </Box>
-    </Card>
+      </Card>
+    </>
   );
 };
 

@@ -30,6 +30,8 @@ import { useNavigate } from "react-router-dom";
 import UploadModal from "../../../../Components/Model/UploadModal";
 import AddTestSetModal from "../../../../Components/Model/AddTestSetModal";
 import { Header1 } from "../../../../Components/Common/HeaderText";
+import LoadingBar from "../../../../Components/Headers/LoadingBar";
+import AlertBox from "../../../../Components/Common/AlertBox";
 
 interface Categories {
   id: any;
@@ -67,7 +69,14 @@ const AddTestSeries = () => {
   const [subTopics, setSubTopics] = useState<any>([]);
   const [data, setData] = useState<any>([]);
   const [category, setCategory] = useState<any>({});
+  const [err, setErr] = useState<boolean>(false);
+  const handleAlertBoxOpen = () => {
+    setErr(true);
+  };
 
+  const handleAlertBoxClose = () => {
+    setErr(false);
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -87,7 +96,7 @@ const AddTestSeries = () => {
   const isTopicSelected = (topicId: string, selectedTopics: string[]) =>
     selectedTopics.includes(topicId);
 
-  const addTestSeriesProductMutation = useMutation({
+  const addTSProductMU = useMutation({
     mutationFn: async (formattedData: FormValues) => {
       return await adminTokenAxios.post(
         `/admin/add-test-series-product`,
@@ -102,11 +111,14 @@ const AddTestSeries = () => {
     onError: (error: any) => {
       console.error("Error creating user:", error.response?.data);
     },
-    onSuccess: (res: any) => {
-      console.log("Mutation Reponse", res?.data?.data);
-      setData(res?.data?.data);
-      setCategory(res?.data?.tspc);
-      setOpen(true);
+    onSuccess: (res) => {
+      if (res.status == 200) {
+        setData(res?.data?.data);
+        setCategory(res?.data?.tspc);
+        setOpen(true);
+      } else {
+        handleAlertBoxOpen();
+      }
     },
   });
 
@@ -116,14 +128,12 @@ const AddTestSeries = () => {
     // formData.append("p_image", data.p_image[0]);
     // data = { ...data, p_image: data.p_image[0] };
     // formData.append("data", JSON.stringify(data));
-    console.log("DATA", data);
+    // console.log("DATA", data);
 
     try {
-      await addTestSeriesProductMutation.mutateAsync(data);
-      console.log("Data submitted successfully", data);
-    } catch (error) {
-      // The error will be handled by the onError callback in the mutation options
-    }
+      await addTSProductMU.mutateAsync(data);
+      // console.log("Data submitted successfully", data);
+    } catch (error) {}
   };
 
   const getTestSeries = async () => {
@@ -140,7 +150,7 @@ const AddTestSeries = () => {
     queryFn: getTestSeries,
   });
 
-  console.log("TESTSERIES", testSeries.data);
+  // console.log("TESTSERIES", testSeries.data);
 
   const callApi = async (selectedTopic: any) => {
     const response = await adminTokenAxios.get(
@@ -153,7 +163,9 @@ const AddTestSeries = () => {
       })) || []
     );
   };
-
+  if (testSeries.isLoading) {
+    return <LoadingBar />;
+  }
   // const mutation = useMutation({
   //   mutationFn: callApi,
   //   onSuccess: (data) => {
@@ -163,10 +175,16 @@ const AddTestSeries = () => {
 
   // console.log("MUTATE", mutation);
 
-  // console.log("SUB Array", subTopics);
+  // console.log(addTSProductMU.data?.data.tsc_type);
 
   return (
     <>
+   { addTSProductMU.data && <AlertBox
+        name={`No Topics available in ${addTSProductMU.data?.data.tsc_type} Subject`}
+        type="error"
+        bol={err}
+        handleAlertBoxClose={handleAlertBoxClose}
+      />}
       <Container
         maxWidth="lg"
         sx={{
@@ -221,8 +239,8 @@ const AddTestSeries = () => {
                   <Controller
                     name="ts_id"
                     control={control}
-                    defaultValue="" // Set default value as needed
-                    rules={{ required: "This field is required" }} // Add validation rules as needed
+                    defaultValue=""
+                    rules={{ required: "This field is required" }}
                     render={({ field }) => (
                       <RadioGroup
                         row
@@ -473,7 +491,11 @@ const AddTestSeries = () => {
                 />
               </Grid>
 
-              <OButton3 type="submit" name="Add" css={{ marginTop: "1rem" }} />
+              <OButton3
+                type={addTSProductMU.isLoading ? "button" : "submit"}
+                name={addTSProductMU.isLoading ? "Adding..." : "Add"}
+                css={{ marginTop: "1rem" }}
+              />
             </Grid>
           </Stack>
         </form>

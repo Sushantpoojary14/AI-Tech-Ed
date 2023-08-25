@@ -15,9 +15,9 @@ interface props {
   name: string;
   selectName: string;
   options: option[];
+  defaultValue?:string;
   func?: (val: number) => void;
 }
-
 
 const SelectBox = (props: props) => {
   const [val, setVal] = useState<string>("");
@@ -29,6 +29,7 @@ const SelectBox = (props: props) => {
   };
   return (
     <FormControl>
+  
       <Select
         sx={{
           fontSize: "16px",
@@ -40,10 +41,14 @@ const SelectBox = (props: props) => {
         }}
         value={val}
         onChange={handleChange}
+        defaultValue={props.defaultValue}
         // label={props.label}
         displayEmpty
         name={props.selectName}
-        inputProps={{ "aria-label": "Without label" }}
+        inputProps={{
+          name: `${props.name}`,
+          id: 'uncontrolled-native',
+        }}
       >
         <MenuItem value="" disabled>
           <em>{props.name}</em>

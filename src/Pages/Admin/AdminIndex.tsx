@@ -31,6 +31,7 @@ import AddTopics from "./TestSeries/ViewTestSeriesTopics/AddTopics/AddTopics";
 import ViewProductDetail from "./TestSeries/ViewProductDetail/ViewProductDetail";
 import ViewTopicDetail from "./TestSeries/ViewTestSeriesTopics/TopicView/ViewProductDetail/ViewTopicDetail";
 import AlertBox from "../../Components/Common/AlertBox";
+import EditProduct from "../../Components/Model/EditProduct";
 
 const AdminIndex = () => {
   const { admin, adminLogout } = AppContext();
@@ -126,7 +127,7 @@ const AdminIndex = () => {
             text="Back to Dashboard"
             link="/admin/login"
           />
-       
+        
           <SuccessModel
             handleClose={handlePESuccessClose}
             open={openPESuccess}
@@ -147,6 +148,7 @@ const AdminIndex = () => {
             text="Back to Dashboard"
             link="/user"
           />
+            <EditProduct />
           <Container
             maxWidth={false}
             sx={{

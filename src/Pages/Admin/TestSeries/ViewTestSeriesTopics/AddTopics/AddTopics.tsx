@@ -40,6 +40,7 @@ type FormValues = {
   ts_id: string;
   tsc_id: string;
   topic: string;
+  topic_name:string
   total_questions: string | number;
 };
 
@@ -78,7 +79,7 @@ const AddTopics = () => {
   //   setGenerate(true);
   // };
 
-  const topic1 = watch(["tsc_id", "topic", "total_questions","ts_id"]);
+  const topic1 = watch(["tsc_id", "topic", "total_questions","ts_id","topic_name"]);
 
   const handleSubmitData = () => {
     // setGenerate(false);
@@ -277,9 +278,36 @@ const AddTopics = () => {
                 <Stack spacing={1}>
                   <FormLabel
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                    id="enter-topic-name"
+                  >
+                    Enter Topic Name
+                  </FormLabel>
+                  <Controller
+                    name="topic_name"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: "This field is required" }} // Add any other validation rules here
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        // label="Enter Topic
+                        placeholder="Enter Topic Name"
+                        variant="outlined"
+                        // sx={{ width: "50%" }}
+                        // error={!!errors.inputField}
+                        // helperText={errors.inputField ? errors.inputField.message : ''}
+                      />
+                    )}
+                  />
+                </Stack>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Stack spacing={1}>
+                  <FormLabel
+                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
                     id="enter-topic"
                   >
-                    Enter Topic
+                    Enter Topic 
                   </FormLabel>
                   <Controller
                     name="topic"
@@ -300,8 +328,7 @@ const AddTopics = () => {
                   />
                 </Stack>
               </Grid>
-
-              <Grid item xs={12} sm={4}>
+              {/* <Grid item xs={12} sm={4}>
                 <Stack spacing={1}>
                   <FormLabel
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
@@ -335,7 +362,7 @@ const AddTopics = () => {
                     )}
                   />
                 </Stack>
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12}>
                 <Stack spacing={1}>

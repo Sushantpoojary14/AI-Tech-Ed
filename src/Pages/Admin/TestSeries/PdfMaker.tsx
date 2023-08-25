@@ -34,6 +34,7 @@ const styles = {
   },
   options: {
     fontSize: 12,
+    marginTop:5,
     marginBottom: 5,
   },
 
@@ -44,7 +45,8 @@ const styles = {
 
   answer2: {
     fontSize: 12,
-    margin: 4,
+    margin: 7,
+    // marginBottom:7
   },
   header2: {
     fontSize: 12,
@@ -53,6 +55,9 @@ const styles = {
   explanation: {
     fontSize: 12,
     color: "red",
+    whiteSpace: "pre-line",
+    lineHeight:1.5,
+   
   },
   header: {
     fontSize: 20,
@@ -185,8 +190,9 @@ const MyDocument = (props: props) => {
               random?.map((item: questions, key) => (
                 <Text style={styles.answer} key={key}>
                   {item.answer
-                    ? `${key + 1}. ${item.answer} `
-                    : `${key + 1}. ${item.correct_option} `}
+                    ? `${key + 1}.  ${item.answer}`
+                    : `${key + 1}.  ${item.correct_option}`
+                    }
                 </Text>
               ))}
           </View>
@@ -198,7 +204,7 @@ const MyDocument = (props: props) => {
               <View style={styles.Container} key={key}>
                 <Text style={styles.answer2}>
                   {item.answer
-                    ? `${key + 1}.  ${item.answer} `
+                    ? `${key + 1}.   ${item.answer} `
                     : `${key + 1}.  ${item.correct_option} `}
                 </Text>
                 <Text style={styles.explanation}>{`${item.explanation} `}</Text>

@@ -9,6 +9,7 @@ interface props {
   type?: string;
   css?: object;
   defaultVal?: any;
+  required?:boolean;
 }
 
 
@@ -17,9 +18,9 @@ const Input = (props: props) => {
     <Box sx={{ ...props.css }}>
       <ParaText1 text={props.label} css={{ textAlign: "left" }} />
       <TextField
- 
+
         type={props.type}
-        required={true}
+        required={props.required ? props.required : true}
         defaultValue={props.defaultVal}
        
         InputLabelProps={{

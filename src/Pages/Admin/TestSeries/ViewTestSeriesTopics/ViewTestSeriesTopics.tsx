@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Link } from "react-router-dom";
 import TSTComp from "../Components/TSTComp";
+import LoadingBar from "../../../../Components/Headers/LoadingBar";
 
 const ViewTestSeriesTopics = () => {
   const [value, setValue] = React.useState("1");
@@ -33,7 +34,10 @@ const ViewTestSeriesTopics = () => {
     queryKey: ["TestSeriesTopics"],
     queryFn: getTestSeries,
   });
-
+  
+  if (testSeries.isLoading) {
+    return <LoadingBar />;
+  }
   return (
     <Container
       maxWidth="lg"
