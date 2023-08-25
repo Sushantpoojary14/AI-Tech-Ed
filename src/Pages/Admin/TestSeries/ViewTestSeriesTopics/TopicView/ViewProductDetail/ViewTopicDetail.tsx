@@ -11,6 +11,7 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { Header1 } from "../../../../../../Components/Common/HeaderText";
 import AlertBox from "../../../../../../Components/Common/AlertBox";
 import { useState } from "react";
+import LoadingBar from "../../../../../../Components/Headers/LoadingBar";
 
 const ViewTopicDetail = () => {
   const { topicId } = useParams();
@@ -57,6 +58,7 @@ const ViewTopicDetail = () => {
       console.log("Mutation Reponse", res?.response?.data?.Message);
       setMessage(res?.response?.data?.Message);
       handleAlertBoxOpen();
+      navigate(-1);
     },
   });
 
@@ -66,7 +68,7 @@ const ViewTopicDetail = () => {
   };
 
   if (testSeries.isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingBar />;
   }
 
   return (
@@ -123,6 +125,7 @@ const ViewTopicDetail = () => {
             questions={testSeries?.data?.data.question}
             handleDeleteTopic={handleDeleteTopic}
             topicCheck={topicCheck}
+            topicId={topicId}
           />
           {/* <Stack direction="column" spacing={3} useFlexGap flexWrap="wrap"> */}
           {/* <TSectionTwo sets={testSeries?.data?.categories} /> */}

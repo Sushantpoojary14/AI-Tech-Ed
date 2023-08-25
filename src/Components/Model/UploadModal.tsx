@@ -40,6 +40,7 @@ interface ModalProps {
   open: boolean;
   setCsvData?: any;
   topic: any;
+  topicId?: number | string;
 }
 
 const UploadModal = ({
@@ -48,6 +49,7 @@ const UploadModal = ({
   // setCsvData,
   handleSubmit,
   topic,
+  topicId,
 }: ModalProps) => {
   // const [result, setResult] = useState<any>(null);
   const [csvData, setCsvData] = useState<any>([]);
@@ -113,6 +115,8 @@ const UploadModal = ({
             </Stack>
 
             <GenerateQuestions
+              topicId={topicId}
+              edit={true}
               topic1={topic}
               csvData={csvData}
               // topic={topic}
