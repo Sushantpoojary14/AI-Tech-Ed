@@ -40,7 +40,7 @@ type FormValues = {
   ts_id: string;
   tsc_id: string;
   topic: string;
-  topic_name:string
+  topic_name: string;
   total_questions: string | number;
 };
 
@@ -79,7 +79,13 @@ const AddTopics = () => {
   //   setGenerate(true);
   // };
 
-  const topic1 = watch(["tsc_id", "topic", "total_questions","ts_id","topic_name"]);
+  const topic1 = watch([
+    "tsc_id",
+    "topic",
+    "total_questions",
+    "ts_id",
+    "topic_name",
+  ]);
 
   const handleSubmitData = () => {
     // setGenerate(false);
@@ -307,7 +313,7 @@ const AddTopics = () => {
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
                     id="enter-topic"
                   >
-                    Enter Topic 
+                    Enter Topic
                   </FormLabel>
                   <Controller
                     name="topic"
@@ -413,6 +419,7 @@ const AddTopics = () => {
           topic={topic}
           setCsvData={setCsvData}
           reset={reset}
+          edit={false}
         />
 
         {/* {GenerateQuestions()} */}

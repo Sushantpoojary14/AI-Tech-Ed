@@ -33,6 +33,8 @@ interface GenerateProps {
   topic1?: any;
   setCsvData?: any;
   reset?: any;
+  edit: boolean;
+  topicId?: number | string;
 }
 
 const GenerateQuestions = ({
@@ -41,8 +43,10 @@ const GenerateQuestions = ({
   topic1,
   setCsvData,
   reset,
+  edit,
+  topicId,
 }: GenerateProps) => {
-  const [resData ,  setResData] = useState([])
+  const [resData, setResData] = useState([]);
   const [open, setOpen] = useState<boolean>(false);
   const handleAlertBoxOpen = () => {
     setOpen(true);
@@ -65,9 +69,9 @@ const GenerateQuestions = ({
     mutationFn: async (data: object[]) => {
       return await adminTokenAxios.post(`/admin/add-test-series-topics`, {
         tsc_id: topic1[0],
-        t_name: topic1[1],
+        t_name: topic1[4],
         question: data,
-        topic:topic1[4],
+        topic: topic1[1],
         ts_id: topic1[3],
       });
     },
@@ -75,7 +79,7 @@ const GenerateQuestions = ({
       console.error("Error creating user:", error.response?.data);
     },
     onSuccess: (res: any) => {
-      if(res.status==200){
+      if (res.status == 200) {
         console.log(res);
         handleAlertBoxOpen2();
         // navigate(`/admin/test-series/view-test-series-topics`);
@@ -84,9 +88,32 @@ const GenerateQuestions = ({
           topic: "",
         });
         setCsvData([]);
-        setResData([])
+        setResData([]);
       }
-      
+    },
+  });
+
+  const updateTestCTMu = useMutation({
+    mutationFn: async (data: object[]) => {
+      return await adminTokenAxios.put(
+        `/admin/update-test-series-topics/${topicId}`
+      );
+    },
+    onError: (error: any) => {
+      console.error("Error creating user:", error.response?.data);
+    },
+    onSuccess: (res: any) => {
+      if (res.status == 200) {
+        console.log(res);
+        handleAlertBoxOpen2();
+        // navigate(`/admin/test-series/view-test-series-topics`);
+        // reset({
+        //   tsc_id: "",
+        //   topic: "",
+        // });
+        setCsvData([]);
+        setResData([]);
+      }
     },
   });
 
@@ -128,7 +155,7 @@ const GenerateQuestions = ({
         // console.log("loop", item);
         const query = `Generate five unique multiple-choice questions (MCQs), keeping the question  sentence the same as the provided example, but changing variables like numbers, names, and genders. Do not include question numbers after 'Question'. An example is provided below with options, correct answer, explanation, and question based on the topic 
         ${
-          topic1[4]
+          topic1[1]
         }. Also keep the explanation similar and give me in json and wrap it array keep options in object:
           
     Question:${item.Question}
@@ -180,7 +207,7 @@ const GenerateQuestions = ({
 
       return responses;
     },
-    onSuccess: (data:any) => {
+    onSuccess: (data: any) => {
       setResData(data);
       console.log("Success Data", data);
     },
@@ -209,37 +236,77 @@ const GenerateQuestions = ({
         handleAlertBoxClose={handleAlertBoxClose2}
       />
 
-      {csvData.length > 0 && (
-        <Stack marginY="1rem" direction="row" spacing={2}>
-          {resData.length ==0 &&
-            topic1[0] != 2 &&
-            (newRes.isLoading ? (
-              <BButton2 type="button" name="Generating..." />
-            ) : (
-              <BButton2 type="button" func={handleGenerate} name="Generate" />
-            ))}
-          {resData.length !=0 && newRes.data && (
-            <PdfMaker
-              data={newRes.data}
-              bol={!!newRes.data}
-              topic={topic1[1]}
-              button={<BButton2 type="button" name="Download" />}
-            />
+      {!edit
+        ? csvData.length > 0 && (
+            <Stack marginY="1rem" direction="row" spacing={2}>
+              {resData.length == 0 &&
+                topic1[0] != 2 &&
+                (newRes.isLoading ? (
+                  <BButton2 type="button" name="Generating..." />
+                ) : (
+                  <BButton2
+                    type="button"
+                    func={handleGenerate}
+                    name="Generate"
+                  />
+                ))}
+              {resData.length != 0 && newRes.data && (
+                <PdfMaker
+                  data={newRes.data}
+                  bol={!!newRes.data}
+                  topic={topic1[1]}
+                  button={<BButton2 type="button" name="Download" />}
+                />
+              )}
+              {(resData.length != 0 || topic1[0] == 2) && (
+                <BButton2
+                  type="button"
+                  func={() =>
+                    !addTestCTMu.isLoading &&
+                    (newRes.data
+                      ? addTestCTMu.mutate(newRes.data)
+                      : addTestCTMu.mutate(csvData))
+                  }
+                  name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
+                />
+              )}
+            </Stack>
+          )
+        : csvData.length > 0 && (
+            <Stack marginY="1rem" direction="row" spacing={2}>
+              {resData.length == 0 &&
+                topic1[0] != 2 &&
+                (newRes.isLoading ? (
+                  <BButton2 type="button" name="Generating..." />
+                ) : (
+                  <BButton2
+                    type="button"
+                    func={handleGenerate}
+                    name="Re-Generate"
+                  />
+                ))}
+              {resData.length != 0 && newRes.data && (
+                <PdfMaker
+                  data={newRes.data}
+                  bol={!!newRes.data}
+                  topic={topic1[1]}
+                  button={<BButton2 type="button" name="Download" />}
+                />
+              )}
+              {(resData.length != 0 || topic1[0] == 2) && (
+                <BButton2
+                  type="button"
+                  func={() =>
+                    !updateTestCTMu.isLoading &&
+                    (newRes.data
+                      ? updateTestCTMu.mutate(newRes.data)
+                      : updateTestCTMu.mutate(csvData))
+                  }
+                  name={updateTestCTMu.isLoading ? "Uploading..." : "Upload"}
+                />
+              )}
+            </Stack>
           )}
-          {(resData.length !=0  || topic1[0] == 2) && (
-            <BButton2
-              type="button"
-              func={() =>
-                !addTestCTMu.isLoading &&
-                (newRes.data
-                  ? addTestCTMu.mutate(newRes.data)
-                  : addTestCTMu.mutate(csvData))
-              }
-              name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
-            />
-          )}
-        </Stack>
-      )}
       {/* { csvData.length - 2 < currentIndex && <PdfMaker data={resData} />} */}
       {/* {generate ? (
         <Test

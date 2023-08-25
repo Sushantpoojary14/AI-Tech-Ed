@@ -37,6 +37,7 @@ interface Detail {
 interface props {
   topics: {
     id: number;
+    topic: string;
     t_name: string;
     tsc_id: number;
     status: number;
@@ -44,6 +45,7 @@ interface props {
   questions: questionList[];
   handleDeleteTopic: (id: any) => void;
   topicCheck?: any;
+  topicId?: number | string;
 }
 
 type questionList = {
@@ -65,6 +67,7 @@ const TSectionOne = ({
   questions,
   handleDeleteTopic,
   topicCheck,
+  topicId,
 }: props) => {
   const { handlePEOpen, dataSubmit } = UserContext();
 
@@ -208,7 +211,8 @@ const TSectionOne = ({
         open={open}
         // handleOpen={handleOpen}
         handleClose={handleClose}
-        topic={[topics.tsc_id, topics.t_name]}
+        topic={[topics.tsc_id, topics.topic]}
+        topicId={topicId}
         // handleSubmit={handleSubmit}
         // setCsvData={setCsvData}
       />
