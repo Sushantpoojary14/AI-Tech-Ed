@@ -175,11 +175,11 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
               scrollButtons="auto"
               aria-label="scrollable auto tabs example"
             >
-              {sets.map((category: any, index: number) => (
+              {sets?.map((category: any, index: number) => (
                 <Tab key={index} label={category.tsc_type} />
               ))}
             </Tabs>
-            {sets.map((category: any, index: number) => (
+            {sets?.map((category: any, index: number) => (
               <CustomTabPanel key={index} value={value} index={index}>
                 <Stack spacing={2}>
                   {category.sets.map((set: any) => (

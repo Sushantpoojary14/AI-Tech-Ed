@@ -10,12 +10,13 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { Header1 } from "../../../../Components/Common/HeaderText";
 import AlertBox from "../../../../Components/Common/AlertBox";
 import { useState } from "react";
+import { UserContext } from "../../../../Context/UserContext";
 
 const ViewProductDetail = () => {
   const queryClient = useQueryClient();
   const { productdetails } = useParams();
   const navigate = useNavigate();
-
+  const {productEdit} = UserContext();
   const [message, setMessage] = useState("");
 
   const [open, setOpen] = useState<boolean>(false);
@@ -28,7 +29,7 @@ const ViewProductDetail = () => {
   };
 
   const testSeries = useQuery({
-    queryKey: ["ViewProductDetails", productdetails],
+    queryKey: ["ViewProductDetails",productEdit],
     queryFn: async () => {
       try {
         const response = await adminTokenAxios.get(

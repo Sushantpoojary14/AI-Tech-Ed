@@ -116,7 +116,7 @@ const PdfMaker = (props: props) => {
       }
       fileName={`${props.topic}.pdf`}
     >
-      {({ loading }) => (loading ? "Downloading..." : props.button)}
+      {props.button}
     </PDFDownloadLink>
   );
 };
