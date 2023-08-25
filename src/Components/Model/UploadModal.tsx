@@ -5,6 +5,8 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+
 import InputAdornment from "@mui/material/InputAdornment";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { FormLabel, Stack } from "@mui/material";
@@ -20,11 +22,15 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "80%",
+
   height: "full",
+  minHeight: "300px",
+  maxHeight: "calc(100vh - 200px)",
   bgcolor: "background.paper",
   //   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  overflow: "auto",
 };
 
 interface ModalProps {
@@ -63,6 +69,19 @@ const UploadModal = ({
       >
         <Fade in={open}>
           <Box sx={style}>
+            <IconButton
+              edge="end"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+              sx={{
+                position: "absolute",
+                top: "1rem",
+                right: "1rem",
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
             {/* <Stack spacing={3}>
                 <TextField
                   fullWidth
