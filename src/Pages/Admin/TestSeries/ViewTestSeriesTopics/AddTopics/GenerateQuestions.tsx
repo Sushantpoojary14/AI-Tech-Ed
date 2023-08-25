@@ -29,7 +29,7 @@ type mapData = {
 
 interface GenerateProps {
   csvData?: any;
-  topic?: any;
+
   topic1?: any;
   setCsvData?: any;
   reset?: any;
@@ -39,7 +39,7 @@ interface GenerateProps {
 
 const GenerateQuestions = ({
   csvData,
-  topic,
+
   topic1,
   setCsvData,
   reset,
@@ -127,10 +127,10 @@ const GenerateQuestions = ({
       "Answer",
       "Explanation",
     ];
-
+    console.log(topic1[1]);
     const array2 = Object.keys(csvData[0]);
     if (JSON.stringify(array1) === JSON.stringify(array2)) {
-      console.log(csvData);
+      console.log("CSVDATA", csvData);
       newRes.mutate(csvData);
     } else {
       alert("upload csv in correct format");
