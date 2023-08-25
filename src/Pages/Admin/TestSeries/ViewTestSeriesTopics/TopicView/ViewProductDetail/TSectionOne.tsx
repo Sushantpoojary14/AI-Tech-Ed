@@ -154,7 +154,7 @@ const TSectionOne = ({
     if (topicCheck?.data?.status === 200) {
       handleOpen();
     } else {
-      alert("can't delete");
+      alert("can't edit");
     }
   };
 
