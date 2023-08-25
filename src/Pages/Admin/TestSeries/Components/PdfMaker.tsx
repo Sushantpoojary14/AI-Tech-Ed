@@ -66,8 +66,9 @@ const styles = {
 };
 
 type questions = {
+  Question: string;
   question: string;
-  options?: {
+  Options?: {
     a: string;
     b: string;
     c: string;
@@ -77,7 +78,8 @@ type questions = {
   option_2?: string;
   option_3?: string;
   option_4?: string;
-  answer?: string;
+  Answer?: string;
+  Explanation: string;
   explanation: string;
   correct_option?: string | number;
   tst_id?: number;
@@ -103,6 +105,7 @@ type questions = {
 interface props {
   data: questions[];
   // data2?:questionList[];
+  randomG?: boolean;
   bol: boolean;
   topic: string;
   total?: number;
@@ -114,24 +117,25 @@ const PdfMaker = (props: props) => {
   // const random: questions[] = [];
   const questions: questions[] = props.data;
   let count: number = props.total ? props.total : 20;
-  if (count != 35) {
+  if (!props.randomG) {
     if (props.bol) {
       if (questions?.length < 20) {
         count = 10;
       }
-      for (let i = questions?.length - 1; i >= 0; i--) {
+      for (let i = count - 1; i >= 0; i--) {
         const ran = Math.floor(Math.random() * (i + 1));
         const temp = questions[i];
         questions[i] = questions[ran];
         questions[ran] = temp;
         selected_question.push(questions[i]);
       }
+      // console.log(selected_question);
     } else {
       selected_question = questions;
+      // console.log(selected_question);
     }
   }
-  console.log(selected_question);
-  
+
   return (
     <PDFDownloadLink
       document={
@@ -160,7 +164,12 @@ const MyDocument = ({
   //     }
   //   }
 
-  // console.log(count, props.bol);
+  function lowercaseKeys(obj: any) {
+    return Object.keys(obj).reduce((accumulator: any, key: any) => {
+      accumulator[key.toLowerCase()] = obj[key];
+      return accumulator;
+    }, {});
+  }
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -169,15 +178,15 @@ const MyDocument = ({
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key) => (
               <View style={styles.Container} key={key}>
-                {item.options ? (
+                {item.Options ? (
                   <>
                     <Text style={styles.question}>
-                      {`${key + 1}: ${item.question}`}
+                      {`${key + 1}: ${item.Question}`}
                     </Text>
-                    <Text style={styles.options}>{`A. ${item.options.a}`}</Text>
-                    <Text style={styles.options}>{`B. ${item.options.b}`}</Text>
-                    <Text style={styles.options}>{`C. ${item.options.c}`}</Text>
-                    <Text style={styles.options}>{`D. ${item.options.d}`}</Text>
+                    <Text style={styles.options}>{`A. ${item.Options.a}`}</Text>
+                    <Text style={styles.options}>{`B. ${item.Options.b}`}</Text>
+                    <Text style={styles.options}>{`C. ${item.Options.c}`}</Text>
+                    <Text style={styles.options}>{`D. ${item.Options.d}`}</Text>
                   </>
                 ) : (
                   <>
@@ -201,8 +210,8 @@ const MyDocument = ({
             {selected_question.length != 0 &&
               selected_question?.map((item: questions, key) => (
                 <Text style={styles.answer} key={key}>
-                  {item.answer
-                    ? `${key + 1}.  ${item.answer}`
+                  {item.Answer
+                    ? `${key + 1}.  ${item.Answer}`
                     : `${key + 1}.  ${item.correct_option}`}
                 </Text>
               ))}
@@ -213,12 +222,27 @@ const MyDocument = ({
           {selected_question.length != 0 &&
             selected_question?.map((item: questions, key) => (
               <View style={styles.Container} key={key}>
-                <Text style={styles.answer2}>
-                  {item.answer
-                    ? `${key + 1}.   ${item.answer} `
-                    : `${key + 1}.  ${item.correct_option} `}
-                </Text>
-                <Text style={styles.explanation}>{`${item.explanation} `}</Text>
+                {item.Answer ? (
+                  <>
+                    <Text style={styles.answer2}>
+                     { `${key + 1}. ${item.Answer.toUpperCase()} `}
+                    </Text>
+                    <Text
+                      style={styles.explanation}
+                    >{`${item.Explanation} `}</Text>
+                  </>
+                ) : (
+                  <>
+                    <Text style={styles.answer2}>
+                     { `${key + 1}. ${item.correct_option}`}
+                    </Text>
+                    <Text
+                      style={styles.explanation}
+                    >{`${item.explanation} `}</Text>
+                  </>
+                )}
+
+                {/* <Text style={styles.explanation}>{`${item.explanation} `}</Text> */}
               </View>
             ))}
         </View>

@@ -29,7 +29,7 @@ type mapData = {
 
 interface GenerateProps {
   csvData?: any;
-
+  topic?: any;
   topic1?: any;
   setCsvData?: any;
   reset?: any;
@@ -39,7 +39,7 @@ interface GenerateProps {
 
 const GenerateQuestions = ({
   csvData,
-
+  topic,
   topic1,
   setCsvData,
   reset,
@@ -96,7 +96,8 @@ const GenerateQuestions = ({
   const updateTestCTMu = useMutation({
     mutationFn: async (data: object[]) => {
       return await adminTokenAxios.put(
-        `/admin/update-test-series-topics/${topicId}`
+        `/admin/update-test-series-topics/${topicId}`,
+        { question: data }
       );
     },
     onError: (error: any) => {
@@ -127,10 +128,10 @@ const GenerateQuestions = ({
       "Answer",
       "Explanation",
     ];
-    console.log(topic1[1]);
+
     const array2 = Object.keys(csvData[0]);
     if (JSON.stringify(array1) === JSON.stringify(array2)) {
-      console.log("CSVDATA", csvData);
+      console.log(csvData);
       newRes.mutate(csvData);
     } else {
       alert("upload csv in correct format");
@@ -196,11 +197,10 @@ const GenerateQuestions = ({
               "d": "Option D text"
             },
             "Answer": "Correct answer letter (a, b, c, or d)",
-            "Explanation": "Explanation for the correct answer"
+            "Explanation": "Explanation for the correct answer and use \n before it if the sentence need to be next line don't break"
           },
-          ...
-        ]
-        
+       ...
+        ]   
     `;
         // console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
@@ -318,8 +318,8 @@ const GenerateQuestions = ({
                 ))}
               {resData.length != 0 && newRes.data && (
                 <PdfMaker
-                  data={newRes.data}
-                  bol={!!newRes.data}
+                  data={resData}
+                  bol={!!resData}
                   topic={topic1[1]}
                   button={<BButton2 type="button" name="Download" />}
                 />

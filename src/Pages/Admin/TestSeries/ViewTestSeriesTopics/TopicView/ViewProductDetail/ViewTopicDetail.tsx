@@ -16,7 +16,7 @@ import LoadingBar from "../../../../../../Components/Headers/LoadingBar";
 const ViewTopicDetail = () => {
   const { topicId } = useParams();
   const navigate = useNavigate();
-  console.log(topicId);
+  // console.log(topicId);
 
   const [open, setOpen] = useState<boolean>(false);
   const [message, setMessage] = useState("");
@@ -38,7 +38,7 @@ const ViewTopicDetail = () => {
   const topicCheck = useQuery({
     queryKey: ["TopicCheck", topicId],
     queryFn: async () => {
-      console.log("Query fn", topicId);
+      // console.log("Query fn", topicId);
       return await adminTokenAxios.get(`admin/check-topic/${topicId}`);
     },
     enabled: !!topicId,
