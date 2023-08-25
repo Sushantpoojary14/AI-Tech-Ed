@@ -34,7 +34,7 @@ const styles = {
   },
   options: {
     fontSize: 12,
-    marginTop:5,
+    marginTop: 5,
     marginBottom: 5,
   },
 
@@ -56,8 +56,7 @@ const styles = {
     fontSize: 12,
     color: "red",
     whiteSpace: "pre-line",
-    lineHeight:1.5,
-   
+    lineHeight: 1.5,
   },
   header: {
     fontSize: 20,
@@ -106,14 +105,37 @@ interface props {
   // data2?:questionList[];
   bol: boolean;
   topic: string;
-  total?:number;
+  total?: number;
   button?: ReactJSXElement;
 }
 const PdfMaker = (props: props) => {
+  // const arr: number[] = [];
+  let selected_question: questions[] = [];
+  // const random: questions[] = [];
+  const questions: questions[] = props.data;
+  let count: number = props.total ? props.total : 20;
+  if (count != 35) {
+    if (props.bol) {
+      if (questions?.length < 20) {
+        count = 10;
+      }
+      for (let i = questions?.length - 1; i >= 0; i--) {
+        const ran = Math.floor(Math.random() * (i + 1));
+        const temp = questions[i];
+        questions[i] = questions[ran];
+        questions[ran] = temp;
+        selected_question.push(questions[i]);
+      }
+    } else {
+      selected_question = questions;
+    }
+  }
+  console.log(selected_question);
+  
   return (
     <PDFDownloadLink
       document={
-        <MyDocument data={props.data} bol={props.bol} topic={props.topic} total={props.total}/>
+        <MyDocument selected_question={selected_question} topic={props.topic} />
       }
       fileName={`${props.topic}.pdf`}
     >
@@ -122,41 +144,30 @@ const PdfMaker = (props: props) => {
   );
 };
 
-const MyDocument = (props: props) => {
-  const arr: number[] = [];
-  const selected_question: questions[] = [];
-  const random: questions[] = [];
-  const questions = props.data;
-  let count: number = props.total ? props.total : 20;
-  if (props.bol) {
-    if (questions?.length < 20) {
-      count = 10;
-    }
-    for (let i = questions?.length - 1; i < questions?.length - 1; i--) {
-      const ran = Math.floor(Math.random() * i + 1);
-      const temp = questions[i];
-      questions[i] = questions[ran];
-      questions[ran] = temp;
-      selected_question.push(questions[i]);
-    }
-    console.log(selected_question);
+const MyDocument = ({
+  selected_question,
+  topic,
+}: {
+  selected_question: questions[];
+  topic: string;
+}) => {
+  // console.log(count);
+  //   while (random.length < count) {
+  //     const ran = Math.floor(Math.random() * props.data?.length - 1 + 1);
+  //     if (!arr.includes(ran)) {
+  //       arr.push(ran);
+  //       random?.push(props.data[ran]);
+  //     }
+  //   }
 
-    while (random.length < count) {
-      const ran = Math.floor(Math.random() * props.data?.length - 1 + 1);
-      if (!arr.includes(ran)) {
-        arr.push(ran);
-        random?.push(props.data[ran]);
-      }
-    }
-  }
-
+  // console.log(count, props.bol);
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={styles.header}>{props.topic.toUpperCase()}</Text>
+        <Text style={styles.header}>{topic.toUpperCase()}</Text>
         <View style={styles.mainContainer}>
-          {random.length != 0 &&
-            random?.map((item: questions, key) => (
+          {selected_question?.length != 0 &&
+            selected_question?.map((item: questions, key) => (
               <View style={styles.Container} key={key}>
                 {item.options ? (
                   <>
@@ -187,21 +198,20 @@ const MyDocument = (props: props) => {
         <View style={styles.mainContainer}>
           <Text style={styles.header2}>Answers:</Text>
           <View style={styles.Container}>
-            {random.length != 0 &&
-              random?.map((item: questions, key) => (
+            {selected_question.length != 0 &&
+              selected_question?.map((item: questions, key) => (
                 <Text style={styles.answer} key={key}>
                   {item.answer
                     ? `${key + 1}.  ${item.answer}`
-                    : `${key + 1}.  ${item.correct_option}`
-                    }
+                    : `${key + 1}.  ${item.correct_option}`}
                 </Text>
               ))}
           </View>
         </View>
         <View style={styles.mainContainer}>
           <Text style={styles.header2}>Explanation:</Text>
-          {random.length != 0 &&
-            random?.map((item: questions, key) => (
+          {selected_question.length != 0 &&
+            selected_question?.map((item: questions, key) => (
               <View style={styles.Container} key={key}>
                 <Text style={styles.answer2}>
                   {item.answer
@@ -216,4 +226,5 @@ const MyDocument = (props: props) => {
     </Document>
   );
 };
+
 export default PdfMaker;

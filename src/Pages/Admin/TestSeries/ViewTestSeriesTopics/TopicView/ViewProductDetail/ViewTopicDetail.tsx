@@ -44,7 +44,7 @@ const ViewTopicDetail = () => {
     enabled: !!topicId,
   });
 
-  console.log(testSeries?.data?.data);
+  // console.log(testSeries?.data?.data);
 
   const deleteTopicMutation = useMutation({
     mutationFn: async (topicId: any) => {

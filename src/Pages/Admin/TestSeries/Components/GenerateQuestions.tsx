@@ -107,10 +107,10 @@ const GenerateQuestions = ({
         console.log(res);
         handleAlertBoxOpen2();
         // navigate(`/admin/test-series/view-test-series-topics`);
-        // reset({
-        //   tsc_id: "",
-        //   topic: "",
-        // });
+        reset({
+          tsc_id: "",
+          topic: "",
+        });
         setCsvData([]);
         setResData([]);
       }
@@ -153,25 +153,56 @@ const GenerateQuestions = ({
 
       for (const item of csvData) {
         // console.log("loop", item);
-        const query = `Generate five unique multiple-choice questions (MCQs), keeping the question  sentence the same as the provided example, but changing variables like numbers, names, and genders. Do not include question numbers after 'Question'. An example is provided below with options, correct answer, explanation, and question based on the topic 
-        ${
+        const query = `Generate five unique multiple-choice questions (MCQs) for the topic "${
           topic1[1]
-        }. Also keep the explanation similar and give me in json and wrap it array keep options in object:
-          
-    Question:${item.Question}
-    Options:
-    a. ${item.Option_A},
-    b. ${item.Option_B},
-    c. ${item.Option_C},
-    d. ${item.Option_D}
-    Answer: ${item.Answer}
-    Explanation:${
-      item.Explanation
-        ? item.Explanation
-        : "Generate an explanation based questions and correct answer"
-    }
+        }". Maintain the question sentence structure provided in the example while modifying variables like numbers, names, and genders. Exclude question numbers after 'Question'. An example with options, correct answer, explanation, and question based on the topic is provided below:
+
+        ---
+        Example Question:
+        Question: ${item.Question}
+        Options:
+        a. ${item.Option_A}
+        b. ${item.Option_B}
+        c. ${item.Option_C}
+        d. ${item.Option_D}
+        Answer: ${item.Answer}
+        Explanation: ${
+          item.Explanation
+            ? item.Explanation
+            : "Generate an explanation based on the question and correct answer"
+        }
+        
+        ---
+        Provide the JSON representation of the five MCQs in the following format:
+        
+        [
+          {
+            "Question": "Replace with question text",
+            "Options": {
+              "a": "Option A text",
+              "b": "Option B text",
+              "c": "Option C text",
+              "d": "Option D text"
+            },
+            "Answer": "Correct answer letter (a, b, c, or d)",
+            "Explanation": "Explanation for the correct answer"
+          },
+          {
+            "Question": "Replace with question text",
+            "Options": {
+              "a": "Option A text",
+              "b": "Option B text",
+              "c": "Option C text",
+              "d": "Option D text"
+            },
+            "Answer": "Correct answer letter (a, b, c, or d)",
+            "Explanation": "Explanation for the correct answer"
+          },
+          ...
+        ]
+        
     `;
-        console.log("QUERY", query);
+        // console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
           model: "gpt-3.5-turbo-16k",
           messages: [{ role: "user", content: query }],
@@ -179,7 +210,7 @@ const GenerateQuestions = ({
 
         const message = response?.data?.choices[0]?.message?.content;
         // const questions = message?.split("Question:");
-        // console.log(response);
+        console.log(message);
         const questions = message && JSON.parse(message);
 
         questions?.map((item: mapData, index: any) => {
@@ -218,7 +249,7 @@ const GenerateQuestions = ({
     },
   });
 
-  console.log(newRes.data);
+  console.log(resData);
 
   return (
     <>
