@@ -47,7 +47,7 @@ type FormValues = {
 const AddTopics = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [csvData, setCsvData] = useState<any>([]);
-  const [topic, setTopic] = useState<string>("");
+
   // const [generate, setGenerate] = useState<boolean>(false);
   // const [currentIndex, setCurrentIndex] = useState(0);
   const [formData, setFormData] = useState<any>(null);
@@ -416,7 +416,7 @@ const AddTopics = () => {
         <GenerateQuestions
           topic1={topic1}
           csvData={csvData}
-          topic={topic}
+          // topic={topic}
           setCsvData={setCsvData}
           reset={reset}
           edit={false}
