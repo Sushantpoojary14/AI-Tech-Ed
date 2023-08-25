@@ -34,14 +34,14 @@ const ViewTopicDetail = () => {
     },
   });
 
-  // const topicCheck = useQuery({
-  //   queryKey: ["TopicCheck", topicId],
-  //   queryFn: async () => {
-  //     console.log("Query fn", topicId);
-  //     return await adminTokenAxios.get(`admin/check-topic/${topicId}`);
-  //   },
-  //   // enabled: !!topicId,
-  // });
+  const topicCheck = useQuery({
+    queryKey: ["TopicCheck", topicId],
+    queryFn: async () => {
+      console.log("Query fn", topicId);
+      return await adminTokenAxios.get(`admin/check-topic/${topicId}`);
+    },
+    enabled: !!topicId,
+  });
 
   console.log(testSeries?.data?.data);
 
@@ -122,7 +122,7 @@ const ViewTopicDetail = () => {
             topics={testSeries?.data?.data.topics}
             questions={testSeries?.data?.data.question}
             handleDeleteTopic={handleDeleteTopic}
-            // topicCheck={topicCheck}
+            topicCheck={topicCheck}
           />
           {/* <Stack direction="column" spacing={3} useFlexGap flexWrap="wrap"> */}
           {/* <TSectionTwo sets={testSeries?.data?.categories} /> */}
