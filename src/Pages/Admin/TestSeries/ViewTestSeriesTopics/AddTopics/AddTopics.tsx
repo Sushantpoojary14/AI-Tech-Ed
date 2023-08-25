@@ -28,11 +28,11 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import UploadIcon from "@mui/icons-material/Upload";
 import UploadModal from "../../../../../Components/Model/UploadModal";
-import QuestionCard from "./QuestionCard";
+import QuestionCard from "../../Components/QuestionCard";
 import adminTokenAxios from "../../../../../Hooks/AdminTokenAxios";
-import CSVParser from "./CSVParser";
+import CSVParser from "../../Components/CSVParser";
 
-import GenerateQuestions from "./GenerateQuestions";
+import GenerateQuestions from "../../Components/GenerateQuestions";
 import LoadingBar from "../../../../../Components/Headers/LoadingBar";
 import { useNavigate } from "react-router-dom";
 

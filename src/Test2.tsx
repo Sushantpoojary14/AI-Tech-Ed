@@ -13,7 +13,7 @@ import {
   PDFViewer,
   PDFDownloadLink,
 } from "@react-pdf/renderer";
-import PdfMaker from "./Pages/Admin/TestSeries/PdfMaker";
+import PdfMaker from "./Pages/Admin/TestSeries/Components/PdfMaker";
 import AlertBox from "./Components/Common/AlertBox";
 import { UserContext } from "./Context/UserContext";
 

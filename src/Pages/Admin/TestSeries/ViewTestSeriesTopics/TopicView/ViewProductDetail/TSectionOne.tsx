@@ -25,7 +25,7 @@ import {
   EditIconButton,
 } from "../../../../../../Components/Common/Button";
 
-import PdfMaker from "../../../PdfMaker";
+import PdfMaker from "../../../Components/PdfMaker";
 import UploadModal from "../../../../../../Components/Model/UploadModal";
 import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
 

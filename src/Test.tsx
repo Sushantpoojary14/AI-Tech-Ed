@@ -64,7 +64,7 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Stack } from "@mui/material";
-import QuestionCard from "./Pages/Admin/TestSeries/ViewTestSeriesTopics/AddTopics/QuestionCard";
+import QuestionCard from "./Pages/Admin/TestSeries/Components/QuestionCard";
 
 const openAi = new OpenAIApi(
   new Configuration({

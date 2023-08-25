@@ -11,7 +11,8 @@ import adminTokenAxios from "../../../Hooks/AdminTokenAxios";
 import { useQuery } from "@tanstack/react-query";
 import ExpandingTable from "../../../Components/Common/ExpandingTable";
 import SimpleTable from "../../../Components/Common/SimpleTable";
-import TableComp from "./TableComp";
+import TableComp from "./Components/TableComp";
+import LoadingBar from "../../../Components/Headers/LoadingBar";
 
 const TestSeries = () => {
   const [value, setValue] = React.useState("1");
@@ -28,7 +29,6 @@ const TestSeries = () => {
     try {
       const response = await adminTokenAxios.get(`admin/get-test-series`);
       console.log(response.data?.ts);
-
       return response.data;
     } catch (error) {
       console.error(error);
@@ -40,6 +40,9 @@ const TestSeries = () => {
     queryFn: getTestSeries,
   });
 
+  if(testSeries.isLoading){
+    <LoadingBar/>
+  }
   return (
     <Container
       maxWidth="lg"

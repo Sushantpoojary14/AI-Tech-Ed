@@ -24,7 +24,7 @@ import {
   DownloadIconButton,
   SwitchComp,
 } from "../../../../Components/Common/Button";
-import PdfMaker from "../PdfMaker";
+import PdfMaker from "../Components/PdfMaker";
 import { useMutation } from "@tanstack/react-query";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import AlertBox from "../../../../Components/Common/AlertBox";
@@ -59,7 +59,7 @@ function a11yProps(index: number) {
   };
 }
 
-const SectionTwo = ({ sets, onSwitchToggle }: any) => {
+const SectionTwo = ({ sets, onSwitchToggle,handleDelete }: any) => {
   const [open, setOpen] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
 
@@ -85,9 +85,7 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
     setValue(newValue);
   };
 
-  const handleClick = (id: number) => {
-    console.log(id);
-  };
+
   const deleteSetMU = useMutation({
     mutationFn: async (id: number) => {
       return await adminTokenAxios.delete(`/admin/delete-set/${id}`);
@@ -95,7 +93,7 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
     onSuccess: (res) => {
       console.log(res.status);
       if (res.status == 200) {
-        handleAlertBoxOpen()
+        handleAlertBoxOpen2()
       } else {
         handleAlertBoxOpen()
       }
@@ -199,16 +197,17 @@ const SectionTwo = ({ sets, onSwitchToggle }: any) => {
                           spacing={2}
                         >
                           {/* <DownloadIconButton type="button" /> */}
-                          <PdfMaker
-                            bol={true}
-                            data={set.questions}
-                            key={set.id}
+                          {/* <PdfMaker
+                            bol={!!set}
+                            data={set?.questions}
+                            key={set?.id}
+                            total={set?.questions.length}
                             topic={set.set_name}
                             button={<DownloadIconButton type="button" />}
-                          />
+                          /> */}
                           <DeleteIconButton
                             type="button"
-                            func={() => deleteSetMU.mutate(set.id)}
+                            func={() => handleDelete.mutate(set.id)}
                           />
 
                           {/* <Switch

@@ -5,7 +5,7 @@ import {
   View,
   PDFDownloadLink,
 } from "@react-pdf/renderer";
-import { BButton2 } from "../../../Components/Common/Button";
+import { BButton2 } from "../../../../Components/Common/Button";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
 const styles = {
@@ -106,13 +106,14 @@ interface props {
   // data2?:questionList[];
   bol: boolean;
   topic: string;
+  total?:number;
   button?: ReactJSXElement;
 }
 const PdfMaker = (props: props) => {
   return (
     <PDFDownloadLink
       document={
-        <MyDocument data={props.data} bol={props.bol} topic={props.topic} />
+        <MyDocument data={props.data} bol={props.bol} topic={props.topic} total={props.total}/>
       }
       fileName={`${props.topic}.pdf`}
     >
@@ -126,7 +127,7 @@ const MyDocument = (props: props) => {
   const selected_question: questions[] = [];
   const random: questions[] = [];
   const questions = props.data;
-  let count: number = 20;
+  let count: number = props.total ? props.total : 20;
   if (props.bol) {
     if (questions?.length < 20) {
       count = 10;

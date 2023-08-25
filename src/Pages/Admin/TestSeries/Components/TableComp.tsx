@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import { type MRT_ColumnDef } from "material-react-table";
-import { data, type Person } from "../../../Components/Common/makeData";
+import { data, type Person } from "../../../../Components/Common/makeData";
 import { useMemo } from "react";
-import SimpleTable from "../../../Components/Common/SimpleTable";
+import SimpleTable from "../../../../Components/Common/SimpleTable";
 import { useQuery } from "@tanstack/react-query";
-import adminTokenAxios from "../../../Hooks/AdminTokenAxios";
+import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
+import LoadingBar from "../../../../Components/Headers/LoadingBar";
 
 interface TableCompProps {
   tabId: string | number;
@@ -82,7 +83,7 @@ const TableComp = ({ tabId }: TableCompProps) => {
   return (
     <>
       {products.isLoading ? (
-        <div>Loading....</div>
+        <LoadingBar/>
       ) : products.isSuccess ? (
         <SimpleTable columns={columns} data={products?.data} />
       ) : (

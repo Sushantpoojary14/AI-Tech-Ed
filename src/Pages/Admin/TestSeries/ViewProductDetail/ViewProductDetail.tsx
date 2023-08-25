@@ -11,12 +11,13 @@ import { Header1 } from "../../../../Components/Common/HeaderText";
 import AlertBox from "../../../../Components/Common/AlertBox";
 import { useState } from "react";
 import { UserContext } from "../../../../Context/UserContext";
+import LoadingBar from "../../../../Components/Headers/LoadingBar";
 
 const ViewProductDetail = () => {
   const queryClient = useQueryClient();
   const { productdetails } = useParams();
   const navigate = useNavigate();
-  const {productEdit} = UserContext();
+  const { productEdit } = UserContext();
   const [message, setMessage] = useState("");
 
   const [open, setOpen] = useState<boolean>(false);
@@ -27,9 +28,41 @@ const ViewProductDetail = () => {
   const handleAlertBoxClose = () => {
     setOpen(false);
   };
+  const [err, setErr] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+
+  const handleErrBoxOpen = () => {
+    setErr(true);
+  };
+
+  const handleErrBoxClose = () => {
+    setErr(false);
+  };
+
+  const handleSuccessBoxOpen = () => {
+    setSuccess(true);
+  };
+
+  const handleSuccessBoxClose = () => {
+    setSuccess(false);
+  };
+  const deleteSetMU = useMutation({
+    mutationFn: async (id: number) => {
+      return await adminTokenAxios.delete(`/admin/delete-set/${id}`);
+    },
+    onSuccess: (res) => {
+      console.log(res.status);
+      if (res.status == 200) {
+        
+        handleSuccessBoxOpen();
+      } else {
+        handleErrBoxOpen();
+      }
+    },
+  });
 
   const testSeries = useQuery({
-    queryKey: ["ViewProductDetails",productEdit],
+    queryKey: ["ViewProductDetails1", productdetails, productEdit,deleteSetMU.data],
     queryFn: async () => {
       try {
         const response = await adminTokenAxios.get(
@@ -71,7 +104,7 @@ const ViewProductDetail = () => {
 
     // Update the cache directly
     const updatedData: any = queryClient.getQueryData([
-      "ViewProductDetails",
+      "ViewProductDetails1",
       productdetails,
     ]);
 
@@ -84,33 +117,32 @@ const ViewProductDetail = () => {
       });
     });
     queryClient.setQueryData(
-      ["ViewProductDetails", productdetails],
+      ["ViewProductDetails1", productdetails],
       updatedData
     );
   };
 
-  const deleteSetMutation = useMutation({
-    mutationFn: async (setId: any) => {
-      console.log("mutation data", setId);
-      return await adminTokenAxios.delete(`/admin/delete-set/${setId}`);
-    },
-    onError: (error: any) => {
-      console.log("Error Deleting Set:", error);
-    },
-    onSuccess: (res: any) => {
-      console.log("Mutation Reponse", res?.response?.data?.Message);
-      setMessage(res?.response?.data?.Message);
-      handleAlertBoxOpen();
-    },
-  });
+  // const deleteSetMutation = useMutation({
+  //   mutationFn: async (setId: any) => {
+  //     console.log("mutation data", setId);
+  //     return await adminTokenAxios.delete(`/admin/delete-set/${setId}`);
+  //   },
+  //   onError: (error: any) => {
+  //     console.log("Error Deleting Set:", error);
+  //   },
+  //   onSuccess: (res: any) => {
+  //     console.log("Mutation Reponse", res?.response?.data?.Message);
+  //     setMessage(res?.response?.data?.Message);
+  //     handleAlertBoxOpen();
+  //   },
+  // });
 
-  const handleDeleteSet = (setId: any) => {
-    console.log("delete", setId);
-    deleteSetMutation.mutate(setId);
-  };
-
+  // const handleDeleteSet = (setId: any) => {
+  //   deleteSetMutation.mutate(setId);
+  // };
+ 
   if (testSeries.isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingBar />;
   }
   // console.log(testSeries?.data?.categories);
   return (
@@ -121,7 +153,19 @@ const ViewProductDetail = () => {
         bol={open}
         handleAlertBoxClose={handleAlertBoxClose}
       />
-
+      <AlertBox
+        name="Cannot Delete The Set"
+        type="error"
+        bol={err}
+        duration={6000}
+        handleAlertBoxClose={handleErrBoxClose}
+      />
+      <AlertBox
+        name="Successfully Deleted The Set"
+        type="success"
+        bol={success}
+        handleAlertBoxClose={handleSuccessBoxClose}
+      />
       <Container maxWidth="lg">
         <Stack marginTop={2} direction="row">
           <Button
@@ -170,7 +214,7 @@ const ViewProductDetail = () => {
           <SectionTwo
             sets={testSeries?.data?.categories}
             onSwitchToggle={handleSwitchToggle}
-            handleDeleteSet={handleDeleteSet}
+            handleDelete={deleteSetMU}
           />
           {/* </Stack> */}
         </Stack>

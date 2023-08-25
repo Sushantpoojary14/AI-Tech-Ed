@@ -52,7 +52,7 @@ const SectionOne = ({ product }: any) => {
     setOpen2(false);
   };
 
-  const {  handlePREditOpen } = UserContext();
+  const { handlePREditOpen } = UserContext();
   // handlePREditOpen();
   const [checked, setChecked] = useState<boolean>(product?.status === 1);
 
@@ -97,14 +97,16 @@ const SectionOne = ({ product }: any) => {
   };
 
   const details: Detail[] = [
-    { title: "Package Name", data: product.p_name },
-    { title: "Description", data: product.p_description },
-    { title: "Price", data: product.p_price },
+    { title: "Package Name", data: product?.p_name },
+    { title: "Description", data: product?.p_description },
+    { title: "Price", data: product?.p_price },
     // { title: "Duration", data: product.duration },
-    { title: "Test Month Limit", data: product.test_month_limit },
-    { title: "Total Question", data: product.total_question },
-    { title: "Release Date", data: product.release_date },
+    { title: "Test Month Limit", data: product?.test_month_limit },
+    { title: "Total Question", data: product?.total_question },
+    { title: "Release Date", data: product?.release_date },
   ];
+
+  
   return (
     <>
       <AlertBox

@@ -13,8 +13,8 @@ import { FormLabel, Stack } from "@mui/material";
 
 import React, { useState, CSSProperties } from "react";
 
-import CSVParser from "../../Pages/Admin/TestSeries/ViewTestSeriesTopics/AddTopics/CSVParser";
-import GenerateQuestions from "../../Pages/Admin/TestSeries/ViewTestSeriesTopics/AddTopics/GenerateQuestions";
+import CSVParser from "../../Pages/Admin/TestSeries/Components/CSVParser";
+import GenerateQuestions from "../../Pages/Admin/TestSeries/Components/GenerateQuestions";
 
 const style = {
   position: "absolute" as "absolute",

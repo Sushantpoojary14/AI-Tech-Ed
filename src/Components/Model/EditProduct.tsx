@@ -49,7 +49,7 @@ const EditProduct = () => {
   // console.log(productEdit);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["ViewProductDetails2", productEdit],
+    queryKey: ["ViewProductDetails2", productEdit,updateProductMU.data],
     queryFn: async () => {
       return await adminTokenAxios.get(`admin/show-product-details/${p_id}`);
     },
