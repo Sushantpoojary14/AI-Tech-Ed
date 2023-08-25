@@ -8,12 +8,24 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { Header1 } from "../../../../Components/Common/HeaderText";
- 
+import AlertBox from "../../../../Components/Common/AlertBox";
+import { useState } from "react";
+
 const ViewProductDetail = () => {
   const queryClient = useQueryClient();
   const { productdetails } = useParams();
   const navigate = useNavigate();
 
+  const [message, setMessage] = useState("");
+
+  const [open, setOpen] = useState<boolean>(false);
+  const handleAlertBoxOpen = () => {
+    setOpen(true);
+  };
+
+  const handleAlertBoxClose = () => {
+    setOpen(false);
+  };
 
   const testSeries = useQuery({
     queryKey: ["ViewProductDetails", productdetails],
