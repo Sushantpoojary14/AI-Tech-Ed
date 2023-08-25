@@ -7,15 +7,15 @@ interface props {
   type: "error" | "warning" | "info" | "success";
   bol: boolean;
   handleAlertBoxClose:()=>void;
+  duration?:number;
 }
 
 const AlertBox = (props: props) => {
-  const { handleAlertBoxClose, alertBox } = UserContext();
   return (
     <Stack sx={{ width: "100%" }}>
       <Snackbar
         open={props.bol}
-        autoHideDuration={3000}
+        autoHideDuration={props.duration ? props.duration: 6000}
         onClose={props.handleAlertBoxClose}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
