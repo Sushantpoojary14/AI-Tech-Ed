@@ -3,12 +3,13 @@ import { Configuration, OpenAIApi } from "openai";
 
 import Test from "../../../../Test";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Alert, Box, Dialog, Stack } from "@mui/material";
+import { Alert, Box, Dialog, Pagination, Stack } from "@mui/material";
 import { BButton2 } from "../../../../Components/Common/Button";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import PdfMaker from "./PdfMaker";
 import AlertBox from "../../../../Components/Common/AlertBox";
 import { UserContext } from "../../../../Context/UserContext";
+import QuestionCard from "./QuestionCard";
 
 type CsvItem = {
   Answer: string;
@@ -50,6 +51,19 @@ const GenerateQuestions = ({
 }: GenerateProps) => {
   const [resData, setResData] = useState([]);
   const [open, setOpen] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = resData.slice(startIndex, endIndex);
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    newPage: number
+  ) => {
+    setCurrentPage(newPage);
+  };
+
   const handleAlertBoxOpen = () => {
     setOpen(true);
   };
@@ -352,6 +366,40 @@ const GenerateQuestions = ({
       {/* ) : ( */}
       {/* <></> */}
       {/* )} */}
+      {resData.length > 1 && (
+        <>
+          <Stack alignItems={"center"} mt={2} mb={1}>
+            <Pagination
+              color="secondary"
+              variant="outlined"
+              count={Math.ceil(resData.length / itemsPerPage)} // Calculate the number of pages
+              page={currentPage}
+              onChange={handlePageChange}
+            />
+          </Stack>
+          <Stack spacing={2}>
+            {currentData.map((questionData: any, index: any) => (
+              <QuestionCard
+                key={index}
+                // questionNo={index + 1}
+                question={questionData.Question}
+                options={questionData.Options}
+                answer={questionData.Answer}
+                explanation={questionData.Explanation}
+              />
+            ))}
+          </Stack>
+          <Stack alignItems={"center"} mt={2} mb={1}>
+            <Pagination
+              color="secondary"
+              variant="outlined"
+              count={Math.ceil(resData.length / itemsPerPage)} // Calculate the number of pages
+              page={currentPage}
+              onChange={handlePageChange}
+            />
+          </Stack>
+        </>
+      )}
     </>
   );
 };
