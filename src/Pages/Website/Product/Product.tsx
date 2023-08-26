@@ -27,7 +27,7 @@ const Product = () => {
   const navigate = useNavigate();
   const {handlePUSuccessOpen,handlePUSuccessOpen2,handleClickOpen}= UserContext();
   const { user } = AppContext();
-
+  const { removeFromCart } = CartContext();
   const { isLoading, data } = useQuery(
     [params],
     async () => await  axiosBaseURL.get(`/one-product-data/${params.id}`)
@@ -35,6 +35,7 @@ const Product = () => {
 
   const purchaseMU = useMutation({
     mutationFn: async (p_id: number ) => {
+      removeFromCart(p_id);
       return await tokenAxios.post(`add-user-purchase`, {
         p_id: p_id,
       });

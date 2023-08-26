@@ -27,6 +27,7 @@ const FirstSectionTwo = () => {
   const { handlePUSuccessOpen2 } = UserContext();
   const purchaseMU = useMutation({
     mutationFn: async (p_id: number) => {
+      removeFromCart(p_id);
       return await tokenAxios.post(`add-user-purchase`, {
         p_id: p_id,
       });
