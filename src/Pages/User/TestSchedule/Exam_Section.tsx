@@ -234,7 +234,7 @@ const Exam_Section = () => {
       questions && paginate(questions[count + 1]?.id, count + 1);
   };
   return (
-    <Container maxWidth="xl"  sx={{}}>
+    <Container maxWidth="xl"  sx={{height:'100vh'}}>
       <Stack direction={"column"} >
         <Stack
           sx={{ width: "100%", my: "5px" }}

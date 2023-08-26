@@ -248,15 +248,15 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
                             onClick={() => console.log("click")}
                           ></button> */}
                           {
-                            // <PdfMaker
-                            //   bol={!!set}
-                            //   data={set?.questions}
-                            //   key={set?.id}
-                            //   randomG={true}
-                            //   total={setData?.questions.length}
-                            //   topic={set?.set_name}
-                            //   button={<DownloadIconButton type="button" />}
-                            // />
+                            <PdfMaker
+                              bol={!!set}
+                              data={set?.questions}
+                              key={set?.id}
+                              randomG={true}
+                              total={setData?.questions.length}
+                              topic={set?.set_name}
+                              button={<DownloadIconButton type="button" />}
+                            />
                           }
                           {/* <Switch
                       checked={set.status === 1} // Set the initial state based on API response

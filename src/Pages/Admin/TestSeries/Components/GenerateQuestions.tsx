@@ -214,7 +214,7 @@ const GenerateQuestions = ({
               "d": "Option D text"
             },
             "Answer": "Correct answer letter (a, b, c, or d)",
-            "Explanation": "Explanation for the correct answer and use \n before it if the sentence need to be next line don't break"
+            "Explanation": "Explanation for the correct answer and give it all text in on one line don't go to next line"
           },
        ...
         ]   
