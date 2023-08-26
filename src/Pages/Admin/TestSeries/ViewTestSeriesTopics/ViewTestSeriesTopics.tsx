@@ -34,7 +34,7 @@ const ViewTestSeriesTopics = () => {
     queryKey: ["TestSeriesTopics"],
     queryFn: getTestSeries,
   });
-  
+
   if (testSeries.isLoading) {
     return <LoadingBar />;
   }
@@ -52,7 +52,7 @@ const ViewTestSeriesTopics = () => {
           // display: "flex",
           // flexDirection: "column",
           // border: 1,
-          height: "85vh",
+          // height: "85vh",
           backgroundColor: "#F5F5F5",
         }}
         disableGutters

@@ -226,7 +226,7 @@ const MyDocument = ({
                 {item.Answer ? (
                   <>
                     <Text style={styles.answer2}>
-                     { `${key + 1}. ${item.Answer.toUpperCase()} `}
+                      {`${key + 1}. ${item.Answer.toUpperCase()} `}
                     </Text>
                     <Text
                       style={styles.explanation}
@@ -235,7 +235,7 @@ const MyDocument = ({
                 ) : (
                   <>
                     <Text style={styles.answer2}>
-                     { `${key + 1}. ${item.correct_option}`}
+                      {`${key + 1}. ${item.correct_option}`}
                     </Text>
                     <Text
                       style={styles.explanation}
