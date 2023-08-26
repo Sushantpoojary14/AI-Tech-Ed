@@ -22,6 +22,7 @@ interface ContextValue {
   removeFromCart: (id: number) => void;
   addToCartFL: (id: number) => void;
   CRLoading: boolean;
+  cartUpdate:()=>void;
 }
 
 const defaultValue: ContextValue = {
@@ -34,6 +35,7 @@ const defaultValue: ContextValue = {
   removeFromCart: (id: number) => {},
   addToCartFL: (id: number) => {},
   CRLoading: false,
+  cartUpdate:()=>{}
 };
 
 const Context = createContext<ContextValue>(defaultValue);
@@ -58,32 +60,12 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
 
   useEffect(() => {
     setPurchases(PUdata?.data.tsp);
-  }, [PUdata,cart]);
-
-  const { data } = useQuery(
-    [user, "cartData"],
-    async () => await tokenAxios.get(`/get-cart-data/${user?.id}`),
-    {
-      enabled: !!user,
-    }
-  );
+  }, [PUdata, cart]);
 
   const RAllFromCart = () => {
     setCart([]);
     localStorage.removeItem("product_id");
   };
-
-  useEffect(() => {
-    if (user) {
-      let updatedCart = data?.data.cart_data?.map((item: any) => {
-        return item.tsp_id;
-      });
-      updatedCart && setCart(updatedCart);
-
-      updatedCart &&
-        localStorage.setItem("product_id", JSON.stringify(updatedCart));
-    }
-  }, [user, data]);
 
   const CartData = useMutation({
     mutationFn: async (formData: any) => {
@@ -101,6 +83,29 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
     onSuccess: (res) => {},
   });
 
+  const { data } = useQuery(
+    [user, "cartData", CartData.data, CartRemove.data],
+    async () => await tokenAxios.get(`/get-cart-data/${user?.id}`),
+    {
+      enabled: !!user,
+    }
+  );
+
+  useEffect(() => {
+    cartUpdate();
+  }, [ data ]);
+
+  const cartUpdate = () => {
+    if (user) {
+      let updatedCart = data?.data.cart_data?.map((item: any) => {
+        return item.tsp_id;
+      });
+      updatedCart && setCart(updatedCart);
+
+      updatedCart &&
+        localStorage.setItem("product_id", JSON.stringify(updatedCart));
+    }
+  };
   const CRLoading = CartRemove.isLoading;
 
   const addToCart = (id: number) => {
@@ -151,6 +156,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        cartUpdate,
         RAllFromCart,
         CRLoading,
         setIsLoading,

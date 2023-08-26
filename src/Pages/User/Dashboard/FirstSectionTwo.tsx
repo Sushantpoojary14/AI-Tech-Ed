@@ -22,7 +22,7 @@ const header = ["Sr. No", "Test name", "Duration", "Price", ""];
 
 const FirstSectionTwo = () => {
   const queryClient = useQueryClient();
-  const { cart, removeFromCart } = CartContext();
+  const { cart, removeFromCart,cartUpdate } = CartContext();
   const { user } = AppContext();
   const { handlePUSuccessOpen2 } = UserContext();
   const purchaseMU = useMutation({
@@ -34,6 +34,7 @@ const FirstSectionTwo = () => {
     },
     onSuccess: (res) => {
       if (res?.status == 200) {
+        cartUpdate();
         handlePUSuccessOpen2();
       }
     },

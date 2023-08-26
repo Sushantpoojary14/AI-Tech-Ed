@@ -27,7 +27,7 @@ const Product = () => {
   const navigate = useNavigate();
   const {handlePUSuccessOpen,handlePUSuccessOpen2,handleClickOpen}= UserContext();
   const { user } = AppContext();
-  const { removeFromCart } = CartContext();
+  const { removeFromCart,cartUpdate } = CartContext();
   const { isLoading, data } = useQuery(
     [params],
     async () => await  axiosBaseURL.get(`/one-product-data/${params.id}`)
@@ -44,6 +44,7 @@ const Product = () => {
       // console.log(res?.response?.status);
 
       if(res?.status==200){
+        cartUpdate();
         handlePUSuccessOpen2();
       }
       else{
