@@ -10,23 +10,20 @@ import {
 } from "@mui/material";
 
 interface QuestionCardProps {
-  questionNo: number;
+  questionNo?: number;
   question: string;
-  Option_A: any;
-  Option_B: any;
-  Option_C: any;
-  Option_D: any;
+  options: {
+    [key: string]: string;
+  };
+
   answer: string;
   explanation: string;
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({
-  questionNo,
+  // questionNo,
   question,
-  Option_A,
-  Option_B,
-  Option_C,
-  Option_D,
+  options,
   answer,
   explanation,
 }) => {
@@ -34,28 +31,20 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
     <Card>
       <CardContent>
         <Typography variant="h6" component="h2">
-          Question {questionNo}: {question}
+          Question : {question}
         </Typography>
-        <List>
-          <ListItem>
-            <ListItemIcon>A.</ListItemIcon>
-            <ListItemText primary={Option_A} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>B.</ListItemIcon>
-            <ListItemText primary={Option_B} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>C.</ListItemIcon>
-            <ListItemText primary={Option_C} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>D.</ListItemIcon>
-            <ListItemText primary={Option_D} />
-          </ListItem>
+        <List disablePadding>
+          {Object.keys(options).map((optionKey, index) => (
+            <ListItem key={optionKey} disablePadding>
+              {/* <input type="radio" name={`question${index}`} value={optionKey} />
+                {options[optionKey]} */}
+              <ListItemIcon>{optionKey.toUpperCase()}</ListItemIcon>
+              <ListItemText primary={options[optionKey]} />
+            </ListItem>
+          ))}
         </List>
         <Typography variant="subtitle1" component="p">
-          Correct Answer: {answer}
+          Correct Answer: {answer.toUpperCase()}
         </Typography>
         <Typography variant="body2" component="p">
           Explanation: {explanation}
