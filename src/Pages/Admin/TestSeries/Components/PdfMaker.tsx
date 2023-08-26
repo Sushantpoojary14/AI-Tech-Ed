@@ -66,8 +66,8 @@ const styles = {
 };
 
 type questions = {
-  Question: string;
-  question: string;
+  Question?: string;
+  question?: string;
   Options?: {
     a: string;
     b: string;
@@ -79,8 +79,8 @@ type questions = {
   option_3?: string;
   option_4?: string;
   Answer?: string;
-  Explanation: string;
-  explanation: string;
+  Explanation?: string;
+  explanation?: string;
   correct_option?: string | number;
   tst_id?: number;
   marks?: null | number;
@@ -130,12 +130,13 @@ const PdfMaker = (props: props) => {
         selected_question.push(questions[i]);
       }
       // console.log(selected_question);
-    } else {
-      selected_question = questions;
-      // console.log(selected_question);
-    }
+    } 
   }
-
+  else {
+    selected_question = questions;
+   
+  }
+  console.log(selected_question);
   return (
     <PDFDownloadLink
       document={

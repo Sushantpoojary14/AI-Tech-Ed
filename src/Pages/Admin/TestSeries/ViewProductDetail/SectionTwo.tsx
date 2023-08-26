@@ -237,6 +237,7 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete }: any) => {
                               bol={!!set}
                               data={set?.questions}
                               key={set?.id}
+                              randomG={true}
                               total={setData?.questions.length}
                               topic={set?.set_name}
                               button={<DownloadIconButton type="button" />}

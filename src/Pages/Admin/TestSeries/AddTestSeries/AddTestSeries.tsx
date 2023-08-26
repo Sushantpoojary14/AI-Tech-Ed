@@ -179,12 +179,14 @@ const AddTestSeries = () => {
 
   return (
     <>
-   { addTSProductMU.data && <AlertBox
-        name={`No Topics available in ${addTSProductMU.data?.data.tsc_type} Subject`}
-        type="error"
-        bol={err}
-        handleAlertBoxClose={handleAlertBoxClose}
-      />}
+      {addTSProductMU.data && (
+        <AlertBox
+          name={`No Topics available in ${addTSProductMU.data?.data.tsc_type} Subject`}
+          type="error"
+          bol={err}
+          handleAlertBoxClose={handleAlertBoxClose}
+        />
+      )}
       <Container
         maxWidth="lg"
         sx={{

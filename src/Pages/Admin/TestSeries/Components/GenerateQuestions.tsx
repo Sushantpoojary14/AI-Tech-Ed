@@ -108,10 +108,10 @@ const GenerateQuestions = ({
         console.log(res);
         handleAlertBoxOpen2();
         // navigate(`/admin/test-series/view-test-series-topics`);
-        reset({
-          tsc_id: "",
-          topic: "",
-        });
+        // reset({
+        //   tsc_id: "",
+        //   topic: "",
+        // });
         setCsvData([]);
         setResData([]);
       }
