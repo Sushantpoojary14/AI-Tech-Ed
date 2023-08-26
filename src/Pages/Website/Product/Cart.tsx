@@ -11,7 +11,7 @@ import {
   Button,
 } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { OButton, OButton2, WButton } from "../../../Components/Common/Button";
+import { DeleteIconButton, OButton, OButton2, WButton } from "../../../Components/Common/Button";
 import { Header1, Header2 } from "../../../Components/Common/HeaderText";
 import { CartContext } from "../../../Context/CartContext";
 import UseGet from "../../../Hooks/UseGet";
@@ -21,7 +21,7 @@ import { AppContext } from "../../../Context/AppContext";
 import tokenAxios from "../../../Hooks/TokenAxios";
 import axiosBaseURL from "../../../Hooks/BaseUrl";
 import { UserContext } from "../../../Context/UserContext";
-
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 function createData(
   srNo: number,
   courses: string,
@@ -48,7 +48,7 @@ const Cart = () => {
     },
     onSuccess: (res: any) => {
       if (res?.status == 200) {
-        RAllFromCart()
+        RAllFromCart();
         handlePUSuccessOpen2();
       } else {
         handlePUSuccessOpen();
@@ -152,11 +152,12 @@ const Cart = () => {
                       </TableCell>
                       <TableCell
                         align="center"
-                        sx={{ border: "none" }}
+                        sx={{ border: "none", cursor: "pointer" }}
                         onClick={() => removeFromCart(item.id)}
                       >
-                        Remove
+                        <DeleteIconButton />
                       </TableCell>
+                      ;
                     </TableRow>
                   );
                 })}

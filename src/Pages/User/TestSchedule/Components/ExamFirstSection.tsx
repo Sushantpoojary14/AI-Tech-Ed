@@ -107,7 +107,7 @@ const ExamFirstSection = (props: props) => {
         boxShadow: "6px 6px 20px 0px #808080",
         display: "flex",
         flexDirection: { lg: "column", md: "row", sm: "row", xs: "column" },
-        width: "60%",
+        width: "70%",
         minHeight:"500px"
       }}
     >
