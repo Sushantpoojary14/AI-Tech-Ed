@@ -64,7 +64,7 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Stack } from "@mui/material";
-import QuestionCard from "./Pages/Admin/TestSeries/Components/QuestionCard";
+// import QuestionCard from "./Pages/Admin/TestSeries/Components/QuestionCard";
 
 const openAi = new OpenAIApi(
   new Configuration({
@@ -298,7 +298,7 @@ function Test({
       {/* <button type="button" onClick={onSubmit}>
         Submit
       </button> */}
-      {totalQuestions.length === 0 ? (
+      {/* {totalQuestions.length === 0 ? (
         <div>
           <div>Error try again</div>
         </div>
@@ -317,11 +317,11 @@ function Test({
               explanation={item.explanation}
             />
           ))}
-        </Stack>
+        </Stack> */}
 
-        // totalQuestions?.map((item: any, key: any) => {
-        //   return (
-
+        {/* totalQuestions?.map((item: any, key: any) => { */}
+        {/* //   return ( */}
+{/* 
         //     <div key={key} className="my-10">
         //       <h1>{`question ${key + 1}: ${item.question} `}</h1>
         //       <h1>{`option: a) ${item.options.a} b) ${item.options.b} c) ${item.options.c} d) ${item.options.d}`}</h1>
@@ -329,8 +329,8 @@ function Test({
         //       <h1>{`explanation ${item.explanation} `}</h1>
         //     </div>
         //   );
-        // })
-      )}
+        // }) */}
+      {/* // )} */}
     </div>
   );
 }

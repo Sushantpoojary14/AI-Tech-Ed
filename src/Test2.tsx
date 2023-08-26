@@ -1,21 +1,21 @@
 import React from "react";
 
 // import { useTime, useTimer } from 'react-timer-hook';
-import {
-  BlobProvider,
-  Document,
-  Page,
-  Text,
-  View,
-  Image,
-  Link,
-  StyleSheet,
-  PDFViewer,
-  PDFDownloadLink,
-} from "@react-pdf/renderer";
-import PdfMaker from "./Pages/Admin/TestSeries/Components/PdfMaker";
-import AlertBox from "./Components/Common/AlertBox";
-import { UserContext } from "./Context/UserContext";
+// import {
+//   BlobProvider,
+//   Document,
+//   Page,
+//   Text,
+//   View,
+//   Image,
+//   Link,
+//   StyleSheet,
+//   PDFViewer,
+//   PDFDownloadLink,
+// } from "@react-pdf/renderer";
+// import PdfMaker from "./Pages/Admin/TestSeries/Components/PdfMaker";
+// import AlertBox from "./Components/Common/AlertBox";
+// import { UserContext } from "./Context/UserContext";
 
 // Create styles
 // const styles = StyleSheet.create({
@@ -369,17 +369,17 @@ let data = [
 ];
 
 export default function Test2() {
-  const { handleAlertBoxOpen, alertBox } = UserContext();
+  // const { handleAlertBoxOpen, alertBox } = UserContext();
 
 const click = () => {
-  handleAlertBoxOpen();
+  // handleAlertBoxOpen();
 };
 
   return (
     <>
       {/* <AlertBox name="Error" type="error" bol={ alertBox} /> */}
       {/* <PdfMaker data={data} bol={true} topic="ratio"/> */}
-      <button onClick={click}>click</button>
+      {/* <button onClick={click}>click</button> */}
     </>
   );
 }
