@@ -163,8 +163,6 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
   };
 
   const updateUser = (data: userData)=>{
-    console.log('useer');
-    
     localStorage.setItem("user", JSON.stringify(data));
     dispatch({ type: "SET_USER", payload: data });
   }

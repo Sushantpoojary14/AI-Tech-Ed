@@ -6,7 +6,7 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import { Input } from "../Common/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LoadingBar from "../Headers/LoadingBar";
 import tokenAxios from "../../Hooks/TokenAxios";
 import { AppContext } from "../../Context/AppContext";
@@ -33,7 +33,7 @@ const ProfileEditModal = () => {
   } = UserContext();
   const { register, handleSubmit } = useForm<Inputs>();
   const [profileData, setProfileData] = useState<Inputs | null>(null);
-
+  const queryClient = useQueryClient();
   const updateUserMu = useMutation({
     mutationFn: async (profileData: Inputs | null) => {
       return await tokenAxios.post("/profile-change", {
@@ -43,11 +43,13 @@ const ProfileEditModal = () => {
       });
     },
     onSuccess: (res) => {
+
       console.log(res);
-      updateUser(res.data.user);
+      updateUser(res.data.data);
       dispatch({ type: "SET_dataSubmit", payload: false });
       handlePE2Close();
       handlePESuccessOpen();
+      queryClient.setQueryData(["user-data"],res);
     },
   });
   const { data, isLoading } = useQuery(["user-data", user], async () => {
