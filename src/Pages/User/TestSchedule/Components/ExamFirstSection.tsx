@@ -108,7 +108,7 @@ const ExamFirstSection = (props: props) => {
         display: "flex",
         flexDirection: { lg: "column", md: "row", sm: "row", xs: "column" },
         width: "70%",
-        minHeight:"500px"
+        padding:'10px'
       }}
     >
       {props.isLoading ? (
