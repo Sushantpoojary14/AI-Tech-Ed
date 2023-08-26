@@ -35,6 +35,7 @@ interface GenerateProps {
   reset?: any;
   edit: boolean;
   topicId?: number | string;
+  handleClose?: () => void;
 }
 
 const GenerateQuestions = ({
@@ -45,6 +46,7 @@ const GenerateQuestions = ({
   reset,
   edit,
   topicId,
+  handleClose,
 }: GenerateProps) => {
   const [resData, setResData] = useState([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -114,6 +116,7 @@ const GenerateQuestions = ({
         });
         setCsvData([]);
         setResData([]);
+        handleClose?.();
       }
     },
   });

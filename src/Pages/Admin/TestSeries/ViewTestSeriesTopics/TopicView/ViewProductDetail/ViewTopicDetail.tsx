@@ -19,6 +19,7 @@ const ViewTopicDetail = () => {
   // console.log(topicId);
 
   const [open, setOpen] = useState<boolean>(false);
+  const [open2, setOpen2] = useState<boolean>(false);
   const [message, setMessage] = useState("");
   const handleAlertBoxOpen = () => {
     setOpen(true);
@@ -26,6 +27,14 @@ const ViewTopicDetail = () => {
 
   const handleAlertBoxClose = () => {
     setOpen(false);
+  };
+
+  const handleAlertBoxOpen2 = () => {
+    setOpen2(true);
+  };
+
+  const handleAlertBoxClose2 = () => {
+    setOpen2(false);
   };
 
   const testSeries = useQuery({
@@ -49,16 +58,22 @@ const ViewTopicDetail = () => {
   const deleteTopicMutation = useMutation({
     mutationFn: async (topicId: any) => {
       console.log("mutation data", topicId);
-      return await adminTokenAxios.delete(`/admin//delete-topic/${topicId}`);
+      return await adminTokenAxios.delete(`/admin/delete-topic/${topicId}`);
     },
     onError: (error: any) => {
       console.log("Error Deleting Set:", error);
     },
     onSuccess: (res: any) => {
       console.log("Mutation Reponse", res?.response?.data?.Message);
-      setMessage(res?.response?.data?.Message);
-      handleAlertBoxOpen();
-      navigate(-1);
+      // setMessage(res?.response?.data?.Message);
+      // handleAlertBoxOpen();
+      // navigate(-1);
+      if (res.status == 200) {
+        navigate(-1);
+        handleAlertBoxOpen2();
+      } else {
+        handleAlertBoxOpen();
+      }
     },
   });
 
@@ -74,10 +89,18 @@ const ViewTopicDetail = () => {
   return (
     <>
       <AlertBox
-        name={message}
-        type="success"
+        name="Cannot Delete The Product"
+        type="error"
         bol={open}
+        duration={6000}
         handleAlertBoxClose={handleAlertBoxClose}
+      />
+      <AlertBox
+        name="Successfully Deleted The Product"
+        type="success"
+        duration={6000}
+        bol={open2}
+        handleAlertBoxClose={handleAlertBoxClose2}
       />
       <Container maxWidth="lg">
         <Stack marginTop={2} direction="row">

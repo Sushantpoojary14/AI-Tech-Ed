@@ -121,6 +121,7 @@ const UploadModal = ({
               csvData={csvData}
               // topic={topic}
               setCsvData={setCsvData}
+              handleClose={handleClose}
               // reset={reset}
             />
           </Box>

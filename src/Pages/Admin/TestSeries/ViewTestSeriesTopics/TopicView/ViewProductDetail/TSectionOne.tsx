@@ -25,9 +25,9 @@ import {
   EditIconButton,
 } from "../../../../../../Components/Common/Button";
 
-import PdfMaker from "../../../Components/PdfMaker";
 import UploadModal from "../../../../../../Components/Model/UploadModal";
 import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
+import PdfMaker from "../../../Components/PdfMaker";
 
 interface Detail {
   title: string;

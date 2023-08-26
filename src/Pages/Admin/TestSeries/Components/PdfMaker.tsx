@@ -66,8 +66,8 @@ const styles = {
 };
 
 type questions = {
-  Question: string;
-  question: string;
+  Question?: string;
+  question?: string;
   Options?: {
     a: string;
     b: string;
@@ -79,8 +79,8 @@ type questions = {
   option_3?: string;
   option_4?: string;
   Answer?: string;
-  Explanation: string;
-  explanation: string;
+  Explanation?: string;
+  explanation?: string;
   correct_option?: string | number;
   tst_id?: number;
   marks?: null | number;
@@ -225,7 +225,7 @@ const MyDocument = ({
                 {item.Answer ? (
                   <>
                     <Text style={styles.answer2}>
-                     { `${key + 1}. ${item.Answer.toUpperCase()} `}
+                      {`${key + 1}. ${item.Answer.toUpperCase()} `}
                     </Text>
                     <Text
                       style={styles.explanation}
@@ -234,7 +234,7 @@ const MyDocument = ({
                 ) : (
                   <>
                     <Text style={styles.answer2}>
-                     { `${key + 1}. ${item.correct_option}`}
+                      {`${key + 1}. ${item.correct_option}`}
                     </Text>
                     <Text
                       style={styles.explanation}
