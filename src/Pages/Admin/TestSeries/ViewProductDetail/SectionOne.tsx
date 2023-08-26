@@ -14,7 +14,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../Context/UserContext";
 import UseGet from "../../../../Hooks/UseGet";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
-import { ParaText1, ParaText3 } from "../../../../Components/Common/ParaText";
+import {
+  ParaText1,
+  ParaText4,
+  ParaText3,
+} from "../../../../Components/Common/ParaText";
 import {
   DeleteIconButton,
   EditIconButton,
@@ -36,21 +40,13 @@ const SectionOne = ({ product }: any) => {
   const [open, setOpen] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
   const navigate = useNavigate();
-  const handleAlertBoxOpen = () => {
-    setOpen(true);
-  };
+  const handleAlertBoxOpen = () => setOpen(true);
 
-  const handleAlertBoxClose = () => {
-    setOpen(false);
-  };
+  const handleAlertBoxClose = () => setOpen(false);
 
-  const handleAlertBoxOpen2 = () => {
-    setOpen2(true);
-  };
+  const handleAlertBoxOpen2 = () => setOpen2(true);
 
-  const handleAlertBoxClose2 = () => {
-    setOpen2(false);
-  };
+  const handleAlertBoxClose2 = () => setOpen2(false);
 
   const { handlePREditOpen } = UserContext();
   // handlePREditOpen();
@@ -106,7 +102,6 @@ const SectionOne = ({ product }: any) => {
     { title: "Release Date", data: product?.release_date },
   ];
 
-  
   return (
     <>
       <AlertBox
@@ -132,31 +127,35 @@ const SectionOne = ({ product }: any) => {
           px: "2rem",
         }}
       >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <ParaText3 text="Package Details" />
-          <Stack direction={"row"} alignItems={"center"} spacing={2}>
-            <EditIconButton type="button" func={handlePREditOpen} />
-            <DeleteIconButton
-              type="button"
-              func={() => deleteProductMU.mutate(product.id)}
+        <Stack spacing={2}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <ParaText4
+              text="Package Details"
+              css={{ fontWeight: 550, paddingTop: "13px" }}
             />
-            <SwitchComp checked={checked} onChange={handleChange} />
+            <Stack direction={"row"} alignItems={"center"} spacing={2}>
+              <EditIconButton type="button" func={handlePREditOpen} />
+              <DeleteIconButton
+                type="button"
+                func={() => deleteProductMU.mutate(product.id)}
+              />
+              <SwitchComp checked={checked} onChange={handleChange} />
+            </Stack>
           </Stack>
+
+          <Divider
+            sx={{
+              // borderColor: "#FA8128",
+              borderWidth: "2px",
+              borderRadius: "3px",
+              width: "100%",
+            }}
+          />
         </Stack>
-
-        <Divider
-          sx={{
-            borderColor: "#FA8128",
-            borderWidth: "3px",
-            borderRadius: "3px",
-            width: "90px",
-          }}
-        />
-
         <Box>
           {details?.map((item: Detail, key: number) => {
             return (

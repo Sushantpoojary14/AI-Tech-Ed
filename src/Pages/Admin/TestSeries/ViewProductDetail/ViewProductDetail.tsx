@@ -12,6 +12,7 @@ import AlertBox from "../../../../Components/Common/AlertBox";
 import { useState } from "react";
 import { UserContext } from "../../../../Context/UserContext";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
+import AddTestSetModal from "../../../../Components/Model/AddTestSetModal";
 
 const ViewProductDetail = () => {
   const queryClient = useQueryClient();
@@ -19,33 +20,23 @@ const ViewProductDetail = () => {
   const navigate = useNavigate();
   const { productEdit } = UserContext();
   const [message, setMessage] = useState("");
-
   const [open, setOpen] = useState<boolean>(false);
-  const handleAlertBoxOpen = () => {
-    setOpen(true);
-  };
+  const [data, setData] = useState<any>(null);
+  const [category, setCategory] = useState<any>(null);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const handleAlertBoxClose = () => {
-    setOpen(false);
-  };
   const [err, setErr] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const handleErrBoxOpen = () => {
-    setErr(true);
-  };
+  const handleErrBoxOpen = () => setErr(true);
 
-  const handleErrBoxClose = () => {
-    setErr(false);
-  };
+  const handleErrBoxClose = () => setErr(false);
 
-  const handleSuccessBoxOpen = () => {
-    setSuccess(true);
-  };
+  const handleSuccessBoxOpen = () => setSuccess(true);
 
-  const handleSuccessBoxClose = () => {
-    setSuccess(false);
-  };
+  const handleSuccessBoxClose = () => setSuccess(false);
+
   const deleteSetMU = useMutation({
     mutationFn: async (id: number) => {
       return await adminTokenAxios.delete(`/admin/delete-set/${id}`);
@@ -53,16 +44,41 @@ const ViewProductDetail = () => {
     onSuccess: (res) => {
       console.log(res.status);
       if (res.status == 200) {
-        
         handleSuccessBoxOpen();
       } else {
         handleErrBoxOpen();
       }
     },
   });
-
+  const getSetData = useMutation({
+    mutationFn: async ({ p_id, tsc_id }: { p_id:  number | String; tsc_id: number }) => {
+      console.log( p_id, tsc_id );
+      
+      return await adminTokenAxios.post(`/admin/show-set-topics`, {
+        p_id: p_id,
+        tsc_id: tsc_id,
+      });
+    },
+    onError: (error: any) => {
+      console.error("Error creating user:", error.response?.data);
+    },
+    onSuccess: (res) => {
+      if (res.status == 200) {
+        setData(res?.data?.set_data);
+        setCategory(res?.data?.tspc);
+        handleOpen();
+      }
+    },
+  });
   const testSeries = useQuery({
-    queryKey: ["ViewProductDetails1", productdetails, productEdit,deleteSetMU.data],
+    queryKey: [
+      "ViewProductDetails1",
+      productdetails,
+      productEdit,
+      deleteSetMU.data,
+      open,
+  
+    ],
     queryFn: async () => {
       try {
         const response = await adminTokenAxios.get(
@@ -140,19 +156,13 @@ const ViewProductDetail = () => {
   // const handleDeleteSet = (setId: any) => {
   //   deleteSetMutation.mutate(setId);
   // };
- 
+
   if (testSeries.isLoading) {
     return <LoadingBar />;
   }
   // console.log(testSeries?.data?.categories);
   return (
     <>
-      <AlertBox
-        name={message}
-        type="success"
-        bol={open}
-        handleAlertBoxClose={handleAlertBoxClose}
-      />
       <AlertBox
         name="Cannot Delete The Set"
         type="error"
@@ -215,10 +225,23 @@ const ViewProductDetail = () => {
             sets={testSeries?.data?.categories}
             onSwitchToggle={handleSwitchToggle}
             handleDelete={deleteSetMU}
+            addNewSet={getSetData}
           />
           {/* </Stack> */}
         </Stack>
       </Container>
+      {data && category && (
+        <AddTestSetModal
+          open={open}
+          // handleOpen={handleOpen}
+          handleClose={handleClose}
+          // handleSubmit={handleSubmit}
+          // setCsvData={setCsvData}
+          // restAddProduct={reset}
+          data={data}
+          categoryObj={category}
+        />
+      )}
     </>
   );
 };

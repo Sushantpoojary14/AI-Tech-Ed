@@ -16,10 +16,11 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-import { ParaText1, ParaText3 } from "../../../../Components/Common/ParaText";
+import { ParaText4, ParaText3 } from "../../../../Components/Common/ParaText";
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
+  BButton,
   DeleteIconButton,
   DownloadIconButton,
   SwitchComp,
@@ -38,6 +39,9 @@ interface TabPanelProps {
 const CustomTabPanel = (props: TabPanelProps) => {
   const { children, value, index, ...other } = props;
 
+  const [open, setOpen] = useState<boolean>(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Box
       role="tabpanel"
@@ -58,10 +62,10 @@ function a11yProps(index: number) {
   };
 }
 
-const SectionTwo = ({ sets, onSwitchToggle, handleDelete }: any) => {
+const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [setData, setSetData] = useState<any>(null);
-
+  const { productdetails } = useParams();
   const [open, setOpen] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
 
@@ -101,13 +105,9 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete }: any) => {
     },
   });
 
-  // const handleButtonClick = (set: any) => {
-  //   setSetData(set);
-  //   console.log(buttonRef.current);
-  //   if (buttonRef.current && setData) {
-  //     buttonRef.current.click();
-  //   }
-  // };
+  const handleButtonClick = (id: number | String, t_id: number | String ) => {
+    console.log(id, t_id);
+  };
 
   // useEffect(() => {}, [setData]);
 
@@ -123,7 +123,7 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete }: any) => {
           button={<button ref={buttonRef} type="button" hidden></button>}
         />
       )} */}
-      
+
       <AlertBox
         name="Cannot Delete The Set"
         type="error"
@@ -144,15 +144,30 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete }: any) => {
           px: "2rem",
         }}
       >
-        <ParaText3 text="Sets" />
-        <Divider
-          sx={{
-            borderColor: "#FA8128",
-            borderWidth: "3px",
-            borderRadius: "3px",
-            width: "100px",
-          }}
-        />
+        <Stack spacing={2}>
+          <Stack flexDirection={"row"} justifyContent={"space-between"}>
+            <ParaText4
+              text="Sets"
+              css={{ fontWeight: 550, paddingTop: "13px" }}
+            />
+
+            <BButton
+              name="Add New Set"
+              func={() =>
+                addNewSet.mutate({p_id:productdetails, tsc_id:(value + 1)})
+              }
+            />
+          </Stack>
+          <Divider
+            sx={{
+              // borderColor: "#FA8128",
+              borderWidth: "2px",
+              borderRadius: "3px",
+              width: "100%",
+            }}
+          />
+        </Stack>
+
         <Box width={"full"}>
           {/* <Grid container spacing={2}>
       {sets.map((set: any) => (
@@ -232,17 +247,17 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete }: any) => {
                             hidden
                             onClick={() => console.log("click")}
                           ></button> */}
-                          { (
-                            <PdfMaker
-                              bol={!!set}
-                              data={set?.questions}
-                              key={set?.id}
-                              randomG={true}
-                              total={setData?.questions.length}
-                              topic={set?.set_name}
-                              button={<DownloadIconButton type="button" />}
-                            />
-                          )}
+                          {
+                            // <PdfMaker
+                            //   bol={!!set}
+                            //   data={set?.questions}
+                            //   key={set?.id}
+                            //   randomG={true}
+                            //   total={setData?.questions.length}
+                            //   topic={set?.set_name}
+                            //   button={<DownloadIconButton type="button" />}
+                            // />
+                          }
                           {/* <Switch
                       checked={set.status === 1} // Set the initial state based on API response
                       onChange={() => onSwitchToggle(set.id, set.status)} // Attach the event handler

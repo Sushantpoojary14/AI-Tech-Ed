@@ -29,7 +29,7 @@ interface ContextValue {
   openPESuccess: boolean;
   openPuSuccess: boolean;
   openPuSuccess2: boolean;
-  productEdit:boolean;
+  productEdit: boolean;
   anchorElUser: null | HTMLElement;
   handleCloseUserMenu: () => void;
   handleClickOpen: (val: string) => void;
@@ -52,10 +52,10 @@ interface ContextValue {
   handlePESuccessClose: () => void;
   handlePUSuccessOpen: () => void;
   handlePUSuccessClose: () => void;
-  handlePUSuccessOpen2: () => void,
-  handlePUSuccessClose2:()=>void,
-  handlePREditOpen:()=>void,
-  handlePREditClose:()=>void,
+  handlePUSuccessOpen2: () => void;
+  handlePUSuccessClose2: () => void;
+  handlePREditOpen: () => void;
+  handlePREditClose: () => void;
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
@@ -73,7 +73,7 @@ type State = {
   anchorElUser: null | HTMLElement;
   openPuSuccess: boolean;
   openPuSuccess2: boolean;
-  productEdit:boolean;
+  productEdit: boolean;
 };
 
 //PE PRofile edit
@@ -91,10 +91,10 @@ const defaultValue: ContextValue = {
   openPE: false,
   openPE2: false,
   openPESuccess: false,
-  openPuSuccess:false,
-  openPuSuccess2:false,
+  openPuSuccess: false,
+  openPuSuccess2: false,
   anchorElUser: null,
-  productEdit:false,
+  productEdit: false,
   dispatch: () => {},
   handleClickOpen: (val) => {},
   handleClose: () => {},
@@ -114,12 +114,12 @@ const defaultValue: ContextValue = {
   handlePESuccessOpen: () => {},
   handlePESuccessClose: () => {},
   handlePUSuccessOpen: () => {},
-  handlePUSuccessClose:()=>{},
+  handlePUSuccessClose: () => {},
   handlePUSuccessOpen2: () => {},
-  handlePUSuccessClose2:()=>{},
+  handlePUSuccessClose2: () => {},
   handleCloseUserMenu: () => {},
-  handlePREditOpen:()=>{},
-  handlePREditClose:()=>{},
+  handlePREditOpen: () => {},
+  handlePREditClose: () => {},
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => {},
 };
 
@@ -137,7 +137,7 @@ const initialState = {
   anchorElUser: null,
   openPuSuccess: false,
   openPuSuccess2: false,
-  productEdit:false,
+  productEdit: false,
 };
 
 const reducer = (state: State, action: Action) => {
@@ -163,11 +163,11 @@ const reducer = (state: State, action: Action) => {
     case "SET_openPUSuccess":
       return { ...state, openPuSuccess: action.payload };
     case "SET_openPUSuccess2":
-        return { ...state, openPuSuccess2: action.payload };
+      return { ...state, openPuSuccess2: action.payload };
     case "SET_VALUES":
       return { ...state, values: action.payload };
     case "SET_productEdit":
-        return { ...state, productEdit: action.payload };
+      return { ...state, productEdit: action.payload };
     case "SET_setAnchorElUser":
       return { ...state, anchorElUser: action.payload };
     default:
@@ -251,48 +251,36 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
     dispatch({ type: "SET_openPUSuccess", payload: true });
   };
 
-  const handlePUSuccessClose = () => {
+  const handlePUSuccessClose = () =>
     dispatch({ type: "SET_openPUSuccess", payload: false });
-  };
-  const handlePUSuccessOpen2 = () => {
+
+  const handlePUSuccessOpen2 = () =>
     dispatch({ type: "SET_openPUSuccess2", payload: true });
-  };
 
-  const handlePUSuccessClose2 = () => {
+  const handlePUSuccessClose2 = () =>
     dispatch({ type: "SET_openPUSuccess2", payload: false });
-  };
 
-  const handlePEOpen = () => {
-    dispatch({ type: "SET_openPE", payload: true });
-  };
+  const handlePEOpen = () => dispatch({ type: "SET_openPE", payload: true });
 
-  const handlePEClose = () => {
-    dispatch({ type: "SET_openPE", payload: false });
-  };
+  const handlePEClose = () => dispatch({ type: "SET_openPE", payload: false });
 
-  const handlePE2Open = () => {
-    dispatch({ type: "SET_openPE2", payload: true });
-  };
+  const handlePE2Open = () => dispatch({ type: "SET_openPE2", payload: true });
 
-  const handlePE2Close = () => {
+  const handlePE2Close = () =>
     dispatch({ type: "SET_openPE2", payload: false });
-  };
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) =>
     dispatch({ type: "SET_setAnchorElUser", payload: event.currentTarget });
-  };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = () =>
     dispatch({ type: "SET_setAnchorElUser", payload: null });
-  };
-  const handlePREditOpen = () => {
-    console.log('click');
-    dispatch({ type: "SET_productEdit", payload: true });
-  };
 
-  const handlePREditClose = () => {
+  const handlePREditOpen = () =>
+    dispatch({ type: "SET_productEdit", payload: true });
+
+  const handlePREditClose = () =>
     dispatch({ type: "SET_productEdit", payload: false });
-  };
+
   return (
     <Context.Provider
       value={{
@@ -335,7 +323,7 @@ const MainUserContext: React.FC<MainContextProps> = ({ children }) => {
         handlePUSuccessOpen2,
         handlePUSuccessClose2,
         handlePREditOpen,
-        handlePREditClose
+        handlePREditClose,
       }}
     >
       {children}
