@@ -313,7 +313,7 @@ const AddTopics = () => {
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
                     id="enter-topic"
                   >
-                    Enter Topic
+                    Enter Topic To Generate
                   </FormLabel>
                   <Controller
                     name="topic"
@@ -334,7 +334,7 @@ const AddTopics = () => {
                   />
                 </Stack>
               </Grid>
-              {/* <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={4}>
                 <Stack spacing={1}>
                   <FormLabel
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
@@ -352,12 +352,13 @@ const AddTopics = () => {
                           {...field}
                           labelId="demo-controlled-open-select-label"
                           id="demo-controlled-open-select"
-                          placeholder="select"
+                          placeholder="Enter Total Questions"
                           // sx={{ width: "50%" }}
                         >
                           <MenuItem value="">
                             <em>None</em>
                           </MenuItem>
+                          {/* <MenuItem value={5}>5</MenuItem> */}
                           <MenuItem value={15}>15</MenuItem>
                           <MenuItem value={20}>20</MenuItem>
                           <MenuItem value={25}>25</MenuItem>
@@ -368,7 +369,7 @@ const AddTopics = () => {
                     )}
                   />
                 </Stack>
-              </Grid> */}
+              </Grid>
 
               <Grid item xs={12}>
                 <Stack spacing={1}>

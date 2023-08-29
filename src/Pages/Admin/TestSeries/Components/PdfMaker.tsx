@@ -111,10 +111,9 @@ interface props {
   topic: string;
   total?: number;
   button?: ReactJSXElement;
-  buttonRef?:any;
+  buttonRef?: any;
 }
 const PdfMaker = (props: props) => {
- 
   // const arr: number[] = [];
   let selected_question: questions[] = [];
   // const random: questions[] = [];
@@ -140,7 +139,6 @@ const PdfMaker = (props: props) => {
   }
   // console.log(selected_question);
   return props.button ? (
-    
     <PDFDownloadLink
       document={
         <MyDocument selected_question={selected_question} topic={props.topic} />
@@ -150,7 +148,6 @@ const PdfMaker = (props: props) => {
       {props.button}
     </PDFDownloadLink>
   ) : (
-   
     <PDFDownloadLink
       document={
         <MyDocument selected_question={selected_question} topic={props.topic} />
@@ -158,7 +155,7 @@ const PdfMaker = (props: props) => {
       fileName={`${props.topic}.pdf`}
       style={{display:'none'}}
     >
-      {props.buttonRef &&( <button ref={props.buttonRef} hidden></button>)}
+      {props.buttonRef && <button ref={props.buttonRef} hidden></button>}
     </PDFDownloadLink>
   );
 };

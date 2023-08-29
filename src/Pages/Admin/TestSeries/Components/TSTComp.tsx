@@ -6,11 +6,18 @@ import { Link } from "react-router-dom";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import SimpleTable from "../../../../Components/Common/SimpleTable";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
-import { DeleteIconButton } from "../../../../Components/Common/Button";
+import {
+  DeleteIconButton,
+  DownloadIconButton,
+  EditIconButton,
+} from "../../../../Components/Common/Button";
 import AlertBox from "../../../../Components/Common/AlertBox";
+import UploadModal from "../../../../Components/Model/UploadModal";
+import PdfMaker from "./PdfMaker";
 
 interface TableCompProps {
   tabId: string | number;
+  selectValue: number;
 }
 
 type topicList = {
@@ -19,16 +26,24 @@ type topicList = {
   tsc_id: number;
   status: number;
 };
-const TSTComp = ({ tabId }: TableCompProps) => {
+const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
+  const [topicIde, setTopicIde] = useState<any>(null);
   const [open, setOpen] = useState<boolean>(false);
+  const [open1, setOpen1] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setTopicIde(null);
+  };
+
   const handleAlertBoxOpen = () => {
-    setOpen(true);
+    setOpen1(true);
   };
 
   const handleAlertBoxClose = () => {
-    setOpen(false);
+    setOpen1(false);
   };
 
   const handleAlertBoxOpen2 = () => {
@@ -40,9 +55,11 @@ const TSTComp = ({ tabId }: TableCompProps) => {
   };
 
   const topics = useQuery({
-    queryKey: ["topicList", tabId],
+    queryKey: ["topicList", tabId, selectValue],
     queryFn: async () => {
-      return await adminTokenAxios.get(`admin/show-topics/${tabId}`);
+      return await adminTokenAxios.get(
+        `admin/show-topics/${tabId}/${selectValue}`
+      );
     },
   });
 
@@ -74,6 +91,36 @@ const TSTComp = ({ tabId }: TableCompProps) => {
     deleteTopicMutation.mutate(topicId);
   };
 
+  const topicCheck = useQuery({
+    queryKey: ["TopicCheck", topicIde],
+    queryFn: async () => {
+      console.log("Query fn", topicIde);
+      const response = await adminTokenAxios.get(
+        `admin/check-topic/${topicIde}`
+      );
+      if (response.status === 200) {
+        handleOpen();
+      } else {
+        alert("can't edit");
+      }
+      // console.log(response.data?.topic_data?.topic);
+      return response.data;
+    },
+    enabled: !!topicIde,
+  });
+
+  const handleEdit = (topicId: any) => {
+    setTopicIde(topicId);
+
+    // console.log("click", topicCheck?.data?.status);
+    // // handleOpen();
+    // if (topicCheck?.data?.status === 200) {
+    //   handleOpen();
+    // } else {
+    //   alert("can't edit");
+    // }
+  };
+
   const columns = useMemo<MRT_ColumnDef<topicList>[]>(
     //column definitions...
     () => [
@@ -86,9 +133,21 @@ const TSTComp = ({ tabId }: TableCompProps) => {
         header: "",
         Cell: ({ cell }) => (
           <Stack direction={"row"} spacing={1}>
-            <Link to={`view-topic-questions/${cell.getValue<string>()}`}>
+            {/* <Link to={`view-topic-questions/${cell.getValue<string>()}`}>
               <Button variant="outlined">View</Button>
-            </Link>
+            </Link> */}
+            <EditIconButton
+              type="button"
+              func={() => handleEdit(cell.getValue<string>())}
+            />
+            {/* <PdfMaker
+              bol={true}
+              topic={topics.t_name}
+              data={questions}
+              button={}
+            /> */}
+            <DownloadIconButton />
+
             <DeleteIconButton
               type="button"
               func={() => handleDeleteTopic(cell.getValue<string>())}
@@ -105,7 +164,7 @@ const TSTComp = ({ tabId }: TableCompProps) => {
       <AlertBox
         name="Cannot Delete The Product"
         type="error"
-        bol={open}
+        bol={open1}
         duration={6000}
         handleAlertBoxClose={handleAlertBoxClose}
       />
@@ -124,6 +183,20 @@ const TSTComp = ({ tabId }: TableCompProps) => {
       ) : (
         <div>No Data</div>
       )}
+
+      <UploadModal
+        open={open}
+        // handleOpen={handleOpen}
+        handleClose={handleClose}
+        topic={[
+          topicCheck.data?.topic_data?.tsc_id,
+          topicCheck.data?.topic_data?.topic,
+        ]}
+        topicId={topicIde}
+        setTopic={setTopicIde}
+        // handleSubmit={handleSubmit}
+        // setCsvData={setCsvData}
+      />
     </>
   );
 };

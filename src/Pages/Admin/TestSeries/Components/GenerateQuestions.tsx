@@ -37,6 +37,7 @@ interface GenerateProps {
   edit: boolean;
   topicId?: number | string;
   handleClose?: () => void;
+  setTopic?: any;
 }
 
 const GenerateQuestions = ({
@@ -48,6 +49,7 @@ const GenerateQuestions = ({
   edit,
   topicId,
   handleClose,
+  setTopic,
 }: GenerateProps) => {
   const [resData, setResData] = useState([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -130,6 +132,7 @@ const GenerateQuestions = ({
         // });
         setCsvData([]);
         setResData([]);
+        setTopic(null);
         handleClose?.();
       }
     },
@@ -304,6 +307,7 @@ const GenerateQuestions = ({
                   bol={!!newRes.data}
                   topic={topic1[1]}
                   button={<BButton2 type="button" name="Download" />}
+                  total={topic1[2]}
                 />
               )}
               {(resData.length != 0 || topic1[0] == 2) && (
@@ -338,6 +342,7 @@ const GenerateQuestions = ({
                   data={resData}
                   bol={!!resData}
                   topic={topic1[1]}
+                  total={topic1[2]}
                   button={<BButton2 type="button" name="Download" />}
                 />
               )}

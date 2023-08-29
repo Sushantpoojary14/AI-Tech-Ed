@@ -16,6 +16,7 @@ interface props {
   selectName: string;
   options: option[];
   defaultValue?: string;
+  defaultValue?: string;
   func?: (val: number) => void;
 }
 
