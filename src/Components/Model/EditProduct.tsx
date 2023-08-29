@@ -15,7 +15,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import LoadingBar from "../Headers/LoadingBar";
 import { useParams } from "react-router-dom";
 import adminTokenAxios from "../../Hooks/AdminTokenAxios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ParaText1 } from "../Common/ParaText";
 
 type Inputs = {
@@ -28,11 +28,18 @@ type Inputs = {
 };
 
 const EditProduct = () => {
+  const queryClient = useQueryClient();
   const para = useParams();
   const { handlePREditClose, productEdit } = UserContext();
   const { register, handleSubmit, control } = useForm<Inputs>();
 
   const p_id = para["*"]?.slice(30);
+  const cacheProductData: any = queryClient.getQueryData([
+    "ViewProductDetails1",
+    p_id
+  ]);
+// console.log(updatedData?.categories);
+
   const updateProductMU = useMutation({
     mutationFn: async (data: Inputs) => {
       return await adminTokenAxios.put(
@@ -41,28 +48,29 @@ const EditProduct = () => {
       );
     },
     onSuccess(res) {
-      console.log(res);
-
+     res.data.product_detail.categories = cacheProductData.categories;
+      console.log(res.data);
+      queryClient.setQueryData(['ViewProductDetails1',p_id],res.data.product_detail);
       handlePREditClose();
     },
   });
   // console.log(productEdit);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["ViewProductDetails2", productEdit,updateProductMU.data],
-    queryFn: async () => {
-      return await adminTokenAxios.get(`admin/show-product-details/${p_id}`);
-    },
-    enabled:productEdit
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["ViewProductDetails", productEdit,updateProductMU.data],
+  //   queryFn: async () => {
+  //     return await adminTokenAxios.get(`admin/show-product-details/${p_id}`);
+  //   },
+  //   enabled:productEdit
+  // });
   // console.log(data);
   const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
-    console.log(para_data);
+    // console.log(para_data);
     updateProductMU.mutate(para_data);
   };
-  console.log(data);
+
   
-  const product = data?.data?.product_detail
+  const product = cacheProductData;
   return (
     <Dialog
       onClose={handlePREditClose}
@@ -79,9 +87,9 @@ const EditProduct = () => {
           py: "20px",
         }}
       >
-        {isLoading ? (
+        {/* {isLoading ? (
           <LoadingBar />
-        ) : (
+        ) : ( */}
           <>
             <Stack
               spacing={1}
@@ -176,7 +184,7 @@ const EditProduct = () => {
               </Stack>
             </form>
           </>
-        )}
+        {/* )} */}
       </Box>
     </Dialog>
   );

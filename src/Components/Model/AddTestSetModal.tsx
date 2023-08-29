@@ -16,8 +16,9 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import Select from "react-select";
 import { OButton3 } from "../Common/Button";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import adminTokenAxios from "../../Hooks/AdminTokenAxios";
+import { useParams } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -54,7 +55,9 @@ const AddTestSetModal = ({
 ModalProps) => {
   // const [result, setResult] = useState<any>(null);
   const [counter, setCounter] = useState(1);
-
+  const para = useParams();
+  const queryClient = useQueryClient();
+  const p_id = para["*"]?.slice(30);
   const {
     register,
     control,
@@ -65,6 +68,10 @@ ModalProps) => {
     reset,
     formState: { errors },
   } = useForm<FormValues>();
+  const updatedData: any = queryClient.getQueryData([
+    "ViewProductDetails1",
+    p_id
+  ]);
 
   const addTestSeriesProductSetMutation = useMutation({
     mutationFn: async (formattedDatav2: any) => {
@@ -77,10 +84,22 @@ ModalProps) => {
       console.error("Error creating user:", error.response?.data);
     },
     onSuccess: (res: any) => {
-      console.log("Mutation Reponse Success", res?.data);
-
+     
+      let data = res?.data.categories_data;
       reset();
       setCounter(counter + 1);
+      // console.log(res?.data);
+      updatedData &&  updatedData.categories.map((item: any, key: number) => {
+          if (item.id == data[key].id) {
+            updatedData.categories[key] = data;
+          }
+        })
+        queryClient.getQueryData(
+          ["ViewProductDetails1", p_id],
+          updatedData
+        );
+
+      
     },
   });
 

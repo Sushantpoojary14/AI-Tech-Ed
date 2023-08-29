@@ -37,23 +37,66 @@ const ViewProductDetail = () => {
 
   const handleSuccessBoxClose = () => setSuccess(false);
 
+  const testSeries = useQuery({
+    queryKey: ["ViewProductDetails1", productdetails],
+    queryFn: async () => {
+      try {
+        const response = await adminTokenAxios.get(
+          `admin/show-product-details/${productdetails}`
+        );
+        // console.log("Products Details", response.data?.product_detail);
+
+        return response?.data?.product_detail;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
+  const updatedData: any = queryClient.getQueryData([
+    "ViewProductDetails1",
+    productdetails,
+  ]);
+  // console.log(updatedData);
+
   const deleteSetMU = useMutation({
     mutationFn: async (id: number) => {
       return await adminTokenAxios.delete(`/admin/delete-set/${id}`);
     },
     onSuccess: (res) => {
-      console.log(res.status);
+      // console.log(res.status);
       if (res.status == 200) {
+        let data = res?.data.category_data;
+
+        updatedData.categories.map((item: any, key: number) => {
+          if (item.id == data.id) {
+            updatedData.categories[key] = data;
+            // return updatedData;
+          }
+        });
+
+        queryClient.getQueryData(
+          ["ViewProductDetails1", productdetails],
+          updatedData
+        );
+
         handleSuccessBoxOpen();
       } else {
         handleErrBoxOpen();
       }
     },
   });
+
   const getSetData = useMutation({
-    mutationFn: async ({ p_id, tsc_id }: { p_id:  number | String; tsc_id: number }) => {
-      console.log( p_id, tsc_id );
-      
+    mutationFn: async ({
+      p_id,
+      tsc_id,
+    }: {
+      p_id: number | String;
+      tsc_id: number;
+    }) => {
+      // console.log(p_id, tsc_id);
+
       return await adminTokenAxios.post(`/admin/show-set-topics`, {
         p_id: p_id,
         tsc_id: tsc_id,
@@ -67,28 +110,6 @@ const ViewProductDetail = () => {
         setData(res?.data?.set_data);
         setCategory(res?.data?.tspc);
         handleOpen();
-      }
-    },
-  });
-  const testSeries = useQuery({
-    queryKey: [
-      "ViewProductDetails1",
-      productdetails,
-      productEdit,
-      deleteSetMU.data,
-      open,
-  
-    ],
-    queryFn: async () => {
-      try {
-        const response = await adminTokenAxios.get(
-          `admin/show-product-details/${productdetails}`
-        );
-        // console.log("Products Details", response.data?.product_detail);
-
-        return response?.data?.product_detail;
-      } catch (error) {
-        console.error(error);
       }
     },
   });
@@ -119,10 +140,6 @@ const ViewProductDetail = () => {
     updateSetStatusMutation.mutate({ setId, newStatus });
 
     // Update the cache directly
-    const updatedData: any = queryClient.getQueryData([
-      "ViewProductDetails1",
-      productdetails,
-    ]);
 
     // console.log("Cached data", updatedData);
     updatedData.categories.forEach((category: any) => {
@@ -160,7 +177,7 @@ const ViewProductDetail = () => {
   if (testSeries.isLoading) {
     return <LoadingBar />;
   }
-  // console.log(testSeries?.data?.categories);
+  // console.log(testSeries?.data);
   return (
     <>
       <AlertBox

@@ -105,24 +105,31 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
     },
   });
 
-  const handleButtonClick = (id: number | String, t_id: number | String ) => {
-    console.log(id, t_id);
+  const handleButtonClick = (set: any) => {
+    new Promise((resolve) => {
+     resolve(setSetData(set));
+    }).then(() => {
+      if (buttonRef.current) {
+        buttonRef.current.click();
+      }
+    });
+
   };
 
-  // useEffect(() => {}, [setData]);
+
 
   return (
     <>
-      {/* {setData && (
+      {setData && (
         <PdfMaker
           bol={!!setData}
           data={setData?.questions}
-          key={setData?.id}
-          // total={setData?.questions.length}
+          randomG={true}
+          buttonRef={buttonRef}
+          total={setData?.questions.length}
           topic={setData?.set_name}
-          button={<button ref={buttonRef} type="button" hidden></button>}
         />
-      )} */}
+      )}
 
       <AlertBox
         name="Cannot Delete The Set"
@@ -154,7 +161,7 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
             <BButton
               name="Add New Set"
               func={() =>
-                addNewSet.mutate({p_id:productdetails, tsc_id:(value + 1)})
+                addNewSet.mutate({ p_id: productdetails, tsc_id: value + 1 })
               }
             />
           </Stack>
@@ -242,21 +249,20 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
                             type="button"
                             func={() => handleDelete.mutate(set.id)}
                           />
-                          {/* <button
+                          <DownloadIconButton
                             type="button"
-                            hidden
-                            onClick={() => console.log("click")}
-                          ></button> */}
+                            func={() => handleButtonClick(set)}
+                          />
                           {
-                            <PdfMaker
-                              bol={!!set}
-                              data={set?.questions}
-                              key={set?.id}
-                              randomG={true}
-                              total={setData?.questions.length}
-                              topic={set?.set_name}
-                              button={<DownloadIconButton type="button" />}
-                            />
+                            // <PdfMaker
+                            //   bol={!!set}
+                            //   data={set?.questions}
+                            //   key={set?.id}
+                            //   randomG={true}
+                            //   total={set?.questions.length}
+                            //   topic={set?.set_name}
+                            //   button={<DownloadIconButton type="button" />}
+                            // />
                           }
                           {/* <Switch
                       checked={set.status === 1} // Set the initial state based on API response

@@ -8,6 +8,7 @@ import {
 import { BButton2 } from "../../../../Components/Common/Button";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
+import { useRef } from "react";
 const styles = {
   page: {
     padding: 20,
@@ -110,11 +111,14 @@ interface props {
   topic: string;
   total?: number;
   button?: ReactJSXElement;
+  buttonRef?:any;
 }
 const PdfMaker = (props: props) => {
+ 
   // const arr: number[] = [];
   let selected_question: questions[] = [];
   // const random: questions[] = [];
+
   const questions: questions[] = props.data;
   let count: number = props.total ? props.total : 20;
   if (!props.randomG) {
@@ -130,14 +134,13 @@ const PdfMaker = (props: props) => {
         selected_question.push(questions[i]);
       }
       // console.log(selected_question);
-    } 
-  }
-  else {
+    }
+  } else {
     selected_question = questions;
-   
   }
   console.log(selected_question);
-  return (
+  return props.button ? (
+    
     <PDFDownloadLink
       document={
         <MyDocument selected_question={selected_question} topic={props.topic} />
@@ -145,6 +148,17 @@ const PdfMaker = (props: props) => {
       fileName={`${props.topic}.pdf`}
     >
       {props.button}
+    </PDFDownloadLink>
+  ) : (
+   
+    <PDFDownloadLink
+      document={
+        <MyDocument selected_question={selected_question} topic={props.topic} />
+      }
+      fileName={`${props.topic}.pdf`}
+      
+    >
+      {props.buttonRef &&( <button ref={props.buttonRef} hidden></button>)}
     </PDFDownloadLink>
   );
 };
