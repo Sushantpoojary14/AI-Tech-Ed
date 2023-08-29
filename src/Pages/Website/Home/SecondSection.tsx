@@ -34,11 +34,12 @@ const SecondSection = () => {
   // );
 
   let p = data?.data?.product_data;
-  // p &&  console.log( p.length === 0);
+  // console.log(String(ts_data?.data.ts[selectVal - 1].id),ts_data?.data.ts[selectVal - 1].id);
 
   if (isLoading) {
     return <LoadingBar />;
   }
+  
   return (
     <>
       <Container
@@ -49,7 +50,7 @@ const SecondSection = () => {
         <Box style={{ display: "flex", alignItems: "left", width: "100%" }}>
           <Header1 header="Buy Test Series" css={{ mr: "10px" }} />
          {ts_data &&  <SelectBox
-            defaultValue={ts_data?.data.ts[selectVal - 1].id}
+            defaultValue={String(ts_data?.data.ts[selectVal - 1].id)}
             name="choose test type"
             selectName="test_type"
             options={ts_data?.data.ts}

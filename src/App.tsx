@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     setOpen(!navigator.onLine);
   }, [navigator.onLine]);
-
+  
 
   return (
     <>
@@ -39,6 +39,7 @@ function App() {
         name="Please Check your Internet Connection"
         type="error"
         bol={open}
+        duration={50000}
         handleAlertBoxClose={handleAlertBoxClose}
       />
       <SuccessModel

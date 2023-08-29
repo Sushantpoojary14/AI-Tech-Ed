@@ -85,11 +85,12 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
     setOpen2(false);
   };
 
-  const [value, setValue] = useState(0);
-
+  const [value, setValue] = useState<number>(0);
+  const [tsc, setTsc] = useState<number>(1);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  // console.log(sets);
 
   const deleteSetMU = useMutation({
     mutationFn: async (id: number) => {
@@ -105,28 +106,41 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
     },
   });
 
-  const handleButtonClick = (set: any) => {
-    new Promise((resolve) => {
-     resolve(setSetData(set));
-    }).then(() => {
+  useEffect(() => {
+    setTsc(sets[value].id);
+  }, [value]);
+
+  useEffect(() => {
+    handleButtonClick();
+  }, [setData]);
+  const getSetQuestion = useMutation({
+    mutationFn: async (id: number) => {
+      return await adminTokenAxios.get(`admin/get-set-question/${id}`);
+    },
+    onSuccess: (res) => {
+      setSetData(res.data.set_questions);
+    
+    },
+  });
+  const handleButtonClick = () => {
+    if (setData) {
       if (buttonRef.current) {
         buttonRef.current.click();
       }
-    });
-
+     
+    }
   };
-
-
+  console.log(setData);
 
   return (
     <>
       {setData && (
         <PdfMaker
-          bol={!!setData}
+          bol={!!setData?.questions}
           data={setData?.questions}
           randomG={true}
           buttonRef={buttonRef}
-          total={setData?.questions.length}
+          total={setData?.questions?.length}
           topic={setData?.set_name}
         />
       )}
@@ -161,7 +175,7 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
             <BButton
               name="Add New Set"
               func={() =>
-                addNewSet.mutate({ p_id: productdetails, tsc_id: value + 1 })
+                addNewSet.mutate({ p_id: productdetails, tsc_id: tsc })
               }
             />
           </Stack>
@@ -176,37 +190,6 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
         </Stack>
 
         <Box width={"full"}>
-          {/* <Grid container spacing={2}>
-      {sets.map((set: any) => (
-        <Grid key={set.id} item xs={12} md={12}>
-          <Typography component={"span"}>
-            Category - {set.tsc_type}
-          </Typography>
-          <List>
-            {set.sets.map((item: any) => (
-              <ListItem
-                key={item.id}
-                sx={{ borderBottom: 1, borderColor: "divider" }}
-              >
-                <ListItemText
-                  primary={`Set - ${item.set_id}`}
-                  secondary={`Topics - ${item.topics
-                    .map((top: any) => top.t_name)
-                    .join(", ")}`}
-                />
-                <ListItemSecondaryAction>
-                  <Switch
-                    checked={item.status === 1} // Set the initial state based on API response
-                    onChange={() => onSwitchToggle(item.id, item.status)} // Attach the event handler
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
-      ))}
-    </Grid> */}
-
           <Box sx={{ width: "100%" }}>
             <Tabs
               value={value}
@@ -224,7 +207,7 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
             {sets?.map((category: any, index: number) => (
               <CustomTabPanel key={index} value={value} index={index}>
                 <Stack spacing={2}>
-                  {category.sets.map((set: any) => (
+                  {category?.sets?.map((set: any) => (
                     <Box
                       paddingBottom={1}
                       borderBottom={1}
@@ -251,7 +234,7 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
                           />
                           <DownloadIconButton
                             type="button"
-                            func={() => handleButtonClick(set)}
+                            func={() => getSetQuestion.mutate(set.id)}
                           />
                           {
                             // <PdfMaker

@@ -70,7 +70,7 @@ ModalProps) => {
   } = useForm<FormValues>();
   const updatedData: any = queryClient.getQueryData([
     "ViewProductDetails1",
-    p_id
+    p_id,
   ]);
 
   const addTestSeriesProductSetMutation = useMutation({
@@ -84,22 +84,19 @@ ModalProps) => {
       console.error("Error creating user:", error.response?.data);
     },
     onSuccess: (res: any) => {
-     
       let data = res?.data.categories_data;
       reset();
       setCounter(counter + 1);
-      // console.log(res?.data);
-      updatedData &&  updatedData.categories.map((item: any, key: number) => {
-          if (item.id == data[key].id) {
-            updatedData.categories[key] = data;
-          }
-        })
-        queryClient.getQueryData(
-          ["ViewProductDetails1", p_id],
-          updatedData
-        );
-
-      
+      updatedData &&
+        updatedData.categories.map((item: any, key: number) => {
+          data.map((item2: any) => {
+            if (item.id == item2.id) {
+              updatedData.categories[key] = item2;
+            }
+          });
+        });
+      console.log(updatedData.categories);
+      queryClient.getQueryData(["ViewProductDetails1", p_id], updatedData);
     },
   });
 

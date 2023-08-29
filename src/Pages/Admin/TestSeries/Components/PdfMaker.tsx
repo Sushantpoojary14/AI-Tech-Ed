@@ -118,13 +118,13 @@ const PdfMaker = (props: props) => {
   // const arr: number[] = [];
   let selected_question: questions[] = [];
   // const random: questions[] = [];
-
+  // console.log('3',props);
   const questions: questions[] = props.data;
   let count: number = props.total ? props.total : 20;
   if (!props.randomG) {
     if (props.bol) {
-      if (questions?.length < 20) {
-        count = 10;
+      if (questions?.length < 15 ) {
+        count = questions?.length;
       }
       for (let i = count - 1; i >= 0; i--) {
         const ran = Math.floor(Math.random() * (i + 1));
@@ -138,7 +138,7 @@ const PdfMaker = (props: props) => {
   } else {
     selected_question = questions;
   }
-  console.log(selected_question);
+  // console.log(selected_question);
   return props.button ? (
     
     <PDFDownloadLink
@@ -156,7 +156,7 @@ const PdfMaker = (props: props) => {
         <MyDocument selected_question={selected_question} topic={props.topic} />
       }
       fileName={`${props.topic}.pdf`}
-      
+      style={{display:'none'}}
     >
       {props.buttonRef &&( <button ref={props.buttonRef} hidden></button>)}
     </PDFDownloadLink>
@@ -170,21 +170,7 @@ const MyDocument = ({
   selected_question: questions[];
   topic: string;
 }) => {
-  // console.log(count);
-  //   while (random.length < count) {
-  //     const ran = Math.floor(Math.random() * props.data?.length - 1 + 1);
-  //     if (!arr.includes(ran)) {
-  //       arr.push(ran);
-  //       random?.push(props.data[ran]);
-  //     }
-  //   }
-
-  function lowercaseKeys(obj: any) {
-    return Object.keys(obj).reduce((accumulator: any, key: any) => {
-      accumulator[key.toLowerCase()] = obj[key];
-      return accumulator;
-    }, {});
-  }
+ 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -226,7 +212,7 @@ const MyDocument = ({
               selected_question?.map((item: questions, key) => (
                 <Text style={styles.answer} key={key}>
                   {item.Answer
-                    ? `${key + 1}.  ${item.Answer}`
+                    ? `${key + 1}.  ${item.Answer?.toUpperCase()}`
                     : `${key + 1}.  ${item.correct_option}`}
                 </Text>
               ))}
@@ -240,7 +226,7 @@ const MyDocument = ({
                 {item.Answer ? (
                   <>
                     <Text style={styles.answer2}>
-                      {`${key + 1}. ${item.Answer.toUpperCase()} `}
+                      {`${key + 1}. ${item.Answer?.toUpperCase()} `}
                     </Text>
                     <Text
                       style={styles.explanation}
