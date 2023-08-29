@@ -9,9 +9,12 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import TSTComp from "../Components/TSTComp";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
+import SelectBox from "../../../../Components/Common/Select";
 
 const ViewTestSeriesTopics = () => {
   const [value, setValue] = useState("1");
+  const [selectValue, setSelectValue] = useState(1);
+  // console.log(selectValue);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -75,6 +78,14 @@ const ViewTestSeriesTopics = () => {
           </Stack>
         </Stack>
 
+        <SelectBox
+          name="select-test-type"
+          defaultValue="1"
+          selectName="test-type"
+          options={testSeries?.data?.ts}
+          func={setSelectValue}
+        />
+
         <TabContext value={value}>
           <Box sx={{ borderBottom: 2, borderColor: "divider" }}>
             <TabList onChange={handleChange} aria-label="Tabs">
@@ -96,7 +107,7 @@ const ViewTestSeriesTopics = () => {
               {/* Render dynamic content based on the tab value */}
               {/* For example, you can fetch content related to this tab */}
               {/* {getContentForTab(item.id)} */}
-              <TSTComp tabId={item.id} />
+              <TSTComp tabId={item.id} selectValue={selectValue} />
             </TabPanel>
           ))}
         </TabContext>

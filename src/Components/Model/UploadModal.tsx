@@ -41,6 +41,7 @@ interface ModalProps {
   setCsvData?: any;
   topic: any;
   topicId?: number | string;
+  setTopic?: any;
 }
 
 const UploadModal = ({
@@ -50,6 +51,7 @@ const UploadModal = ({
   handleSubmit,
   topic,
   topicId,
+  setTopic,
 }: ModalProps) => {
   // const [result, setResult] = useState<any>(null);
   const [csvData, setCsvData] = useState<any>([]);
@@ -122,6 +124,7 @@ const UploadModal = ({
               // topic={topic}
               setCsvData={setCsvData}
               handleClose={handleClose}
+              setTopic={setTopic}
               // reset={reset}
             />
           </Box>

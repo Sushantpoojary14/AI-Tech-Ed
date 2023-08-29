@@ -15,7 +15,7 @@ interface props {
   name: string;
   selectName: string;
   options: option[];
-  defaultValue?:string;
+  defaultValue?: string;
   func?: (val: number) => void;
 }
 
@@ -29,7 +29,6 @@ const SelectBox = (props: props) => {
   };
   return (
     <FormControl>
-  
       <Select
         sx={{
           fontSize: "16px",
@@ -47,7 +46,7 @@ const SelectBox = (props: props) => {
         name={props.selectName}
         inputProps={{
           name: `${props.name}`,
-          id: 'uncontrolled-native',
+          id: "uncontrolled-native",
         }}
       >
         <MenuItem value="" disabled>
