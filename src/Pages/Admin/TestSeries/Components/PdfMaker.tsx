@@ -116,15 +116,18 @@ interface props {
 const PdfMaker = (props: props) => {
   // const arr: number[] = [];
   let selected_question: questions[] = [];
+  // console.log(props.data,props.total);
+
   // const random: questions[] = [];
   // console.log('3',props);
   const questions: questions[] = props.data;
   let count: number = props.total ? props.total : 20;
   if (!props.randomG) {
-    if (props.bol) {
-      if (questions?.length < 15 ) {
+    if (!!props.data) {
+      if (questions?.length < 15) {
         count = questions?.length;
       }
+     
       for (let i = count - 1; i >= 0; i--) {
         const ran = Math.floor(Math.random() * (i + 1));
         const temp = questions[i];
@@ -137,7 +140,7 @@ const PdfMaker = (props: props) => {
   } else {
     selected_question = questions;
   }
-  // console.log(selected_question);
+
   return props.button ? (
     <PDFDownloadLink
       document={
@@ -153,9 +156,9 @@ const PdfMaker = (props: props) => {
         <MyDocument selected_question={selected_question} topic={props.topic} />
       }
       fileName={`${props.topic}.pdf`}
-      style={{display:'none'}}
+      style={{ display: "none" }}
     >
-      {props.buttonRef && <button ref={props.buttonRef} hidden></button>}
+      {props.buttonRef && <button ref={props.buttonRef}></button>}
     </PDFDownloadLink>
   );
 };
@@ -167,11 +170,10 @@ const MyDocument = ({
   selected_question: questions[];
   topic: string;
 }) => {
- 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={styles.header}>{topic.toUpperCase()}</Text>
+        <Text style={styles.header}>{topic?.toUpperCase()}</Text>
         <View style={styles.mainContainer}>
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key) => (
@@ -205,7 +207,7 @@ const MyDocument = ({
         <View style={styles.mainContainer}>
           <Text style={styles.header2}>Answers:</Text>
           <View style={styles.Container}>
-            {selected_question.length != 0 &&
+            {selected_question?.length != 0 &&
               selected_question?.map((item: questions, key) => (
                 <Text style={styles.answer} key={key}>
                   {item.Answer
@@ -217,7 +219,7 @@ const MyDocument = ({
         </View>
         <View style={styles.mainContainer}>
           <Text style={styles.header2}>Explanation:</Text>
-          {selected_question.length != 0 &&
+          {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key) => (
               <View style={styles.Container} key={key}>
                 {item.Answer ? (
@@ -239,8 +241,6 @@ const MyDocument = ({
                     >{`${item.explanation} `}</Text>
                   </>
                 )}
-
-                {/* <Text style={styles.explanation}>{`${item.explanation} `}</Text> */}
               </View>
             ))}
         </View>

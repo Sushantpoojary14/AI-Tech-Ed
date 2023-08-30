@@ -15,13 +15,12 @@ interface props {
   name: string;
   selectName: string;
   options: option[];
-  defaultValue?: string;
-  defaultValue?: string;
+  defaultValue: string;
   func?: (val: number) => void;
 }
 
 const SelectBox = (props: props) => {
-  const [val, setVal] = useState<string>("");
+  const [val, setVal] = useState<string >(props.defaultValue);
   const handleChange = (event: SelectChangeEvent) => {
     setVal(event.target.value as string);
     if (props.func) {
@@ -43,7 +42,7 @@ const SelectBox = (props: props) => {
         }}
         value={val}
         onChange={handleChange}
-        defaultValue={props.defaultValue}
+        // defaultValue={String(props.defaultValue)}
         // label={props.label}
         displayEmpty
         name={props.selectName}

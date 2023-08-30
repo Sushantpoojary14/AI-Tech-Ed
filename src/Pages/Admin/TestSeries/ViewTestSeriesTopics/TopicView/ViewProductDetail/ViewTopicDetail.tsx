@@ -12,6 +12,7 @@ import { Header1 } from "../../../../../../Components/Common/HeaderText";
 import AlertBox from "../../../../../../Components/Common/AlertBox";
 import { useState } from "react";
 import LoadingBar from "../../../../../../Components/Headers/LoadingBar";
+import DownloadPdfModel from "../../../../../../Components/Model/DownloadPdfModel";
 
 const ViewTopicDetail = () => {
   const { topicId } = useParams();
@@ -20,6 +21,7 @@ const ViewTopicDetail = () => {
 
   const [open, setOpen] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
+
   const [message, setMessage] = useState("");
   const handleAlertBoxOpen = () => {
     setOpen(true);
@@ -37,6 +39,7 @@ const ViewTopicDetail = () => {
     setOpen2(false);
   };
 
+ 
   const testSeries = useQuery({
     queryKey: ["TestSeriesTopics", topicId],
     queryFn: async () => {
@@ -76,7 +79,7 @@ const ViewTopicDetail = () => {
       }
     },
   });
-
+ 
   const handleDeleteTopic = (topicId: any) => {
     console.log("delete", topicId);
     deleteTopicMutation.mutate(topicId);
@@ -155,6 +158,7 @@ const ViewTopicDetail = () => {
           {/* </Stack> */}
         </Stack>
       </Container>
+    
     </>
   );
 };

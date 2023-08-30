@@ -371,10 +371,14 @@ let data = [
 export default function Test2() {
   // const { handleAlertBoxOpen, alertBox } = UserContext();
 
-const click = () => {
-  // handleAlertBoxOpen();
-};
+  const click = () => {
+    // handleAlertBoxOpen();
+  };
 
+  data?.map((item: any) => {
+    console.log(item.question.split(" "));
+    
+  });
   return (
     <>
       {/* <AlertBox name="Error" type="error" bol={ alertBox} /> */}

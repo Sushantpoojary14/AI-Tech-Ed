@@ -110,33 +110,43 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
     setTsc(sets[value].id);
   }, [value]);
 
-  useEffect(() => {
-    handleButtonClick();
-  }, [setData]);
   const getSetQuestion = useMutation({
     mutationFn: async (id: number) => {
       return await adminTokenAxios.get(`admin/get-set-question/${id}`);
     },
-    onSuccess: (res) => {
-      setSetData(res.data.set_questions);
-    
-    },
-  });
-  const handleButtonClick = () => {
-    if (setData) {
+    onSettled: (res) => {
+      setSetData(res?.data.set_questions);
+      console.log(setData);
+      // if (buttonRef.current) {
+      // setTimeout(() => {
+      // console.log(setData.id,res?.data.set_questions.id);
+
+      // buttonRef?.current?.click();
+      // }, 2);
+      // }
+
       if (buttonRef.current) {
         buttonRef.current.click();
       }
-     
-    }
-  };
-  console.log(setData);
+    },
+  });
+
+
+
+  // const handleButtonClick = () => {
+  //   if (setData) {
+  //     if (buttonRef.current) {
+  //       buttonRef.current.click();
+  //     }
+  //   }
+  // };
+  // console.log(getSetQuestion.isSuccess);
 
   return (
     <>
       {setData && (
         <PdfMaker
-          bol={!!setData?.questions}
+          bol={true}
           data={setData?.questions}
           randomG={true}
           buttonRef={buttonRef}
@@ -225,7 +235,13 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
                         >
                           {/* <DownloadIconButton
                             type="button"
-                            func={() => handleButtonClick(set)}
+                            func={(set) => {
+                              console.log("click");
+                              const pdfButton = buttonRef.current;
+                              if (pdfButton) {
+                                pdfButton.click(); 
+                              }
+                            }}
                           /> */}
 
                           <DeleteIconButton

@@ -14,6 +14,7 @@ import {
 import AlertBox from "../../../../Components/Common/AlertBox";
 import UploadModal from "../../../../Components/Model/UploadModal";
 import PdfMaker from "./PdfMaker";
+import DownloadPdfModel from "../../../../Components/Model/DownloadPdfModel";
 
 interface TableCompProps {
   tabId: string | number;
@@ -31,6 +32,8 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [open1, setOpen1] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
+  const [setData, setSetData] = useState<any>(null);
+  const [open3, setOpen3] = useState<boolean>(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -54,6 +57,9 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
     setOpen2(false);
   };
 
+  const handleClose3 = () => {
+    setOpen3(false);
+  };
   const topics = useQuery({
     queryKey: ["topicList", tabId, selectValue],
     queryFn: async () => {
@@ -63,7 +69,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
     },
   });
 
-  console.log(topics?.data?.data.topics);
+  // console.log(topics?.data?.data.topics);
 
   const deleteTopicMutation = useMutation({
     mutationFn: async (topicId: any) => {
@@ -87,7 +93,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
   });
 
   const handleDeleteTopic = (topicId: any) => {
-    console.log("delete", topicId);
+    // console.log("delete", topicId);
     deleteTopicMutation.mutate(topicId);
   };
 
@@ -120,7 +126,19 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
     //   alert("can't edit");
     // }
   };
-
+  const getTopicQuestion = useMutation({
+    mutationFn: async (id: number) => {
+      return await adminTokenAxios.get(`admin/get-topic-question/${id}`);
+    },
+    onSettled: (res) => {
+    
+      setSetData(res?.data.topic_questions);
+      setOpen3(true);
+      // console.log(setData);
+    },
+  });
+  // console.log(setData);
+  
   const columns = useMemo<MRT_ColumnDef<topicList>[]>(
     //column definitions...
     () => [
@@ -146,11 +164,15 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
               data={questions}
               button={}
             /> */}
-            <DownloadIconButton />
+            {/* <DownloadIconButton /> */}
 
             <DeleteIconButton
               type="button"
               func={() => handleDeleteTopic(cell.getValue<string>())}
+            />
+            <DownloadIconButton
+              type="button"
+              func={() => getTopicQuestion.mutate(parseInt(cell.getValue<string>()))}
             />
           </Stack>
         ),
@@ -159,6 +181,9 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
     []
     //end
   );
+
+
+
   return (
     <>
       <AlertBox
@@ -196,6 +221,12 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
         setTopic={setTopicIde}
         // handleSubmit={handleSubmit}
         // setCsvData={setCsvData}
+      />
+
+      <DownloadPdfModel
+        open={open3}
+        handleClose={handleClose3}
+        data={setData}
       />
     </>
   );
