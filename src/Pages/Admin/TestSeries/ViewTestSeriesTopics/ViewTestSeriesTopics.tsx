@@ -10,10 +10,14 @@ import { Link } from "react-router-dom";
 import TSTComp from "../Components/TSTComp";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
 import SelectBox from "../../../../Components/Common/Select";
+import ImageUploadModal from "../../../../Components/Model/ImageUploadModal";
 
 const ViewTestSeriesTopics = () => {
   const [value, setValue] = useState("1");
   const [selectValue, setSelectValue] = useState(1);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   // console.log(selectValue);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -75,6 +79,7 @@ const ViewTestSeriesTopics = () => {
             <Link to="add-topics">
               <OButton name="Add Topics" />
             </Link>
+            <OButton name="Upload Images" func={handleOpen} />
           </Stack>
         </Stack>
 
@@ -112,6 +117,8 @@ const ViewTestSeriesTopics = () => {
           ))}
         </TabContext>
       </Container>
+
+      <ImageUploadModal open={open} handleClose={handleClose} />
     </>
   );
 };
