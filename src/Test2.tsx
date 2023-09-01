@@ -353,7 +353,7 @@ export default function Test2() {
       {/* <PdfMaker data={data} bol={true} topic="ratio"/> */}
       {/* <button onClick={click}>click</button>
        */}
-         <img src="http://127.0.0.1:8000/images/nike.jpg" alt="" />
+         {/* <img src="http://127.0.0.1:8000/images/nike.jpg" alt="" /> */}
       {data && (
         <PdfMaker
           data={data}

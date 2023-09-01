@@ -68,8 +68,8 @@ const styles = {
     textAlign: "center" as const,
   },
   image: {
-    width: "20%",
-    height: "auto",
+    width: "100px",
+    height: "100px",
   },
 };
 
@@ -179,102 +179,114 @@ const MyDocument = ({
   selected_question: questions[];
   topic: string;
 }) => {
-  async function getImageData(url:string) {
-    try {
-      const response = await axios.get(url, { responseType: "arraybuffer" });
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching image data:", error);
-      return null;
-    }
-  }
-  getImageData('http://127.0.0.1:8000/images/nike.jpg')
   return (
-    // selected_question?.length != 0 && 
     <>
-    {/* <img src="http://127.0.0.1:8000/images/product-7.jpg" alt="" /> */}
-    <Document>
-      <Page size="A4" style={styles.page}>
-        <Text style={styles.header}>{topic?.toUpperCase()}</Text>
-        <View style={styles.mainContainer}>
-          {selected_question?.length != 0 &&
-            selected_question?.map((item: questions, key) => (
-              <View style={styles.Container} key={key}>
-                {item.Options ? (
-                  <>
-                    <Text style={styles.question}>
-                      {`${key + 1}: ${item.Question}`}
-                      {/* {item.images && import.meta.env.VITE_IMAGE_URL+item.images[0]} */}
-                      {/* {item.images && import.meta.env.VITE_IMAGE_URL+item.images[0]} */}
-                    </Text>
-
-                    {item.images && (
-                      <Image style={styles.image} src={'http://127.0.0.1:8000/images/nike.jpg'} />
-                    )}
-                    <Text style={styles.options}>{`A. ${item.Options.a}`}</Text>
-                    <Text style={styles.options}>{`B. ${item.Options.b}`}</Text>
-                    <Text style={styles.options}>{`C. ${item.Options.c}`}</Text>
-                    <Text style={styles.options}>{`D. ${item.Options.d}`}</Text>
-                  </>
-                ) : (
-                  <>
-                    <Text style={styles.options}>
-                      {`${key + 1}: ${item.question} `}
-                    </Text>
-                    <Text style={styles.options}>{`A. ${item.option_1}`}</Text>
-                    <Text style={styles.options}>{`B. ${item.option_2}`}</Text>
-                    <Text style={styles.options}>{`C. ${item.option_3}`}</Text>
-                    <Text style={styles.options}>{`D. ${item.option_4}`}</Text>
-                  </>
-                )}
-              </View>
-            ))}
-        </View>
-      </Page>
-      <Page size="A4" style={styles.page}>
-        <View style={styles.mainContainer}>
-          <Text style={styles.header2}>Answers:</Text>
-          <View style={styles.Container}>
+      {/* <img src="http://127.0.0.1:8000/images/product-7.jpg" alt="" /> */}
+      <Document>
+        <Page size="A4" style={styles.page}>
+          <Text style={styles.header}>{topic?.toUpperCase()}</Text>
+          <View style={styles.mainContainer}>
             {selected_question?.length != 0 &&
               selected_question?.map((item: questions, key) => (
-                <Text style={styles.answer} key={key}>
-                  {item.Answer
-                    ? `${key + 1}.  ${item.Answer?.toUpperCase()}`
-                    : `${key + 1}.  ${item.correct_option}`}
-                </Text>
+                <View style={styles.Container} key={key}>
+                  {item.Options ? (
+                    <>
+                      <Text style={styles.question}>
+                        {`${key + 1}: ${item.Question}`}
+                        {/* {item.images && import.meta.env.VITE_IMAGE_URL+item.images[0]} */}
+                        {/* {item.images && import.meta.env.VITE_IMAGE_URL+item.images[0]} */}
+                      </Text>
+
+                      {/* {item.images && (
+                      <Image style={styles.image} src={'http://127.0.0.1:8000/images/nike.jpg'} />
+                    )} */}
+                      <View>
+                        {/* <Image
+                          style={styles.image}
+                          src={"https://commcop.in/ai_tech_ed/images/car.jpg"}
+                        /> */}
+                        <Image src={{ uri:"http://127.0.0.1:8000/images/car.jpeg", method: "GET", headers: { "Cache-Control": "no-cache" }, body: "" }} />
+                      </View>
+                      <Text
+                        style={styles.options}
+                      >{`A. ${item.Options.a}`}</Text>
+                      <Text
+                        style={styles.options}
+                      >{`B. ${item.Options.b}`}</Text>
+                      <Text
+                        style={styles.options}
+                      >{`C. ${item.Options.c}`}</Text>
+                      <Text
+                        style={styles.options}
+                      >{`D. ${item.Options.d}`}</Text>
+                    </>
+                  ) : (
+                    <>
+                      <Text style={styles.options}>
+                        {`${key + 1}: ${item.question} `}
+                      </Text>
+                      <Text
+                        style={styles.options}
+                      >{`A. ${item.option_1}`}</Text>
+                      <Text
+                        style={styles.options}
+                      >{`B. ${item.option_2}`}</Text>
+                      <Text
+                        style={styles.options}
+                      >{`C. ${item.option_3}`}</Text>
+                      <Text
+                        style={styles.options}
+                      >{`D. ${item.option_4}`}</Text>
+                    </>
+                  )}
+                </View>
               ))}
           </View>
-        </View>
-        <View style={styles.mainContainer}>
-          <Text style={styles.header2}>Explanation:</Text>
-          {selected_question?.length != 0 &&
-            selected_question?.map((item: questions, key) => (
-              <View style={styles.Container} key={key}>
-                {item.Answer ? (
-                  <>
-                    <Text style={styles.answer2}>
-                      {`${key + 1}. ${item.Answer?.toUpperCase()} `}
-                    </Text>
-                    <Text
-                      style={styles.explanation}
-                    >{`${item.Explanation} `}</Text>
-                  </>
-                ) : (
-                  <>
-                    <Text style={styles.answer2}>
-                      {`${key + 1}. ${item.correct_option}`}
-                    </Text>
-                    <Text
-                      style={styles.explanation}
-                    >{`${item.explanation} `}</Text>
-                  </>
-                )}
-              </View>
-            ))}
-        </View>
-      </Page>
-    </Document></>
-    
+        </Page>
+        <Page size="A4" style={styles.page}>
+          <View style={styles.mainContainer}>
+            <Text style={styles.header2}>Answers:</Text>
+            <View style={styles.Container}>
+              {selected_question?.length != 0 &&
+                selected_question?.map((item: questions, key) => (
+                  <Text style={styles.answer} key={key}>
+                    {item.Answer
+                      ? `${key + 1}.  ${item.Answer?.toUpperCase()}`
+                      : `${key + 1}.  ${item.correct_option}`}
+                  </Text>
+                ))}
+            </View>
+          </View>
+          <View style={styles.mainContainer}>
+            <Text style={styles.header2}>Explanation:</Text>
+            {selected_question?.length != 0 &&
+              selected_question?.map((item: questions, key) => (
+                <View style={styles.Container} key={key}>
+                  {item.Answer ? (
+                    <>
+                      <Text style={styles.answer2}>
+                        {`${key + 1}. ${item.Answer?.toUpperCase()} `}
+                      </Text>
+                      <Text
+                        style={styles.explanation}
+                      >{`${item.Explanation} `}</Text>
+                    </>
+                  ) : (
+                    <>
+                      <Text style={styles.answer2}>
+                        {`${key + 1}. ${item.correct_option}`}
+                      </Text>
+                      <Text
+                        style={styles.explanation}
+                      >{`${item.explanation} `}</Text>
+                    </>
+                  )}
+                </View>
+              ))}
+          </View>
+        </Page>
+      </Document>
+    </>
   );
 };
 

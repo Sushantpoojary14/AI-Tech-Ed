@@ -193,9 +193,8 @@ const GenerateQuestions = ({
         // console.log("loop", item);
         const query = `Generate five unique multiple-choice questions (MCQs) for the topic "${
           topic1[1]
-        }". Maintain the question sentence structure provided in the example while modifying variables like numbers, names, and genders. Exclude question numbers after 'Question'. An example with options, correct answer, explanation, and question based on the topic is provided below:
+        }". Follow the format below, maintaining the sentence structure while modifying variables like numbers. If there is a person's name in the question, use one of the specified names only for persons that is for male - sushant and for girl - sneha , and do not use these names for any other purpose. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
 
-        ---
         Example Question:
         Question: ${item.Question}
         Options:
@@ -251,39 +250,32 @@ const GenerateQuestions = ({
         const questions = message && JSON.parse(message);
 
         questions?.map((item: mapData, index: any) => {
-          // throw "ERROR";
-          let data = item.Question.split(" ").sort();
-          item.images = [];
+          let data = item.Question.split(" ");
+          item.images = []; // Initialize an empty array for images
 
-          image_data
-            ?.sort()
-            .forEach((search: { image_name: string; image_url: string }) => {
-              let s = 0;
-              let e = data.length - 1;
-              let caps = search.image_name.toUpperCase();
-              while (s <= e) {
-                let mid = Math.floor((s + e) / 2);
+          image_data.forEach(
+            (search: { image_name: string; image_url: string }) => {
+              // Convert image name to uppercase for case-insensitive comparison
+              const caps = search.image_name.toUpperCase();
 
-                if (data[mid].toUpperCase() === caps) {
-                  console.log(item);
-                  item.images?.push(search.image_url);
-                  break;
-                }
+              // Check if any word in the question matches the image name
+              const match = data.find(
+                (word: string) => word.toUpperCase() === caps
+              );
 
-                if (data[mid].toUpperCase() < caps) {
-                  s = mid + 1;
-                } else {
-                  e = mid - 1;
-                }
+              if (match) {
+                item.images?.push(search.image_url); // Add the image URL to the question
               }
-            });
-          if (item?.images.length == 0) {
-            delete item.images;
+            }
+          );
+
+          if (item.images?.length === 0) {
+            delete item.images; // Remove the 'images' property if it's empty
           }
 
-          responses.push(item);
+          responses.push(item); // Add the modified item to the responses array
         });
-        console.log(responses);
+        // console.log(responses);
       }
 
       return responses;
@@ -299,7 +291,7 @@ const GenerateQuestions = ({
     },
   });
 
-  console.log("REs Data", resData);
+  // console.log(resData);
 
   return (
     <>
@@ -350,6 +342,13 @@ const GenerateQuestions = ({
                       : addTestCTMu.mutate(csvData))
                   }
                   name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
+                />
+              )}
+              {(resData.length != 0 || topic1[0] == 2) && (
+                <BButton2
+                  type="button"
+                  func={() => setResData([])}
+                  name={"Reset"}
                 />
               )}
             </Stack>

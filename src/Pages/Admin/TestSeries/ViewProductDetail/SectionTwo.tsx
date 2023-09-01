@@ -140,13 +140,6 @@ const SectionTwo = ({
     onSettled: (res) => {
       setSetData(res?.data.set_questions);
       console.log(setData);
-      // if (buttonRef.current) {
-      // setTimeout(() => {
-      // console.log(setData.id,res?.data.set_questions.id);
-
-      // buttonRef?.current?.click();
-      // }, 2);
-      // }
 
       if (buttonRef.current) {
         buttonRef.current.click();
@@ -156,7 +149,7 @@ const SectionTwo = ({
 
   return (
     <>
-      {setData && (
+      {/* {setData && (
         <PdfMaker
           bol={true}
           data={setData?.questions}
@@ -165,7 +158,7 @@ const SectionTwo = ({
           total={setData?.questions?.length}
           topic={setData?.set_name}
         />
-      )}
+      )} */}
 
       <AlertBox
         name="Cannot Delete The Set"
@@ -268,9 +261,14 @@ const SectionTwo = ({
                             func={() => handleDelete.mutate(set.id)}
                             disabled={releaseStatus}
                           />
-                          <DownloadIconButton
-                            type="button"
-                            func={() => getSetQuestion.mutate(set.id)}
+                          {/* <DownloadIconButton type="button" /> */}
+                          <PdfMaker
+                            bol={true}
+                            data={set?.questions}
+                            randomG={true}
+                            button={<DownloadIconButton type="button" />}
+                            total={set?.questions?.length}
+                            topic={set?.set_name}
                           />
 
                           <SwitchComp
