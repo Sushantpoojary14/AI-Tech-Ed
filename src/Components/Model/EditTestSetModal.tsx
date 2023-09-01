@@ -122,7 +122,7 @@ ModalProps) => {
 
   const updateTestSeriesSets = useMutation({
     mutationFn: async (formattedDatav2: any) => {
-      return await adminTokenAxios.post(
+      return await adminTokenAxios.put(
         `/admin/update-test-series-product-topics`,
         formattedDatav2
       );
