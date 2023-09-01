@@ -243,6 +243,7 @@ const ViewProductDetail = () => {
           <SectionOne product={testSeries?.data} />
           {/* <Stack direction="column" spacing={3} useFlexGap flexWrap="wrap"> */}
           <SectionTwo
+            releaseStatus={testSeries?.data?.release_status}
             sets={testSeries?.data?.categories}
             onSwitchToggle={handleSwitchToggle}
             handleDelete={deleteSetMU}

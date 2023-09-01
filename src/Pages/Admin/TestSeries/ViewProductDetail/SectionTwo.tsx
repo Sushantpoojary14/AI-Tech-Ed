@@ -61,7 +61,13 @@ function a11yProps(index: number) {
   };
 }
 
-const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
+const SectionTwo = ({
+  sets,
+  onSwitchToggle,
+  handleDelete,
+  addNewSet,
+  releaseStatus,
+}: any) => {
   // console.log("sets", sets);
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -107,7 +113,7 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-  // console.log(sets);
+  console.log(sets);
 
   const deleteSetMU = useMutation({
     mutationFn: async (id: number) => {
@@ -147,43 +153,6 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
       }
     },
   });
-
-  // const handleButtonClick = () => {
-  //   if (setData) {
-  //     if (buttonRef.current) {
-  //       buttonRef.current.click();
-  //     }
-  //   }
-  // };
-  // console.log(getSetQuestion.isSuccess);
-  // const para = useParams();
-  // const p_id = para.productdetails;
-  // const queryClient = useQueryClient();
-  // const getProductDetail: any = queryClient.getQueryData([
-  //   "ViewProductDetails1",
-  //   productdetails,
-  // ]);
-
-  // const ts_id = getProductDetail.ts_id;
-
-  // const getTopics = useQuery({
-  //   queryKey: ["topicEdit", tsc, ts_id],
-  //   queryFn: async () => {
-  //     return await adminTokenAxios.get(`admin/show-topics/${tsc}/${ts_id}`);
-  //   },
-  //   enabled: false,
-  // });
-
-  // const getSet = useQuery({
-  //   queryKey: ["getSetDetails", setId],
-  //   queryFn: async () => {
-  //     return await adminTokenAxios.get(`admin/get-set-topic/${setId}`);
-  //   },
-  //   enabled: !!setId,
-  // });
-
-  // console.log("getSet", getSet.data?.data);
-  // console.log("gettopics", getTopics.data?.data.topics);
 
   return (
     <>
@@ -227,6 +196,7 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
 
             <BButton
               name="Add New Set"
+              disabled={releaseStatus}
               func={() =>
                 addNewSet.mutate({ p_id: productdetails, tsc_id: tsc })
               }
@@ -290,31 +260,19 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
                           <EditIconButton
                             type="button"
                             func={() => handleOpen(set.id, set.set_name)}
+                            disabled={releaseStatus}
                           />
 
                           <DeleteIconButton
                             type="button"
                             func={() => handleDelete.mutate(set.id)}
+                            disabled={releaseStatus}
                           />
                           <DownloadIconButton
                             type="button"
                             func={() => getSetQuestion.mutate(set.id)}
                           />
-                          {
-                            // <PdfMaker
-                            //   bol={!!set}
-                            //   data={set?.questions}
-                            //   key={set?.id}
-                            //   randomG={true}
-                            //   total={set?.questions.length}
-                            //   topic={set?.set_name}
-                            //   button={<DownloadIconButton type="button" />}
-                            // />
-                          }
-                          {/* <Switch
-                      checked={set.status === 1} // Set the initial state based on API response
-                      onChange={() => onSwitchToggle(set.id, set.status)} // Attach the event handler
-                    /> */}
+
                           <SwitchComp
                             checked={set.status === 1}
                             onChange={() => onSwitchToggle(set.id, set.status)}
