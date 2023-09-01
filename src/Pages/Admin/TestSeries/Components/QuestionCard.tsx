@@ -7,6 +7,8 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  ImageList,
+  ImageListItem,
 } from "@mui/material";
 
 interface QuestionCardProps {
@@ -15,7 +17,7 @@ interface QuestionCardProps {
   options: {
     [key: string]: string;
   };
-
+  images?: any;
   answer: string;
   explanation: string;
 }
@@ -26,6 +28,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   options,
   answer,
   explanation,
+  images,
 }) => {
   return (
     <Card>
@@ -33,6 +36,29 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
         <Typography variant="h6" component="h2">
           Question : {question}
         </Typography>
+        {images && images.length !== 0 && (
+          <ImageList
+            sx={{
+              width: "100%",
+              // maxHeight: "340px",
+              maxWidth: "hidden",
+              flex: "column",
+              justifyContent: "space-between",
+            }}
+            cols={3}
+            // gap={7}
+            // rowHeight={164}
+          >
+            {images.map((item: any, key: number) => (
+              <ImageListItem key={key} sx={{ width: "200px" }}>
+                <img
+                  src={import.meta.env.VITE_IMAGE_URL + item}
+                  alt={`Image ${key}`}
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        )}
         <List disablePadding>
           {Object.keys(options).map((optionKey, index) => (
             <ListItem key={optionKey} disablePadding>

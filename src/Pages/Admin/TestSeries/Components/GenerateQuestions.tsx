@@ -299,7 +299,7 @@ const GenerateQuestions = ({
     },
   });
 
-  console.log(resData);
+  console.log("REs Data", resData);
 
   return (
     <>
@@ -417,6 +417,7 @@ const GenerateQuestions = ({
               <QuestionCard
                 key={index}
                 // questionNo={index + 1}
+                images={questionData.images}
                 question={questionData.Question}
                 options={questionData.Options}
                 answer={questionData.Answer}
