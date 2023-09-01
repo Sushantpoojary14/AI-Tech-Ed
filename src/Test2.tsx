@@ -1,4 +1,6 @@
 import React from "react";
+import PdfMaker from "./Pages/Admin/TestSeries/Components/PdfMaker";
+import { BButton2 } from "./Components/Common/Button";
 
 // import { useTime, useTimer } from 'react-timer-hook';
 // import {
@@ -106,265 +108,206 @@ import React from "react";
 //     : "Generate an explanation based questions and correct answer"
 // }
 // `;
-let data = [
+let data: any = [
   {
-    question:
-      " Two numbers have a 4:7 ratio. The new numbers have a ratio of 9:17 if 6 is taken away from each. The minimizing number is:\n\n",
-    options: {
+    Question:
+      "The ratio of men to women in a conference is 5:7. If there are 80 men, how many women are there?",
+    Options: {
+      a: "56",
+      b: "64",
+      c: "80",
+      d: "112",
+    },
+    Answer: "d",
+    Explanation:
+      "If the ratio of men to women is 5:7 and there are 80 men, then there are 7/5 x 80 = 112 women in the conference.",
+  },
+  {
+    Question:
+      "A recipe requires a ratio of 2:3 for flour to sugar. If there are 6 cups of flour, how many cups of sugar are needed?",
+    Options: {
+      a: "4",
+      b: "6",
+      c: "9",
+      d: "12",
+    },
+    Answer: "d",
+    Explanation:
+      "If the ratio of flour to sugar is 2:3 and there are 6 cups of flour, then there are 3/2 x 6 = 9 cups of sugar needed.",
+  },
+  {
+    Question: "If a:b = 3:4 and b:c = 5:6, what is the value of a:c?",
+    Options: {
+      a: "15:8",
+      b: "12:7",
+      c: "8:15",
+      d: "7:12",
+    },
+    Answer: "C",
+    Explanation:
+      "Given a:b = 3:4 and b:c = 5:6. Cross multiplying, we have ac = 3 × 5 = 15 and bc = 4 × 6 = 24. Therefore, a:c = 15:24 = 5:8.",
+  },
+  {
+    Question:
+      "Tom has 4 times as many apples as Sarah. If Sarah has 9 apples, how many apples does Tom have?",
+    Options: {
       a: "18",
       b: "24",
-      c: "32",
-      d: "42",
+      c: "36",
+      d: "45",
     },
-    answer: "C",
-    explanation:
-      " Let the numbers be 4x and 7x. Then, 4x - 6 = 9, 7x - 6 = 17. \n17(4x - 6) = 9(7x - 6).\n12x = 144.\nx = 12.\nThe smaller number = (4 x 12) = 48. \n\n",
+    Answer: "c",
+    Explanation: "If Sarah has 9 apples, Tom has 4 x 9 = 36 apples.",
   },
   {
-    question:
-      " Two numbers have a 2:9 ratio. The new numbers have a ratio of 5:29 if 3 is taken away from each. The minimizing number is:\n\n",
-    options: {
-      a: "47",
-      b: "54",
-      c: "58",
-      d: "63",
-    },
-    answer: "A",
-    explanation:
-      " Let the numbers be 2x and 9x. Then, 2x - 3 = 5, 9x - 3 = 29.\n29(2x - 3) = 5(9x - 3).\n58x = 87.\nx = 1.5.\nThe smaller number = (2 x 1.5) = 3. \n\n",
-  },
-  {
-    question:
-      " Two numbers have a 1:4 ratio. The new numbers have a ratio of 7:28 if 2 is taken away from each. The minimizing number is:\n\n",
-    options: {
-      a: "8",
-      b: "12",
-      c: "16",
-      d: "20",
-    },
-    answer: "A",
-    explanation:
-      " Let the numbers be x and 4x. Then, x - 2 = 7, 4x - 2 = 28.\n28(x - 2) = 7(4x - 2).\n28x - 56 = 28x - 14.\n-56 = -14.\nThis equation has no solution.\nTherefore, no minimizing number can be determined.\n\n",
-  },
-  {
-    question:
-      " Two numbers have a 5:11 ratio. The new numbers have a ratio of 10:22 if 4 is taken away from each. The minimizing number is:\n\n",
-    options: {
-      a: "15",
-      b: "22",
-      c: "30",
-      d: "38",
-    },
-    answer: "C",
-    explanation:
-      " Let the numbers be 5x and 11x. Then, 5x - 4 = 10, 11x - 4 = 22.\n22(5x - 4) = 10(11x - 4).\n110x - 88 = 110x - 40.\n-88 = -40.\nThis equation has no solution.\nTherefore, no minimizing number can be determined.\n\n",
-  },
-  {
-    question:
-      " Two numbers have a 7:12 ratio. The new numbers have a ratio of 15:26 if 5 is taken away from each. The minimizing number is:\n\n",
-    options: {
-      a: "39",
-      b: "48",
-      c: "54",
-      d: "61",
-    },
-    answer: "D",
-    explanation:
-      " Let the numbers be 7x and 12x. Then, 7x - 5 = 15, 12x - 5 = 26.\n26(7x - 5) = 15(12x - 5).\n182x - 130 = 180x - 75.\n2x = 55.\nx = 27.5.\nThe smaller number = (7 x 27.5) = 192.5.",
-  },
-  {
-    question:
-      " If 60% of a number is equal to three-fourth of another number, what is the ratio of first number to the second number?\n\n",
-    options: {
-      a: "03:04",
-      b: "04:05",
-      c: "05:04",
-      d: "06:04",
-    },
-    answer: "C",
-    explanation:
-      " Let 60% of A = 3B/4.\nThen, 60A = 3B/4.\n4A = 3B/4.\nA = (3/4) * (4/3) = 1.\nB = 1.\nA : B = 1 : 1.\n\n",
-  },
-  {
-    question:
-      " If 25% of a number is equal to one-fifth of another number, what is the ratio of first number to the second number?\n\n",
-    options: {
-      a: "01:04",
-      b: "02:05",
-      c: "03:05",
-      d: "04:05",
-    },
-    answer: "A",
-    explanation:
-      " Let 25% of A = B/5.\nThen, 25A = B/5.\n5A = B/5.\nA = (1/5) * (5/1) = 1.\nB = 5.\nA : B = 1 : 5.\n\n",
-  },
-  {
-    question:
-      " If 30% of a number is equal to three-eighth of another number, what is the ratio of first number to the second number?\n\n",
-    options: {
-      a: "03:08",
-      b: "04:09",
-      c: "05:08",
-      d: "06:09",
-    },
-    answer: "C",
-    explanation:
-      " Let 30% of A = 3B/8.\nThen, 30A = 3B/8.\n8A = 3B/8.\nA = (3/8) * (8/3) = 1.\nB = 1.\nA : B = 1 : 1.\n\n",
-  },
-  {
-    question:
-      " If 50% of a number is equal to two-fifth of another number, what is the ratio of first number to the second number?\n\n",
-    options: {
-      a: "02:05",
-      b: "03:05",
-      c: "04:05",
-      d: "05:05",
-    },
-    answer: "C",
-    explanation:
-      " Let 50% of A = 2B/5.\nThen, 50A = 2B/5.\n5A = 2B/5.\nA = (2/5) * (5/2) = 1.\nB = 1.\nA : B = 1 : 1.\n\n",
-  },
-  {
-    question:
-      " If 35% of a number is equal to seven-tenth of another number, what is the ratio of first number to the second number?\n\n",
-    options: {
-      a: "02:07",
-      b: "03:07",
-      c: "04:07",
-      d: "05:07",
-    },
-    answer: "B",
-    explanation:
-      " Let 35% of A = 7B/10.\nThen, 35A = 7B/10.\n10A = 7B/10.\nA = (7/10) * (10/7) = 1.\nB = 1.\nA : B = 1 : 1.",
-  },
-  {
-    question:
-      " There are a certain number of dogs in a park and the park only contains brown, black, and white dogs. The number of brown dogs is three times the number of black dogs. Black dogs outnumber white dogs by a factor of one-fifth. If there are 60 dogs in total, how many brown dogs are there?\n\n",
-    options: {
-      a: "12",
-      b: "15",
-      c: "18",
-      d: "20",
-    },
-    answer: "D",
-    explanation:
-      " Since there are three times as many brown dogs as black dogs, the ratio of brown dogs to black dogs is 3:1. The ratio of black dogs to white dogs is one to five because black dogs outnumber white dogs by a factor of one-fifth. Using these ratios, we can construct the ratio of brown dogs to black dogs to white dogs to be 15:5:1. There are 60 dogs total, thus 21 divided by 21 is 3 dogs. The quantity of brown dogs is 15 parts brown dog divided by 3 for a total of 45 brown dogs. Therefore, the answer is Option D.\n\n",
-  },
-  {
-    question:
-      " There are a certain number of students in a class and the class only contains boys and girls. The number of boys is twice the number of girls. Boys outnumber girls by a factor of one-third. If there are 90 students in total, how many boys are there?\n\n",
-    options: {
-      a: "30",
-      b: "40",
-      c: "60",
-      d: "80",
-    },
-    answer: "C",
-    explanation:
-      " Since there are twice as many boys as girls, the ratio of boys to girls is 2:1. Boys outnumber girls by a factor of one-third, so the ratio of boys to girls is 3:1. Using these ratios, we can construct the ratio of boys to girls to be 6:3. There are 90 students total, thus 9 divided by 9 is 10 students. The quantity of boys is 6 parts boys divided by 10 for a total of 60 boys. Therefore, the answer is Option C.\n\n",
-  },
-  {
-    question:
-      " There are a certain number of apples in a basket and the basket only contains green, red, and yellow apples. The number of green apples is four times the number of red apples. Red apples outnumber yellow apples by a factor of one-sixth. If there are 80 apples in total, how many green apples are there?\n\n",
-    options: {
+    Question:
+      "The ages of Mary and Jane are in the ratio 2:5. If the sum of their ages is 49, how old is Jane?",
+    Options: {
       a: "20",
-      b: "24",
-      c: "32",
-      d: "40",
+      b: "25",
+      c: "29",
+      d: "35",
     },
-    answer: "D",
-    explanation:
-      " Since there are four times as many green apples as red apples, the ratio of green apples to red apples is 4:1. Red apples outnumber yellow apples by a factor of one-sixth, so the ratio of red apples to yellow apples is 6:1. Using these ratios, we can construct the ratio of green apples to red apples to yellow apples to be 24:6:1. There are 80 apples total, thus 31 divided by 31 is 2 apples. The quantity of green apples is 24 parts green apples divided by 2 for a total of 48 green apples. Therefore, the answer is Option D.\n\n",
+    Answer: "D",
+    Explanation:
+      "Let the ages of Mary and Jane be 2x and 5x respectively.\nThe sum of their ages is 2x + 5x = 7x\n7x = 49\nx = 7\nJane's age = 5x = 5(7) = 35\n\nTherefore, Jane is 35 years old.",
   },
   {
-    question:
-      " There are a certain number of books on a shelf and the shelf only contains fiction, non-fiction, and mystery books. The number of fiction books is three times the number of non-fiction books. Non-fiction books outnumber mystery books by a factor of one-eighth. If there are 120 books on the shelf, how many fiction books are there?\n\n",
-    options: {
-      a: "30",
-      b: "40",
-      c: "60",
-      d: "80",
+    Question:
+      "In a basketball team, the ratio of boys to girls is 3:5. If there are 45 girls in the team, how many boys are there?",
+    Options: {
+      a: "27",
+      b: "15",
+      c: "9",
+      d: "25",
     },
-    answer: "D",
-    explanation:
-      " Since there are three times as many fiction books as non-fiction books, the ratio of fiction books to non-fiction books is 3:1. Non-fiction books outnumber mystery books by a factor of one-eighth, so the ratio of non-fiction books to mystery books is 8:1. Using these ratios, we can construct the ratio of fiction books to non-fiction books to mystery books to be 24:8:1. There are 120 books total, thus 33 divided by 33 is 4 books. The quantity of fiction books is 24 parts fiction books divided by 4 for a total of 96 fiction books. Therefore, the answer is Option D.\n\n",
+    Answer: "a",
+    Explanation:
+      "If the ratio of boys to girls is 3:5, then there are 3/5 x 45 = 27 boys in the team.",
+    images: [
+      "/images/product-3.jpg",
+      "/images/product-3.jpg",
+    ],
   },
   {
-    question:
-      " There are a certain number of cars in a parking lot and the parking lot only contains blue, red, and white cars. The number of blue cars is twice the number of red cars. Blue cars outnumber white cars by a factor of one-fifth. If there are 150 cars in total, how many blue cars are there?\n\n",
-    options: {
-      a: "40",
-      b: "60",
-      c: "80",
-      d: "100",
+    Question:
+      "The length and the width of a rectangle are in the ratio 5:8. If the length is increased by 4 and the width is increased by 3, the ratio of the new length to the new width becomes 11:16. What is the length of the original rectangle?",
+    Options: {
+      a: "20",
+      b: "25",
+      c: "30",
+      d: "35",
     },
-    answer: "B",
-    explanation: " Since there are twice as many blue cars as red cars",
+    Answer: "B",
+    Explanation:
+      "Let the length and width of the original rectangle be 5x and 8x respectively.\nNew length = 5x + 4\nNew width = 8x + 3\n\n(5x + 4)/(8x + 3) = 11/16\n16(5x + 4) = 11(8x + 3)\n80x + 64 = 88x + 33\n8x = 31\nx = 31/8 = 3.875\n\nLength of the original rectangle = 5x = 5(3.875) = 19.375\n\nThe length of the original rectangle is approximately 19.375.",
   },
   {
-    question:
-      " A bag contains yellow and green apples. The ratio of yellow to green apples is 3:4. When 40 yellow apples are removed from the bag, there are 2 times more green apples than yellow apples. What is the difference between the number first contained in the bag of yellow and green apples?\n\n",
-    options: {
-      a: "20,",
-      b: "40,",
-      c: "60,",
-      d: "80",
+    Question:
+      "A jar contains a mixture of milk and water in the ratio 7:3. If 9 liters of the mixture is taken out and replaced with 9 liters of water, the ratio becomes 7:4. How many liters of milk was in the original mixture?",
+    Options: {
+      a: "18",
+      b: "21",
+      c: "24",
+      d: "27",
     },
-    answer: "B",
-    explanation:
-      " The original ratio between yellow to green apples is 3:4. When 40 yellow apples are removed, the ratio now becomes 1:2, which can be simplified to 1:2. Hence, 40 apples represents 1 part. Therefore, 1 part = 40 apples. Since there is 1 more part of green apples than yellow apples originally, the difference between yellow and green apples is 40. Therefore, the answer is Option B.\n\n",
+    Answer: "D",
+    Explanation:
+      "Let the original mixture contain 7x liters of milk and 3x liters of water.\nAfter taking out 9 liters and adding 9 liters of water, the total mixture becomes (7x - 9) + 9 = 7x liters.\nSo, 4/11(7x) = 4/11(7x - 9)\n28x = 28x - 36\n36 = 0\n\nThe equation is inconsistent which means there is no solution. Therefore, there was no milk in the original mixture.",
   },
   {
-    question:
-      " A class consists of boys and girls. The ratio of boys to girls is 2:3. If there are 40 boys in the class, how many girls are there?\n\n",
-    options: {
-      a: "30,",
-      b: "50,",
-      c: "60,",
-      d: "70",
+    Question: "If x:y = 3:2 and y:z = 4:5, what is the value of x:z?",
+    Options: {
+      a: "3:4",
+      b: "2:5",
+      c: "6:5",
+      d: "5:6",
     },
-    answer: "C",
-    explanation:
-      " The original ratio between boys to girls is 2:3. If there are 40 boys, we can set up a proportion: 2/3 = 40/x. Cross-multiplying, we get 2x = 120. Solving for x, we find that there are 60 girls in the class. Therefore, the answer is Option C.\n\n",
+    Answer: "A",
+    Explanation:
+      "Given x:y = 3:2 and y:z = 4:5. Cross multiplying, we have xz = 3 × 4 = 12 and yz = 2 × 5 = 10. Therefore, x:z = 12:10 = 6:5.",
   },
   {
-    question:
-      " A box contains red and blue pens. The ratio of red to blue pens is 5:7. If there are 56 red pens in the box, how many blue pens are there?\n\n",
-    options: {
-      a: "49,",
-      b: "64,",
-      c: "72,",
-      d: "98",
+    Question:
+      "The ratio of incomes of A and B is 5:9. If the income of B is $360, what is the income of A?",
+    Options: {
+      a: "$200",
+      b: "$180",
+      c: "$150",
+      d: "$120",
     },
-    answer: "D",
-    explanation:
-      " The original ratio between red to blue pens is 5:7. If there are 56 red pens, we can set up a proportion: 5/7 = 56/x. Cross-multiplying, we get 5x = 392. Solving for x, we find that there are 98 blue pens in the box. Therefore, the answer is Option D.\n\n",
+    Answer: "C",
+    Explanation:
+      "Given the ratio of incomes of A and B is 5:9. Let the income of A be 5x and the income of B be 9x. 9x = $360. Solving for x, we get x = $40. Therefore, the income of A is 5 × $40 = $200.",
   },
   {
-    question:
-      " A jar contains black and white marbles. The ratio of black to white marbles is 3:8. When 24 black marbles are removed from the jar, there are 3 times more white marbles than black marbles. What is the difference between the number first contained in the jar of black and white marbles?\n\n",
-    options: {
-      a: "72,",
-      b: "96,",
-      c: "120,",
-      d: "144",
+    Question:
+      "A mixture of water and alcohol contains the liquids in the ratio of 2:3. If there are 40 liters of water in the mixture, how many liters of alcohol are there?",
+    Options: {
+      a: "20",
+      b: "30",
+      c: "40",
+      d: "50",
     },
-    answer: "A",
-    explanation:
-      " The original ratio between black to white marbles is 3:8. When 24 black marbles are removed, the ratio now becomes 1:3, which can be simplified to 1:3. Hence, 24 marbles represents 1 part. Therefore, 1 part = 24 marbles. Since there are 2 more parts of white marbles than black marbles originally, the difference between black and white marbles is 72. Therefore, the answer is Option A.\n\n",
+    Answer: "b",
+    Explanation:
+      "If the ratio of water to alcohol is 2:3 and there are 40 liters of water, then there are 3/2 x 40 = 60 liters of alcohol in the mixture.",
   },
   {
-    question:
-      " A store sells apples and oranges. The ratio of apples to oranges is 2:5. If there are 36 apples in the store, how many oranges are there?\n\n",
-    options: {
-      a: "90,",
-      b: "100,",
-      c: "126,",
-      d: "180",
+    Question:
+      "A triangle's angles are in the ratio 1:2:3. What is the measure of the largest angle?",
+    Options: {
+      a: "30 degrees",
+      b: "60 degrees",
+      c: "90 degrees",
+      d: "120 degrees",
     },
-    answer: "D",
-    explanation:
-      " The original ratio between apples to oranges is 2:5. If there are 36 apples, we can set up a proportion: 2/5 = 36/x. Cross-multiplying, we get 2x = 180. Solving for x, we find that there are 180 oranges in the store. Therefore, the answer is Option D.",
+    Answer: "D",
+    Explanation:
+      "Let the measures of the angles be x, 2x, and 3x.\nThe sum of the angles in a triangle is 180 degrees.\nx + 2x + 3x = 180\n6x = 180\nx = 30 degrees\n\nTherefore, the largest angle is 3x = 3(30) = 90 degrees.",
+  },
+  {
+    Question:
+      "The price of oranges and apples in a fruit shop are in the ratio 5:3. If the price of an apple increased by 20% and the price of an orange increased by 10%, what is the new ratio of the prices?",
+    Options: {
+      a: "6:4",
+      b: "7:5",
+      c: "5:3",
+      d: "4:5",
+    },
+    Answer: "C",
+    Explanation:
+      "Let the price of oranges be 5x and the price of apples be 3x.\nAfter the increase, the new price of an apple = 3x + 20%(3x) = 3x + 0.6x = 3.6x\nThe new price of an orange = 5x + 10%(5x) = 5x + 0.5x = 5.5x\n\nTherefore, the new ratio of the prices is 3.6x:5.5x which simplifies to 36:55.\n\nThe new ratio of the prices is 36:55.",
+  },
+  {
+    Question:
+      "If 20% of a number is equal to three-fourth of another number, what is the ratio of first number to the second number?",
+    Options: {
+      a: "12:5",
+      b: "15:6",
+      c: "5:12",
+      d: "6:15",
+    },
+    Answer: "A",
+    Explanation:
+      "Let 20% of A = 3B 4. Then, 20A = 3B 100 4. 3A = 3B 5 4. A = 5 × 4 = 12. B   4   3   4. A : B = 12 : 3.",
+  },
+  {
+    Question:
+      "If the ratio of boys to girls in a class is 4:5, and there are 36 girls, how many boys are there?",
+    Options: {
+      a: "27",
+      b: "32",
+      c: "40",
+      d: "45",
+    },
+    Answer: "B",
+    Explanation:
+      "Given the ratio of boys to girls is 4:5. Let the number of boys be 4x and the number of girls be 5x. 5x = 36. Solving for x, we get x = 7. Therefore, the number of boys is 4 × 7 = 28.",
+    images: [
+      "/images/product-3.jpg",
+      "/images/product-3.jpg",
+    ],
   },
 ];
 
@@ -373,17 +316,53 @@ export default function Test2() {
 
   const click = () => {
     // handleAlertBoxOpen();
+    data?.map((item: any, key: number) => {
+      let data = item.question.split(" ").sort();
+      item.images = [];
+
+      ["boys", "girls", "Two"].sort().forEach((search: string) => {
+        let s = 0;
+        let e = data.length - 1;
+        let caps = search.toUpperCase();
+        while (s <= e) {
+          let mid = Math.floor((s + e) / 2);
+
+          if (data[mid].toUpperCase() === caps) {
+            console.log(item);
+            item.images.push(caps);
+            break;
+          }
+
+          if (data[mid].toUpperCase() < caps) {
+            s = mid + 1;
+          } else {
+            e = mid - 1;
+          }
+        }
+      });
+      if (item.images.length == 0) {
+        delete item.images;
+      }
+    });
+    console.log(data);
   };
 
-  data?.map((item: any) => {
-    console.log(item.question.split(" "));
-    
-  });
   return (
     <>
       {/* <AlertBox name="Error" type="error" bol={ alertBox} /> */}
       {/* <PdfMaker data={data} bol={true} topic="ratio"/> */}
-      {/* <button onClick={click}>click</button> */}
+      {/* <button onClick={click}>click</button>
+       */}
+         <img src="http://127.0.0.1:8000/images/nike.jpg" alt="" />
+      {data && (
+        <PdfMaker
+          data={data}
+          bol={!!data}
+          topic={"new"}
+          total={20}
+          button={<BButton2 type="button" name="Download" />}
+        />
+      )}
     </>
   );
 }

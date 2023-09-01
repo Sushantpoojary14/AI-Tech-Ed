@@ -22,10 +22,11 @@ type CsvItem = {
 };
 
 type mapData = {
-  answer: string;
-  explanation: string;
-  options: string[];
-  question: string;
+  Answer: string;
+  Explanation: string;
+  Options: string[];
+  Question: string;
+  images?: string[];
 };
 
 interface GenerateProps {
@@ -82,6 +83,15 @@ const GenerateQuestions = ({
   const handleAlertBoxClose2 = () => {
     setOpen2(false);
   };
+  const { data } = useQuery({
+    queryKey: ["images"],
+    queryFn: async () => {
+      return await adminTokenAxios.get("/admin/get-image");
+    },
+    enabled: true,
+  });
+  let image_data = data?.data.images;
+  // console.log(image_data);
 
   const addTestCTMu = useMutation({
     mutationFn: async (data: object[]) => {
@@ -151,8 +161,15 @@ const GenerateQuestions = ({
 
     const array2 = Object.keys(csvData[0]);
     if (JSON.stringify(array1) === JSON.stringify(array2)) {
-      console.log(csvData);
-      newRes.mutate(csvData);
+      const filteredCsvData = csvData.filter((item: any) => {
+        if (item.Question) {
+          // console.log(!!item.Question);
+          return true;
+        }
+        return false;
+      });
+      console.log(filteredCsvData);
+      newRes.mutate(filteredCsvData);
     } else {
       alert("upload csv in correct format");
     }
@@ -230,30 +247,43 @@ const GenerateQuestions = ({
 
         const message = response?.data?.choices[0]?.message?.content;
         // const questions = message?.split("Question:");
-        console.log(message);
+        // console.log(message);
         const questions = message && JSON.parse(message);
 
         questions?.map((item: mapData, index: any) => {
-          // const objects: any = {};
-          // objects.question = item.question;
-          // item?.options.forEach((element: string, key: number) => {
-          //   key++;
-          //   objects.option_[key] = element;
-          //   key++;
-          //   objects.option_[key] = element;
-          // });
-          // objects.answer = item.answer;
-          // objects.explanation = item.explanation;
+          // throw "ERROR";
+          let data = item.Question.split(" ").sort();
+          item.images = [];
 
-          // objects.options = {
-          //   a: objects.options.split("a.")[1].split("b.")[0],
-          //   b: objects.options.split("b.")[1].split("c.")[0],
-          //   c: objects.options.split("c.")[1].split("d.")[0],
-          //   d: objects.options.split("d.")[1],
-          // };
+          image_data
+            ?.sort()
+            .forEach((search: { image_name: string; image_url: string }) => {
+              let s = 0;
+              let e = data.length - 1;
+              let caps = search.image_name.toUpperCase();
+              while (s <= e) {
+                let mid = Math.floor((s + e) / 2);
+
+                if (data[mid].toUpperCase() === caps) {
+                  console.log(item);
+                  item.images?.push(search.image_url);
+                  break;
+                }
+
+                if (data[mid].toUpperCase() < caps) {
+                  s = mid + 1;
+                } else {
+                  e = mid - 1;
+                }
+              }
+            });
+          if (item?.images.length == 0) {
+            delete item.images;
+          }
 
           responses.push(item);
         });
+        console.log(responses);
       }
 
       return responses;
@@ -274,7 +304,7 @@ const GenerateQuestions = ({
   return (
     <>
       <AlertBox
-        name="There is something wrong with Generator"
+        name="There is something wrong with Generator. Please try Again"
         type="error"
         bol={open}
         handleAlertBoxClose={handleAlertBoxClose}

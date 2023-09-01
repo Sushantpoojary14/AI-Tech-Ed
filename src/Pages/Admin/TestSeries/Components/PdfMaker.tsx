@@ -3,12 +3,15 @@ import {
   Page,
   Text,
   View,
+  Image,
   PDFDownloadLink,
 } from "@react-pdf/renderer";
+
 import { BButton2 } from "../../../../Components/Common/Button";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
 import { useRef } from "react";
+import axios from "axios";
 const styles = {
   page: {
     padding: 20,
@@ -64,6 +67,10 @@ const styles = {
     marginBottom: 5,
     textAlign: "center" as const,
   },
+  image: {
+    width: "20%",
+    height: "auto",
+  },
 };
 
 type questions = {
@@ -86,6 +93,7 @@ type questions = {
   tst_id?: number;
   marks?: null | number;
   status?: number;
+  images?: string;
 };
 
 // type questionList = {
@@ -109,7 +117,7 @@ interface props {
   randomG?: boolean;
   bol: boolean;
   topic: string;
-  total?: number;
+  total: number;
   button?: ReactJSXElement;
   buttonRef?: any;
 }
@@ -119,22 +127,23 @@ const PdfMaker = (props: props) => {
   // console.log(props.data,props.total);
 
   // const random: questions[] = [];
-  // console.log('3',props);
   const questions: questions[] = props.data;
-  let count: number = props.total ? props.total : 20;
+
   if (!props.randomG) {
-    if (!!props.data) {
-      if (questions?.length < 15) {
-        count = questions?.length;
+    if (!!questions) {
+      if (questions?.length > 15) {
+        let count: number = props.total;
+        for (let i = count - 1; i >= 0; i--) {
+          const ran = Math.floor(Math.random() * (i + 1));
+          const temp = questions[i];
+          questions[i] = questions[ran];
+          questions[ran] = temp;
+          selected_question.push(questions[i]);
+        }
+      } else {
+        selected_question = questions;
       }
-     
-      for (let i = count - 1; i >= 0; i--) {
-        const ran = Math.floor(Math.random() * (i + 1));
-        const temp = questions[i];
-        questions[i] = questions[ran];
-        questions[ran] = temp;
-        selected_question.push(questions[i]);
-      }
+
       // console.log(selected_question);
     }
   } else {
@@ -170,7 +179,20 @@ const MyDocument = ({
   selected_question: questions[];
   topic: string;
 }) => {
+  async function getImageData(url:string) {
+    try {
+      const response = await axios.get(url, { responseType: "arraybuffer" });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching image data:", error);
+      return null;
+    }
+  }
+  getImageData('http://127.0.0.1:8000/images/nike.jpg')
   return (
+    // selected_question?.length != 0 && 
+    <>
+    {/* <img src="http://127.0.0.1:8000/images/product-7.jpg" alt="" /> */}
     <Document>
       <Page size="A4" style={styles.page}>
         <Text style={styles.header}>{topic?.toUpperCase()}</Text>
@@ -182,7 +204,13 @@ const MyDocument = ({
                   <>
                     <Text style={styles.question}>
                       {`${key + 1}: ${item.Question}`}
+                      {/* {item.images && import.meta.env.VITE_IMAGE_URL+item.images[0]} */}
+                      {/* {item.images && import.meta.env.VITE_IMAGE_URL+item.images[0]} */}
                     </Text>
+
+                    {item.images && (
+                      <Image style={styles.image} src={'http://127.0.0.1:8000/images/nike.jpg'} />
+                    )}
                     <Text style={styles.options}>{`A. ${item.Options.a}`}</Text>
                     <Text style={styles.options}>{`B. ${item.Options.b}`}</Text>
                     <Text style={styles.options}>{`C. ${item.Options.c}`}</Text>
@@ -245,7 +273,8 @@ const MyDocument = ({
             ))}
         </View>
       </Page>
-    </Document>
+    </Document></>
+    
   );
 };
 

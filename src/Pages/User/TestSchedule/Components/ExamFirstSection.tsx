@@ -146,7 +146,9 @@ const ExamFirstSection = (props: props) => {
                       sx={{
                         width: "100%",
                         // maxHeight: "340px",
-                        maxWidth:"hidden"
+                        maxWidth:"hidden",
+                        flex:"column",
+                        justifyContent:"space-between"
                       }}
                       cols={3}
                       gap={7}
@@ -154,7 +156,7 @@ const ExamFirstSection = (props: props) => {
                     >
                       {question?.questions.question_image.map(
                         (item: image, key: number) => (
-                          <ImageListItem key={key} sx={{ width: "300px" }} >
+                          <ImageListItem key={key} sx={{ width: "200px" }} >
                             <img
                               src={
                                 import.meta.env.VITE_IMAGE_URL + item.image_url
