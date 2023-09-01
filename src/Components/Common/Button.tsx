@@ -16,11 +16,17 @@ interface props {
   checked?: boolean;
   children?: ReactNode;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }
 
 const DownloadIconButton = (props: props) => {
   return (
-    <Button type={props.type} variant="outlined" onClick={props.func}>
+    <Button
+      type={props.type}
+      variant="outlined"
+      onClick={props.func}
+      disabled={props.disabled}
+    >
       <FileDownloadOutlinedIcon />
     </Button>
   );
@@ -28,7 +34,12 @@ const DownloadIconButton = (props: props) => {
 
 const EditIconButton = (props: props) => {
   return (
-    <Button type={props.type} variant="outlined" onClick={props.func}>
+    <Button
+      type={props.type}
+      variant="outlined"
+      onClick={props.func}
+      disabled={props.disabled}
+    >
       <EditOutlinedIcon />
     </Button>
   );
@@ -41,6 +52,7 @@ const DeleteIconButton = (props: props) => {
       variant="outlined"
       color="error"
       onClick={props.func}
+      disabled={props.disabled}
     >
       <DeleteOutlinedIcon />
     </Button>
@@ -77,6 +89,7 @@ const WButton = (props: props) => {
       size="large"
       disableElevation
       onClick={props.func}
+      disabled={props.disabled}
     >
       {props.children}
       {props.name}
@@ -90,6 +103,7 @@ const OButton = (props: props) => {
       variant="contained"
       color="warning"
       type={props.type}
+      disabled={props.disabled}
       sx={{
         ...props.css,
         backgroundColor: "#FA8128",
@@ -122,6 +136,7 @@ const BButton = (props: props) => {
       size="large"
       disableElevation
       onClick={props.func}
+      disabled={props.disabled}
     >
       {props.name}
     </Button>
@@ -132,6 +147,7 @@ const PIButton = (props: props) => {
   return (
     <Button
       type={props.type}
+      disabled={props.disabled}
       sx={{
         ...props.css,
         color: "#FA8128",
@@ -156,6 +172,7 @@ const SIButton = (props: props) => {
   return (
     <Button
       type={props.type}
+      disabled={props.disabled}
       sx={{
         ...props.css,
         color: "#FA8128",
@@ -181,6 +198,7 @@ const OButton2 = (props: props) => {
       variant="contained"
       color="warning"
       type={props.type}
+      disabled={props.disabled}
       sx={{
         ...props.css,
         backgroundColor: "#FA8128",
@@ -205,6 +223,7 @@ const BButton2 = (props: props) => {
     <Button
       variant="contained"
       type={props.type}
+      disabled={props.disabled}
       sx={{
         backgroundColor: "#3A9BDC",
         color: "#FFFFFF",
@@ -231,6 +250,7 @@ const OButton3 = (props: props) => {
       variant="contained"
       color="warning"
       type={props.type}
+      disabled={props.disabled}
       sx={{
         backgroundColor: "#FA8128",
         borderRadius: "3px",
@@ -262,6 +282,7 @@ const LoadingButton = (props: props) => {
     // }}/>
     <Button
       variant="outlined"
+      disabled={props.disabled}
       sx={{
         ...props.css,
         borderRadius: "3px",
@@ -278,9 +299,9 @@ const LoadingButton = (props: props) => {
     </Button>
   );
 };
-const OutlineButton = ({ name, func }: props) => {
+const OutlineButton = ({ name, func, disabled }: props) => {
   return (
-    <Button size="small" variant="outlined" onClick={func}>
+    <Button size="small" variant="outlined" onClick={func} disabled={disabled}>
       {name}
     </Button>
   );

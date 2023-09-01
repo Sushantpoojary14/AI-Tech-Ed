@@ -109,6 +109,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
         handleOpen();
       } else {
         alert("can't edit");
+        setTopicIde(null);
       }
       // console.log(response.data?.topic_data?.topic);
       return response.data;
