@@ -60,6 +60,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
   const handleClose3 = () => {
     setOpen3(false);
   };
+
   const topics = useQuery({
     queryKey: ["topicList", tabId, selectValue],
     queryFn: async () => {
@@ -131,14 +132,13 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
       return await adminTokenAxios.get(`admin/get-topic-question/${id}`);
     },
     onSettled: (res) => {
-    
       setSetData(res?.data.topic_questions);
       setOpen3(true);
       // console.log(setData);
     },
   });
   // console.log(setData);
-  
+
   const columns = useMemo<MRT_ColumnDef<topicList>[]>(
     //column definitions...
     () => [
@@ -172,7 +172,9 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
             />
             <DownloadIconButton
               type="button"
-              func={() => getTopicQuestion.mutate(parseInt(cell.getValue<string>()))}
+              func={() =>
+                getTopicQuestion.mutate(parseInt(cell.getValue<string>()))
+              }
             />
           </Stack>
         ),
@@ -181,8 +183,6 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
     []
     //end
   );
-
-
 
   return (
     <>

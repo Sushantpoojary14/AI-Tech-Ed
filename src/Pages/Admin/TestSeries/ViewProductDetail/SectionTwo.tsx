@@ -23,12 +23,14 @@ import {
   BButton,
   DeleteIconButton,
   DownloadIconButton,
+  EditIconButton,
   SwitchComp,
 } from "../../../../Components/Common/Button";
 import PdfMaker from "../Components/PdfMaker";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import AlertBox from "../../../../Components/Common/AlertBox";
+import EditTestSetModal from "../../../../Components/Model/EditTestSetModal";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -39,9 +41,6 @@ interface TabPanelProps {
 const CustomTabPanel = (props: TabPanelProps) => {
   const { children, value, index, ...other } = props;
 
-  const [open, setOpen] = useState<boolean>(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   return (
     <Box
       role="tabpanel"
@@ -63,11 +62,29 @@ function a11yProps(index: number) {
 }
 
 const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
+  // console.log("sets", sets);
+
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [setData, setSetData] = useState<any>(null);
   const { productdetails } = useParams();
   const [open, setOpen] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
+  const [open3, setOpen3] = useState<boolean>(false);
+  const [setId, setSetId] = useState<any>("");
+  const [setName, setSetSetName] = useState<any>("");
+
+  const handleOpen = (setId: any, setName: string) => {
+    setSetId(setId);
+    setSetSetName(setName);
+    // getTopics.refetch();
+
+    setOpen3(true);
+  };
+  const handleClose = () => {
+    setSetId("");
+    setSetSetName("");
+    setOpen3(false);
+  };
 
   const handleAlertBoxOpen = () => {
     setOpen(true);
@@ -131,8 +148,6 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
     },
   });
 
-
-
   // const handleButtonClick = () => {
   //   if (setData) {
   //     if (buttonRef.current) {
@@ -141,6 +156,34 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
   //   }
   // };
   // console.log(getSetQuestion.isSuccess);
+  // const para = useParams();
+  // const p_id = para.productdetails;
+  // const queryClient = useQueryClient();
+  // const getProductDetail: any = queryClient.getQueryData([
+  //   "ViewProductDetails1",
+  //   productdetails,
+  // ]);
+
+  // const ts_id = getProductDetail.ts_id;
+
+  // const getTopics = useQuery({
+  //   queryKey: ["topicEdit", tsc, ts_id],
+  //   queryFn: async () => {
+  //     return await adminTokenAxios.get(`admin/show-topics/${tsc}/${ts_id}`);
+  //   },
+  //   enabled: false,
+  // });
+
+  // const getSet = useQuery({
+  //   queryKey: ["getSetDetails", setId],
+  //   queryFn: async () => {
+  //     return await adminTokenAxios.get(`admin/get-set-topic/${setId}`);
+  //   },
+  //   enabled: !!setId,
+  // });
+
+  // console.log("getSet", getSet.data?.data);
+  // console.log("gettopics", getTopics.data?.data.topics);
 
   return (
     <>
@@ -244,6 +287,11 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
                             }}
                           /> */}
 
+                          <EditIconButton
+                            type="button"
+                            func={() => handleOpen(set.id, set.set_name)}
+                          />
+
                           <DeleteIconButton
                             type="button"
                             func={() => handleDelete.mutate(set.id)}
@@ -282,10 +330,7 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
                         Topics
                       </Typography>
                       {set.topics.map((topic: any) => (
-                        <Link
-                          key={topic.id}
-                          to={`/admin/view-topics/view-topic-questions/${topic.id}`}
-                        >
+                        <Link key={topic.id} to={`/admin/view-topics`}>
                           <Typography
                             sx={{
                               padding: "0 1rem",
@@ -311,6 +356,14 @@ const SectionTwo = ({ sets, onSwitchToggle, handleDelete, addNewSet }: any) => {
           </Box>
         </Box>
       </Card>
+
+      <EditTestSetModal
+        handleClose={handleClose}
+        open={open3}
+        tsc={tsc}
+        setId={setId}
+        setName={setName}
+      />
     </>
   );
 };

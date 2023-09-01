@@ -57,7 +57,7 @@ ModalProps) => {
   const [counter, setCounter] = useState(1);
   const para = useParams();
   const queryClient = useQueryClient();
-  const p_id = para["*"]?.slice(30);
+  const p_id = para.productdetails;
   const {
     register,
     control,
@@ -87,15 +87,15 @@ ModalProps) => {
       let data = res?.data.categories_data;
       reset();
       setCounter(counter + 1);
+      console.log(updatedData?.categories);
       updatedData &&
-        updatedData.categories.map((item: any, key: number) => {
+        updatedData.categories?.map((item: any, key: number) => {
           data.map((item2: any) => {
             if (item.id == item2.id) {
               updatedData.categories[key] = item2;
             }
           });
         });
-      console.log(updatedData.categories);
       queryClient.getQueryData(["ViewProductDetails1", p_id], updatedData);
     },
   });

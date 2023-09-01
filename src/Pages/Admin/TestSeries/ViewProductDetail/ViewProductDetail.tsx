@@ -13,14 +13,17 @@ import { useState } from "react";
 import { UserContext } from "../../../../Context/UserContext";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
 import AddTestSetModal from "../../../../Components/Model/AddTestSetModal";
+import EditTestSetModal from "../../../../Components/Model/EditTestSetModal";
 
 const ViewProductDetail = () => {
   const queryClient = useQueryClient();
   const { productdetails } = useParams();
+
   const navigate = useNavigate();
   const { productEdit } = UserContext();
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState<boolean>(false);
+
   const [data, setData] = useState<any>(null);
   const [category, setCategory] = useState<any>(null);
   const handleOpen = () => setOpen(true);
@@ -44,7 +47,8 @@ const ViewProductDetail = () => {
         const response = await adminTokenAxios.get(
           `admin/show-product-details/${productdetails}`
         );
-        // console.log("Products Details", response.data?.product_detail);
+
+        console.log("Products Details", response.data?.product_detail);
 
         return response?.data?.product_detail;
       } catch (error) {
