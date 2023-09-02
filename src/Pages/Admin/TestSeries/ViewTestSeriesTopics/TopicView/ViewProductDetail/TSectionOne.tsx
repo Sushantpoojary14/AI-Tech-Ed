@@ -183,12 +183,12 @@ const TSectionOne = ({
         />*/}
           <Stack direction={"row"} alignItems={"center"} spacing={2}>
             <EditIconButton type="button" func={() => handleEdit()} />
-            <PdfMaker
+            {/* <PdfMaker
               bol={true}
               topic={topics.t_name}
               data={questions}
               button={<DownloadIconButton />}
-            />
+            /> */}
 
             <DeleteIconButton
               type="button"

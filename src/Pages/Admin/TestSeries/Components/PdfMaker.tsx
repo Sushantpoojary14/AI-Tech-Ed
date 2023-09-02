@@ -131,7 +131,7 @@ const PdfMaker = (props: props) => {
 
   if (!props.randomG) {
     if (!!questions) {
-      if (questions?.length > 15) {
+      if (questions?.length > 15 ) {
         let count: number = props.total;
         for (let i = count - 1; i >= 0; i--) {
           const ran = Math.floor(Math.random() * (i + 1));

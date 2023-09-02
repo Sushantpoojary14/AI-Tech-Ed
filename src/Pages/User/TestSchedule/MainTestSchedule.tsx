@@ -75,6 +75,7 @@ console.log(data);
       <SelectBox
         name="choose test type"
         selectName="test_type"
+        defaultValue="OC"
         options={ts_data?.data.ts}
         func={setSelectVal}
       />
