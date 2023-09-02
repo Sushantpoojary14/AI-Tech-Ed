@@ -129,7 +129,7 @@ const ExamFirstSection = (props: props) => {
               marginX="auto"
               marginTop={3}
               maxWidth="950px"
-              maxHeight="350px"
+              maxHeight="550px"
               sx={{ overflow: "auto" }}
               onCopy={(e) => props.preventCopyPaste(e)}
             >

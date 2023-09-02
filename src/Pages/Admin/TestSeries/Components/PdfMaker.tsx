@@ -205,7 +205,7 @@ const MyDocument = ({
                           style={styles.image}
                           src={"https://commcop.in/ai_tech_ed/images/car.jpg"}
                         /> */}
-                        <Image src={{ uri:"http://127.0.0.1:8000/images/car.jpeg", method: "GET", headers: { "Cache-Control": "no-cache" }, body: "" }} />
+                        {/* <Image src={{ uri:"http://127.0.0.1:8000/images/car.jpeg", method: "GET", headers: { "Cache-Control": "no-cache" }, body: "" }} /> */}
                       </View>
                       <Text
                         style={styles.options}

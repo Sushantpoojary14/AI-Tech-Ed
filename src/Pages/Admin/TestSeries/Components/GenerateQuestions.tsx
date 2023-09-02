@@ -86,9 +86,9 @@ const GenerateQuestions = ({
   const { data } = useQuery({
     queryKey: ["images"],
     queryFn: async () => {
-      return await adminTokenAxios.get("/admin/get-image");
+      return await adminTokenAxios.get(`/admin/get-image/${topic1[0]}`);
     },
-    enabled: true,
+    enabled: !!topic1[0],
   });
   let image_data = data?.data.images;
   // console.log(image_data);
@@ -193,9 +193,9 @@ const GenerateQuestions = ({
         // console.log("loop", item);
         const query = `Generate five unique multiple-choice questions (MCQs) for the topic "${
           topic1[1]
-        }". Follow the format below, maintaining the sentence structure while modifying variables like numbers. If there is a person's name in the question, use one of the specified names only for persons that is for male - sushant and for girl - sneha , and do not use these names for any other purpose. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
+        }". Follow the format below, maintaining the sentence structure while modifying variables like numbers. If there is a person's name in the question, use one of the specified names only for persons that is for male - Oliver,James,Jack,Thomas and for girl - Ella ,Evie,Sienna,Isla and do not use these names for any other purpose. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
 
-        Example Question:
+        Example Question:,
         Question: ${item.Question}
         Options:
         a. ${item.Option_A}
@@ -238,7 +238,7 @@ const GenerateQuestions = ({
        ...
         ]   
     `;
-        // console.log("QUERY", query);
+        console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
           model: "gpt-3.5-turbo-16k",
           messages: [{ role: "user", content: query }],
