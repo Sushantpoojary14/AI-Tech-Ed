@@ -191,27 +191,98 @@ const GenerateQuestions = ({
 
       for (const item of csvData) {
         // console.log("loop", item);
-        const query = `Generate five unique multiple-choice questions (MCQs) for the topic "${
-          topic1[1]
-        }". Follow the format below, maintaining the sentence structure while modifying variables like numbers. If there is a person's name in the question, use one of the specified names only for persons that is for male - Oliver,James,Jack,Thomas and for girl - Ella ,Evie,Sienna,Isla and do not use these names for any other purpose. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
+        //     const query = `Generate five unique multiple-choice questions (MCQs) for the topic "${
+        //       topic1[1]
+        //     }". Follow the format below, maintaining the sentence structure while modifying variables like numbers. If there is a person's name in the question, use one of the specified names only for persons that is for male - Oliver,James,Jack,Thomas and for girl - Ella ,Evie,Sienna,Isla and do not use these names for any other purpose. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated. If there is conversation statement between persons generate that also.
 
-        Example Question:,
-        Question: ${item.Question}
-        Options:
-        a. ${item.Option_A}
-        b. ${item.Option_B}
-        c. ${item.Option_C}
-        d. ${item.Option_D}
-        Answer: ${item.Answer}
-        Explanation: ${
-          item.Explanation
-            ? item.Explanation
-            : "Generate an explanation based on the question and correct answer"
-        }
-        
+        //     Example Question:,
+        //     Question: ${item.Question}
+
+        //     Options:
+        //     a. ${item.Option_A}
+        //     b. ${item.Option_B}
+        //     c. ${item.Option_C}
+        //     d. ${item.Option_D}
+        //     Answer: ${
+        //       item.Answer ? item.Answer : "Generate an Answer based on the question"
+        //     }
+        //     Explanation: ${
+        //       item.Explanation
+        //         ? item.Explanation
+        //         : "Generate an explanation based on the question and correct answer"
+        //     }
+
+        //     ---
+        //     Provide the JSON representation of the five MCQs in the following format:
+
+        //     [
+        //       {
+        //         "Question": "Replace with question text  ",
+        //         "Options": {
+        //           "a": "Option A text",
+        //           "b": "Option B text",
+        //           "c": "Option C text",
+        //           "d": "Option D text"
+        //         },
+        //         "Answer": "Correct answer letter (a, b, c, or d)",
+        //         "Explanation": "Explanation for the correct answer"
+        //       },
+        //       {
+        //         "Question": "Replace with question text",
+        //         "Options": {
+        //           "a": "Option A text",
+        //           "b": "Option B text",
+        //           "c": "Option C text",
+        //           "d": "Option D text"
+        //         },
+        //         "Answer": "Correct answer letter (a, b, c, or d)",
+        //         "Explanation": "Explanation for the correct answer and give it all text in on one line don't go to next line"
+        //       },
+        //    ...
+        //     ]
+        // `;
+
+        const topic = topic1[1]; 
+        const maleNames = ["Oliver", "James", "Jack", "Thomas"];
+        const femaleNames = ["Ella", "Evie", "Sienna", "Isla"];
+
+        const query = `Generate five unique multiple-choice questions (MCQs) for the topic "${topic}".
+   
+        Example Question:
+            Question: ${item.Question}
+
+            Options:
+            a. ${item.Option_A}
+           b. ${item.Option_B}
+            c. ${item.Option_C}
+            d. ${item.Option_D}
+             Answer: ${
+               item.Answer
+                 ? item.Answer
+                 : "Generate an Answer based on the question"
+             }
+            Explanation: ${
+              item.Explanation
+                ? item.Explanation
+                : "Generate an explanation based on the question and correct answer"
+            }
+
         ---
-        Provide the JSON representation of the five MCQs in the following format:
-        
+
+        Please follow these guidelines for generating each MCQ:
+
+        1. For each question, use one of the specified names for persons. For males, use ${maleNames.join(
+          ", "
+        )}, and for females, use ${femaleNames.join(", ")}.
+
+        2. Maintain the sentence structure while modifying variables like numbers.
+
+        3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
+
+        4. If there is a conversation statement between persons, generate that as well.
+
+        5. Provide the JSON representation of the five MCQs in the following format:
+
         [
           {
             "Question": "Replace with question text",
@@ -233,11 +304,44 @@ const GenerateQuestions = ({
               "d": "Option D text"
             },
             "Answer": "Correct answer letter (a, b, c, or d)",
-            "Explanation": "Explanation for the correct answer and give it all text in on one line don't go to next line"
+            "Explanation": "Explanation for the correct answer"
           },
-       ...
-        ]   
-    `;
+          {
+            "Question": "Replace with question text",
+            "Options": {
+              "a": "Option A text",
+              "b": "Option B text",
+              "c": "Option C text",
+              "d": "Option D text"
+            },
+            "Answer": "Correct answer letter (a, b, c, or d)",
+            "Explanation": "Explanation for the correct answer"
+          },
+          {
+            "Question": "Replace with question text",
+            "Options": {
+              "a": "Option A text",
+              "b": "Option B text",
+              "c": "Option C text",
+              "d": "Option D text"
+            },
+            "Answer": "Correct answer letter (a, b, c, or d)",
+            "Explanation": "Explanation for the correct answer"
+          },
+          {
+            "Question": "Replace with question text",
+            "Options": {
+              "a": "Option A text",
+              "b": "Option B text",
+              "c": "Option C text",
+              "d": "Option D text"
+            },
+            "Answer": "Correct answer letter (a, b, c, or d)",
+            "Explanation": "Explanation for the correct answer"
+          }
+        ]
+`;
+
         console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
           model: "gpt-3.5-turbo-16k",
