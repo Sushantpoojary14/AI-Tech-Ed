@@ -8,7 +8,17 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Controller, useForm } from "react-hook-form";
-import { Button, Grid, Input, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  Input,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useMutation } from "@tanstack/react-query";
 import adminTokenAxios from "../../Hooks/AdminTokenAxios";
@@ -31,15 +41,17 @@ const style = {
 };
 
 interface ModalProps {
+  subject: any;
   handleClose?: () => void;
   open: boolean;
 }
 
 type FormData = {
+  tsc_id: any;
   images: any;
 };
 
-const ImageUploadModal = ({ open, handleClose }: ModalProps) => {
+const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
   const { register, control, handleSubmit } = useForm<FormData>();
 
   const [multipleImages, setMultipleImages] = React.useState([]);
@@ -93,8 +105,8 @@ const ImageUploadModal = ({ open, handleClose }: ModalProps) => {
     // }).then((res) => console.log(res));
     const newData = Object.values(data.images);
     // console.log("image upload F", formData);
-    // console.log("image upload DATA", data);
-    console.log("image upload D", newData);
+    console.log(" DATA", data);
+    // console.log("image upload D", newData);
     uploadImagesMutation.mutateAsync(data);
     setMultipleImages([]); // You'll get an array of File objects here
   };
@@ -131,6 +143,42 @@ const ImageUploadModal = ({ open, handleClose }: ModalProps) => {
             </IconButton>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12}>
+                  <FormControl>
+                    <FormLabel
+                      sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                      id="select-category"
+                    >
+                      Select Subject
+                    </FormLabel>
+                    <Controller
+                      name="tsc_id"
+                      control={control}
+                      defaultValue="" // Set default value as needed
+                      rules={{ required: "This field is required" }} // Add validation rules as needed
+                      render={({ field }) => (
+                        <RadioGroup
+                          row
+                          aria-labelledby="select-category"
+                          {...field}
+                          // onChange={handleRadioChange}
+                        >
+                          {subject.map((item: any) => (
+                            <FormControlLabel
+                              // onClick={(e: any) =>
+                              //   mutation.mutate(e.target.value)
+                              // }
+                              key={item.tsc_type}
+                              value={item.id}
+                              control={<Radio />}
+                              label={item.tsc_type}
+                            />
+                          ))}
+                        </RadioGroup>
+                      )}
+                    />
+                  </FormControl>
+                </Grid>
                 <Grid item xs={12}>
                   {/* <Controller
             name="images"

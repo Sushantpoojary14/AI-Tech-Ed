@@ -118,7 +118,11 @@ const ViewTestSeriesTopics = () => {
         </TabContext>
       </Container>
 
-      <ImageUploadModal open={open} handleClose={handleClose} />
+      <ImageUploadModal
+        open={open}
+        handleClose={handleClose}
+        subject={testSeries?.data?.tsc}
+      />
     </>
   );
 };
