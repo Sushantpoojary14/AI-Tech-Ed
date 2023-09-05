@@ -10,9 +10,12 @@ import PdfMaker from "./PdfMaker";
 import AlertBox from "../../../../Components/Common/AlertBox";
 import { UserContext } from "../../../../Context/UserContext";
 import QuestionCard from "./QuestionCard";
+import { count } from "console";
 
 type CsvItem = {
   Answer: string;
+  Conversation?: string;
+  Paragraph?: string;
   Explanation: string;
   Option_A: string;
   Option_B: string;
@@ -149,7 +152,7 @@ const GenerateQuestions = ({
   });
 
   const handleGenerate = async () => {
-    const array1 = [
+    const header1 = [
       "Question",
       "Option_A",
       "Option_B",
@@ -158,9 +161,29 @@ const GenerateQuestions = ({
       "Answer",
       "Explanation",
     ];
-
+    const header2 = [
+      "Paragraph",
+      "Conversation",
+      "Question",
+      "Option_A",
+      "Option_B",
+      "Option_C",
+      "Option_D",
+      "Answer",
+      "Explanation",
+    ];
     const array2 = Object.keys(csvData[0]);
-    if (JSON.stringify(array1) === JSON.stringify(array2)) {
+console.log(  (JSON.stringify(header1) === JSON.stringify(array2) &&
+topic1[0] == 1 &&
+topic1[0] == 2) ||
+(JSON.stringify(header2) === JSON.stringify(array2) && topic1[0] == 3));
+
+    if (
+      (JSON.stringify(header1) === JSON.stringify(array2) &&
+        topic1[0] == 1 &&
+        topic1[0] == 2) ||
+      (JSON.stringify(header2) === JSON.stringify(array2) && topic1[0] == 3)
+    ) {
       const filteredCsvData = csvData.filter((item: any) => {
         if (item.Question) {
           // console.log(!!item.Question);
@@ -168,10 +191,10 @@ const GenerateQuestions = ({
         }
         return false;
       });
-      console.log(filteredCsvData);
+      // console.log(filteredCsvData);
       newRes.mutate(filteredCsvData);
     } else {
-      alert("upload csv in correct format");
+      alert("upload csv in correct formast");
     }
   };
 
@@ -242,105 +265,214 @@ const GenerateQuestions = ({
         //     ]
         // `;
 
-        const topic = topic1[1]; 
-        const maleNames = ["Oliver", "James", "Jack", "Thomas"];
-        const femaleNames = ["Ella", "Evie", "Sienna", "Isla"];
-
-        const query = `Generate five unique multiple-choice questions (MCQs) for the topic "${topic}".
+        const topic = topic1[1];
+        const maleNames = ["Oliver", "James", "Jack"];
+        const femaleNames = ["Ella", "Evie", "Sienna"];
+        let query = "";
+        if (topic1[0] == 3) {
+          query = `Generate five unique multiple-choice questions (MCQs) for the topic "${topic}".
    
-        Example Question:
-            Question: ${item.Question}
-
-            Options:
-            a. ${item.Option_A}
-           b. ${item.Option_B}
-            c. ${item.Option_C}
-            d. ${item.Option_D}
-             Answer: ${
-               item.Answer
-                 ? item.Answer
-                 : "Generate an Answer based on the question"
-             }
-            Explanation: ${
-              item.Explanation
-                ? item.Explanation
-                : "Generate an explanation based on the question and correct answer"
+          Example Question:
+          Paragraph:${item.Paragraph}
+          ${item.Conversation ? "Conversation: " + item.Conversation : ""} 
+          Question: ${item.Question}
+          Options:
+              a. ${item.Option_A}
+              b. ${item.Option_B}
+              c. ${item.Option_C}
+              d. ${item.Option_D}
+               Answer: ${
+                 item.Answer
+                   ? item.Answer
+                   : "Generate an Answer based on the question"
+               }
+              Explanation: ${
+                item.Explanation
+                  ? item.Explanation
+                  : "Generate an explanation based on the question and correct answer"
+              }
+  
+          ---
+  
+          Please follow these guidelines for generating each MCQ:
+  
+          1. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
+            ", "
+          )}, and for females, use ${femaleNames.join(", ")}.
+  
+          2. Maintain the sentence structure while modifying variables like numbers.
+  
+          3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
+  
+          4. If there is a Paragraph ,conversation between persons, generate that as well.
+  
+          5. Provide the JSON representation of the five MCQs in the following format:
+  
+          [
+            {
+              "Paragraph": "Replace with paragraph text"
+              "Conversation": "Replace with conversation text"
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
+            },
+            {
+              "Paragraph": "Replace with paragraph text"
+              "Conversation": "Replace with conversation text"
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
+            },
+            {
+              "Paragraph": "Replace with paragraph text"
+              "Conversation": "Replace with conversation text"
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
+            },
+            {
+              "Paragraph": "Replace with paragraph text"
+              "Conversation": "Replace with conversation text"
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
+            },
+            {
+              "Paragraph": "Replace with paragraph text"
+              "Conversation": "Replace with conversation text"
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
             }
-
-        ---
-
-        Please follow these guidelines for generating each MCQ:
-
-        1. For each question, use one of the specified names for persons. For males, use ${maleNames.join(
-          ", "
-        )}, and for females, use ${femaleNames.join(", ")}.
-
-        2. Maintain the sentence structure while modifying variables like numbers.
-
-        3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
-
-        4. If there is a conversation statement between persons, generate that as well.
-
-        5. Provide the JSON representation of the five MCQs in the following format:
-
-        [
-          {
-            "Question": "Replace with question text",
-            "Options": {
-              "a": "Option A text",
-              "b": "Option B text",
-              "c": "Option C text",
-              "d": "Option D text"
+          ]
+  `;
+        } else {
+          query = `Generate five unique multiple-choice questions (MCQs) for the topic "${topic}".
+   
+          Example Question:
+              Question: ${item.Question}
+  
+              Options:
+              a. ${item.Option_A}
+             b. ${item.Option_B}
+              c. ${item.Option_C}
+              d. ${item.Option_D}
+               Answer: ${
+                 item.Answer
+                   ? item.Answer
+                   : "Generate an Answer based on the question"
+               }
+              Explanation: ${
+                item.Explanation
+                  ? item.Explanation
+                  : "Generate an explanation based on the question and correct answer"
+              }
+  
+          ---
+  
+          Please follow these guidelines for generating each MCQ:
+  
+          1. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
+            ", "
+          )}, and for females, use ${femaleNames.join(", ")}.
+  
+          2. Maintain the sentence structure while modifying variables like numbers.
+  
+          3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
+  
+          4. If there is a conversation statement between persons, generate that as well.
+  
+          5. Provide the JSON representation of the five MCQs in the following format:
+  
+          [
+            {
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
             },
-            "Answer": "Correct answer letter (a, b, c, or d)",
-            "Explanation": "Explanation for the correct answer"
-          },
-          {
-            "Question": "Replace with question text",
-            "Options": {
-              "a": "Option A text",
-              "b": "Option B text",
-              "c": "Option C text",
-              "d": "Option D text"
+            {
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
             },
-            "Answer": "Correct answer letter (a, b, c, or d)",
-            "Explanation": "Explanation for the correct answer"
-          },
-          {
-            "Question": "Replace with question text",
-            "Options": {
-              "a": "Option A text",
-              "b": "Option B text",
-              "c": "Option C text",
-              "d": "Option D text"
+            {
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
             },
-            "Answer": "Correct answer letter (a, b, c, or d)",
-            "Explanation": "Explanation for the correct answer"
-          },
-          {
-            "Question": "Replace with question text",
-            "Options": {
-              "a": "Option A text",
-              "b": "Option B text",
-              "c": "Option C text",
-              "d": "Option D text"
+            {
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
             },
-            "Answer": "Correct answer letter (a, b, c, or d)",
-            "Explanation": "Explanation for the correct answer"
-          },
-          {
-            "Question": "Replace with question text",
-            "Options": {
-              "a": "Option A text",
-              "b": "Option B text",
-              "c": "Option C text",
-              "d": "Option D text"
-            },
-            "Answer": "Correct answer letter (a, b, c, or d)",
-            "Explanation": "Explanation for the correct answer"
-          }
-        ]
-`;
+            {
+              "Question": "Replace with question text",
+              "Options": {
+                "a": "Option A text",
+                "b": "Option B text",
+                "c": "Option C text",
+                "d": "Option D text"
+              },
+              "Answer": "Correct answer letter (a, b, c, or d)",
+              "Explanation": "Explanation for the correct answer"
+            }
+          ]
+  `;
+        }
 
         console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
@@ -350,13 +482,13 @@ const GenerateQuestions = ({
 
         const message = response?.data?.choices[0]?.message?.content;
         // const questions = message?.split("Question:");
-        // console.log(message);
+        console.log(message);
         const questions = message && JSON.parse(message);
 
         questions?.map((item: mapData, index: any) => {
           let data = item.Question.split(" ");
           item.images = []; // Initialize an empty array for images
-
+          let count: number = 1;
           image_data.forEach(
             (search: { image_name: string; image_url: string }) => {
               // Convert image name to uppercase for case-insensitive comparison
@@ -368,7 +500,54 @@ const GenerateQuestions = ({
               );
 
               if (match) {
-                item.images?.push(search.image_url); // Add the image URL to the question
+                const male = maleNames.find((maleName: string) => {
+                  // console.log(maleName.toUpperCase(), match.toUpperCase());
+                  return maleName.toUpperCase() === match.toUpperCase();
+                });
+                const female = femaleNames.find((femaleName: string) => {
+                  return femaleName.toUpperCase() === match.toUpperCase();
+                });
+                // console.log(male, female ,count);
+                if (male) {
+                  switch (count) {
+                    case 1:
+                      item.images?.push("/images/boy.jpg");
+                      count++;
+                      break;
+                    case 2:
+                      item.images?.push("/images/left_boy.jpg");
+                      count++;
+                      break;
+                    case 3:
+                      item.images?.push("/images/left_boy.jpg");
+                      count++;
+                      break;
+                    default:
+                      item.images?.push("/images/car.jpg");
+                      count++;
+                  }
+                } else if (female) {
+                  console.log(female, count);
+                  switch (count) {
+                    case 1:
+                      item.images?.push("/images/right_girl.jpg");
+                      count++;
+                      break;
+                    case 2:
+                      item.images?.push("/images/girl.jpg");
+                      count++;
+                      break;
+                    case 3:
+                      item.images?.push("/images/girl.jpg");
+                      count++;
+                      break;
+                    default:
+                      item.images?.push("/images/car.jpg");
+                      count++;
+                  }
+                } else {
+                  item.images?.push(search.image_url); // Add the image URL to the question
+                }
               }
             }
           );

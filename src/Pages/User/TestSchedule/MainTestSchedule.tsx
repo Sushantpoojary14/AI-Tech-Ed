@@ -19,7 +19,7 @@ import axiosBaseURL from "../../../Hooks/BaseUrl";
 
 
 const header = [
-  "Sr. No",
+  "#",
   "Test Name",
   "Subject",
   "Time Limit",
@@ -75,7 +75,7 @@ console.log(data);
       <SelectBox
         name="choose test type"
         selectName="test_type"
-        defaultValue="OC"
+        defaultValue="1"
         options={ts_data?.data.ts}
         func={setSelectVal}
       />

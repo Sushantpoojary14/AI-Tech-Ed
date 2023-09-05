@@ -106,7 +106,7 @@ const ExamFirstSection = (props: props) => {
       sx={{
         boxShadow: "6px 6px 20px 0px #808080",
         display: "flex",
-        flexDirection: { lg: "column", md: "row", sm: "row", xs: "column" },
+        flexDirection:"column",
         width: "70%",
         padding:'10px'
       }}

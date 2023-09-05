@@ -42,11 +42,8 @@ const TestPurchasesTable = (props: dataProps) => {
       ) : (
         props.data?.map((purchase_item: any,) => {
           const ps_id:number   = purchase_item.id;
-          const ts_pc = purchase_item.ts_product.get_ts_product_category;
-          const ts_p = purchase_item.ts_product;
-          return ts_pc.map((ts_pc_item: any) => {
-            const tsc = ts_pc_item.test_series_categories;
-            return ts_pc_item.ts_p_c_set.map((set_item: any) => {
+          return purchase_item?.category?.map((cate: any) => {
+            return cate.set.map((set_item: any) => {
               count++;
               return (
                 <TableRow key={count}>
@@ -57,10 +54,10 @@ const TestPurchasesTable = (props: dataProps) => {
                     {`${set_item.set_name}`}
                   </TableCell>
                   <TableCell align="center" sx={{ border: 0 }}>
-                    {tsc.tsc_type}
+                    {cate.tsc_type}
                   </TableCell>
                   <TableCell align="center" sx={{ border: 0 }}>
-                    {tsc.duration}
+                    {cate.duration}
                   </TableCell>
                   <TableCell align="center" sx={{ border: 0 }}>
                     {purchase_item.valid_from}

@@ -36,6 +36,22 @@ const styles = {
     fontSize: 12,
     margin: 0,
   },
+  conversation: {
+    fontSize: 12,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  paragraph: {
+    fontSize: 12,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  optionContainer: {
+    padding: 2,
+    marginTop: 6,
+    marginBottom: 15,
+    // border: "1pt solid #000",
+  },
   options: {
     fontSize: 12,
     marginTop: 5,
@@ -88,6 +104,8 @@ type questions = {
   option_4?: string;
   Answer?: string;
   Explanation?: string;
+  Conversation?: string;
+  Paragraph?: string;
   explanation?: string;
   correct_option?: string | number;
   tst_id?: number;
@@ -113,13 +131,12 @@ type questions = {
 
 interface props {
   data: questions[];
-  // data2?:questionList[];
+
   randomG?: boolean;
   bol: boolean;
   topic: string;
   total: number;
   button?: ReactJSXElement;
-  buttonRef?: any;
 }
 const PdfMaker = (props: props) => {
   // const arr: number[] = [];
@@ -131,7 +148,7 @@ const PdfMaker = (props: props) => {
 
   if (!props.randomG) {
     if (!!questions) {
-      if (questions?.length > 15 ) {
+      if (questions?.length > 15) {
         let count: number = props.total;
         for (let i = count - 1; i >= 0; i--) {
           const ran = Math.floor(Math.random() * (i + 1));
@@ -150,7 +167,7 @@ const PdfMaker = (props: props) => {
     selected_question = questions;
   }
 
-  return props.button ? (
+  return (
     <PDFDownloadLink
       document={
         <MyDocument selected_question={selected_question} topic={props.topic} />
@@ -158,16 +175,6 @@ const PdfMaker = (props: props) => {
       fileName={`${props.topic}.pdf`}
     >
       {props.button}
-    </PDFDownloadLink>
-  ) : (
-    <PDFDownloadLink
-      document={
-        <MyDocument selected_question={selected_question} topic={props.topic} />
-      }
-      fileName={`${props.topic}.pdf`}
-      style={{ display: "none" }}
-    >
-      {props.buttonRef && <button ref={props.buttonRef}></button>}
     </PDFDownloadLink>
   );
 };
@@ -191,34 +198,47 @@ const MyDocument = ({
                 <View style={styles.Container} key={key}>
                   {item.Options ? (
                     <>
-                      <Text style={styles.question}>
-                        {`${key + 1}: ${item.Question}`}
-                        {/* {item.images && import.meta.env.VITE_IMAGE_URL+item.images[0]} */}
-                        {/* {item.images && import.meta.env.VITE_IMAGE_URL+item.images[0]} */}
-                      </Text>
+                      {item.Paragraph && (
+                        <Text style={styles.paragraph}>
+                          {`${key + 1}: ${item.Paragraph}`}
+                        </Text>
+                      )}
+                      {item.Conversation && (
+                        <Text style={styles.conversation}>
+                          {`${item.Conversation}`}
+                        </Text>
+                      )}
+                      {item.Conversation || item.Paragraph ? (
+                        <Text
+                          style={styles.question}
+                        >{`${item.Question}`}</Text>
+                      ) : (
+                        <Text
+                          style={styles.question}
+                        >{`${key + 1}:${item.Question}`}</Text>
+                      )}
 
-                      {/* {item.images && (
-                      <Image style={styles.image} src={'http://127.0.0.1:8000/images/nike.jpg'} />
-                    )} */}
-                      <View>
-                        {/* <Image
+                      {/* <View> */}
+                      {/* <Image
                           style={styles.image}
-                          src={"https://commcop.in/ai_tech_ed/images/car.jpg"}
+                          src={import.meta.env.VITE_IMAGE_URL+item.images[0]}
                         /> */}
-                        {/* <Image src={{ uri:"http://127.0.0.1:8000/images/car.jpeg", method: "GET", headers: { "Cache-Control": "no-cache" }, body: "" }} /> */}
+                      {/* <Image src={{ uri:import.meta.env.VITE_IMAGE_URL+item.images[0], method: "GET", headers: { "Cache-Control": "no-cache" }, body: "" }} /> */}
+                      {/* </View> */}
+                      <View style={styles.optionContainer}>
+                        <Text
+                          style={styles.options}
+                        >{`A. ${item.Options.a}`}</Text>
+                        <Text
+                          style={styles.options}
+                        >{`B. ${item.Options.b}`}</Text>
+                        <Text
+                          style={styles.options}
+                        >{`C. ${item.Options.c}`}</Text>
+                        <Text
+                          style={styles.options}
+                        >{`D. ${item.Options.d}`}</Text>
                       </View>
-                      <Text
-                        style={styles.options}
-                      >{`A. ${item.Options.a}`}</Text>
-                      <Text
-                        style={styles.options}
-                      >{`B. ${item.Options.b}`}</Text>
-                      <Text
-                        style={styles.options}
-                      >{`C. ${item.Options.c}`}</Text>
-                      <Text
-                        style={styles.options}
-                      >{`D. ${item.Options.d}`}</Text>
                     </>
                   ) : (
                     <>
