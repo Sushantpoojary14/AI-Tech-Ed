@@ -16,9 +16,10 @@ import ProfileEditModal from "../../Components/Model/ProfileEditModel";
 import TestRAIndex from "./TestResultAnalysis/TestRAIndex";
 import TestScheduleIndex from "./TestSchedule/TestScheduleIndex";
 import Exam_Section from "./TestSchedule/Exam_Section";
+import UserFooter from "../../Components/Footer/UserFooter";
 
 const UserIndex = () => {
-  const { user , Logout } = AppContext();
+  const { user, Logout } = AppContext();
   const {
     handleMenuClose,
     openMenu,
@@ -152,7 +153,7 @@ const UserIndex = () => {
               <Route path="/Test-schedule/*" element={<TestScheduleIndex />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
-            
+            <UserFooter />
           </Container>
         </>
       ) : (

@@ -139,10 +139,15 @@ const SectionOne = ({ product }: any) => {
               css={{ fontWeight: 550, paddingTop: "13px" }}
             />
             <Stack direction={"row"} alignItems={"center"} spacing={2}>
-              <EditIconButton type="button" func={handlePREditOpen} />
+              <EditIconButton
+                type="button"
+                func={handlePREditOpen}
+                disabled={product?.release_status}
+              />
               <DeleteIconButton
                 type="button"
                 func={() => deleteProductMU.mutate(product.id)}
+                disabled={product?.release_status}
               />
               <SwitchComp checked={checked} onChange={handleChange} />
             </Stack>

@@ -43,13 +43,8 @@ const tableData = [
   },
 ];
 
-const FifthSection = () => {
-  const { isLoading, data, refetch } = useQuery({
-    queryKey: [],
-    queryFn: UseGet("https://dummyjson.com/products?limit=6"),
-  });
-
-  if (isLoading) {
+const FifthSection = ({ data }: any) => {
+  if (data.isLoading) {
     return <LoadingBar />;
   }
   return (
@@ -59,7 +54,10 @@ const FifthSection = () => {
         <TableContainer>
           <Table sx={{ minWidth: 650 }}>
             <TableHeader header={header} />
-            <TableData data={tableData} url="/user/Test-result-analysis" />
+            <TableData
+              data={data?.data?.result}
+              url="/user/Test-result-analysis"
+            />
           </Table>
         </TableContainer>
       </Card>
