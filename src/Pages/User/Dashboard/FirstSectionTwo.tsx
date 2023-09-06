@@ -61,7 +61,7 @@ const FirstSectionTwo = ({ data }: any) => {
           <Table sx={{ minWidth: 650 }}>
             <TableHeader header={header} />
             <TableBody>
-              {data?.data?.remaining_product.length === 0 ? (
+              {data?.data?.remaining_product?.length === 0 ? (
                 <TableRow>
                   <TableCell align="center" sx={{ border: 0 }} colSpan={5}>
                     No Item Found

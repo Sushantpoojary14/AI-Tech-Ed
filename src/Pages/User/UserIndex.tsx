@@ -153,7 +153,7 @@ const UserIndex = () => {
               <Route path="/Test-schedule/*" element={<TestScheduleIndex />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
-            <UserFooter />
+            {/* <UserFooter /> */}
           </Container>
         </>
       ) : (

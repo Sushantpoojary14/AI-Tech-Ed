@@ -2,7 +2,13 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import { Stack, Typography } from "@mui/material";
 import { Header1 } from "../../../Components/Common/HeaderText";
 import MainTestRA from "./MainTestRA";
-import { useLocation, Route, Routes, Link } from "react-router-dom";
+import {
+  useLocation,
+  Route,
+  Routes,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import TestRAView from "./TestRAView";
 import TestRAS from "./TestRAS";
 import { BButton } from "../../../Components/Common/Button";
@@ -11,35 +17,31 @@ import { ParaText1 } from "../../../Components/Common/ParaText";
 
 const TestRAIndex = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <>
       <Stack direction="row" useFlexGap flexWrap="wrap">
-        {(location.pathname === "/user/Test-result-analysis/view/1" ||
-          location.pathname === "/user/Test-result-analysis/solution/1") && (
-          <Link to="/user/Test-result-analysis">
-            <BButton
-              name={
-                <>
-                  <ReplyIcon
-                    sx={{ width: "18px", height: "18px", m: "auto" }}
-                  />
-                  <Typography sx={{ color: "#FFFFFF", m: "auto" }}>
-                    GO BACK
-                  </Typography>
-                </>
-              }
-              css={{
-                borderRadius: "3px",
-                width: "143px",
-                height: "34px",
-                m: "18px",
-                pl: "5px",
-              }}
-            />
-          </Link>
+        {!(location.pathname === "/user/Test-result-analysis") && (
+          <BButton
+            func={() => navigate(-1)}
+            name={
+              <>
+                <ReplyIcon sx={{ width: "18px", height: "18px", m: "auto" }} />
+                <Typography sx={{ color: "#FFFFFF", m: "auto" }}>
+                  GO BACK
+                </Typography>
+              </>
+            }
+            css={{
+              borderRadius: "3px",
+              width: "143px",
+              height: "34px",
+              m: "18px",
+              pl: "5px",
+            }}
+          />
         )}
-
         <Stack
           direction="row"
           sx={{

@@ -6,7 +6,7 @@ import { TableHeader } from "../../../Components/Common/Table";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import tokenAxios from "../../../Hooks/TokenAxios";
 import ExamResultTable from "./Components/ExamResultTable";
-import PieChartIcon from '@mui/icons-material/PieChart';
+import PieChartIcon from "@mui/icons-material/PieChart";
 import { Header1 } from "../../../Components/Common/HeaderText";
 
 const header = [
@@ -34,7 +34,7 @@ const TestResult = () => {
   const params = useParams();
 
   const { isLoading, data } = useQuery<AxiosResponse<dataType, any>>(
-    ['test-result'],
+    ["test-result"],
     async () => await tokenAxios.get<dataType>(`/get-test-result/${params.id}`)
   );
 
@@ -45,7 +45,7 @@ const TestResult = () => {
 
   return (
     <Container maxWidth="xl">
-         <Stack
+      <Stack
         direction="row"
         sx={{
           my: "18px",
@@ -65,23 +65,22 @@ const TestResult = () => {
         />
         <Header1 header="TEST OVERVIEW" />
       </Stack>
-        <Card
-          sx={{
-            boxShadow: "6px 6px 20px 0px #808080",
-            my: "15px",
-            display: "flex",
-            justifyContent: "space-between",
-            py: "20px",
-          }}
-        >
-          <TableContainer>
-            <Table sx={{ minWidth: 650 }}>
-              <TableHeader header={header} />
-              {data && <ExamResultTable data={data.data} />}
-            </Table>
-          </TableContainer>
-        </Card>
-      
+      <Card
+        sx={{
+          boxShadow: "6px 6px 20px 0px #808080",
+          my: "15px",
+          display: "flex",
+          justifyContent: "space-between",
+          py: "20px",
+        }}
+      >
+        <TableContainer>
+          <Table sx={{ minWidth: 650 }}>
+            <TableHeader header={header} />
+            {data && <ExamResultTable data={data?.data} />}
+          </Table>
+        </TableContainer>
+      </Card>
     </Container>
   );
 };

@@ -30,6 +30,9 @@ const ThirdSection = ({ data }: any) => {
   if (data.isLoading) {
     return <LoadingBar />;
   }
+
+  console.log(data.data.tsp);
+
   return (
     <Container maxWidth="xl">
       <Header1 header="Test Schedule" />
@@ -37,15 +40,12 @@ const ThirdSection = ({ data }: any) => {
         <TableContainer>
           <Table sx={{ minWidth: 650 }}>
             <TableHeader header={header} />
-            <TableData
-              data={data?.data?.tsp}
-              url="/user/Test-result-analysis"
-            />
+            <TableData data={data?.data?.tsp} url="/user/Test-schedule" />
           </Table>
         </TableContainer>
       </Card>
       <Box sx={{ width: "344px", mx: "auto" }}>
-        <Link to="Test-result-analysis">
+        <Link to="Test-schedule">
           <OButton2 name="VIEW MORE" css={{ maxWidth: "344px" }} />
         </Link>
       </Box>

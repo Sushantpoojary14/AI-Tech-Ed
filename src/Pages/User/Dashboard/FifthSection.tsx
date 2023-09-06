@@ -9,12 +9,12 @@ import LoadingBar from "../../../Components/Headers/LoadingBar";
 
 const header = [
   "Sr. No",
+  "Start date",
+  "Percentage(%)",
+  "Total Marks",
   "Test name",
-  "Subject",
-  "Marks Scored",
-  "Percentage",
-  "Test date",
-  "Rank",
+  // "Subject",
+  // "Rank",
 ];
 const tableData = [
   {
@@ -62,7 +62,7 @@ const FifthSection = ({ data }: any) => {
         </TableContainer>
       </Card>
       <Box sx={{ width: "344px", mx: "auto" }}>
-        <Link to="/user">
+        <Link to="Test-result-analysis">
           <OButton2 name="VIEW MORE" css={{ maxWidth: "344px" }} />
         </Link>
       </Box>

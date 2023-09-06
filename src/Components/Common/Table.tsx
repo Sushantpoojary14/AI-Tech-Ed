@@ -41,7 +41,7 @@ const TableHeader = (props: headerProps) => {
 const TableData = (props: dataProps) => {
   return (
     <TableBody>
-      {props.data.length === 0 ? (
+      {props.data?.length === 0 ? (
         <TableRow>
           <TableCell align="center" sx={{ border: 0 }} colSpan={7}>
             No Item Found

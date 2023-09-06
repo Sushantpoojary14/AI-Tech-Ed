@@ -21,18 +21,20 @@ export default function AdvanceTable({
       data={data ?? []} //data is undefined on first render
       enableFullScreenToggle={false}
       enableDensityToggle={false}
-      initialState={{
-        density: "compact",
-        columnOrder: [
-          "no",
-          "firstName",
-          "lastName",
-          "address",
-          "state",
-          "phoneNumber",
-          "id",
-        ],
-      }}
+      // initialState={{
+      //   density: "compact",
+      //   columnOrder: [
+      //     "no",
+      //     "firstName",
+      //     "lastName",
+      //     "address",
+      //     "state",
+      //     "phoneNumber",
+      //     "id",
+      //   ],
+      // }}
+      enableRowNumbers
+      rowNumberMode="original"
       enableHiding={false}
       // initialState={{ showColumnFilters: true }}
       // manualFiltering
@@ -52,7 +54,7 @@ export default function AdvanceTable({
       // onSortingChange={setSorting}
       renderTopToolbarCustomActions={() => (
         <>
-          <Header1 header="Student Data" />
+          {/* <Header1 header="Student Data" /> */}
           {/* <Tooltip arrow title="Refresh Data">
             <IconButton onClick={() => refetch()}>
               <RefreshIcon />
