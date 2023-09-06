@@ -213,9 +213,9 @@ const MyDocument = ({
                           style={styles.question}
                         >{`${item.Question}`}</Text>
                       ) : (
-                        <Text
-                          style={styles.question}
-                        >{`${key + 1}:${item.Question}`}</Text>
+                        <Text style={styles.question}>{`${key + 1}:${
+                          item.Question
+                        }`}</Text>
                       )}
 
                       {/* <View> */}
@@ -242,9 +242,26 @@ const MyDocument = ({
                     </>
                   ) : (
                     <>
-                      <Text style={styles.options}>
-                        {`${key + 1}: ${item.question} `}
-                      </Text>
+                      {item.Paragraph && (
+                        <Text style={styles.paragraph}>
+                          {`${key + 1}: ${item.Paragraph}`}
+                        </Text>
+                      )}
+                      {item.Conversation && (
+                        <Text style={styles.conversation}>
+                          {`${item.Conversation}`}
+                        </Text>
+                      )}
+                      {item.Conversation || item.Paragraph ? (
+                        <Text
+                          style={styles.question}
+                        >{`${item.question}`}</Text>
+                      ) : (
+                        <Text style={styles.options}>
+                          {`${key + 1}: ${item.question} `}
+                        </Text>
+                      )}
+
                       <Text
                         style={styles.options}
                       >{`A. ${item.option_1}`}</Text>

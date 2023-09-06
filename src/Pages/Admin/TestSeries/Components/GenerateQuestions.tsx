@@ -25,6 +25,8 @@ type CsvItem = {
 };
 
 type mapData = {
+  Conversation?: string;
+  Paragraph?: string;
   Answer: string;
   Explanation: string;
   Options: string[];
@@ -173,10 +175,12 @@ const GenerateQuestions = ({
       "Explanation",
     ];
     const array2 = Object.keys(csvData[0]);
-console.log(  (JSON.stringify(header1) === JSON.stringify(array2) &&
-topic1[0] == 1 &&
-topic1[0] == 2) ||
-(JSON.stringify(header2) === JSON.stringify(array2) && topic1[0] == 3));
+    // console.log(
+    //   (JSON.stringify(header1) === JSON.stringify(array2) &&
+    //     topic1[0] == 1 &&
+    //     topic1[0] == 2) ||
+    //     (JSON.stringify(header2) === JSON.stringify(array2) && topic1[0] == 3)
+    // );
 
     if (
       (JSON.stringify(header1) === JSON.stringify(array2) &&
@@ -474,7 +478,7 @@ topic1[0] == 2) ||
   `;
         }
 
-        console.log("QUERY", query);
+        // console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
           model: "gpt-3.5-turbo-16k",
           messages: [{ role: "user", content: query }],
@@ -486,7 +490,26 @@ topic1[0] == 2) ||
         const questions = message && JSON.parse(message);
 
         questions?.map((item: mapData, index: any) => {
-          let data = item.Question.split(" ");
+          let data: string[];
+          if (
+            JSON.stringify(Object.keys(item)) ===
+            JSON.stringify(["Paragraph", "Conversation"])
+          ) {
+            if (item.Paragraph || item.Conversation) {
+              const paragraphData = item.Paragraph?.split(" ") ?? [];
+              const conversationData = item.Conversation?.split(" ") ?? [];
+              data = [...paragraphData, ...conversationData];
+              console.log(data);
+            }
+          }
+
+          // data = [
+          //   ...item.Paragraph?.split(" "),
+          //   ...item.Conversation?.split(" "),
+          // ];
+          else {
+            data = item.Question.split(" ");
+          }
           item.images = []; // Initialize an empty array for images
           let count: number = 1;
           image_data.forEach(
@@ -558,7 +581,7 @@ topic1[0] == 2) ||
 
           responses.push(item); // Add the modified item to the responses array
         });
-        // console.log(responses);
+        console.log(responses);
       }
 
       return responses;
