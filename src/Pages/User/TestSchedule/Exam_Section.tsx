@@ -32,6 +32,8 @@ type questionType = {
   uts_id: number;
   test_time: number;
   questions: {
+    conversation?:string;
+    paragraph?:string;
     id: number;
     question: string;
     option_1: string;
@@ -90,7 +92,7 @@ const Exam_Section = () => {
       return await tokenAxios.post(`/update-test-status/${data.id}`, object);
     },
     onSuccess: (res) => {
-      console.log(res);
+      // console.log(res);
       queryClient.setQueryData(["question-data"], res);
     },
   });

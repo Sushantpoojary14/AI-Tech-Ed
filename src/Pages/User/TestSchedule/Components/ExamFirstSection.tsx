@@ -40,6 +40,8 @@ type questionType = {
   test_time: number;
   questions: {
     id: number;
+    conversation?: string;
+    paragraph?: string;
     question: string;
     option_1: string;
     option_2: string;
@@ -97,18 +99,21 @@ const ExamFirstSection = (props: props) => {
       status_id: 1,
     }));
 
-    console.log(question?.test_answer);
+   
     props.data &&
       updateAStatus.mutate({ id: props.data?.id, answer: data.Answer });
   };
+  console.log(
+    question?.questions
+  );
   return (
     <Card
       sx={{
         boxShadow: "6px 6px 20px 0px #808080",
         display: "flex",
-        flexDirection:"column",
+        flexDirection: "column",
         width: "70%",
-        padding:'10px'
+        padding: "10px",
       }}
     >
       {props.isLoading ? (
@@ -116,7 +121,7 @@ const ExamFirstSection = (props: props) => {
       ) : (
         props.data && (
           <>
-            <Box  width="950px"  marginX="auto"   marginTop={3}>
+            <Box width="950px" marginX="auto" marginTop={3}>
               <ParaText4
                 text={`Question ${props.count + 1}`}
                 css={{ fontWeight: "600" }}
@@ -135,86 +140,114 @@ const ExamFirstSection = (props: props) => {
             >
               <Stack>
                 {question && (
-                  <ParaText4
-                    text={question?.questions.question}
-                    css={{ fontWeight: "400", marginBottom: "10px" }}
-                  />
+                  <>
+                    {!!question?.questions.conversation ||
+                    !!question?.questions.paragraph ? (
+                      <>
+                        {question?.questions.paragraph && (
+                          <ParaText4
+                            text={question.questions.paragraph}
+                            css={{ fontWeight: "400", marginBottom: "10px" }}
+                          />
+                        )}
+                        {question?.questions.question_image &&
+                          question?.questions.question_image.length !== 0 && (
+                            <ImageList
+                              sx={{
+                                width: "100%",
+                                // maxHeight: "340px",
+                                maxWidth: "hidden",
+                                flex: "column",
+                                justifyContent: "space-between",
+                              }}
+                              cols={3}
+                              gap={7}
+                              // rowHeight={164}
+                            >
+                              {question?.questions.question_image.map(
+                                (item: image, key: number) => (
+                                  <ImageListItem
+                                    key={key}
+                                    sx={{ width: "200px" }}
+                                  >
+                                    <img
+                                      src={
+                                        import.meta.env.VITE_IMAGE_URL +
+                                        item.image_url
+                                      }
+                                      alt={`Image ${key}`}
+                                    />
+                                  </ImageListItem>
+                                )
+                              )}
+                            </ImageList>
+                          )}
+                        {question.questions.conversation && (
+                          <ParaText4
+                            text={question.questions.conversation}
+                            css={{ fontWeight: "400", marginBottom: "10px" }}
+                          />
+                        )}
+                        <ParaText4
+                          text={question.questions.question}
+                          css={{ fontWeight: "400", marginBottom: "10px" }}
+                        />
+                      </>
+                    ) : (
+                      <ParaText4
+                        text={question.questions.question}
+                        css={{ fontWeight: "400", marginBottom: "10px" }}
+                      />
+                    )}
+                  </>
                 )}
-                {question?.questions.question_image &&
-                  question?.questions.question_image.length !== 0 && (
-                    <ImageList
-                      sx={{
-                        width: "100%",
-                        // maxHeight: "340px",
-                        maxWidth:"hidden",
-                        flex:"column",
-                        justifyContent:"space-between"
-                      }}
-                      cols={3}
-                      gap={7}
-                      // rowHeight={164}
-                    >
-                      {question?.questions.question_image.map(
-                        (item: image, key: number) => (
-                          <ImageListItem key={key} sx={{ width: "200px" }} >
-                            <img
-                              src={
-                                import.meta.env.VITE_IMAGE_URL + item.image_url
-                              }
-                              alt={`Image ${key}`}
-                            />
-                          </ImageListItem>
-                        )
-                      )}
-                    </ImageList>
-                  )}
               </Stack>
               <Stack>
-              <ParaText4 text="Option" css={{ fontWeight: "600" }} />
-              <form onChange={handleSubmit(onSubmit)}>
-                <Controller
-                  name="Answer"
-                  defaultValue=""
-                  control={control}
-                  render={({ field }) => (
-                    <RadioGroup {...field} name="radio-buttons-group">
-                      <FormControlLabel
-                        checked={
-                          props.data ? question?.test_answer == "1" : false
-                        }
-                        value="1"
-                        control={<Radio />}
-                        label={`A. ${question?.questions.option_1}`}
-                      />
-                      <FormControlLabel
-                        value="2"
-                        checked={
-                          props.data ? question?.test_answer == "2" : false
-                        }
-                        control={<Radio />}
-                        label={`B. ${question?.questions.option_2}`}
-                      />
-                      <FormControlLabel
-                        value="3"
-                        checked={
-                          props.data ? question?.test_answer == "3" : false
-                        }
-                        control={<Radio />}
-                        label={`C. ${question?.questions.option_3}`}
-                      />
-                      <FormControlLabel
-                        value="4"
-                        checked={
-                          props.data ? question?.test_answer == "4" : false
-                        }
-                        control={<Radio />}
-                        label={`D. ${question?.questions.option_4}`}
-                      />
-                    </RadioGroup>
-                  )}
-                />
-              </form>
-                </Stack>                
+                <ParaText4 text="Option" css={{ fontWeight: "600" }} />
+                <form onChange={handleSubmit(onSubmit)}>
+                  <Controller
+                    name="Answer"
+                    defaultValue=""
+                    control={control}
+                    render={({ field }) => (
+                      <RadioGroup {...field} name="radio-buttons-group">
+                        <FormControlLabel
+                          checked={
+                            props.data ? question?.test_answer == "1" : false
+                          }
+                          value="1"
+                          control={<Radio />}
+                          label={`A. ${question?.questions.option_1}`}
+                        />
+                        <FormControlLabel
+                          value="2"
+                          checked={
+                            props.data ? question?.test_answer == "2" : false
+                          }
+                          control={<Radio />}
+                          label={`B. ${question?.questions.option_2}`}
+                        />
+                        <FormControlLabel
+                          value="3"
+                          checked={
+                            props.data ? question?.test_answer == "3" : false
+                          }
+                          control={<Radio />}
+                          label={`C. ${question?.questions.option_3}`}
+                        />
+                        <FormControlLabel
+                          value="4"
+                          checked={
+                            props.data ? question?.test_answer == "4" : false
+                          }
+                          control={<Radio />}
+                          label={`D. ${question?.questions.option_4}`}
+                        />
+                      </RadioGroup>
+                    )}
+                  />
+                </form>
+              </Stack>
             </Stack>
           </>
         )

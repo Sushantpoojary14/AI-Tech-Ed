@@ -87,6 +87,9 @@ const styles = {
     width: "100px",
     height: "100px",
   },
+  mainText:{
+    fontWeight: 800,
+  }
 };
 
 type questions = {
@@ -106,6 +109,8 @@ type questions = {
   Explanation?: string;
   Conversation?: string;
   Paragraph?: string;
+  conversation?: string;
+  paragraph?: string;
   explanation?: string;
   correct_option?: string | number;
   tst_id?: number;
@@ -242,17 +247,17 @@ const MyDocument = ({
                     </>
                   ) : (
                     <>
-                      {item.Paragraph && (
+                      {item.paragraph && (
                         <Text style={styles.paragraph}>
-                          {`${key + 1}: ${item.Paragraph}`}
+                          {`${key + 1}: ${item.paragraph}`}
                         </Text>
                       )}
-                      {item.Conversation && (
+                      {item.conversation && (
                         <Text style={styles.conversation}>
-                          {`${item.Conversation}`}
+                          {`${item.conversation}`}
                         </Text>
                       )}
-                      {item.Conversation || item.Paragraph ? (
+                      {item.conversation || item.paragraph ? (
                         <Text
                           style={styles.question}
                         >{`${item.question}`}</Text>
@@ -261,19 +266,21 @@ const MyDocument = ({
                           {`${key + 1}: ${item.question} `}
                         </Text>
                       )}
-
-                      <Text
-                        style={styles.options}
-                      >{`A. ${item.option_1}`}</Text>
-                      <Text
-                        style={styles.options}
-                      >{`B. ${item.option_2}`}</Text>
-                      <Text
-                        style={styles.options}
-                      >{`C. ${item.option_3}`}</Text>
-                      <Text
-                        style={styles.options}
-                      >{`D. ${item.option_4}`}</Text>
+                      <View style={styles.optionContainer}>
+                        <Text style={styles.options}>
+                          <Text style={styles.mainText}>A.</Text>{" "}
+                          {item.option_1}
+                        </Text>
+                        <Text
+                          style={styles.options}
+                        >{`B. ${item.option_2}`}</Text>
+                        <Text
+                          style={styles.options}
+                        >{`C. ${item.option_3}`}</Text>
+                        <Text
+                          style={styles.options}
+                        >{`D. ${item.option_4}`}</Text>
+                      </View>
                     </>
                   )}
                 </View>
