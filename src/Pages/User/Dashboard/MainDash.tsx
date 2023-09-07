@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { Header1 } from "../../../Components/Common/HeaderText";
 import FirstSection from "./FirstSection";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { AppContext } from "../../../Context/AppContext";
 import tokenAxios from "../../../Hooks/TokenAxios";
+import NotificationStrip from "../../../Components/Headers/NotificationStrip";
 const MainDash = () => {
   const { user } = AppContext();
 
@@ -60,6 +61,7 @@ const MainDash = () => {
 
   return (
     <>
+      <NotificationStrip />
       <Stack direction="row" sx={{ my: "8px", justifyContent: "center" }}>
         <DashboardIcon
           sx={{

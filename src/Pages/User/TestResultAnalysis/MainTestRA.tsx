@@ -20,56 +20,56 @@ import { MRT_ColumnDef } from "material-react-table";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 import { Link } from "react-router-dom";
 
-const header = [
-  "Sr. No",
-  "Test name",
-  "Test date",
-  "Subject",
-  "Marks scored",
-  "Percentage",
-  "Time Taken",
-  "Total Questions Answered",
-  "Correct Questions Answered",
-  "Rank",
-];
-const tableData = [
-  {
-    id: 1,
-    name: "test1",
-    test_date: "29/9/2022",
-    subject: "Maths-1",
-    Marks_scored: "37/50",
-    Percentage: "75%",
-    Time_Taken: "00.45.00",
-    Total_Questions_Answered: "15/15",
-    Correct_Questions_Answered: "15/15",
-    Rank: "1",
-  },
-  {
-    id: 2,
-    name: "test2",
-    test_date: "29/10/2022",
-    subject: "maths-2",
-    Marks_scored: "37/50",
-    Percentage: "75%",
-    Time_Taken: "00.45.00",
-    Total_Questions_Answered: "15/15",
-    Correct_Questions_Answered: "10/15",
-    Rank: "1",
-  },
-  {
-    id: 5,
-    name: "test2",
-    test_date: "29/10/2022",
-    subject: "maths-2",
-    Marks_scored: "37/50",
-    Percentage: "75%",
-    Time_Taken: "00.45.00",
-    Total_Questions_Answered: "15/15",
-    Correct_Questions_Answered: "9/15",
-    Rank: "1",
-  },
-];
+// const header = [
+//   "Sr. No",
+//   "Test name",
+//   "Test date",
+//   "Subject",
+//   "Marks scored",
+//   "Percentage",
+//   "Time Taken",
+//   "Total Questions Answered",
+//   "Correct Questions Answered",
+//   "Rank",
+// ];
+// const tableData = [
+//   {
+//     id: 1,
+//     name: "test1",
+//     test_date: "29/9/2022",
+//     subject: "Maths-1",
+//     Marks_scored: "37/50",
+//     Percentage: "75%",
+//     Time_Taken: "00.45.00",
+//     Total_Questions_Answered: "15/15",
+//     Correct_Questions_Answered: "15/15",
+//     Rank: "1",
+//   },
+//   {
+//     id: 2,
+//     name: "test2",
+//     test_date: "29/10/2022",
+//     subject: "maths-2",
+//     Marks_scored: "37/50",
+//     Percentage: "75%",
+//     Time_Taken: "00.45.00",
+//     Total_Questions_Answered: "15/15",
+//     Correct_Questions_Answered: "10/15",
+//     Rank: "1",
+//   },
+//   {
+//     id: 5,
+//     name: "test2",
+//     test_date: "29/10/2022",
+//     subject: "maths-2",
+//     Marks_scored: "37/50",
+//     Percentage: "75%",
+//     Time_Taken: "00.45.00",
+//     Total_Questions_Answered: "15/15",
+//     Correct_Questions_Answered: "9/15",
+//     Rank: "1",
+//   },
+// ];
 
 type Results = {
   id: number;

@@ -56,7 +56,7 @@ const FifthSection = ({ data }: any) => {
             <TableHeader header={header} />
             <TableData
               data={data?.data?.result}
-              url="/user/Test-result-analysis"
+              url="/user/Test-result-analysis/view"
             />
           </Table>
         </TableContainer>

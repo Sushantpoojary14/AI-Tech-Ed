@@ -5,8 +5,26 @@ import ViewFirstSection from "./Components/ViewFirstSection";
 import ViewFourthSection from "./Components/ViewFourthSection";
 import ViewSecondSection from "./Components/ViewSecondSection";
 import ViewThirdSection from "./Components/ViewThirdSection";
+import { useQuery } from "@tanstack/react-query";
+import tokenAxios from "../../../Hooks/TokenAxios";
 
 const TestRAView = () => {
+  const { id } = useParams();
+
+  const getUserTestResultQuery = useQuery({
+    queryKey: ["get-user-result"],
+    queryFn: async () => {
+      try {
+        const response = await tokenAxios.get(`/get-user-result/${id}`);
+        // console.log(" Results", response.data?.all_results);
+
+        return response.data?.all_results;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
   const [barData, setBarData] = useState({
     labels: [
       "SOTT Reading Test 1",
@@ -58,10 +76,10 @@ const TestRAView = () => {
         flexWrap="wrap"
         sx={{ width: "100%" }}
       >
-        <ViewFirstSection />
+        <ViewFirstSection data={getUserTestResultQuery} />
         <Stack direction="column" useFlexGap flexWrap="wrap">
           <ViewSecondSection pieData={pieData} />
-          <ViewThirdSection lineData={lineData} />
+          {/* <ViewThirdSection lineData={lineData} /> */}
           <ViewFourthSection barData={barData} />
         </Stack>
       </Stack>

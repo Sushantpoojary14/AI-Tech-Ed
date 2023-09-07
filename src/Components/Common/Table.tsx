@@ -63,13 +63,13 @@ const TableData = (props: dataProps) => {
                   </TableCell>
                 );
               })}
-              <TableCell align="center" sx={{ border: 0 }}>
+              {/* <TableCell align="center" sx={{ border: 0 }}>
                 <Link to={`${props.url}/${item.id}`}>
                   <FindInPageOutlinedIcon
                     sx={{ width: "25px", height: "25px", color: "#3A9BDC" }}
                   />
                 </Link>
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           );
         })

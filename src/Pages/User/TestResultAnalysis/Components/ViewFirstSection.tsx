@@ -11,24 +11,28 @@ interface Detail {
   title: string;
   data: string;
 }
-const ViewFirstSection = () => {
+const ViewFirstSection = ({ data }: any) => {
   const { handlePEOpen, dataSubmit } = UserContext();
 
-  const { isLoading, data, refetch } = useQuery({
-    queryKey: [dataSubmit],
-    queryFn: UseGet("https://dummyjson.com/users/1"),
-  });
+  // const { isLoading, data, refetch } = useQuery({
+  //   queryKey: [dataSubmit],
+  //   queryFn: UseGet("https://dummyjson.com/users/1"),
+  // });
 
-  if (isLoading) {
+  if (data.isLoading) {
     return <LoadingBar />;
   }
 
   const details: Detail[] = [
-    { title: "Student Name", data: data.firstName },
-    { title: "User id", data: data.id },
-    { title: "Birth date", data: data.birthDate },
-    { title: "Email", data: data.email },
-    { title: "Phone number", data: data.phone },
+    { title: "Set Name", data: data.data?.set_name },
+    { title: "Time Taken", data: data.data?.time_taken },
+    { title: "Marks Secured", data: data.data?.total_marks },
+    { title: "Total Marks", data: data.data?.total_marks },
+    { title: "Percentage", data: data.data?.percentage },
+    { title: "Correct Answers", data: data.data?.total_marks },
+    { title: "Wrong Answers", data: 35 - data.data?.total_marks },
+    { title: "Total Questions", data: 35 },
+    { title: "Questions Attempted", data: data.data?.total_answered },
   ];
   return (
     <Card
@@ -56,7 +60,7 @@ const ViewFirstSection = () => {
               flexDirection="row"
               sx={{ alignItems: "center", justifyContent: "space-between" }}
               margin="20px"
-              marginBottom="50px"
+              // marginBottom="50px"
               key={key}
             >
               <ParaText3 text={item?.title} />
