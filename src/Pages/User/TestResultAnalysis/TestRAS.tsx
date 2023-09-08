@@ -6,12 +6,17 @@ import {
   TableContainer,
   Table,
 } from "@mui/material";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import UseGet from "../../../Hooks/UseGet";
 import { useQuery } from "@tanstack/react-query";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import SelectBox from "../../../Components/Common/Select";
 import { TableData, TableHeader } from "../../../Components/Common/Table";
+import { useParams } from "react-router-dom";
+import tokenAxios from "../../../Hooks/TokenAxios";
+import { AppContext } from "../../../Context/AppContext";
+import { MRT_ColumnDef } from "material-react-table";
+import AdvanceTable from "../../Admin/components/AdvanceTable";
 
 interface option {
   name: string;
@@ -65,18 +70,153 @@ const tableData = [
   },
 ];
 
+type SetResult = {
+  id: number;
+  q_id: number;
+  status_id: number;
+  test_answer: string | null;
+  marks: number;
+  uts_id: number;
+  test_time: string;
+  topic: string;
+  correct_option: string;
+  set_name: string;
+};
+
 const TestRAS = () => {
+  const { id } = useParams();
+  // const {user} = AppContext()
+
   const { isLoading, data, refetch } = useQuery({
-    queryKey: [],
-    queryFn: UseGet("https://dummyjson.com/products?limit=100"),
+    queryKey: ["get-user-set-result"],
+    queryFn: () => {
+      return tokenAxios.get(`/get-user-set-result/${id}`);
+    },
   });
+
+  console.log("data", data?.data?.result);
+
+  const columns = useMemo<MRT_ColumnDef<SetResult>[]>(
+    () => [
+      // {
+      //   accessorKey: "no",
+      //   header: "No.",
+      //   Cell: ({ row }) => {
+      //     const { index } = row;
+      //     return <span>{index + 1}</span>;
+      //   },
+      //   size: 100,
+      //   muiTableHeadCellProps: {
+      //     align: "center",
+      //   },
+      //   muiTableBodyCellProps: {
+      //     align: "center",
+      //   },
+      // },
+      {
+        accessorKey: "set_name",
+        header: "Test Name",
+        size: 200,
+      },
+      {
+        accessorKey: "topic",
+        header: "Subject",
+        size: 150,
+      },
+
+      {
+        accessorKey: "test_answer",
+        header: "Marked Answered",
+        size: 150,
+      },
+      {
+        accessorKey: "marks",
+        header: "Marks",
+        size: 150,
+        muiTableHeadCellProps: {
+          align: "center",
+        },
+        muiTableBodyCellProps: {
+          align: "center",
+        },
+      },
+      // {
+      //   accessorKey: "test_time",
+      //   header: "Time Taken",
+      //   size: 150,
+      //   muiTableHeadCellProps: {
+      //     align: "center",
+      //   },
+      //   muiTableBodyCellProps: {
+      //     align: "center",
+      //   },
+      // },
+      {
+        accessorKey: "correct_option",
+        header: "Correct Answer",
+        size: 150,
+        muiTableHeadCellProps: {
+          align: "center",
+        },
+        muiTableBodyCellProps: {
+          align: "center",
+        },
+      },
+
+      // {
+      //   accessorKey: "id",
+      //   header: "",
+      //   size: 200,
+      //   Cell: ({ cell, row }: any) => (
+
+      //       <FindInPageOutlinedIcon
+      //         sx={{
+      //           width: "25px",
+      //           height: "25px",
+      //           color: "#3A9BDC",
+      //           cursor: "pointer",
+      //         }}
+      //         // onClick={() =>
+      //         //   TestMU.mutate({
+      //         //     ps_id: row.original.purchase_id,
+      //         //     set_id: cell.getValue(),
+      //         //   })
+      //         // }
+      //       />
+
+      //   ),
+      //   enableSorting: false,
+      //   muiTableHeadCellProps: {
+      //     align: "center",
+      //   },
+      //   muiTableBodyCellProps: {
+      //     align: "center",
+      //   },
+      // },
+    ],
+    []
+  );
 
   if (isLoading) {
     return <LoadingBar />;
   }
+
+  const props = {
+    columns: columns,
+    data: data?.data?.result,
+    // isError: isError,
+    // isFetching: isFetching,
+    // isLoading: isFetching,
+    // refetch: refetch,
+    // setColumnFilters: setColumnFilters,
+    // setGlobalFilter: setGlobalFilter,
+    // setPagination: setPagination,
+    // setSorting: setSorting,
+  };
+
   return (
-    <Container maxWidth="xl">
-      <Card
+    <Container maxWidth="lg">
+      {/* <Card
         sx={{
           boxShadow: "6px 6px 20px 0px #808080",
           my: "15px",
@@ -91,7 +231,10 @@ const TestRAS = () => {
             <TableData data={tableData} url="/user/Test-result-analysis/view" />
           </Table>
         </TableContainer>
-      </Card>
+      </Card> */}
+      <Stack mb={2}>
+        <AdvanceTable {...props} />
+      </Stack>
     </Container>
   );
 };

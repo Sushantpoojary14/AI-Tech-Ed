@@ -70,7 +70,7 @@ const ViewFirstSection = ({ data }: any) => {
         })}
       </Box>
       <Box sx={{ width: "100%", textAlign: "right" }}>
-        <Link to={`/user/Test-result-analysis/solution/${data.id}`}>
+        <Link to={`/user/Test-result-analysis/solution/${data?.data?.id}`}>
           <OButton name="View Solution" css={{ width: "170px" }} />
         </Link>
       </Box>

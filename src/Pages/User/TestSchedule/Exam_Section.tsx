@@ -19,21 +19,21 @@ type mutateType = {
   current_timer: string;
   test_answer?: string | number;
 };
-type image ={
-  id:number,
-  image_url:string,
-  q_id:number
-}
+type image = {
+  id: number;
+  image_url: string;
+  q_id: number;
+};
 type questionType = {
   id: number;
-  q_id: 1;
+  q_id: number;
   status_id: number;
   test_answer: null | string;
   uts_id: number;
   test_time: number;
   questions: {
-    conversation?:string;
-    paragraph?:string;
+    conversation?: string;
+    paragraph?: string;
     id: number;
     question: string;
     option_1: string;
@@ -46,7 +46,7 @@ type questionType = {
     tst_id: number;
     marks: null | number;
     status: number;
-    question_image:image[];
+    question_image: image[];
   };
 };
 const Exam_Section = () => {
@@ -236,8 +236,8 @@ const Exam_Section = () => {
       questions && paginate(questions[count + 1]?.id, count + 1);
   };
   return (
-    <Container maxWidth="xl"  sx={{height:'100vh'}}>
-      <Stack direction={"column"} >
+    <Container maxWidth="xl" sx={{ height: "100vh" }}>
+      <Stack direction={"column"}>
         <Stack
           sx={{ width: "100%", my: "5px" }}
           direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
@@ -275,7 +275,6 @@ const Exam_Section = () => {
           direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
           spacing={4}
           sx={{ width: "100%", my: "15px" }}
-          
         >
           <ExamFirstSection
             data={question}

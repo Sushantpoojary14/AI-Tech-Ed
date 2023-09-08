@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AppContext } from "../../../Context/AppContext";
 import tokenAxios from "../../../Hooks/TokenAxios";
 import NotificationStrip from "../../../Components/Headers/NotificationStrip";
+import { data } from "../../Admin/components/Mock_Data";
 const MainDash = () => {
   const { user } = AppContext();
 
@@ -57,11 +58,25 @@ const MainDash = () => {
     },
   });
 
-  //   console.log(getUserResultLimitQuery.data?.result);
+  const packageExpireQuery = useQuery({
+    queryKey: ["check-user-purchase-expire"],
+    queryFn: async () => {
+      const response = await tokenAxios.get(
+        `check-user-purchase-expire/${user?.id}`
+      );
+
+      return await response;
+    },
+  });
+
+  console.log("noti", packageExpireQuery.data);
 
   return (
     <>
-      <NotificationStrip />
+      {packageExpireQuery?.data?.status === 403 && (
+        <NotificationStrip data={packageExpireQuery?.data?.data?.tsp} />
+      )}
+
       <Stack direction="row" sx={{ my: "8px", justifyContent: "center" }}>
         <DashboardIcon
           sx={{

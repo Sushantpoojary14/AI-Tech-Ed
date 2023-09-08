@@ -10,7 +10,10 @@ import {
   RadioGroup,
   Stack,
 } from "@mui/material";
-import { ParaText4 } from "../../../../Components/Common/ParaText";
+import {
+  ConverationComp,
+  ParaText4,
+} from "../../../../Components/Common/ParaText";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
@@ -33,7 +36,7 @@ type image = {
 
 type questionType = {
   id: number;
-  q_id: 1;
+  q_id: number;
   status_id: number;
   test_answer: null | string;
   uts_id: number;
@@ -99,13 +102,10 @@ const ExamFirstSection = (props: props) => {
       status_id: 1,
     }));
 
-   
     props.data &&
       updateAStatus.mutate({ id: props.data?.id, answer: data.Answer });
   };
-  console.log(
-    question?.questions
-  );
+  console.log(question?.questions);
   return (
     <Card
       sx={{
@@ -113,7 +113,7 @@ const ExamFirstSection = (props: props) => {
         display: "flex",
         flexDirection: "column",
         width: "70%",
-        padding: "10px",
+        // paddingY: "10px",
       }}
     >
       {props.isLoading ? (
@@ -135,7 +135,19 @@ const ExamFirstSection = (props: props) => {
               marginTop={3}
               maxWidth="950px"
               maxHeight="550px"
-              sx={{ overflow: "auto" }}
+              sx={{
+                overflow: "auto",
+                "&::-webkit-scrollbar": {
+                  width: 2,
+                },
+                "&::-webkit-scrollbar-track": {
+                  backgroundColor: "white",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "gray",
+                  borderRadius: 2,
+                },
+              }}
               onCopy={(e) => props.preventCopyPaste(e)}
             >
               <Stack>
@@ -150,6 +162,63 @@ const ExamFirstSection = (props: props) => {
                             css={{ fontWeight: "400", marginBottom: "10px" }}
                           />
                         )}
+                        {question?.questions.question_image &&
+                          question?.questions.question_image.length !== 0 && (
+                            <ImageList
+                              sx={{
+                                width: "100%",
+                                // maxHeight: "340px",
+                                maxWidth: "hidden",
+                                display: "flex",
+                                flexDirection: "row", // Horizontal layout
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                mb: "1rem",
+                              }}
+                              cols={3}
+                              gap={7}
+                              // rowHeight={164}
+                            >
+                              {question?.questions.question_image.map(
+                                (item: image, key: number) => (
+                                  <ImageListItem
+                                    key={key}
+                                    sx={{ width: "200px" }}
+                                  >
+                                    <img
+                                      src={
+                                        import.meta.env.VITE_IMAGE_URL +
+                                        item.image_url
+                                      }
+                                      alt={`Image ${key}`}
+                                    />
+                                  </ImageListItem>
+                                )
+                              )}
+                            </ImageList>
+                          )}
+                        {question.questions.conversation && (
+                          <ConverationComp
+                            text={question.questions.conversation}
+                          />
+
+                          // <ParaText4
+                          //   text={question.questions.conversation}
+                          //   css={{ fontWeight: "400", marginBottom: "10px" }}
+                          // />
+                        )}
+                        <ParaText4
+                          text={question.questions.question}
+                          css={{ fontWeight: "400", marginBottom: "10px" }}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <ParaText4
+                          text={question.questions.question}
+                          css={{ fontWeight: "400", marginBottom: "10px" }}
+                        />
+
                         {question?.questions.question_image &&
                           question?.questions.question_image.length !== 0 && (
                             <ImageList
@@ -182,22 +251,7 @@ const ExamFirstSection = (props: props) => {
                               )}
                             </ImageList>
                           )}
-                        {question.questions.conversation && (
-                          <ParaText4
-                            text={question.questions.conversation}
-                            css={{ fontWeight: "400", marginBottom: "10px" }}
-                          />
-                        )}
-                        <ParaText4
-                          text={question.questions.question}
-                          css={{ fontWeight: "400", marginBottom: "10px" }}
-                        />
                       </>
-                    ) : (
-                      <ParaText4
-                        text={question.questions.question}
-                        css={{ fontWeight: "400", marginBottom: "10px" }}
-                      />
                     )}
                   </>
                 )}

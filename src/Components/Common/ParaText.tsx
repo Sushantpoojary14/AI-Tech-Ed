@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 interface props {
-  text: string |number;
+  text: any; // string | number;
   css?: object;
   func?: () => void;
 }
@@ -65,4 +65,40 @@ const ParaText4 = (props: props) => {
     </Typography>
   );
 };
-export { ParaText1, ParaText2, ParaText3, ParaText4 };
+
+const ConverationComp = (props: props) => {
+  const parts = props.text.split(/(\w+):\s+/);
+
+  const speakerParts: any = {};
+  for (let i = 1; i < parts.length; i += 2) {
+    const speakerName = parts[i];
+    const speakerPart = parts[i + 1];
+    speakerParts[speakerName] = speakerPart;
+  }
+
+  return (
+    <>
+      {Object.entries(speakerParts).map(
+        ([speakerName, speakerPart]: any, index) => (
+          <Box key={index} mb={1}>
+            <Typography variant="h6" fontWeight="bold" display="inline">
+              {speakerName}:{" "}
+            </Typography>
+            <Typography
+              display="inline"
+              sx={{
+                ...props.css,
+                fontSize: "20px",
+                color: "#000000",
+              }}
+            >
+              {speakerPart}
+            </Typography>
+          </Box>
+        )
+      )}
+    </>
+  );
+};
+
+export { ParaText1, ParaText2, ParaText3, ParaText4, ConverationComp };
