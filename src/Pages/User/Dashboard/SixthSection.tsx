@@ -24,14 +24,14 @@ const card_content: content[] = [
 ]
 
 const SixthSection = () => {
-    const { isLoading, data, refetch } = useQuery({
-        queryKey: [], queryFn: UseGet('https://dummyjson.com/products?limit=6'),
-    })
+    // const { isLoading, data, refetch } = useQuery({
+    //     queryKey: [], queryFn: UseGet('https://dummyjson.com/products?limit=6'),
+    // })
     
     
-    if(isLoading){
-        return <LoadingBar />
-    }
+    // if(isLoading){
+    //     return <LoadingBar />
+    // }
     return (
         <Container maxWidth="xl" sx={{ my: '20px' }}>
             <Header1 header="PERFORMANCE ANALYSIS" />
