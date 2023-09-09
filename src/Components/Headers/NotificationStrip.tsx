@@ -1,6 +1,7 @@
 import { Box, Typography, makeStyles } from "@mui/material";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
+import { Link } from "react-router-dom";
 
 const slideRightToLeft = keyframes`
   0% {
@@ -12,27 +13,37 @@ const slideRightToLeft = keyframes`
 `;
 
 const AnimatedText = styled.p`
-  font-family: monospace;
-  font-weight: bold;
-  font-size: larger;
-  letter-spacing: 1px;
   animation: ${slideRightToLeft} 25s linear infinite;
-  /* width: 1/4; */
+  /* overflow-y: auto; */
+  white-space: nowrap;
 `;
 
 const NotificationStrip = ({ data }: any) => {
   return (
-    <Box bgcolor={"#ffbf69"} mb={1} py={1} textAlign={"center"}>
-      {data.map((item: any) => (
-        <AnimatedText key={item.id}>
-          Package {item.p_name} is about to expire in {item.remaining_days} Take
-          Exam before {item.valid_till}!!
+    <Box
+      bgcolor={"#ffbf69"}
+      mb={1}
+      py={1}
+      textAlign={"center"}
+      // sx={{ display: "inline" }}
+    >
+      <Link to="/user/Test-schedule">
+        <AnimatedText>
+          {data.map((item: any) => (
+            <Typography
+              component={"span"}
+              key={item.id}
+              mx={1}
+              letterSpacing={1}
+              fontFamily={"monospace"}
+              fontWeight={"bold"}
+            >
+              Package {item.p_name} is about to expire in {item.remaining_days}{" "}
+              day!! Take Exam before {item.valid_till}!!
+            </Typography>
+          ))}
         </AnimatedText>
-      ))}
-      <AnimatedText>
-        Package is about to expire!! Take Exam Fast!! Package is about to
-        expire!! Take Exam Fast!!Package is about to expire!! Take Exam Fast!!
-      </AnimatedText>
+      </Link>
     </Box>
   );
 };

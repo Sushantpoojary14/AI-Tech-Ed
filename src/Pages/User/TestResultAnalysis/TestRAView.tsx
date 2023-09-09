@@ -18,7 +18,7 @@ const TestRAView = () => {
         const response = await tokenAxios.get(`/get-user-result/${id}`);
         // console.log(" Results", response.data?.all_results);
 
-        return response.data?.all_results;
+        return response.data;
       } catch (error) {
         console.error(error);
       }
