@@ -354,6 +354,7 @@ export default function Test2() {
       {/* <button onClick={click}>click</button>
        */}
          {/* <img src="http://127.0.0.1:8000/images/nike.jpg" alt="" /> */}
+         {/* <img src={`${import.meta.env.VITE_IMAGE_URL}/images/boy.jpg`} alt="dd" /> */}
       {data && (
         <PdfMaker
           data={data}

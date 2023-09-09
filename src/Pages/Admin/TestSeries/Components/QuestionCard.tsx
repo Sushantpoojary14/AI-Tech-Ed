@@ -13,6 +13,8 @@ import {
 
 interface QuestionCardProps {
   questionNo?: number;
+  conversation?: string | null;
+  paragraph?: string | null;
   question: string;
   options: {
     [key: string]: string;
@@ -24,6 +26,8 @@ interface QuestionCardProps {
 
 const QuestionCard: React.FC<QuestionCardProps> = ({
   // questionNo,
+  conversation,
+  paragraph,
   question,
   options,
   answer,
@@ -33,9 +37,21 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   return (
     <Card>
       <CardContent>
+        {paragraph && (
+          <Typography variant="h6" component="h2">
+            Question : {paragraph}
+          </Typography>
+        )}
+        {conversation && (
+          <Typography variant="h6" component="h2">
+            {  paragraph ? conversation : `Question : ${conversation}`}
+          </Typography>
+        )}
+       { 
         <Typography variant="h6" component="h2">
-          Question : {question}
+          {(conversation || paragraph)  ?  question :`Question : ${question} `}
         </Typography>
+        }
         {images && images.length !== 0 && (
           <ImageList
             sx={{

@@ -113,7 +113,7 @@ const ExamFirstSection = (props: props) => {
         display: "flex",
         flexDirection: "column",
         width: "70%",
-        // paddingY: "10px",
+        paddingX: "10px",
       }}
     >
       {props.isLoading ? (
@@ -267,32 +267,32 @@ const ExamFirstSection = (props: props) => {
                       <RadioGroup {...field} name="radio-buttons-group">
                         <FormControlLabel
                           checked={
-                            props.data ? question?.test_answer == "1" : false
+                            props.data ? question?.test_answer == "A" : false
                           }
-                          value="1"
+                          value="A"
                           control={<Radio />}
                           label={`A. ${question?.questions.option_1}`}
                         />
                         <FormControlLabel
-                          value="2"
+                          value="B"
                           checked={
-                            props.data ? question?.test_answer == "2" : false
+                            props.data ? question?.test_answer == "B" : false
                           }
                           control={<Radio />}
                           label={`B. ${question?.questions.option_2}`}
                         />
                         <FormControlLabel
-                          value="3"
+                          value="C"
                           checked={
-                            props.data ? question?.test_answer == "3" : false
+                            props.data ? question?.test_answer == "C" : false
                           }
                           control={<Radio />}
                           label={`C. ${question?.questions.option_3}`}
                         />
                         <FormControlLabel
-                          value="4"
+                          value="D"
                           checked={
-                            props.data ? question?.test_answer == "4" : false
+                            props.data ? question?.test_answer == "D" : false
                           }
                           control={<Radio />}
                           label={`D. ${question?.questions.option_4}`}

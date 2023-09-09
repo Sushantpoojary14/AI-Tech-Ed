@@ -87,9 +87,10 @@ const styles = {
     width: "100px",
     height: "100px",
   },
-  mainText:{
-    fontWeight: 800,
-  }
+  mainText: {
+    fontSize: 13,
+    fontWeight: 900 ,
+  },
 };
 
 type questions = {
@@ -191,9 +192,12 @@ const MyDocument = ({
   selected_question: questions[];
   topic: string;
 }) => {
+  console.log(selected_question);
+  
   return (
     <>
       {/* <img src="http://127.0.0.1:8000/images/product-7.jpg" alt="" /> */}
+
       <Document>
         <Page size="A4" style={styles.page}>
           <Text style={styles.header}>{topic?.toUpperCase()}</Text>
@@ -205,7 +209,8 @@ const MyDocument = ({
                     <>
                       {item.Paragraph && (
                         <Text style={styles.paragraph}>
-                          {`${key + 1}: ${item.Paragraph}`}
+                          <Text style={styles.mainText}>{`${key + 1}: `}</Text>
+                          {` ${item.Paragraph}`}
                         </Text>
                       )}
                       {item.Conversation && (
@@ -218,18 +223,36 @@ const MyDocument = ({
                           style={styles.question}
                         >{`${item.Question}`}</Text>
                       ) : (
-                        <Text style={styles.question}>{`${key + 1}:${
-                          item.Question
-                        }`}</Text>
+                        <Text style={styles.question}>
+                        <Text style={styles.mainText}>{`${key + 1}: `}</Text>
+                        {item.Question}
+                      </Text>
                       )}
 
-                      {/* <View> */}
-                      {/* <Image
-                          style={styles.image}
-                          src={import.meta.env.VITE_IMAGE_URL+item.images[0]}
-                        /> */}
-                      {/* <Image src={{ uri:import.meta.env.VITE_IMAGE_URL+item.images[0], method: "GET", headers: { "Cache-Control": "no-cache" }, body: "" }} /> */}
-                      {/* </View> */}
+                      {item?.images && (
+                        <View>
+                          <Text>
+                            {import.meta.env.VITE_IMAGE_URL + item.images[0]}
+                          </Text>
+                          <Image
+                              style={styles.image}
+                              src={
+                                item?.images[0]
+                              }
+                            />
+
+                          <Image
+                            style={styles.image}
+                            src={{
+                              uri:
+                                import.meta.env.VITE_IMAGE_URL + item.images[0],
+                              method: "GET",
+                              headers: { "Cache-Control": "no-cache" },
+                              body: "",
+                            }}
+                          />
+                        </View>
+                      )}
                       <View style={styles.optionContainer}>
                         <Text
                           style={styles.options}

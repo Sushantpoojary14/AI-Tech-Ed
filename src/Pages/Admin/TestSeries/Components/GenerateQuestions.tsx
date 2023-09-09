@@ -59,6 +59,7 @@ const GenerateQuestions = ({
 }: GenerateProps) => {
   const [resData, setResData] = useState([]);
   const [open, setOpen] = useState<boolean>(false);
+  const [errMessage, setErrMessage] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -175,17 +176,11 @@ const GenerateQuestions = ({
       "Explanation",
     ];
     const array2 = Object.keys(csvData[0]);
-    // console.log(
-    //   (JSON.stringify(header1) === JSON.stringify(array2) &&
-    //     topic1[0] == 1 &&
-    //     topic1[0] == 2) ||
-    //     (JSON.stringify(header2) === JSON.stringify(array2) && topic1[0] == 3)
-    // );
+    console.log(topic1[0], topic1[0] == 1 || topic1[0] == 2);
 
     if (
       (JSON.stringify(header1) === JSON.stringify(array2) &&
-        topic1[0] == 1 &&
-        topic1[0] == 2) ||
+        (topic1[0] == 1 || topic1[0] == 2)) ||
       (JSON.stringify(header2) === JSON.stringify(array2) && topic1[0] == 3)
     ) {
       const filteredCsvData = csvData.filter((item: any) => {
@@ -216,7 +211,7 @@ const GenerateQuestions = ({
       // throw exception;
       const responses: any[] = [];
 
-      for (const item of csvData) {
+      for (const [key, item] of csvData.entries()) {
         // console.log("loop", item);
         //     const query = `Generate five unique multiple-choice questions (MCQs) for the topic "${
         //       topic1[1]
@@ -304,7 +299,7 @@ const GenerateQuestions = ({
             ", "
           )}, and for females, use ${femaleNames.join(", ")}.
   
-          2. Maintain the sentence structure while modifying variables like numbers.
+          2. Maintain the question and Explanation sentence structure only modify variables like numbers.
   
           3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
   
@@ -410,7 +405,7 @@ const GenerateQuestions = ({
             ", "
           )}, and for females, use ${femaleNames.join(", ")}.
   
-          2. Maintain the sentence structure while modifying variables like numbers.
+          2.Maintain the question and Explanation sentence structure only modify variables like numbers.
   
           3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
   
@@ -486,20 +481,37 @@ const GenerateQuestions = ({
 
         const message = response?.data?.choices[0]?.message?.content;
         // const questions = message?.split("Question:");
-        console.log(message);
-        const questions = message && JSON.parse(message);
+        let questions;
+        try {
+          questions = message && JSON.parse(message);
+          // throw "error"
+        } catch (e) {
+          setErrMessage(`Question No.- ${key + 1} is proper in Csv`);
+          handleAlertBoxOpen();
+        }
+        // console.log(message);
 
         questions?.map((item: mapData, index: any) => {
-          let data: string[];
-          if (
-            JSON.stringify(Object.keys(item)) ===
-            JSON.stringify(["Paragraph", "Conversation"])
-          ) {
+
+         item.Paragraph =  item.Paragraph ? item.Paragraph.replace(/Paragraph:/g, "") : "";
+         item.Conversation =  item.Conversation ? item.Conversation.replace(/Conversation:/g, "") : "";
+         item.Explanation =  item.Explanation && item.Explanation.replace(/Explanation:/g, "");
+         item.Question =  item.Question && item.Question.replace(/Question:/g, "");
+         let data: string[] = [];
+          const keysToCheck = ["Paragraph", "Conversation"];
+          const itemKeys = Object.keys(item);
+          const exists = keysToCheck.every((key) => {
+            return itemKeys.includes(key);
+          });
+         console.log(exists);
+         ;
+          if (exists) {
             if (item.Paragraph || item.Conversation) {
               const paragraphData = item.Paragraph?.split(" ") ?? [];
               const conversationData = item.Conversation?.split(" ") ?? [];
-              data = [...paragraphData, ...conversationData];
-              console.log(data);
+              const questionData = item.Question.split(" ") ?? [];
+              data = [...paragraphData, ...conversationData, ...questionData];
+              // console.log(data,paragraphData,conversationData,questionData);
             }
           }
 
@@ -510,70 +522,81 @@ const GenerateQuestions = ({
           else {
             data = item.Question.split(" ");
           }
+          // console.log(data);
+
           item.images = []; // Initialize an empty array for images
           let count: number = 1;
+          
+          maleNames.forEach((search: string) => {
+            const caps = search.toUpperCase();
+            let match = data.find(
+              (word: string) => word.toUpperCase() === caps
+            );
+            if (match) {
+              match = data.find((word: string) => word.toUpperCase() === caps);
+            }
+            if (match) {
+              switch (count) {
+                case 1:
+                  item.images?.push("/images/boy.jpg");
+                  count++;
+                  break;
+                case 2:
+                  item.images?.push("/images/left_boy.jpg");
+                  count++;
+                  break;
+                case 3:
+                  item.images?.push("/images/boy.jpg");
+                  count++;
+                  break;
+                default:
+                  item.images?.push("/images/left_boy.jpg");
+                  count++;
+              }
+            }
+          });
+          femaleNames.forEach((search: string) => {
+            const caps = search.toUpperCase();
+            const match = data.find(
+              (word: string) => word.replace(/:/g, "").toUpperCase() === caps
+            );
+
+            if (match) {
+              switch (count) {
+                case 1:
+                  item.images?.push("/images/right_girl.jpg");
+                  count++;
+                  break;
+                case 2:
+                  item.images?.push("/images/girl.jpg");
+                  count++;
+                  break;
+                case 3:
+                  item.images?.push("/images/right_girl.jpg");
+                  count++;
+                  break;
+                default:
+                  item.images?.push("/images/girl.jpg");
+                  count++;
+              }
+            }
+          });
           image_data.forEach(
             (search: { image_name: string; image_url: string }) => {
-              // Convert image name to uppercase for case-insensitive comparison
               const caps = search.image_name.toUpperCase();
 
-              // Check if any word in the question matches the image name
               const match = data.find(
-                (word: string) => word.toUpperCase() === caps
+                (word: string) => word.replace(/:/g, "").toUpperCase() === caps
               );
 
               if (match) {
-                const male = maleNames.find((maleName: string) => {
-                  // console.log(maleName.toUpperCase(), match.toUpperCase());
-                  return maleName.toUpperCase() === match.toUpperCase();
-                });
-                const female = femaleNames.find((femaleName: string) => {
-                  return femaleName.toUpperCase() === match.toUpperCase();
-                });
-                // console.log(male, female ,count);
-                if (male) {
-                  switch (count) {
-                    case 1:
-                      item.images?.push("/images/boy.jpg");
-                      count++;
-                      break;
-                    case 2:
-                      item.images?.push("/images/left_boy.jpg");
-                      count++;
-                      break;
-                    case 3:
-                      item.images?.push("/images/left_boy.jpg");
-                      count++;
-                      break;
-                    default:
-                      item.images?.push("/images/car.jpg");
-                      count++;
-                  }
-                } else if (female) {
-                  console.log(female, count);
-                  switch (count) {
-                    case 1:
-                      item.images?.push("/images/right_girl.jpg");
-                      count++;
-                      break;
-                    case 2:
-                      item.images?.push("/images/girl.jpg");
-                      count++;
-                      break;
-                    case 3:
-                      item.images?.push("/images/girl.jpg");
-                      count++;
-                      break;
-                    default:
-                      item.images?.push("/images/car.jpg");
-                      count++;
-                  }
-                } else {
+                if (match) {
                   item.images?.push(search.image_url); // Add the image URL to the question
                 }
               }
             }
           );
+          // console.log(male,female);
 
           if (item.images?.length === 0) {
             delete item.images; // Remove the 'images' property if it's empty
@@ -591,7 +614,10 @@ const GenerateQuestions = ({
       console.log("Success Data", data);
     },
     onError: (error) => {
-      console.log(error);
+      // console.log(error);
+      setErrMessage(
+        "There is something wrong with Generator. Please try Again"
+      );
       handleAlertBoxOpen();
       // <AlertBox />
     },
@@ -602,7 +628,7 @@ const GenerateQuestions = ({
   return (
     <>
       <AlertBox
-        name="There is something wrong with Generator. Please try Again"
+        name={errMessage}
         type="error"
         bol={open}
         handleAlertBoxClose={handleAlertBoxClose}
@@ -722,6 +748,8 @@ const GenerateQuestions = ({
               <QuestionCard
                 key={index}
                 // questionNo={index + 1}
+                paragraph={questionData.Paragraph}
+                conversation={questionData.Conversation}
                 images={questionData.images}
                 question={questionData.Question}
                 options={questionData.Options}
