@@ -69,7 +69,16 @@ const MainDash = () => {
     },
   });
 
-  console.log("noti", packageExpireQuery.data);
+  const getLatestProductQuery = useQuery({
+    queryKey: ["get-latest-product"],
+    queryFn: async () => {
+      const response = await tokenAxios.get(`get-latest-product`);
+
+      return await response.data;
+    },
+  });
+
+  console.log("getLatestProductQuery", getLatestProductQuery?.data);
 
   return (
     <>
@@ -92,7 +101,7 @@ const MainDash = () => {
       <FirstSectionTwo data={getRemaingProductQuery} />
       <SecondSection />
       <ThirdSection data={getTestScheduleLimitQuery} />
-      <FourthSection />
+      <FourthSection data={getLatestProductQuery?.data} />
       <FifthSection data={getUserResultLimitQuery} />
       {/* <SixthSection /> */}
     </>
