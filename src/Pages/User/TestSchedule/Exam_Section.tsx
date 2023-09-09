@@ -131,6 +131,20 @@ const Exam_Section = () => {
       navigate(`/user/Test-result/${res.data.uts_id}`);
     },
   });
+  const updateAStatus = useMutation({
+    mutationFn: async (data: { id: number; answer: string }) => {
+      console.log(data);
+      return await tokenAxios.post(`/update-test-status/${data.id}`, {
+        status_id: 1,
+        test_answer: data.answer,
+        current_timer: `${minutes}.${seconds}`
+      });
+    },
+    onSuccess: (res) => {
+      console.log(res);
+      queryClient.setQueryData(["question-data"], res);
+    },
+  });
   const { isLoading, data } = useQuery(
     ["question-data"],
     async () => await tokenAxios.get(`/generate-question/${params.id}`)
@@ -250,7 +264,7 @@ const Exam_Section = () => {
           <Stack
             direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
             spacing={2}
-          >
+          > 
             <Button
               variant="outlined"
               sx={{
@@ -279,6 +293,8 @@ const Exam_Section = () => {
           <ExamFirstSection
             data={question}
             count={count}
+            mutation={updateAStatus}
+
             isLoading={isLoading}
             preventCopyPaste={preventCopyPaste}
           />

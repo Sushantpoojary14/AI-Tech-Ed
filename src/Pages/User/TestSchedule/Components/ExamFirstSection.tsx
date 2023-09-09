@@ -17,8 +17,13 @@ import {
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  UseMutationResult,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import tokenAxios from "../../../../Hooks/TokenAxios";
+import { AxiosResponse } from "axios";
 
 type Inputs = {
   A?: string;
@@ -65,6 +70,15 @@ interface props {
   count: number;
   isLoading: boolean;
   preventCopyPaste: (e: React.ClipboardEvent<HTMLDivElement>) => void;
+  mutation: UseMutationResult<
+    AxiosResponse<any, any>,
+    unknown,
+    {
+      id: number;
+      answer: string;
+    },
+    unknown
+  >;
 }
 const ExamFirstSection = (props: props) => {
   const { handleSubmit, reset, control } = useForm<Inputs>();
@@ -103,9 +117,9 @@ const ExamFirstSection = (props: props) => {
     }));
 
     props.data &&
-      updateAStatus.mutate({ id: props.data?.id, answer: data.Answer });
+      props.mutation.mutate({ id: props.data?.id, answer: data.Answer });
   };
-  console.log(question?.questions);
+  // console.log(question?.questions);
   return (
     <Card
       sx={{
