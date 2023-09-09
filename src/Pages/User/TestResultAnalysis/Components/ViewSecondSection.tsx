@@ -2,7 +2,67 @@ import { Stack, Card, Divider, Box } from "@mui/material";
 
 import { ParaText3 } from "../../../../Components/Common/ParaText";
 import PieChart from "../../../../Components/Charts/PieChart";
-const ViewSecondSection = ({ pieData }: any) => {
+import { useState } from "react";
+import LoadingBar from "../../../../Components/Headers/LoadingBar";
+const ViewSecondSection = ({ data }: any) => {
+  if (data.isLoading) {
+    return <LoadingBar />;
+  }
+
+  const [questionDistribution, setQuestionDistribution] = useState<any>({
+    series: Object.values(data?.data?.question_distribution),
+    options: {
+      chart: {
+        width: 380,
+        type: "pie",
+      },
+      labels: ["Right Questions", "Negative Questions", "Left Questions"],
+
+      colors: ["#3A9BDC", "#E84141", "#FA8128"],
+
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  });
+
+  const [marksDistribution, setMarksDistribution] = useState<any>({
+    series: Object.values(data?.data?.marks_distribution),
+    options: {
+      chart: {
+        width: 380,
+        type: "pie",
+      },
+      labels: ["Right Questions", "Negative Questions", "Left Questions"],
+
+      colors: ["#3A9BDC", "#E84141", "#FA8128"],
+
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  });
+
   return (
     <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap" margin="auto">
       <Card
@@ -25,7 +85,7 @@ const ViewSecondSection = ({ pieData }: any) => {
           }}
         />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          {/* <PieChart pieData={pieData} /> */}
+          <PieChart pieData={questionDistribution} />
         </Box>
       </Card>
 
@@ -48,7 +108,7 @@ const ViewSecondSection = ({ pieData }: any) => {
           }}
         />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          {/* <PieChart pieData={pieData} /> */}
+          <PieChart pieData={marksDistribution} />
         </Box>
       </Card>
     </Stack>

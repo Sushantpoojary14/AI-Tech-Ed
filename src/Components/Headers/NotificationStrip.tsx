@@ -38,8 +38,15 @@ const NotificationStrip = ({ data }: any) => {
               fontFamily={"monospace"}
               fontWeight={"bold"}
             >
-              Package {item.p_name} is about to expire in {item.remaining_days}{" "}
-              day!! Take Exam before {item.valid_till}!!
+              Package {item.p_name} is about to expire
+              {item.remaining_days == 0
+                ? " Today!! "
+                : item.remaining_days == 1
+                ? " in " + item.remaining_days + " day!! "
+                : " in " + item.remaining_days + " days!! "}
+              {item.remaining_days == 0
+                ? ""
+                : "Take Exam before " + item.valid_till + " !!"}
             </Typography>
           ))}
         </AnimatedText>

@@ -49,7 +49,7 @@ const FirstSectionTwo = ({ data }: any) => {
   // );
 
   if (data.isLoading) {
-    <LoadingBar />;
+    return <LoadingBar />;
   }
   // console.log("2", data?.data?.remaining_product);
 
