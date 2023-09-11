@@ -140,17 +140,17 @@ const TestRAS = () => {
           align: "center",
         },
       },
-      // {
-      //   accessorKey: "test_time",
-      //   header: "Time Taken",
-      //   size: 150,
-      //   muiTableHeadCellProps: {
-      //     align: "center",
-      //   },
-      //   muiTableBodyCellProps: {
-      //     align: "center",
-      //   },
-      // },
+      {
+        accessorKey: "test_time",
+        header: "Time Taken",
+        size: 150,
+        muiTableHeadCellProps: {
+          align: "center",
+        },
+        muiTableBodyCellProps: {
+          align: "center",
+        },
+      },
       {
         accessorKey: "correct_option",
         header: "Correct Answer",

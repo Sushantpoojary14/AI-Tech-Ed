@@ -50,6 +50,11 @@ const SecondSection = ({ data }: any) => {
         },
       },
     ],
+    // plotOptions:{
+    //   bar:{
+    //     columnWidth:'50%'
+    //   }
+    // }
   };
 
   console.log("lineand bar", data?.data?.performance);

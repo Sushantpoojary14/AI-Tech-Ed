@@ -66,6 +66,10 @@ const ViewFirstSection = ({ data }: any) => {
       data: data.data?.all_results?.total_answered,
     },
     {
+      title: "Rank",
+      data: data.data?.all_results?.rank,
+    },
+    {
       title: "Weak Topics",
       data: uniqueTopics.join(", "),
     },
