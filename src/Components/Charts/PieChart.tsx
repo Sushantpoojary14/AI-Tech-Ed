@@ -49,38 +49,12 @@ import ReactApexChart from "react-apexcharts";
 // };
 
 // const series = [12, 19, 3];
-const PieChart = () => {
-// const PieChart = ({ pieData }: unknown) => {
-  const [pieData1, setPieData] = useState< any>({
-    series: [12, 19, 3],
-    options: {
-      chart: {
-        width: 380,
-        type: "pie",
-      },
-      labels: ["Right Questions", "Left Questions", "Negative Questions"],
-
-      colors: ["#3A9BDC", "#FA8128", "#E84141"],
-
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: "bottom",
-            },
-          },
-        },
-      ],
-    },
-  });
+// const PieChart = () => {
+const PieChart = ({ pieData }: any) => {
   return (
     <ReactApexChart
-      options={pieData1.options}
-      series={pieData1.series}
+      options={pieData.options}
+      series={pieData.series}
       type="pie"
       width={380}
     />

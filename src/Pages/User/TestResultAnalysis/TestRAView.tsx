@@ -25,6 +25,34 @@ const TestRAView = () => {
     },
   });
 
+  const getMarksDistributionQuery = useQuery({
+    queryKey: ["get-marks-Distribution"],
+    queryFn: async () => {
+      try {
+        const response = await tokenAxios.get(`/get-marks-Distribution/${id}`);
+        // console.log(" getMarksDistributionQuery", response.data);
+
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
+  const getQuestionTimeQuery = useQuery({
+    queryKey: ["get-question-time"],
+    queryFn: async () => {
+      try {
+        const response = await tokenAxios.get(`/get-question-time/${id}`);
+        // console.log(" getMarksDistributionQuery", response.data);
+
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
   const [barData, setBarData] = useState({
     labels: [
       "SOTT Reading Test 1",
@@ -41,33 +69,6 @@ const TestRAView = () => {
     ],
   });
 
-  const [lineData, setLineData] = useState({
-    labels: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-      22, 23, 24, 25, 26, 27, 28, 29, 30,
-    ],
-    datasets: [
-      {
-        label: "Seconds",
-        data: [
-          5, 8, 15, 30, 40, 32, 12, 53, 21, 22, 5, 8, 15, 30, 40, 32, 12, 53,
-          21, 22, 5, 8, 15, 30, 40, 32, 12, 53, 21, 22,
-        ],
-        backgroundColor: "#3A9BDC",
-      },
-    ],
-  });
-
-  const [pieData, setPieData] = useState({
-    labels: ["Right Questions", "Left Questions", "Negative Questions"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [12, 19, 3],
-        backgroundColor: ["#3A9BDC", "#FA8128", "#E84141"],
-      },
-    ],
-  });
   return (
     <Container maxWidth="xl">
       <Stack
@@ -78,8 +79,8 @@ const TestRAView = () => {
       >
         <ViewFirstSection data={getUserTestResultQuery} />
         <Stack direction="column" useFlexGap flexWrap="wrap">
-          <ViewSecondSection pieData={pieData} />
-          {/* <ViewThirdSection lineData={lineData} /> */}
+          <ViewSecondSection data={getMarksDistributionQuery} />
+          <ViewThirdSection data={getQuestionTimeQuery} />
           <ViewFourthSection barData={barData} />
         </Stack>
       </Stack>
