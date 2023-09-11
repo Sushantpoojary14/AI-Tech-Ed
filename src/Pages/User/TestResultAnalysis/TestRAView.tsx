@@ -7,9 +7,11 @@ import ViewSecondSection from "./Components/ViewSecondSection";
 import ViewThirdSection from "./Components/ViewThirdSection";
 import { useQuery } from "@tanstack/react-query";
 import tokenAxios from "../../../Hooks/TokenAxios";
+import { AppContext } from "../../../Context/AppContext";
 
 const TestRAView = () => {
   const { id } = useParams();
+  const { user } = AppContext();
 
   const getUserTestResultQuery = useQuery({
     queryKey: ["get-user-result"],
@@ -53,20 +55,20 @@ const TestRAView = () => {
     },
   });
 
-  const [barData, setBarData] = useState({
-    labels: [
-      "SOTT Reading Test 1",
-      "SOTT Math Test 1",
-      "SOTT Thinking Skills Test 1",
-      "SOTT  Skills Test 2",
-    ],
-    datasets: [
-      {
-        label: "Marks",
-        data: [20, 22, 17, 15],
-        backgroundColor: "#FA8128",
-      },
-    ],
+  const getPecentageAndRankQuery = useQuery({
+    queryKey: ["get-percentage-rank"],
+    queryFn: async () => {
+      try {
+        const response = await tokenAxios.get(
+          `/get-percentage-rank/${id}/${user?.id}`
+        );
+        console.log(" getPecentageAndRankQuery", response.data);
+
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   });
 
   return (
@@ -81,7 +83,7 @@ const TestRAView = () => {
         <Stack direction="column" useFlexGap flexWrap="wrap">
           <ViewSecondSection data={getMarksDistributionQuery} />
           <ViewThirdSection data={getQuestionTimeQuery} />
-          {/* <ViewFourthSection barData={barData} /> */}
+          {/* <ViewFourthSection data={getPecentageAndRankQuery} /> */}
         </Stack>
       </Stack>
     </Container>

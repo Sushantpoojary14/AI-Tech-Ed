@@ -78,7 +78,16 @@ const MainDash = () => {
     },
   });
 
-  console.log("getLatestProductQuery", getLatestProductQuery?.data);
+  const getOverallPercentage = useQuery({
+    queryKey: ["get_overAll_percentage_limit"],
+    queryFn: async () => {
+      const response = await tokenAxios.get(
+        `get_overAll_percentage_limit/${user?.id}`
+      );
+
+      return await response.data;
+    },
+  });
 
   return (
     <>
@@ -99,7 +108,7 @@ const MainDash = () => {
       </Stack>
       <FirstSection data={getUserSetQuery} />
       <FirstSectionTwo data={getRemaingProductQuery} />
-      <SecondSection />
+      <SecondSection data={getOverallPercentage} />
       <ThirdSection data={getTestScheduleLimitQuery} />
       <FourthSection data={getLatestProductQuery?.data} />
       <FifthSection data={getUserResultLimitQuery} />
