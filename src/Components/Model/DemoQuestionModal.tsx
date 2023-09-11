@@ -69,7 +69,7 @@ const DemoQuestionModal = ({ handleClose, open, data }: ModalProps) => {
             </IconButton>
 
             <Box mt={3}>
-              {data?.data?.topic_questions.map((item: any) => (
+              {data?.data?.topic_questions.map((item: any,key:number) => (
                 <Accordion key={item.id}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -79,7 +79,7 @@ const DemoQuestionModal = ({ handleClose, open, data }: ModalProps) => {
                     <Typography>{item.topic}</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <DemoQuestionComp questions={item?.get_question} />
+                    <DemoQuestionComp questions={item?.get_question} total_questions={item}/>
                   </AccordionDetails>
                 </Accordion>
               ))}

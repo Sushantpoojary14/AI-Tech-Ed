@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import {
   Typography,
   Radio,
@@ -9,9 +9,13 @@ import {
   FormControl,
   InputLabel,
   Box,
+  FormLabel,
 } from "@mui/material";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Controller, useForm } from "react-hook-form";
+import { BButton, BButton2 } from "../../../../Components/Common/Button";
+import PdfMaker from "../../../Admin/TestSeries/Components/PdfMaker";
 
 const StyledRoot = styled.div`
   text-align: center;
@@ -74,15 +78,18 @@ const StyledBuyButton = styled(Button)`
 const StyledButton = styled(Button)`
   margin-top: 2px;
 `;
-
-const DemoQuestionComp = ({ questions }: any) => {
+type FormValues = {
+  total_questions: number;
+};
+const DemoQuestionComp = ({ questions,total_questions }: any) => {
+  const [setData, setSetData] = useState<any>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
   const [userAnswers, setUserAnswers] = useState(
     Array(questions.length).fill("")
   );
   const [showResults, setShowResults] = useState(false);
-
+  const { register, control, watch, reset } = useForm<FormValues>();
   const handleAnswerChange = (e: any) => {
     const updatedUserAnswers = [...userAnswers];
     updatedUserAnswers[currentQuestionIndex] = e.target.value;
@@ -140,33 +147,63 @@ const DemoQuestionComp = ({ questions }: any) => {
     <StyledRoot>
       {showResults ? (
         <div>
-          <Typography variant="h5">Quiz Results</Typography>
+          {/* <Typography variant="h5">Quiz Results</Typography>
           <Typography variant="body1">
             Your Score: {calculateScore()} out of {questions.length}
-          </Typography>
-          <StyledStack direction="row" spacing={2}>
-            <FormControl>
-              <InputLabel htmlFor="select-option">
-                Select Question to buy
-              </InputLabel>
-              <StyledSelect
-                label="Select Question to buy"
-                value={selectedOption}
-                onChange={handleSelectChange}
+          </Typography> */}
+          <StyledStack flexDirection={"column"} padding={10} spacing={2} >
+            <Stack spacing={1}  width={340}>
+              <FormLabel
+                sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                id="demo-controlled-open-select-label"
               >
-                <MenuItem value={"15"}>15 Questions</MenuItem>
-                <MenuItem value={"30"}>30 Questions</MenuItem>
-                <MenuItem value={"45"}>45 Questions</MenuItem>
-              </StyledSelect>
-            </FormControl>
+                Total Questions
+              </FormLabel>
 
-            <StyledBuyButton
-              variant="contained"
-              color="primary"
-              onClick={restartQuiz}
-            >
-              Buy
-            </StyledBuyButton>
+              <Controller
+                name="total_questions"
+                control={control}
+                defaultValue={0} // Set a default value here
+                render={({ field }) => (
+                  <FormControl fullWidth>
+                    <Select
+                      {...field}
+                      placeholder="Enter Total Questions"
+                      // sx={{ width: "50%" }}
+                    >
+                      <MenuItem value={0} disabled>
+                        <em>None</em>
+                      </MenuItem>
+                      {/* <MenuItem value={5}>5</MenuItem> */}
+                      <MenuItem value={15}>15</MenuItem>
+                      <MenuItem value={20}>20</MenuItem>
+                      <MenuItem value={25}>25</MenuItem>
+                      <MenuItem value={30}>30</MenuItem>
+                      <MenuItem value={50}>50</MenuItem>
+                    </Select>
+                  </FormControl>
+                )}
+              />
+            </Stack>
+
+            {total_questions && watch("total_questions") ? (
+              <PdfMaker
+                bol={!!total_questions}
+                data={total_questions?.total_questions}
+                //   randomG={true}
+                button={
+                  <BButton
+                    type="button"
+                    name="Download"
+                    css={{ width: "340" }}
+                  />
+                }
+                total={watch("total_questions")}
+                topic={total_questions?.topic}
+              />
+            ) : (
+              <BButton type="button" name="Download" css={{ width: "340px" }} />
+            )}
           </StyledStack>
         </div>
       ) : (

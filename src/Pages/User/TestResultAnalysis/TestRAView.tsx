@@ -74,14 +74,14 @@ const TestRAView = () => {
       <Stack
         direction="row"
         spacing={{ lg: 3, md: 0, sm: 0, xs: 0 }}
-        flexWrap="wrap"
+        // flexWrap="wrap"
         sx={{ width: "100%" }}
       >
         <ViewFirstSection data={getUserTestResultQuery} />
         <Stack direction="column" useFlexGap flexWrap="wrap">
           <ViewSecondSection data={getMarksDistributionQuery} />
           <ViewThirdSection data={getQuestionTimeQuery} />
-          <ViewFourthSection barData={barData} />
+          {/* <ViewFourthSection barData={barData} /> */}
         </Stack>
       </Stack>
     </Container>

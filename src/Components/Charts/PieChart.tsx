@@ -56,7 +56,7 @@ const PieChart = ({ pieData }: any) => {
       options={pieData.options}
       series={pieData.series}
       type="pie"
-      width={380}
+      width={400}
     />
   );
   //  <Pie data={pieData} options={options} />;

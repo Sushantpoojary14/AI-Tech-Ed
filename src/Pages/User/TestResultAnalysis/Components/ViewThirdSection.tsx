@@ -29,7 +29,7 @@ const ViewThirdSection = ({ data }: any) => {
       sx={{
         boxShadow: "6px 6px 20px 0px #808080",
         my: "15px",
-        width: { lg: "1020px", md: "900px", sm: "900px", xs: "360px" },
+        width: { lg: "800px", md: "800px", sm: "800px", xs: "360px" },
         height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
         p: "14px",
       }}
