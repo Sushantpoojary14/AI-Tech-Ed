@@ -17,6 +17,8 @@ import tokenAxios from "../../../Hooks/TokenAxios";
 import { AppContext } from "../../../Context/AppContext";
 import { MRT_ColumnDef } from "material-react-table";
 import AdvanceTable from "../../Admin/components/AdvanceTable";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import SolutionsModal from "../../../Components/Model/SolutionsModal";
 
 interface option {
   name: string;
@@ -87,6 +89,13 @@ const TestRAS = () => {
   const { id } = useParams();
   // const {user} = AppContext()
 
+  const [questionID, setQuestionID] = useState("");
+  const [open, setOpen] = useState(false);
+  const handleOpen = (id: string) => {
+    setQuestionID(id);
+    setOpen(true);
+  };
+
   const { isLoading, data, refetch } = useQuery({
     queryKey: ["get-user-set-result"],
     queryFn: () => {
@@ -94,7 +103,10 @@ const TestRAS = () => {
     },
   });
 
-  console.log("data", data?.data?.result);
+  // console.log(
+  //   "getQuestionSolutionQuery",
+  //   getQuestionSolutionQuery.data?.data?.questions
+  // );
 
   const columns = useMemo<MRT_ColumnDef<SetResult>[]>(
     () => [
@@ -127,12 +139,18 @@ const TestRAS = () => {
       {
         accessorKey: "test_answer",
         header: "Marked Answered",
-        size: 150,
+        size: 100,
+        muiTableHeadCellProps: {
+          align: "center",
+        },
+        muiTableBodyCellProps: {
+          align: "center",
+        },
       },
       {
         accessorKey: "marks",
         header: "Marks",
-        size: 150,
+        size: 100,
         muiTableHeadCellProps: {
           align: "center",
         },
@@ -143,7 +161,7 @@ const TestRAS = () => {
       {
         accessorKey: "test_time",
         header: "Time Taken",
-        size: 150,
+        size: 100,
         muiTableHeadCellProps: {
           align: "center",
         },
@@ -154,7 +172,7 @@ const TestRAS = () => {
       {
         accessorKey: "correct_option",
         header: "Correct Answer",
-        size: 150,
+        size: 100,
         muiTableHeadCellProps: {
           align: "center",
         },
@@ -163,36 +181,29 @@ const TestRAS = () => {
         },
       },
 
-      // {
-      //   accessorKey: "id",
-      //   header: "",
-      //   size: 200,
-      //   Cell: ({ cell, row }: any) => (
-
-      //       <FindInPageOutlinedIcon
-      //         sx={{
-      //           width: "25px",
-      //           height: "25px",
-      //           color: "#3A9BDC",
-      //           cursor: "pointer",
-      //         }}
-      //         // onClick={() =>
-      //         //   TestMU.mutate({
-      //         //     ps_id: row.original.purchase_id,
-      //         //     set_id: cell.getValue(),
-      //         //   })
-      //         // }
-      //       />
-
-      //   ),
-      //   enableSorting: false,
-      //   muiTableHeadCellProps: {
-      //     align: "center",
-      //   },
-      //   muiTableBodyCellProps: {
-      //     align: "center",
-      //   },
-      // },
+      {
+        accessorKey: "id",
+        header: "",
+        size: 100,
+        Cell: ({ cell }: any) => (
+          <ArticleOutlinedIcon
+            sx={{
+              width: "25px",
+              height: "25px",
+              color: "#3A9BDC",
+              cursor: "pointer",
+            }}
+            onClick={() => handleOpen(cell.getValue())} //cell.getValue()
+          />
+        ),
+        //   enableSorting: false,
+        muiTableHeadCellProps: {
+          align: "center",
+        },
+        muiTableBodyCellProps: {
+          align: "center",
+        },
+      },
     ],
     []
   );
@@ -215,8 +226,9 @@ const TestRAS = () => {
   };
 
   return (
-    <Container maxWidth="lg">
-      {/* <Card
+    <>
+      <Container maxWidth="lg">
+        {/* <Card
         sx={{
           boxShadow: "6px 6px 20px 0px #808080",
           my: "15px",
@@ -225,17 +237,25 @@ const TestRAS = () => {
           py: "20px",
         }}
       >
-        <TableContainer>
-          <Table sx={{ minWidth: 650 }}>
-            <TableHeader header={header} />
-            <TableData data={tableData} url="/user/Test-result-analysis/view" />
-          </Table>
+      <TableContainer>
+      <Table sx={{ minWidth: 650 }}>
+      <TableHeader header={header} />
+      <TableData data={tableData} url="/user/Test-result-analysis/view" />
+      </Table>
         </TableContainer>
       </Card> */}
-      <Stack mb={2}>
-        <AdvanceTable {...props} />
-      </Stack>
-    </Container>
+        <Stack mb={2}>
+          <AdvanceTable {...props} />
+        </Stack>
+      </Container>
+
+      <SolutionsModal
+        setOpen={setOpen}
+        setQuestionID={setQuestionID}
+        open={open}
+        id={questionID}
+      />
+    </>
   );
 };
 

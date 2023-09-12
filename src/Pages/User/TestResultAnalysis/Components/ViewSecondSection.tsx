@@ -16,7 +16,11 @@ const ViewSecondSection = ({ data }: any) => {
         width: 380,
         type: "pie",
       },
-      labels: ["Right Questions", "Negative Questions", "Left Questions"],
+      labels: [
+        "Correct Questions",
+        "Wrong Questions",
+        "Not Attempted Questions",
+      ],
 
       colors: ["#3A9BDC", "#E84141", "#FA8128"],
 
@@ -43,7 +47,11 @@ const ViewSecondSection = ({ data }: any) => {
         width: 380,
         type: "pie",
       },
-      labels: ["Right Questions", "Negative Questions", "Left Questions"],
+      labels: [
+        "Correct Questions",
+        "Wrong Questions",
+        "Not Attempted Questions",
+      ],
 
       colors: ["#3A9BDC", "#E84141", "#FA8128"],
 

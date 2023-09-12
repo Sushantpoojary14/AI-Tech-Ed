@@ -56,9 +56,9 @@ const ParaText4 = (props: props) => {
     <Typography
       onClick={props.func}
       sx={{
-        ...props.css,
         fontSize: "20px",
         color: "#000000",
+        ...props.css,
       }}
     >
       {props.text}
