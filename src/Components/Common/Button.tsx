@@ -27,7 +27,7 @@ const DownloadIconButton = (props: props) => {
       onClick={props.func}
       disabled={props.disabled}
     >
-      <FileDownloadOutlinedIcon />
+      <FileDownloadOutlinedIcon /> {props.name}
     </Button>
   );
 };

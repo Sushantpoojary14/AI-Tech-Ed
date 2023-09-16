@@ -31,6 +31,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import AlertBox from "../../../../Components/Common/AlertBox";
 import EditTestSetModal from "../../../../Components/Model/EditTestSetModal";
+import { fetchAndReplaceImages } from "../../../../utils/docx";
+import { demoDoc } from "../../../../utils/test";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -137,15 +139,24 @@ const SectionTwo = ({
     mutationFn: async (id: number) => {
       return await adminTokenAxios.get(`admin/get-set-question/${id}`);
     },
-    onSettled: (res) => {
-      setSetData(res?.data.set_questions);
-      console.log(setData);
-
-      if (buttonRef.current) {
-        buttonRef.current.click();
-      }
+    onSuccess: (res) => {
+      const data = res?.data?.set_questions;
+      console.log("Question66", data);
+      fetchAndReplaceImages(data);
     },
+    // onSettled: (res) => {
+    //   setSetData(res?.data.set_questions);
+    //   console.log(setData);
+
+    //   if (buttonRef.current) {
+    //     buttonRef.current.click();
+    //   }
+    // },
   });
+
+  const handleDownload = (id: number) => {
+    getSetQuestion.mutate(id);
+  };
 
   return (
     <>
@@ -269,6 +280,12 @@ const SectionTwo = ({
                             button={<DownloadIconButton type="button" />}
                             total={set?.questions?.length}
                             topic={set?.set_name}
+                          />
+
+                          <DownloadIconButton
+                            type="button"
+                            name="Docx"
+                            func={() => handleDownload(set.id)}
                           />
 
                           <SwitchComp
