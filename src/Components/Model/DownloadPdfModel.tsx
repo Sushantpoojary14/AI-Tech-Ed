@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import PdfMaker from "../../Pages/Admin/TestSeries/Components/PdfMaker";
 import { BButton, BButton2 } from "../Common/Button";
+import { fetchAndReplaceImagesTopic } from "../../utils/docx";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -46,7 +47,7 @@ ModalProps) => {
   // console.log(watch("total_questions"));
   // console.log(data);
   useEffect(() => {
-    setSetData(null)
+    setSetData(null);
     reset({
       total_questions: 0,
     });
@@ -55,7 +56,6 @@ ModalProps) => {
   useEffect(() => {
     setSetData(data);
   }, [watch("total_questions")]);
- 
 
   return (
     <Modal
@@ -121,20 +121,33 @@ ModalProps) => {
               />
             </Stack>
             {setData ? (
-              <PdfMaker
-                bol={!!setData}
-                data={setData?.get_question}
-                //   randomG={true}
-                button={
-                  <BButton
-                    type="button"
-                    name="Download"
-                    css={{ width: "100%" }}
-                  />
-                }
-                total={watch("total_questions")}
-                topic={setData?.t_name}
-              />
+              <Stack direction={"row"} justifyContent={"space-between"}>
+                <PdfMaker
+                  bol={!!setData}
+                  data={setData?.get_question}
+                  //   randomG={true}
+                  button={
+                    <BButton
+                      type="button"
+                      name="Download PDF"
+                      css={{ width: "100%" }}
+                    />
+                  }
+                  total={watch("total_questions")}
+                  topic={setData?.t_name}
+                />
+                <BButton
+                  type="button"
+                  name="Download Docx"
+                  // css={{ width: "100%" }}
+                  func={() =>
+                    fetchAndReplaceImagesTopic(
+                      setData,
+                      watch("total_questions")
+                    )
+                  }
+                />
+              </Stack>
             ) : (
               <BButton type="button" name="Download" css={{ width: "100%" }} />
             )}

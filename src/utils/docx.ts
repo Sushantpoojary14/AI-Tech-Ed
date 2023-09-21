@@ -28,6 +28,95 @@ function blobToBase64(blob: any) {
   });
 }
 
+export async function fetchAndReplaceImagesTopic(apiData: any, total: any) {
+  let selected_question: any = [];
+  // console.log(props.data,props.total);
+
+  // const random: questions[] = [];
+  const questions1: any = apiData.getQuestion;
+  console.log("questions1", questions1);
+  if (!!questions1) {
+    if (questions1?.length > 15) {
+      let count: number = total;
+      for (let i = count - 1; i >= 0; i--) {
+        const ran = Math.floor(Math.random() * (i + 1));
+        const temp = questions1[i];
+        questions1[i] = questions1[ran];
+        questions1[ran] = temp;
+        selected_question.push(questions1[i]);
+      }
+    } else {
+      selected_question = questions1;
+    }
+
+    // console.log(selected_question);
+  }
+
+  const {
+    id,
+    tspc_id,
+    t_name,
+    status,
+    tsc_id,
+    ts_id,
+    // getQuestion: questions,
+  } = apiData;
+  console.log("selected_question", selected_question);
+
+  const newQuestions = await Promise.all(
+    selected_question.map(async (question: any) => {
+      try {
+        const images = question.question_image;
+        const base64Images = await Promise.all(
+          images.map(async (image: any) => {
+            const imageUrl =
+              import.meta.env.VITE_IMAGE_URL + `${image.image_url}`; // Replace with your base URL
+            const response = await axios.get(imageUrl, {
+              responseType: "blob",
+            });
+
+            if (response.status === 200) {
+              const blob = response.data;
+              // console.log("BLOB", blob);
+
+              const base64Image = await blobToBase64(blob);
+              return base64Image;
+            } else {
+              console.error(`Failed to fetch image: ${imageUrl}`);
+              return null; // Return null for failed requests
+            }
+          })
+        );
+
+        // Replace the image URLs with Base64-encoded images in the question object
+        const updatedQuestion = { ...question };
+        updatedQuestion.images = base64Images;
+
+        return updatedQuestion;
+      } catch (error) {
+        console.error("Error fetching or encoding image:", error);
+        return question; // Return the original question object on error
+      }
+    })
+  );
+
+  // Now, newQuestions contains updated question objects with Base64-encoded images
+  // console.log("newQuestions", newQuestions);
+
+  const updatedApiData = {
+    id,
+    tspc_id,
+    t_name,
+    status,
+    tsc_id,
+    ts_id,
+    question: newQuestions,
+  };
+  console.log("updatedApiData", updatedApiData);
+  downloadAsDocx(updatedApiData);
+  // If needed, you can use the newQuestions data in your application
+}
+
 export async function fetchAndReplaceImages(apiData: any) {
   const {
     id,
@@ -181,7 +270,7 @@ export const downloadAsDocx = async (data: any) => {
       {
         children: [
           new Paragraph({
-            text: `${data?.set_name}`,
+            text: `${data?.set_name || data?.t_name}`,
             heading: HeadingLevel.HEADING_1,
           }),
           ...data?.question?.flatMap((question: any, index: number) => {
@@ -189,7 +278,12 @@ export const downloadAsDocx = async (data: any) => {
               new Paragraph({
                 children: [
                   new TextRun({
-                    text: `Discussion:`,
+                    text: `${
+                      question?.paragraph == null ||
+                      question?.paragraph == undefined
+                        ? ""
+                        : "Discussion"
+                    }`,
                     bold: true,
                   }),
                 ],
@@ -331,7 +425,7 @@ export const downloadAsDocx = async (data: any) => {
 
   Packer.toBlob(doc).then((blob) => {
     // console.log(blob);
-    saveAs(blob, `${data?.set_name}.docx`);
+    saveAs(blob, `${data?.set_name || data?.t_name}.docx`);
     console.log("Document created successfully");
   });
 };
