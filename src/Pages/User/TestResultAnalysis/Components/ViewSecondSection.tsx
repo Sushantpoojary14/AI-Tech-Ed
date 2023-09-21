@@ -72,12 +72,19 @@ const ViewSecondSection = ({ data }: any) => {
   });
 
   return (
-    <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap" margin="auto">
+    <Stack
+      direction="row"
+      justifyContent={"space-between"}
+      useFlexGap
+      flexWrap="wrap"
+      margin="auto"
+      width={"100%"}
+    >
       <Card
         sx={{
           boxShadow: "6px 6px 20px 0px #808080",
-          my: "15px",
-          width: { lg: "390px", md: "400px", sm: "400px", xs: "360px" },
+          // my: "15px",
+          width: { lg: "47%", md: "400px", sm: "400px", xs: "360px" },
           height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
           p: "14px",
           // pl: "14px",
@@ -100,8 +107,8 @@ const ViewSecondSection = ({ data }: any) => {
       <Card
         sx={{
           boxShadow: "6px 6px 20px 0px #808080",
-          my: "15px",
-          width: { lg: "390px", md: "400px", sm: "400px", xs: "360px" },
+          // my: "15px",
+          width: { lg: "47%", md: "400px", sm: "400px", xs: "360px" },
           height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
           p: "14px",
         }}

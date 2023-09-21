@@ -28,8 +28,8 @@ const ViewThirdSection = ({ data }: any) => {
     <Card
       sx={{
         boxShadow: "6px 6px 20px 0px #808080",
-        my: "15px",
-        width: { lg: "800px", md: "800px", sm: "800px", xs: "360px" },
+        // my: "20px",
+        width:  "100%" ,
         height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
         p: "14px",
       }}

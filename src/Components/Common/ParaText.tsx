@@ -10,10 +10,10 @@ const ParaText1 = (props: props) => {
     <Typography
       onClick={props.func}
       sx={{
-        ...props.css,
         fontSize: "16px",
         fontWeight: 400,
         color: "#000000",
+        ...props.css,
       }}
     >
       {props.text}
@@ -40,10 +40,11 @@ const ParaText3 = (props: props) => {
     <Typography
       onClick={props.func}
       sx={{
-        ...props.css,
         fontSize: "16px",
         fontWeight: 550,
         color: "#000000",
+        
+        ...props.css,
       }}
     >
       {props.text}

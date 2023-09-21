@@ -10,6 +10,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DemoQuestionComp from "../../Pages/User/TestResultAnalysis/Components/DemoQuestionComp";
+import { ParaText1, ParaText3 } from "../Common/ParaText";
+import { Divider } from "@mui/material";
 
 const style = {
   position: "absolute" as "absolute",
@@ -67,19 +69,34 @@ const DemoQuestionModal = ({ handleClose, open, data }: ModalProps) => {
             >
               <CloseIcon />
             </IconButton>
-
+            <ParaText3
+              text="Buy Weak Topic Questions"
+              css={{ textAlign: "center" }}
+            />
+            <Divider
+              sx={{
+                borderColor: "#FA8128",
+                borderWidth: "1px",
+                borderRadius: "3px",
+                width: "100%",
+                my:'10px'
+              }}
+            />
             <Box mt={3}>
-              {data?.data?.topic_questions.map((item: any,key:number) => (
+              {data?.data?.topic_questions.map((item: any, key: number) => (
                 <Accordion key={item.id}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
-                    <Typography>{item.topic}</Typography>
+                    <ParaText3 text={item.topic}/>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <DemoQuestionComp questions={item?.get_question} total_questions={item}/>
+                    <DemoQuestionComp
+                      questions={item?.get_question}
+                      total_questions={item}
+                    />
                   </AccordionDetails>
                 </Accordion>
               ))}

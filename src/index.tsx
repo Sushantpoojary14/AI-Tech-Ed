@@ -25,7 +25,7 @@ root.render(
           </MainContext>
         </MainUserContext>
       </HashRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   </React.StrictMode>
 );

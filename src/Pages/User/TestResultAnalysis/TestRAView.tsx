@@ -74,17 +74,17 @@ const TestRAView = () => {
   return (
     <Container maxWidth="xl">
       <Stack
-        direction="row"
+        direction="column"
         spacing={{ lg: 3, md: 0, sm: 0, xs: 0 }}
         // flexWrap="wrap"
-        sx={{ width: "100%" }}
+        sx={{ width: "100%" , my: "20px",}}
       >
         <ViewFirstSection data={getUserTestResultQuery} />
-        <Stack direction="column" useFlexGap flexWrap="wrap">
+        {/* <Stack direction="column" useFlexGap flexWrap="wrap"> */}
           <ViewSecondSection data={getMarksDistributionQuery} />
           <ViewThirdSection data={getQuestionTimeQuery} />
           {/* <ViewFourthSection data={getPecentageAndRankQuery} /> */}
-        </Stack>
+        {/* </Stack> */}
       </Stack>
     </Container>
   );

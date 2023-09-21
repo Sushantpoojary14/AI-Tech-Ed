@@ -1,4 +1,8 @@
-import { ParaText1, ParaText3 } from "../../../../Components/Common/ParaText";
+import {
+  ParaText1,
+  ParaText3,
+  ParaText4,
+} from "../../../../Components/Common/ParaText";
 import { Container, Stack, Card, Divider, Box } from "@mui/material";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -51,26 +55,29 @@ const ViewFirstSection = ({ data }: any) => {
   if (data.isLoading) {
     return <LoadingBar />;
   }
-
+  const result = data?.data?.all_results;
   const details: Detail[] = [
-    { title: "Set Name", data: data.data?.all_results?.set_name },
-    { title: "Time Taken", data: data.data?.all_results?.time_taken },
-    { title: "Marks Secured", data: data.data?.all_results.total_marks },
-    { title: "Total Marks", data: 35 }, //data.data?.all_results?.total_marks
-    { title: "Percentage", data: data.data?.all_results?.percentage },
-    { title: "Correct Answers", data: data.data?.all_results?.total_marks },
-    { title: "Wrong Answers", data: 35 - data.data?.all_results?.total_marks },
-    { title: "Total Questions", data: 35 },
+    // { title: "Set Name", data: result?.set_name },
+    { title: "Time Taken : ", data: result?.time_taken },
+    { title: "Marks Secured : ", data: result.total_marks },
+    { title: "Total Marks : ", data: 35 }, //result?.total_marks
+    { title: "Percentage : ", data: result?.percentage },
+    { title: "Correct Answers : ", data: result?.total_marks },
     {
-      title: "Questions Attempted",
-      data: data.data?.all_results?.total_answered,
+      title: "Wrong Answers : ",
+      data: 35 - result?.total_marks,
+    },
+    { title: "Total Questions : ", data: 35 },
+    {
+      title: "Questions Attempted : ",
+      data: result?.total_answered,
     },
     {
-      title: "Rank",
-      data: data.data?.all_results?.rank,
+      title: "Rank : ",
+      data: result?.rank,
     },
     {
-      title: "Weak Topics",
+      title: "Weak Topics : ",
       data: uniqueTopics.join(", "),
     },
   ];
@@ -79,49 +86,89 @@ const ViewFirstSection = ({ data }: any) => {
       <Card
         sx={{
           boxShadow: "6px 6px 20px 0px #808080",
-          my: "15px",
-          width: "400px",
-          p: "14px",
+          mt: "15px",
+          width: "100%",
+          px: "20px",
         }}
       >
-        <ParaText3 text="Your Data" />
-        <Divider
-          sx={{
-            borderColor: "#FA8128",
-            borderWidth: "3px",
-            borderRadius: "3px",
-            width: "90px",
-          }}
+        <ParaText4
+          text={`Set Name : ${result?.set_name}`}
+          css={{ textAlign: "center", fontWeight: 550, my: "10px", }}
         />
+        {/* <Divider
+          sx={{
+            borderColor: "#000000",
+            my: "10px",
+            borderRadius: "3px",
+            width: "100%",
+            mx: "auto",
+          }}
+        /> */}
+        <Stack
+          sx={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+            border:1,
+          }}
+          
+        >
+      
+        
+          <Box flexBasis={"30%"} sx={{}}>
+            {details
+              ?.slice(0, Math.ceil(details.length / 2))
+              .map((item: Detail, key: number) => (
+                <Stack
+                  flexDirection="row"
+                  sx={{ justifyContent: "space-between" }}
+                  margin="20px"
+                  key={key}
+                >
+                  <ParaText3 text={item?.title} css={{ textAlign: "left" }} />
+                  <ParaText1 text={item?.data} css={{}} />
+                </Stack>
+              ))}
+          </Box>
+          <Divider
+            sx={{
+              borderColor: "#000000",
+              my: "20px",
+              // borderRadius: "3px",
+              // width: "12%",
 
-        <Box>
-          {details?.map((item: Detail, key: number) => {
-            return (
-              <Stack
-                flexDirection="row"
-                sx={{ alignItems: "center", justifyContent: "space-between" }}
-                margin="20px"
-                // marginBottom="50px"
-                key={key}
-              >
-                <ParaText3 text={item?.title} />
-                <ParaText1 text={item?.data} css={{ m: "0", p: 0 }} />
-              </Stack>
-            );
-          })}
-        </Box>
+              border:1,
+              // mx: "auto",
+            }}
+            orientation="horizontal"
+            flexItem
+          />
+          <Box flexBasis={"30%"}>
+            {details
+              ?.slice(Math.ceil(details.length / 2))
+              .map((item: Detail, key: number) => (
+                <Stack
+                  flexDirection="row"
+                  sx={{ justifyContent: "space-between" }}
+                  margin="20px"
+                  key={key}
+                >
+                  <ParaText3 text={item?.title} css={{ textAlign: "left" }} />
+                  <ParaText1 text={item?.data} css={{}} />
+                </Stack>
+              ))}
+          </Box>
+        </Stack>
         <Stack
           direction={"row"}
-          justifyContent={"space-between"}
-          sx={{ width: "100%" }}
+          justifyContent={"end"}
+          sx={{ width: "80%" ,m:'auto',my:'15px'}}
+          spacing={5}
         >
           <OButton
             name={getTopicMutation.isLoading ? "Loading..." : "Buy Topics"}
             func={getTopicMutation.mutate}
           />
-          <Link
-            to={`/user/Test-result-analysis/solution/${data.data?.all_results?.id}`}
-          >
+          <Link to={`/user/Test-result-analysis/solution/${result?.id}`}>
             <OButton name="View Solution" css={{ width: "170px" }} />
           </Link>
         </Stack>
