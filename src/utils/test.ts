@@ -5,13 +5,13 @@ export const demoDoc = () => {
     .then((response) => response.blob())
     .then((blob) => {
       // Use the image data (blob) as needed
-      console.log(blob);
+      // console.log(blob);
 
       // Convert the image data to base64
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64Data = reader.result;
-        console.log(base64Data);
+        // console.log(base64Data);
       };
       reader.readAsDataURL(blob);
     })
