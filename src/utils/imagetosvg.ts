@@ -13,10 +13,10 @@ function blobToBase64(blob: any) {
   });
 }
 const imagetosvg = async (images: any) => {
-  const imageUrl = import.meta.env.VITE_IMAGE_URL + `${images}`;
+  const imageUrl = import.meta.env.VITE_BASE_URL+ `${images}`;
   // Replace with your base URL
-  // console.log(imageUrl);
-  const response = await axios.get(imageUrl, { responseType: "blob" });
+  console.log(imageUrl);
+  const response = await axios.get(imageUrl, { responseType: "blob", });
 
   //   console.log("imagetosvg", response.data);
 

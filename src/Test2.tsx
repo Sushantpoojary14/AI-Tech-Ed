@@ -402,9 +402,8 @@ const MyComponent = () => {
     border: "1px solid ",
     paddingY: "10px",
   };
-
-  const elementToConvert = useRef(null);
-  const domEl: any = useRef(null);
+  const questionRefs:any = useRef([]);
+ 
   const [is, setIs] = useState("");
   const uploadImage = useMutation({
     mutationFn: async (data) => {
@@ -418,60 +417,47 @@ const MyComponent = () => {
     },
   });
 
-  // const downloadImage = async () => {
-  //   if (domEl.current) {
-  //     try {
-  //       const canvas = await htmlToImage.toCanvas(domEl.current);
-  //       const imageSrc = canvas.toDataURL("image/png");
-
-  //       // Create a download link and trigger the download
-  //       const link = document.createElement("a");
-  //       link.href = imageSrc;
-  //       link.download = "image.png";
-  //       link.click();
-  //     } catch (error) {
-  //       console.error("Error converting to image:", error);
-  //     }
-  //   }
-  // };
   const convertElementToImage = async (element: any) => {
-    console.log(element);
+    console.log(element.current);
     if (element && element.current) {
       const dataUrl = await htmlToImage.toPng(element.current);
-
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = "image.png";
-      link.click();
+      // const link = document.createElement("a");
+      // link.href = dataUrl;
+      // link.download = "image.png";
+      // link.click();
       return dataUrl;
-      // const canvas = await htmlToImage.toCanvas(element.ref.current);
-      // const imageData = canvas.toDataURL('image/png');
-      // return imageData;
     }
+
     return null;
   };
 
-  const generateQuestionObjects = async (paraData: any) => {
+  const generateQuestionObjects = async (paraData: any): Promise<any[]> => {
     const questionObjects = [];
 
-    for (let i = 0; i < paraData.length; i++) {
-      const item = paraData[i][0];
-      const questionObj: any = {};
+    for (const item of paraData) {
+      for (const item2 of item) {
+        const questionObj: any = {};
+        // console.log(item2.question_image.ref);
 
-      const questionImageDataUrl = await convertElementToImage(
-        item.question_image.ref
-      );
-      questionObj.question_image = questionImageDataUrl;
+        const questionImageDataUrl = await convertElementToImage(
+          item2.question_image?.ref
+        );
+        console.log(questionImageDataUrl);
+        
+        questionObj.question_image = questionImageDataUrl;
 
-      // Convert options to image data URLs and store them as a, b, c, d
-      const optionImages: any = {};
-      for (let j = 0; j < item.options.length; j++) {
-        const optionImageDataUrl = await convertElementToImage(item.options[j]);
-        optionImages[String.fromCharCode(97 + j)] = optionImageDataUrl;
+        const optionImages: any = {};
+        for (let j = 0; j < item2.options.length; j++) {
+          console.log(item2.options[j]?.ref);
+          const optionImageDataUrl = await convertElementToImage(
+            item2.options[j]?.ref
+          );
+          optionImages[String.fromCharCode(97 + j)] = optionImageDataUrl;
+        }
+        questionObj.options = optionImages;
+
+        questionObjects.push(questionObj);
       }
-      questionObj.options = optionImages;
-
-      questionObjects.push(questionObj);
     }
 
     return questionObjects;
@@ -495,10 +481,9 @@ const MyComponent = () => {
       `/images/motor.jpg`,
     ],
   ];
-  // const svgCode = convertImageToSvg("http://localhost:8000/images/car.jpg");
-  // console.log(svgCode);
 
-  const cube1 = async (paraData: any) => {
+  const cube1 = async (paraData: any,index:number) => {
+  
     const image_style = {
       width: "50px",
       height: "50px",
@@ -520,16 +505,20 @@ const MyComponent = () => {
       paraData[random] = paraData[i];
       paraData[i] = temp;
     }
-    console.log("newData", newData);
+    // console.log("newData", newData);
 
     let question_image = (
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        ref={questionRefs.current[index].questionRef} 
+      >
         <Grid
           item
           xs={12}
           sm={5}
           sx={{ w: "50%", m: "auto", backgroundColor: "transparent" }}
-          ref={elementToConvert}
         >
           <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
             <Grid item>
@@ -594,7 +583,7 @@ const MyComponent = () => {
     }
     // console.log(ans);
     let temp_options = [
-      <div className="cube">
+      <div className="cube" ref={questionRefs.current[index].optionRefs[0]}>
         <div className="face front">
           <img src={`${ans[0]}`} alt="" style={image_style} />
         </div>
@@ -605,7 +594,7 @@ const MyComponent = () => {
           <img src={`${ans[2]}`} alt="" style={image_style} />
         </div>
       </div>,
-      <div className="cube">
+      <div className="cube" ref={questionRefs.current[index].optionRefs[1]}>
         <div className="face front">
           {" "}
           <img src={newData[1]} alt="" style={image_style} />
@@ -619,7 +608,7 @@ const MyComponent = () => {
           <img src={newData[4]} alt="" style={image_style} />
         </div>
       </div>,
-      <div className="cube">
+      <div className="cube" ref={questionRefs.current[index].optionRefs[2]}>
         <div className="face front">
           <img src={newData[0]} alt="" style={image_style} />
         </div>
@@ -630,7 +619,7 @@ const MyComponent = () => {
           <img src={newData[2]} alt="" style={image_style} />
         </div>
       </div>,
-      <div className="cube">
+      <div className="cube" ref={questionRefs.current[index].optionRefs[3]}>
         <div className="face front">
           <img src={newData[5]} alt="" style={image_style} />
         </div>
@@ -662,14 +651,23 @@ const MyComponent = () => {
     // return question;
     return Promise.resolve(question);
   };
-
+  questionRefs.current = data.map(() => ({
+    questionRef: useRef(null),
+    optionRefs: [
+      useRef(null),
+      useRef(null),
+      useRef(null),
+      useRef(null),
+    ],
+  }));
   const generateQuestions = async () => {
+   
     let newArr2: any = [];
     newArr2 = await Promise.all(
       data.map(async (item) => {
         let newArr: any = [];
-        for (let index = 0; index < 5; index++) {
-          let newA = await cube1(item);
+        for (let index = 0; index < 1; index++) {
+          let newA = await cube1(item,index);
           newArr.push(newA);
         }
         return newArr;
@@ -686,15 +684,7 @@ const MyComponent = () => {
   };
   // const questionObjects: any = generateQuestionObjects(newData);
 
-  // questionObjects
-  //   .then((data: any) => {
-  //     // console.log(data);
-  //   })
-  //   .catch((err: any) => {
-  //     console.log(err);
-  //   });
-  // const svgImage = imagetosvg(data[0]);
-  // svgImage.then((res) => console.log(res)).catch((res) => console.log(res));
+
 
   return (
     <>
