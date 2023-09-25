@@ -3,11 +3,11 @@ const convertElementToImage = async (element: any) => {
   // console.log(element.current);
   if (element && element.current) {
     const dataUrl = await htmlToImage.toPng(element.current);
-    const anchorElement = document.createElement("a");
-    anchorElement.href = dataUrl;
-    anchorElement.download = "image.png";
+    // const anchorElement = document.createElement("a");
+    // anchorElement.href = dataUrl;
+    // anchorElement.download = "image.png";
 
-    anchorElement.click();
+    // anchorElement.click();
     return dataUrl;
   }
 

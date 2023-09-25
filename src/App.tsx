@@ -12,6 +12,7 @@ import { UserContext } from "./Context/UserContext";
 import img from "./Assets/images/password_success.jpg";
 import { useEffect, useState } from "react";
 import AlertBox from "./Components/Common/AlertBox";
+import Test3 from "./Pages/test3";
 function App() {
   const {
     handlePUSuccessClose,
@@ -89,6 +90,7 @@ function App() {
           <Route path="/admin/*" element={<AdminIndex />} />
           {/* <Route path="/test" element={<Test />} /> */}
           <Route path="/test2" element={<Test2 />} />
+          <Route path="/test3" element={<Test3 />} />
           <Route
             path="/user/Test-schedule/Exam-section/:id"
             element={<Exam_Section />}

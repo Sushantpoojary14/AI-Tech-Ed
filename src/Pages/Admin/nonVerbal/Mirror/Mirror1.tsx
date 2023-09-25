@@ -44,10 +44,15 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
   // console.log(randDegree);
 
   let question_image = (
-    <Stack justifyItems={"center"} ref={questionRefs.current[index].questionRef}>
+    <Stack
+      justifyItems={"center"}
+      ref={questionRefs.current[index].questionRef}
+      height="140px"
+      width="130px"
+     
+    >
       <Box
-        sx={{ transform: `rotate(${degree[rd]}deg)` }}
-        
+        sx={{ transform: `rotate(${degree[rd]}deg)`, backgroundColor: "white" }}
       >
         <Grid
           sx={{
@@ -79,7 +84,8 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
         </Grid>
         <Divider
           sx={{
-            width: "130px",
+            backgroundColor:"transparent",
+            width: "128px",
             margin: "0 auto",
             border: "1px solid #000000",
             marginY: "5px",
@@ -100,7 +106,7 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
 
   let temp_options = [
     <Box
-      sx={{ transform: `rotate(${degree[ans]}deg)` }}
+      sx={{ transform: `rotate(${degree[ans]}deg)` , backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[0]}
     >
       <Grid
@@ -133,7 +139,7 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
       </Grid>
     </Box>,
     <Box
-      sx={{ transform: `rotate(${newDegree[2]}deg)` }}
+      sx={{ transform: `rotate(${newDegree[2]}deg)`, backgroundColor: "white"  }}
       ref={questionRefs.current[index].optionRefs[1]}
     >
       <Grid
@@ -166,7 +172,7 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
       </Grid>
     </Box>,
     <Box
-      sx={{ transform: `rotate(${newDegree[0]}deg)` }}
+      sx={{ transform: `rotate(${newDegree[0]}deg)`, backgroundColor: "white"  }}
       ref={questionRefs.current[index].optionRefs[2]}
     >
       <Grid
@@ -199,7 +205,7 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
       </Grid>
     </Box>,
     <Box
-      sx={{ transform: `rotate(${newDegree[1]}deg)` }}
+      sx={{ transform: `rotate(${newDegree[1]}deg)` , backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[3]}
     >
       <Grid
@@ -250,7 +256,7 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
   question.correct_ans = correct_ans;
   // return question;
   console.log(questionRefs);
-  
+
   return Promise.resolve(question);
 };
 
