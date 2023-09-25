@@ -377,33 +377,31 @@ const click = () => {
 import * as htmlToImage from "html-to-image";
 import { useMutation } from "@tanstack/react-query";
 import adminTokenAxios from "./Hooks/AdminTokenAxios";
-import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Input,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import "./Assets/Css/cube.css";
 import potrace from "potrace";
 import { ParaText1 } from "./Components/Common/ParaText";
 import axios from "axios";
 import imagetosvg from "./utils/imagetosvg";
+import { log } from "console";
+import cube1 from "./Pages/Admin/nonVerbal/Cube/Cube1";
+import { generateQuestionObjects } from "./Pages/Admin/nonVerbal/HtmlToImage";
+import cube2 from "./Pages/Admin/nonVerbal/Cube/Cube2";
+import mirror1 from "./Pages/Admin/nonVerbal/Mirror/Mirror1";
 // import potrace from "potrace-js";
 const MyComponent = () => {
   const [newData, setNewData] = useState([]);
 
-  const TBox = {
-    height: "50px",
-    width: "50px",
-    borderRadius: 0,
-    border: 0,
-    boxShadow: "0px 0px",
-    opacity: 0.0,
-  };
-  const DBox = {
-    height: "50px",
-    width: "50px",
-    borderRadius: 0,
-    border: "1px solid ",
-    paddingY: "10px",
-  };
-  const questionRefs:any = useRef([]);
- 
+  const questionRefs: any = useRef([]);
+
   const [is, setIs] = useState("");
   const uploadImage = useMutation({
     mutationFn: async (data) => {
@@ -416,52 +414,6 @@ const MyComponent = () => {
       console.log(res);
     },
   });
-
-  const convertElementToImage = async (element: any) => {
-    console.log(element.current);
-    if (element && element.current) {
-      const dataUrl = await htmlToImage.toPng(element.current);
-      // const link = document.createElement("a");
-      // link.href = dataUrl;
-      // link.download = "image.png";
-      // link.click();
-      return dataUrl;
-    }
-
-    return null;
-  };
-
-  const generateQuestionObjects = async (paraData: any): Promise<any[]> => {
-    const questionObjects = [];
-
-    for (const item of paraData) {
-      for (const item2 of item) {
-        const questionObj: any = {};
-        // console.log(item2.question_image.ref);
-
-        const questionImageDataUrl = await convertElementToImage(
-          item2.question_image?.ref
-        );
-        console.log(questionImageDataUrl);
-        
-        questionObj.question_image = questionImageDataUrl;
-
-        const optionImages: any = {};
-        for (let j = 0; j < item2.options.length; j++) {
-          console.log(item2.options[j]?.ref);
-          const optionImageDataUrl = await convertElementToImage(
-            item2.options[j]?.ref
-          );
-          optionImages[String.fromCharCode(97 + j)] = optionImageDataUrl;
-        }
-        questionObj.options = optionImages;
-
-        questionObjects.push(questionObj);
-      }
-    }
-
-    return questionObjects;
-  };
 
   let data = [
     [
@@ -482,201 +434,39 @@ const MyComponent = () => {
     ],
   ];
 
-  const cube1 = async (paraData: any,index:number) => {
-  
-    const image_style = {
-      width: "50px",
-      height: "50px",
-      margin: "auto",
+  for (let index = 0; index < 8; index++) {
+    questionRefs.current[index] = {
+      questionRef: useRef(null),
+      optionRefs: [useRef(null), useRef(null), useRef(null), useRef(null)],
     };
-    let newData: any = [];
-    const options: any = [];
+  }
 
-    if (!(paraData && paraData?.length == 6)) {
-      return null;
-    }
-
-    let question: any = {};
-    for (let i = 5; i >= 0; i--) {
-      let random = Math.floor(Math.random() * (i + 1));
-      let imageData = await imagetosvg(paraData[random]);
-      newData.push(imageData);
-      let temp = paraData[random];
-      paraData[random] = paraData[i];
-      paraData[i] = temp;
-    }
-    // console.log("newData", newData);
-
-    let question_image = (
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        ref={questionRefs.current[index].questionRef} 
-      >
-        <Grid
-          item
-          xs={12}
-          sm={5}
-          sx={{ w: "50%", m: "auto", backgroundColor: "transparent" }}
-        >
-          <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
-            <Grid item>
-              <Paper style={TBox}></Paper>
-            </Grid>
-
-            <Grid item>
-              <Paper style={DBox}>
-                <img src={newData[0]} alt="" style={image_style} />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
-            <Grid item>
-              <Paper style={DBox}>
-                <img src={newData[1]} alt="" style={image_style} />
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Paper style={DBox}>
-                <img src={newData[2]} alt="" style={image_style} />
-              </Paper>
-            </Grid>
-
-            <Grid item>
-              <Paper style={DBox}>
-                <img src={newData[3]} alt="" style={image_style} />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
-            <Grid item>
-              <Paper style={TBox}></Paper>
-            </Grid>
-
-            <Grid item>
-              <Paper style={DBox}>
-                <img src={newData[4]} alt="" style={image_style} />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
-            <Grid item>
-              <Paper style={TBox}></Paper>
-            </Grid>
-
-            <Grid item>
-              <Paper style={DBox}>
-                <img src={newData[5]} alt="" style={image_style} />
-              </Paper>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    );
-    let random = Math.floor(Math.random() * 6);
-    let ans = [];
-    if (random < 3) {
-      ans.push(newData[random + 1], newData[random + 2], newData[random + 3]);
-    } else {
-      ans.push(newData[random - 1], newData[random - 2], newData[random - 3]);
-    }
-    // console.log(ans);
-    let temp_options = [
-      <div className="cube" ref={questionRefs.current[index].optionRefs[0]}>
-        <div className="face front">
-          <img src={`${ans[0]}`} alt="" style={image_style} />
-        </div>
-        <div className="face top">
-          <img src={`${ans[1]}`} alt="" style={image_style} />
-        </div>
-        <div className="face left">
-          <img src={`${ans[2]}`} alt="" style={image_style} />
-        </div>
-      </div>,
-      <div className="cube" ref={questionRefs.current[index].optionRefs[1]}>
-        <div className="face front">
-          {" "}
-          <img src={newData[1]} alt="" style={image_style} />
-        </div>
-        <div className="face top">
-          {" "}
-          <img src={newData[3]} alt="" style={image_style} />
-        </div>
-        <div className="face left">
-          {" "}
-          <img src={newData[4]} alt="" style={image_style} />
-        </div>
-      </div>,
-      <div className="cube" ref={questionRefs.current[index].optionRefs[2]}>
-        <div className="face front">
-          <img src={newData[0]} alt="" style={image_style} />
-        </div>
-        <div className="face top">
-          <img src={newData[3]} alt="" style={image_style} />
-        </div>
-        <div className="face left">
-          <img src={newData[2]} alt="" style={image_style} />
-        </div>
-      </div>,
-      <div className="cube" ref={questionRefs.current[index].optionRefs[3]}>
-        <div className="face front">
-          <img src={newData[5]} alt="" style={image_style} />
-        </div>
-        <div className="face top">
-          {" "}
-          <img src={newData[2]} alt="" style={image_style} />
-        </div>
-        <div className="face left">
-          <img src={newData[0]} alt="" style={image_style} />
-        </div>
-      </div>,
-    ];
-    let correct_ans = -1;
-    for (let i = 3; i >= 0; i--) {
-      let random = Math.floor(Math.random() * (i + 1));
-      if (random == 0 && correct_ans < 0) {
-        correct_ans = 3 - i + 1;
-      }
-      options.push(temp_options[random]);
-      let temp = temp_options[random];
-      temp_options[random] = temp_options[i];
-      temp_options[i] = temp;
-    }
-    question.question_image = question_image;
-    question.options = options;
-    question.question =
-      "You are required to determine which of the cubes could be formed by folding the following figure:";
-    question.correct_ans = correct_ans;
-    // return question;
-    return Promise.resolve(question);
-  };
-  questionRefs.current = data.map(() => ({
-    questionRef: useRef(null),
-    optionRefs: [
-      useRef(null),
-      useRef(null),
-      useRef(null),
-      useRef(null),
-    ],
-  }));
   const generateQuestions = async () => {
-   
     let newArr2: any = [];
+    let count = -1;
     newArr2 = await Promise.all(
       data.map(async (item) => {
         let newArr: any = [];
-        for (let index = 0; index < 1; index++) {
-          let newA = await cube1(item,index);
-          newArr.push(newA);
+        // for (let index = 0; index < 2; index++) {
+        //   count++;
+        //   let newA = await cube1(item, count, questionRefs);
+        //   newArr.push(newA);
+        // }
+        for (let index = 0; index < 2; index++) {
+          count++;
+          let newA2 = await mirror1(item, count, questionRefs);
+          newArr.push(newA2);
         }
+
         return newArr;
       })
     );
-
-    console.log(newArr2); // This will log the resolved values.
-    return setNewData(newArr2);
+    setNewData(newArr2);
+    // const res = await generateQuestionObjects(newData);
+    // console.log(newArr2);
+    // console.log("imageG", res);
   };
+  // console.log(questionRefs);
 
   const imageG = async () => {
     const res = await generateQuestionObjects(newData);
@@ -684,15 +474,13 @@ const MyComponent = () => {
   };
   // const questionObjects: any = generateQuestionObjects(newData);
 
-
-
   return (
     <>
       <Box flexDirection={"row"}>
-        <BButton2 func={generateQuestions} type="button" name="Danger" />
+        <BButton2 func={generateQuestions} type="button" name="Generate" />
       </Box>
       <Box flexDirection={"row"}>
-        <BButton2 func={imageG} type="button" name="Danger2" />
+        <BButton2 func={imageG} type="button" name="Upload" />
       </Box>
 
       <Box flexDirection={"row"}>
@@ -705,13 +493,29 @@ const MyComponent = () => {
                 height={"auto"}
                 spacing={2}
                 key={key2}
+                marginY={"15px"}
               >
-                <ParaText1 text={key2 + item2?.question} />
+                <ParaText1 text={"Q) " + item2?.question} />
                 <Box>{item2?.question_image}</Box>
-                <Stack direction={"row"} margin={"auto"} width={"90%"}>
+                <Stack
+                  direction={"row"}
+                  margin={"auto"}
+                  width={"90%"}
+                  marginY={"15px"}
+                  sx={{
+                    gridColumn: "auto auto auto auto",
+                    columnGap: "30px",
+                  }}
+                >
                   {item2?.options?.map((item3: any, key3: number) => (
                     <>
-                      <Box key={key3}>{item3}</Box>
+                      <Box
+                       
+                        key={key3}
+                      >
+                        {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
+                        {item3}
+                      </Box>
                     </>
                   ))}
                 </Stack>
