@@ -447,6 +447,11 @@ const MyComponent = () => {
     newArr2 = await Promise.all(
       data.map(async (item) => {
         let newArr: any = [];
+        for (let index = 0; index < 2; index++) {
+          count++;
+          let newA = await cube2(item, count, questionRefs);
+          newArr.push(newA);
+        }
         // for (let index = 0; index < 2; index++) {
         //   count++;
         //   let newA = await cube1(item, count, questionRefs);
@@ -513,10 +518,7 @@ const MyComponent = () => {
                 >
                   {item2?.options?.map((item3: any, key3: number) => (
                     <>
-                      <Box
-                       
-                        key={key3}
-                      >
+                      <Box key={key3}>
                         {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
                         {item3}
                       </Box>
