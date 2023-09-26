@@ -3,8 +3,6 @@ import imagetosvg from "../../../../utils/imagetosvg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import randomicon from "../../../../utils/randomIcon";
 
-
-
 const TBox = {
   height: "60px",
   width: "60px",
@@ -29,7 +27,6 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
   };
   let newData: any = [];
   const options: any = [];
-
 
   let question: any = {};
   for (let i = 3; i >= 0; i--) {
