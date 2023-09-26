@@ -1,5 +1,7 @@
 import { Box, Divider, Grid, Paper, Stack } from "@mui/material";
 import imagetosvg from "../../../../utils/imagetosvg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import randomicon from "../../../../utils/randomicon";
 
 const TBox = {
   height: "60px",
@@ -19,21 +21,18 @@ const DBox = {
 const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
   // console.log(index);
   const image_style = {
-    width: "59px",
-    height: "57px",
-    margin: "auto",
+    width: "30px",
+    height: "30px",
+    margin: "10",
   };
   let newData: any = [];
   const options: any = [];
 
-  if (!(paraData && paraData?.length == 6)) {
-    return null;
-  }
 
   let question: any = {};
   for (let i = 3; i >= 0; i--) {
-    const random = Math.floor(Math.random() * paraData?.length);
-    let imageData = await imagetosvg(paraData[random]);
+    const random = Math.floor(Math.random() * 1954);
+    let imageData = randomicon();
     newData.push(imageData);
     let temp = paraData[random];
     paraData[random] = paraData[i];
@@ -49,7 +48,6 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
       ref={questionRefs.current[index].questionRef}
       height="140px"
       width="130px"
-     
     >
       <Box
         sx={{ transform: `rotate(${degree[rd]}deg)`, backgroundColor: "white" }}
@@ -71,20 +69,33 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
           }}
         >
           <Box sx={{ width: "50px" }}>
-            <img src={newData[0]} alt="" style={image_style} />
+            <FontAwesomeIcon
+              style={image_style}
+              icon={newData[0].type.iconName}
+              color={newData[0].color}
+            />
           </Box>
 
           <Box sx={{ width: "50px" }}></Box>
           <Box sx={{ width: "50px" }}>
-            <img src={newData[2]} alt="" style={image_style} />
+            <FontAwesomeIcon
+              style={image_style}
+              icon={newData[1].type.iconName}
+              color={newData[1].color}
+            />
+            {/* <img src={newData[2]} alt="" style={image_style} /> */}
           </Box>
           <Box sx={{ width: "50px" }}>
-            <img src={newData[3]} alt="" style={image_style} />
+            <FontAwesomeIcon
+              style={image_style}
+              icon={newData[2].type.iconName}
+              color={newData[2].color}
+            />
           </Box>
         </Grid>
         <Divider
           sx={{
-            backgroundColor:"transparent",
+            backgroundColor: "transparent",
             width: "128px",
             margin: "0 auto",
             border: "1px solid #000000",
@@ -106,7 +117,7 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
 
   let temp_options = [
     <Box
-      sx={{ transform: `rotate(${degree[ans]}deg)` , backgroundColor: "white" }}
+      sx={{ transform: `rotate(${degree[ans]}deg)`, backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[0]}
     >
       <Grid
@@ -126,20 +137,33 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
         }}
       >
         <Box sx={{ width: "50px" }}>
-          <img src={newData[0]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[0].type.iconName}
+            color={newData[0].color}
+          />
+          {/* <img src={newData[0]} alt="" style={image_style} /> */}
         </Box>
 
         <Box sx={{ width: "50px" }}>
-          <img src={newData[2]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[1].type.iconName}
+            color={newData[1].color}
+          />
         </Box>
         <Box sx={{ width: "50px" }}></Box>
         <Box sx={{ width: "50px" }}>
-          <img src={newData[3]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[2].type.iconName}
+            color={newData[2].color}
+          />
         </Box>
       </Grid>
     </Box>,
     <Box
-      sx={{ transform: `rotate(${newDegree[2]}deg)`, backgroundColor: "white"  }}
+      sx={{ transform: `rotate(${newDegree[2]}deg)`, backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[1]}
     >
       <Grid
@@ -159,20 +183,32 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
         }}
       >
         <Box sx={{ width: "50px" }}>
-          <img src={newData[0]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[2].type.iconName}
+            color={newData[2].color}
+          />
         </Box>
 
         <Box sx={{ width: "50px" }}></Box>
         <Box sx={{ width: "50px" }}>
-          <img src={newData[2]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[1].type.iconName}
+            color={newData[1].color}
+          />
         </Box>
         <Box sx={{ width: "50px" }}>
-          <img src={newData[3]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[0].type.iconName}
+            color={newData[0].color}
+          />
         </Box>
       </Grid>
     </Box>,
     <Box
-      sx={{ transform: `rotate(${newDegree[0]}deg)`, backgroundColor: "white"  }}
+      sx={{ transform: `rotate(${newDegree[0]}deg)`, backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[2]}
     >
       <Grid
@@ -192,20 +228,32 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
         }}
       >
         <Box sx={{ width: "50px" }}>
-          <img src={newData[0]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[0].type.iconName}
+            color={newData[0].color}
+          />
         </Box>
 
         <Box sx={{ width: "50px" }}></Box>
         <Box sx={{ width: "50px" }}>
-          <img src={newData[2]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[1].type.iconName}
+            color={newData[1].color}
+          />
         </Box>
         <Box sx={{ width: "50px" }}>
-          <img src={newData[3]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[2].type.iconName}
+            color={newData[2].color}
+          />
         </Box>
       </Grid>
     </Box>,
     <Box
-      sx={{ transform: `rotate(${newDegree[1]}deg)` , backgroundColor: "white" }}
+      sx={{ transform: `rotate(${newDegree[1]}deg)`, backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[3]}
     >
       <Grid
@@ -225,15 +273,28 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
         }}
       >
         <Box sx={{ width: "50px" }}>
-          <img src={newData[0]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[0].type.iconName}
+            color={newData[0].color}
+            size="2xl"
+          />
         </Box>
 
         <Box sx={{ width: "50px" }}></Box>
         <Box sx={{ width: "50px" }}>
-          <img src={newData[2]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[1].type.iconName}
+            color={newData[1].color}
+          />
         </Box>
         <Box sx={{ width: "50px" }}>
-          <img src={newData[3]} alt="" style={image_style} />
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[2].type.iconName}
+            color={newData[2].color}
+          />
         </Box>
       </Grid>
     </Box>,
@@ -255,7 +316,7 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
     "You are required to determine which of the cubes could be formed by folding the following figure:";
   question.correct_ans = correct_ans;
   // return question;
-  console.log(questionRefs);
+  // console.log(questionRefs);
 
   return Promise.resolve(question);
 };
