@@ -12,7 +12,7 @@ const randomicon = () => {
     const iconList: any = Object.keys(Icons)
         .filter((key: any) => key !== 'fas' && key !== 'prefix')
         .map((icon: any) => Icons[icon]);
-        console.log(iconList.length);
+        // console.log(iconList.length);
         
     const iconTypes = iconList;
     const iconType = iconTypes[Math.floor(Math.random() * iconTypes.length)];

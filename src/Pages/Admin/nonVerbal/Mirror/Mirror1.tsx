@@ -3,8 +3,6 @@ import imagetosvg from "../../../../utils/imagetosvg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import randomicon from "../../../../utils/randomIcon";
 
-
-
 const TBox = {
   height: "60px",
   width: "60px",
@@ -30,88 +28,156 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
   let newData: any = [];
   const options: any = [];
 
-
   let question: any = {};
   for (let i = 3; i >= 0; i--) {
     const random = Math.floor(Math.random() * 1954);
     let imageData = randomicon();
     newData.push(imageData);
-    let temp = paraData[random];
-    paraData[random] = paraData[i];
-    paraData[i] = temp;
   }
   let degree = [0, 90, 180, 270];
   const rd = Math.floor(Math.random() * 4);
-  // console.log(randDegree);
+  console.log(newData);
 
   let question_image = (
     <Stack
       justifyItems={"center"}
       ref={questionRefs.current[index].questionRef}
-      height="140px"
-      width="130px"
+      maxHeight="160px"
+      maxWidth="160px"
+      padding={"10px"}
+      //
+      sx={{
+        backgroundColor: "transparent",
+        transform: `rotate(${degree[rd]}deg)`,
+      }}
     >
-      <Box
-        sx={{ transform: `rotate(${degree[rd]}deg)`, backgroundColor: "white" }}
+      <Grid
+        sx={{
+          maxWidth: "100%",
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          rowGap: "2px",
+          border: "1px solid black",
+          backgroundColor: "white",
+          justifyItems: "center",
+          height: "130px",
+          width: "130px",
+          margin: "0 auto",
+
+          // transform: " translateZ(30px)"
+        }}
       >
-        <Grid
-          sx={{
-            maxWidth: "100%",
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            rowGap: "2px",
-            border: "1px solid black",
-            // padding: "10px",
-            justifyItems: "center",
-            height: "130px",
-            width: "130px",
-            margin: "0 auto",
+        <Box sx={{ width: "50px" }}>
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[0].type.iconName}
+            color={newData[0].color}
+          />
+        </Box>
 
-            // transform: " translateZ(30px)"
-          }}
-        >
-          <Box sx={{ width: "50px" }}>
-            <FontAwesomeIcon
-              style={image_style}
-              icon={newData[0].type.iconName}
-              color={newData[0].color}
-            />
-          </Box>
-
-          <Box sx={{ width: "50px" }}></Box>
-          <Box sx={{ width: "50px" }}>
-            <FontAwesomeIcon
-              style={image_style}
-              icon={newData[1].type.iconName}
-              color={newData[1].color}
-            />
-            {/* <img src={newData[2]} alt="" style={image_style} /> */}
-          </Box>
-          <Box sx={{ width: "50px" }}>
-            <FontAwesomeIcon
-              style={image_style}
-              icon={newData[2].type.iconName}
-              color={newData[2].color}
-            />
-          </Box>
-        </Grid>
-        <Divider
-          sx={{
-            backgroundColor: "transparent",
-            width: "128px",
+        <Box sx={{ width: "50px" }}></Box>
+        <Box sx={{ width: "50px" }}>
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[1].type.iconName}
+            color={newData[1].color}
+          />
+          {/* <img src={newData[2]} alt="" style={image_style} /> */}
+        </Box>
+        <Box sx={{ width: "50px" }}>
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[2].type.iconName}
+            color={newData[2].color}
+          />
+        </Box>
+      </Grid>
+      <Box paddingX={"10px"}>
+        <hr
+          style={{
+            backgroundColor: "navy",
+            width: "122px",
             margin: "0 auto",
-            border: "1px solid #000000",
-            marginY: "5px",
+            border: "1px solid navy",
+            marginTop: "5px",
           }}
         />
+        <Stack direction={"row"} spacing={"9px"}>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+
+          <Box
+            borderLeft={"1px solid black"}
+            height={"10px"}
+            sx={{ transform: `rotate(155deg)` }}
+          ></Box>
+        </Stack>
       </Box>
     </Stack>
   );
   let ans: number = 0;
   if (rd < 2) {
-    ans = rd + 1;
+    ans = rd + 2;
   } else {
-    ans = rd - 1;
+    ans = rd - 2;
   }
   const newDegree = degree.filter((item, key) => {
     return key != rd;
@@ -138,29 +204,29 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
           // transform: " translateZ(30px)"
         }}
       >
+        <Box sx={{ width: "50px" }}></Box>
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
-            style={image_style}
+            style={{ ...image_style, transform: "scaleX(-1)" }}
             icon={newData[0].type.iconName}
             color={newData[0].color}
           />
-          {/* <img src={newData[0]} alt="" style={image_style} /> */}
         </Box>
 
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
-            style={image_style}
-            icon={newData[1].type.iconName}
-            color={newData[1].color}
-          />
-        </Box>
-        <Box sx={{ width: "50px" }}></Box>
-        <Box sx={{ width: "50px" }}>
-          <FontAwesomeIcon
-            style={image_style}
+            style={{ ...image_style, transform: "scaleX(-1)" }}
             icon={newData[2].type.iconName}
             color={newData[2].color}
           />
+        </Box>
+        <Box sx={{ width: "50px" }}>
+          <FontAwesomeIcon
+            style={{ ...image_style, transform: "scaleX(-1)" }}
+            icon={newData[1].type.iconName}
+            color={newData[1].color}
+          />
+          {/* <img src={newData[2]} alt="" style={image_style} /> */}
         </Box>
       </Grid>
     </Box>,
@@ -187,24 +253,24 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
             style={image_style}
-            icon={newData[2].type.iconName}
-            color={newData[2].color}
-          />
-        </Box>
-
-        <Box sx={{ width: "50px" }}></Box>
-        <Box sx={{ width: "50px" }}>
-          <FontAwesomeIcon
-            style={image_style}
             icon={newData[1].type.iconName}
             color={newData[1].color}
           />
         </Box>
+
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
             style={image_style}
             icon={newData[0].type.iconName}
             color={newData[0].color}
+          />
+        </Box>
+        <Box sx={{ width: "50px" }}></Box>
+        <Box sx={{ width: "50px" }}>
+          <FontAwesomeIcon
+            style={image_style}
+            icon={newData[2].type.iconName}
+            color={newData[2].color}
           />
         </Box>
       </Grid>
@@ -231,7 +297,7 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
       >
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
-            style={image_style}
+            style={{ ...image_style, transform: "scaleX(-1)" }}
             icon={newData[0].type.iconName}
             color={newData[0].color}
           />
@@ -240,14 +306,14 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
         <Box sx={{ width: "50px" }}></Box>
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
-            style={image_style}
+            style={{ ...image_style, transform: "scaleX(-1)" }}
             icon={newData[1].type.iconName}
             color={newData[1].color}
           />
         </Box>
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
-            style={image_style}
+            style={{ ...image_style, transform: "scaleX(-1)" }}
             icon={newData[2].type.iconName}
             color={newData[2].color}
           />
@@ -276,7 +342,7 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
       >
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
-            style={image_style}
+            style={{ ...image_style, transform: "scaleX(-1)" }}
             icon={newData[0].type.iconName}
             color={newData[0].color}
             size="2xl"
@@ -286,14 +352,14 @@ const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
         <Box sx={{ width: "50px" }}></Box>
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
-            style={image_style}
+            style={{ ...image_style, transform: "scaleX(-1)" }}
             icon={newData[1].type.iconName}
             color={newData[1].color}
           />
         </Box>
         <Box sx={{ width: "50px" }}>
           <FontAwesomeIcon
-            style={image_style}
+            style={{ ...image_style, transform: "scaleX(-1)" }}
             icon={newData[2].type.iconName}
             color={newData[2].color}
           />
