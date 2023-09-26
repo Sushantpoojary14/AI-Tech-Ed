@@ -452,12 +452,16 @@ const MyComponent = () => {
         //   let newA = await cube1(item, count, questionRefs);
         //   newArr.push(newA);
         // }
+        // for (let index = 0; index < 2; index++) {
+        //   count++;
+        //   let newA2 = await mirror1(item, count, questionRefs);
+        //   newArr.push(newA2);
+        // }
         for (let index = 0; index < 2; index++) {
           count++;
           let newA2 = await mirror1(item, count, questionRefs);
           newArr.push(newA2);
         }
-
         return newArr;
       })
     );
