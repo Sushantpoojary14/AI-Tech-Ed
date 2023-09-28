@@ -156,9 +156,7 @@ const GenerateQuestions = ({
     },
   });
   const handleUpload = async (data:any) => {
-    console.log(data);
-    
-    
+
     if(topic1[0] == 2){
       const header3 = [
         "Paragraph",
@@ -172,8 +170,7 @@ const GenerateQuestions = ({
       ];
      
       const array2 = Object.keys(data[0])
-      console.log(JSON.stringify(header3) , JSON.stringify(array2));
-      
+          
       if((JSON.stringify(header3) === JSON.stringify(array2))){
         const filteredCsvData = csvData.filter((item: any) => {
           if (item.Question && item.Answer) {
