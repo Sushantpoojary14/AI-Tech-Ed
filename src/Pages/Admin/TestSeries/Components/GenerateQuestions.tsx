@@ -10,7 +10,7 @@ import PdfMaker from "./PdfMaker";
 import AlertBox from "../../../../Components/Common/AlertBox";
 import { UserContext } from "../../../../Context/UserContext";
 import QuestionCard from "./QuestionCard";
-import { count } from "console";
+import { count, log } from "console";
 
 type CsvItem = {
   Answer: string;
@@ -155,7 +155,43 @@ const GenerateQuestions = ({
       }
     },
   });
-
+  const handleUpload = async (data:any) => {
+    console.log(data);
+    
+    
+    if(topic1[0] == 2){
+      const header3 = [
+        "Paragraph",
+        "Question",
+        "Option_A",
+        "Option_B",
+        "Option_C",
+        "Option_D",
+        "Answer",
+        "Explanation",
+      ];
+     
+      const array2 = Object.keys(data[0])
+      console.log(JSON.stringify(header3) , JSON.stringify(array2));
+      
+      if((JSON.stringify(header3) === JSON.stringify(array2))){
+        const filteredCsvData = csvData.filter((item: any) => {
+          if (item.Question && item.Answer) {
+            return true;
+          }
+          return false;
+        });
+        addTestCTMu.mutate(filteredCsvData)
+      
+      } else {
+        alert("upload csv in correct formast");
+      }
+    }else{
+      addTestCTMu.mutate(data)
+    }
+    
+    
+  }
   const handleGenerate = async () => {
     const header1 = [
       "Question",
@@ -202,7 +238,7 @@ const GenerateQuestions = ({
         }
         return false;
       });
-      // console.log(filteredCsvData);
+      console.log(filteredCsvData);
       newRes.mutate(filteredCsvData);
     } else {
       alert("upload csv in correct formast");
@@ -615,7 +651,7 @@ const GenerateQuestions = ({
           // console.log(male,female);
 
           if (item.images?.length === 0) {
-            delete item.images; // Remove the 'images' property if it's empty
+            delete item.images; 
           }
 
           responses.push(item); // Add the modified item to the responses array
@@ -684,10 +720,10 @@ const GenerateQuestions = ({
                 <BButton2
                   type="button"
                   func={() =>
-                    !addTestCTMu.isLoading &&
-                    (newRes.data
-                      ? addTestCTMu.mutate(newRes.data)
-                      : addTestCTMu.mutate(csvData))
+                    handleUpload(newRes.data
+                      ? newRes.data
+                      : csvData)
+                    
                   }
                   name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
                 />
