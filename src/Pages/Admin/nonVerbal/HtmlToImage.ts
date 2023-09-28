@@ -47,4 +47,4 @@ const generateQuestionObjects = async (paraData: any): Promise<any[]> => {
   return questionObjects;
 };
 
-export { generateQuestionObjects }
+export { generateQuestionObjects };
