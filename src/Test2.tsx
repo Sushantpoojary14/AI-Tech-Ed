@@ -396,9 +396,10 @@ import cube1 from "./Pages/Admin/nonVerbal/Cube/Cube1";
 import { generateQuestionObjects } from "./Pages/Admin/nonVerbal/HtmlToImage";
 import cube2 from "./Pages/Admin/nonVerbal/Cube/Cube2";
 import mirror1 from "./Pages/Admin/nonVerbal/Mirror/Mirror1";
+import Cube3 from "./Pages/Admin/nonVerbal/Cube/Cube3";
 // import potrace from "potrace-js";
 const MyComponent = () => {
-  const [newData, setNewData] = useState([]);
+  const [newData, setNewData] = useState<any>([]);
 
   const questionRefs: any = useRef([]);
 
@@ -434,48 +435,46 @@ const MyComponent = () => {
     ],
   ];
 
-  for (let index = 0; index < 8; index++) {
-    questionRefs.current[index] = {
-      questionRef: useRef(null),
-      optionRefs: [useRef(null), useRef(null), useRef(null), useRef(null)],
-    };
-  }
+
+    for (let index = 0; index < 15; index++) {
+      const questionRef = useRef(null);
+      const optionRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+
+      questionRefs.current.push({ questionRef, optionRefs });
+    }
+
+ 
 
   const generateQuestions = async () => {
     let newArr2: any = [];
     let count = -1;
-    newArr2 = await Promise.all(
-      data.map(async (item) => {
-        let newArr: any = [];
-        for (let index = 0; index < 2; index++) {
-          count++;
-          let newA = await cube2(item, count, questionRefs);
-          newArr.push(newA);
-        }
-        // for (let index = 0; index < 2; index++) {
-        //   count++;
-        //   let newA = await cube1(item, count, questionRefs);
-        //   newArr.push(newA);
-        // }
-        // for (let index = 0; index < 2; index++) {
-        //   count++;
-        //   let newA2 = await mirror1(item, count, questionRefs);
-        //   newArr.push(newA2);
-        // }
-        for (let index = 0; index < 2; index++) {
-          count++;
-          let newA2 = await mirror1(item, count, questionRefs);
-          newArr.push(newA2);
-        }
-        return newArr;
-      })
-    );
+    setNewData([])
+    // data.map(async (item) => {
+
+    // for (let index = 0; index < 2; index++) {
+    //   count++;
+    //   let newA = await cube2(count, questionRefs);
+    //   newArr2.push(newA);
+    // }
+    // for (let index = 0; index < 2; index++) {
+    //   count++;
+    //   let newA = await cube1(count, questionRefs);
+    //   newArr2.push(newA);
+    // }
+    // for (let index = 0; index < 2; index++) {
+    //   count++;
+    //   let newA2 = await mirror1(count, questionRefs);
+    //   newArr2.push(newA2);
+    // }
+    for (let index = 0; index < 2; index++) {
+      count++;
+      let newA2 = await Cube3(count, questionRefs);
+      newArr2.push(newA2);
+    }
+
     setNewData(newArr2);
-    // const res = await generateQuestionObjects(newData);
-    // console.log(newArr2);
-    // console.log("imageG", res);
   };
-  // console.log(questionRefs);
+  console.log(newData);
 
   const imageG = async () => {
     const res = await generateQuestionObjects(newData);
@@ -493,42 +492,41 @@ const MyComponent = () => {
       </Box>
 
       <Box flexDirection={"row"}>
-        {newData?.map((item: any, key: number) => (
-          <React.Fragment key={key}>
-            {item?.map((item2: any, key2: number) => (
+        <React.Fragment>
+          {newData?.map((item2: any, key2: number) => (
+            <Stack
+              margin={"auto"}
+              width={"90%"}
+              height={"auto"}
+              spacing={2}
+              key={key2}
+              marginY={"15px"}
+            >
+              <ParaText1 text={"Q) " + item2?.question} />
+              <Box>{item2?.question_image}</Box>
               <Stack
+                direction={"row"}
                 margin={"auto"}
                 width={"90%"}
-                height={"auto"}
-                spacing={2}
-                key={key2}
                 marginY={"15px"}
+                sx={{
+                  gridColumn: "auto auto auto auto",
+                  columnGap: "30px",
+                }}
               >
-                <ParaText1 text={"Q) " + item2?.question} />
-                <Box>{item2?.question_image}</Box>
-                <Stack
-                  direction={"row"}
-                  margin={"auto"}
-                  width={"90%"}
-                  marginY={"15px"}
-                  sx={{
-                    gridColumn: "auto auto auto auto",
-                    columnGap: "30px",
-                  }}
-                >
-                  {item2?.options?.map((item3: any, key3: number) => (
-                    <>
-                      <Box key={key3}>
-                        {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
-                        {item3}
-                      </Box>
-                    </>
-                  ))}
-                </Stack>
+                {item2?.options?.map((item3: any, key3: number) => (
+                  <>
+                    <Box key={key3}>
+                      {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
+                      {item3}
+                    </Box>
+                  </>
+                ))}
               </Stack>
-            ))}
-          </React.Fragment>
-        ))}
+            </Stack>
+          ))}
+        </React.Fragment>
+        
         {/* <img src={svgImage} /> */}
         {/* <ImageToSvgConverter url={"http://localhost:8000/images/car.jpg"} /> */}
       </Box>

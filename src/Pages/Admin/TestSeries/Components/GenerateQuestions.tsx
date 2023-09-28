@@ -101,6 +101,8 @@ const GenerateQuestions = ({
 
   const addTestCTMu = useMutation({
     mutationFn: async (data: object[]) => {
+      console.log(data);
+
       return await adminTokenAxios.post(`/admin/add-test-series-topics`, {
         tsc_id: topic1[0],
         t_name: topic1[4],
@@ -175,16 +177,26 @@ const GenerateQuestions = ({
       "Answer",
       "Explanation",
     ];
+    const header3 = [
+      "Paragraph",
+      "Question",
+      "Option_A",
+      "Option_B",
+      "Option_C",
+      "Option_D",
+      "Answer",
+      "Explanation",
+    ];
     const array2 = Object.keys(csvData[0]);
     console.log(topic1[0], topic1[0] == 1 || topic1[0] == 2);
 
     if (
-      (JSON.stringify(header1) === JSON.stringify(array2) &&
-        (topic1[0] == 1 || topic1[0] == 2)) ||
-      (JSON.stringify(header2) === JSON.stringify(array2) && topic1[0] == 3)
+      (JSON.stringify(header1) === JSON.stringify(array2) && topic1[0] == 1) ||
+      (JSON.stringify(header2) === JSON.stringify(array2) && topic1[0] == 3) ||
+      (JSON.stringify(header3) === JSON.stringify(array2) && topic1[0] == 2)
     ) {
       const filteredCsvData = csvData.filter((item: any) => {
-        if (item.Question) {
+        if (item.Question && item.Answer) {
           // console.log(!!item.Question);
           return true;
         }
@@ -492,19 +504,23 @@ const GenerateQuestions = ({
         // console.log(message);
 
         questions?.map((item: mapData, index: any) => {
-
-         item.Paragraph =  item.Paragraph ? item.Paragraph.replace(/Paragraph:/g, "") : "";
-         item.Conversation =  item.Conversation ? item.Conversation.replace(/Conversation:/g, "") : "";
-         item.Explanation =  item.Explanation && item.Explanation.replace(/Explanation:/g, "");
-         item.Question =  item.Question && item.Question.replace(/Question:/g, "");
-         let data: string[] = [];
+          item.Paragraph = item.Paragraph
+            ? item.Paragraph.replace(/Paragraph:/g, "")
+            : "";
+          item.Conversation = item.Conversation
+            ? item.Conversation.replace(/Conversation:/g, "")
+            : "";
+          item.Explanation =
+            item.Explanation && item.Explanation.replace(/Explanation:/g, "");
+          item.Question =
+            item.Question && item.Question.replace(/Question:/g, "");
+          let data: string[] = [];
           const keysToCheck = ["Paragraph", "Conversation"];
           const itemKeys = Object.keys(item);
           const exists = keysToCheck.every((key) => {
             return itemKeys.includes(key);
           });
-         console.log(exists);
-         ;
+          console.log(exists);
           if (exists) {
             if (item.Paragraph || item.Conversation) {
               const paragraphData = item.Paragraph?.split(" ") ?? [];
@@ -526,7 +542,7 @@ const GenerateQuestions = ({
 
           item.images = []; // Initialize an empty array for images
           let count: number = 1;
-          
+
           maleNames.forEach((search: string) => {
             const caps = search.toUpperCase();
             let match = data.find(

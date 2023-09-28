@@ -27,7 +27,7 @@ const DBox = {
   justifyContent: "center",
   alignItem: "center",
 };
-const cube1 = async (paraData: any, index: number, questionRefs: any) => {
+const cube1 = async ( index: number, questionRefs: any) => {
   // console.log(index);
   const image_style = {
     width: "80%",
@@ -37,18 +37,11 @@ const cube1 = async (paraData: any, index: number, questionRefs: any) => {
   let newData: any = [];
   const options: any = [];
 
-  if (!(paraData && paraData?.length == 6)) {
-    return null;
-  }
-
   let question: any = {};
   for (let i = 5; i >= 0; i--) {
     let random = Math.floor(Math.random() * (i + 1));
-    let imageData = await randomicon();
+    let imageData = randomicon();
     newData.push(imageData);
-    let temp = paraData[random];
-    paraData[random] = paraData[i];
-    paraData[i] = temp;
   }
 
   let question_image = (

@@ -18,7 +18,7 @@ const DBox = {
   border: "1px solid ",
   paddingY: "10px",
 };
-const mirror1 = async (paraData: any, index: number, questionRefs: any) => {
+const mirror1 = async ( index: number, questionRefs: any) => {
   // console.log(index);
   const image_style = {
     width: "30px",

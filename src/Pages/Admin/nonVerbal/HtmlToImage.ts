@@ -16,8 +16,8 @@ const convertElementToImage = async (element: any) => {
 const generateQuestionObjects = async (paraData: any): Promise<any[]> => {
   const questionObjects = [];
 
-  for (const item of paraData) {
-    for (const item2 of item) {
+ 
+    for (const item2 of paraData) {
       const questionObj: any = {};
       // console.log(item2.question_image.ref);
 
@@ -42,7 +42,7 @@ const generateQuestionObjects = async (paraData: any): Promise<any[]> => {
 
       questionObjects.push(questionObj);
     }
-  }
+
 
   return questionObjects;
 };
