@@ -155,9 +155,8 @@ const GenerateQuestions = ({
       }
     },
   });
-  const handleUpload = async (data:any) => {
-
-    if(topic1[0] == 2){
+  const handleUpload = async (data: any) => {
+    if (topic1[0] == 2) {
       const header3 = [
         "Paragraph",
         "Question",
@@ -168,27 +167,24 @@ const GenerateQuestions = ({
         "Answer",
         "Explanation",
       ];
-     
-      const array2 = Object.keys(data[0])
-          
-      if((JSON.stringify(header3) === JSON.stringify(array2))){
+
+      const array2 = Object.keys(data[0]);
+
+      if (JSON.stringify(header3) === JSON.stringify(array2)) {
         const filteredCsvData = csvData.filter((item: any) => {
           if (item.Question && item.Answer) {
             return true;
           }
           return false;
         });
-        addTestCTMu.mutate(filteredCsvData)
-      
+        addTestCTMu.mutate(filteredCsvData);
       } else {
         alert("upload csv in correct formast");
       }
-    }else{
-      addTestCTMu.mutate(data)
+    } else {
+      addTestCTMu.mutate(data);
     }
-    
-    
-  }
+  };
   const handleGenerate = async () => {
     const header1 = [
       "Question",
@@ -310,8 +306,57 @@ const GenerateQuestions = ({
         // `;
 
         const topic = topic1[1];
-        const maleNames = ["Oliver", "James", "Jack"];
-        const femaleNames = ["Ella", "Evie", "Sienna"];
+        const maleNames = [
+          "Henry",
+          "James",
+          "Nathan",
+          "Carl",
+          "John",
+          "Peter",
+          "Shane",
+          "Alfred",
+          "Bobby",
+          "Clive",
+          "Dennis",
+          "Lloyd",
+          "Luke",
+          "Oliver",
+          "Philip",
+          "Winston",
+          "Henry",
+          "Jackson",
+          "Charlie",
+          "Roy",
+          "Harrison",
+          "Josh",
+          "Billy",
+        ];
+        const femaleNames = [
+          "Alice",
+          "Zoya",
+          "Emma",
+          "Darcy",
+          "Ella",
+          "Mary",
+          "Freda",
+          "Janie",
+          "Katty",
+          "Myra",
+          "Nora",
+          "Martha",
+          "Veverly",
+          "Ruth",
+          "Jenifer",
+          "Jenifer",
+          "Diana",
+          "Lucy",
+          "Daisy",
+          "Georgia",
+          "Matilda",
+          "Eliza",
+          "Clara",
+          "Kate",
+        ];
         let query = "";
         if (topic1[0] == 3) {
           query = `Generate five unique multiple-choice questions (MCQs) for the topic "${topic}".
@@ -577,6 +622,7 @@ const GenerateQuestions = ({
           let count: number = 1;
 
           maleNames.forEach((search: string) => {
+          
             const caps = search.toUpperCase();
             let match = data.find(
               (word: string) => word.toUpperCase() === caps
@@ -603,8 +649,11 @@ const GenerateQuestions = ({
                   count++;
               }
             }
+            return count == 3;
           });
           femaleNames.forEach((search: string) => {
+          
+            
             const caps = search.toUpperCase();
             const match = data.find(
               (word: string) => word.replace(/:/g, "").toUpperCase() === caps
@@ -629,6 +678,7 @@ const GenerateQuestions = ({
                   count++;
               }
             }
+            return count == 3;
           });
           image_data.forEach(
             (search: { image_name: string; image_url: string }) => {
@@ -643,12 +693,14 @@ const GenerateQuestions = ({
                   item.images?.push(search.image_url); // Add the image URL to the question
                 }
               }
+
+              return item.images?.length === 3;
             }
           );
           // console.log(male,female);
 
           if (item.images?.length === 0) {
-            delete item.images; 
+            delete item.images;
           }
 
           responses.push(item); // Add the modified item to the responses array
@@ -716,12 +768,7 @@ const GenerateQuestions = ({
               {(resData.length != 0 || topic1[0] == 2) && (
                 <BButton2
                   type="button"
-                  func={() =>
-                    handleUpload(newRes.data
-                      ? newRes.data
-                      : csvData)
-                    
-                  }
+                  func={() => handleUpload(newRes.data ? newRes.data : csvData)}
                   name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
                 />
               )}
