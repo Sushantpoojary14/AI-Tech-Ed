@@ -396,6 +396,7 @@ import cube1 from "./Pages/Admin/nonVerbal/Cube/Cube1";
 import { generateQuestionObjects } from "./Pages/Admin/nonVerbal/HtmlToImage";
 import cube2 from "./Pages/Admin/nonVerbal/Cube/Cube2";
 import mirror1 from "./Pages/Admin/nonVerbal/Mirror/Mirror1";
+import Mirror2 from "./Pages/Admin/nonVerbal/Mirror/Mirror2";
 // import potrace from "potrace-js";
 const MyComponent = () => {
   const [newData, setNewData] = useState([]);
@@ -447,11 +448,11 @@ const MyComponent = () => {
     newArr2 = await Promise.all(
       data.map(async (item) => {
         let newArr: any = [];
-        for (let index = 0; index < 2; index++) {
-          count++;
-          let newA = await cube2(item, count, questionRefs);
-          newArr.push(newA);
-        }
+        // for (let index = 0; index < 2; index++) {
+        //   count++;
+        //   let newA = await cube2(item, count, questionRefs);
+        //   newArr.push(newA);
+        // }
         // for (let index = 0; index < 2; index++) {
         //   count++;
         //   let newA = await cube1(item, count, questionRefs);
@@ -462,9 +463,14 @@ const MyComponent = () => {
         //   let newA2 = await mirror1(item, count, questionRefs);
         //   newArr.push(newA2);
         // }
-        for (let index = 0; index < 2; index++) {
+        // for (let index = 0; index < 2; index++) {
+        //   count++;
+        //   let newA2 = await mirror1(item, count, questionRefs);
+        //   newArr.push(newA2);
+        // }
+        for (let index = 0; index < 1; index++) {
           count++;
-          let newA2 = await mirror1(item, count, questionRefs);
+          let newA2 = await Mirror2(item, count, questionRefs);
           newArr.push(newA2);
         }
         return newArr;
