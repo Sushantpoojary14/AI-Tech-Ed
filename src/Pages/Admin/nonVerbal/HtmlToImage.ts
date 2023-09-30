@@ -31,10 +31,16 @@ const generateQuestionObjects = async (paraData: any): Promise<any[]> => {
       const optionImages: any = {};
       for (let j = 0; j < item2.options.length; j++) {
         // console.log(item2.options[j]?.ref);
-        const optionImageDataUrl = await convertElementToImage(
-          item2.options[j].ref
-        );
-        optionImages[String.fromCharCode(97 + j)] = optionImageDataUrl;
+        if(item2.options[j].ref){
+
+          const optionImageDataUrl = await convertElementToImage(
+            item2.options[j].ref 
+          );
+          optionImages[String.fromCharCode(97 + j)] = optionImageDataUrl;
+        }else{
+          optionImages[String.fromCharCode(97 + j)] = item2.options[j];
+        }
+        // optionImages[String.fromCharCode(97 + j)] = 
       }
       questionObj.options = optionImages;
       questionObj.correct_ans = item2.correct_ans;

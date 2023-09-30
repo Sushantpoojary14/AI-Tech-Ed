@@ -18,7 +18,7 @@ const randomicon = () => {
     const iconType = iconTypes[Math.floor(Math.random() * iconTypes.length)];
     const allColor = ["red", "blue", "green"]
     const color = allColor[Math.floor(Math.random() * allColor.length)];
-    console.log({ type: iconType, color });
+    // console.log({ type: iconType, color });
     return { type: iconType, color }
 
 

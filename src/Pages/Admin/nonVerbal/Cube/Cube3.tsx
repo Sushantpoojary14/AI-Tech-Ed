@@ -1,8 +1,9 @@
 import React from "react";
 import { Grid, Paper } from "@mui/material";
 import { fas, faB } from "@fortawesome/free-solid-svg-icons";
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { Icon, IconName, library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ParaText1 } from "../../../../Components/Common/ParaText";
 library.add(fas);
 library.add(faB);
 const TBox = {
@@ -30,129 +31,171 @@ const DBox = {
   alignItem: "center",
 };
 const image_style = {
-    width: "100%",
-    height: "100%",
-    margin: "auto",
-    color:"#ffffff",
-    borderRadius: 0,
-    backgroundColor:"#000000"
-  };
-const Cube3 = (index:number, questionRefs:any):any => {
-    let eArray = [1,2,3,4,5,6,7,8,9,10,11,12];
-    let diceArray = [];
-    for(let i = 0 ; i<6 ;i++){
-        
-    }
-     
-    let question: any = {};
-  let question_image = (
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        ref={questionRefs.current[index].questionRef}
-      >
-        {}
-        {/* <Grid
-          item
-          xs={12}
-          sm={5}
-          sx={{ w: "50%", m: "auto", backgroundColor: "transparent" }}
-        >
-          <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
-            <Grid item>
-              <Paper style={TBox}></Paper>
-            </Grid>
+  width: "100%",
+  height: "100%",
+  margin: "auto",
+  color: "#ffffff",
+  border: 0,
+  p: 16,
+  backgroundColor: "#000000",
+};
 
-            <Grid item>
-              <Paper style={DBox}>
-                <FontAwesomeIcon
-                  style={image_style}
-                  icon={"dice-one"}
-             
-                />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
-            <Grid item>
-              <Paper style={DBox}>
-                <FontAwesomeIcon
-                  style={image_style}
-                  icon={"dice-one"}
-                  className="dice-icon"
-                />
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Paper style={DBox}>
-                <FontAwesomeIcon
-                  style={image_style}
-                  icon={"dice-two"}
-               
-                />
-              </Paper>
-            </Grid>
+// 6 - [5,7, 9,2,4,6][1,3,5,6,8,10],2-[1,2,3,9,10,11],[3,4,5,7,8,9]
+const Cube3 = (index: number, questionRefs: any): any => {
+  let eArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  let diceArray: number[] = [3, 4, 5, 7, 8, 9]; //[0,1,2,3,4,5]
+  let value = 0;
 
-            <Grid item>
-              <Paper style={DBox}>
-                <FontAwesomeIcon
-                  style={image_style}
-                  icon={"dice-three"}
-                  
-                />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
-            <Grid item>
-              <Paper style={TBox}></Paper>
-            </Grid>
+  const random = Math.floor(Math.random() * 2);
+  const shapeRandom = Math.floor(Math.random() * 2);
+  let row = 0;
+  let col = 0;
+  if (random) {
+    const arr = [
+      [5, 7, 9, 2, 4, 6],
+      [1, 3, 5, 6, 8, 10],
+    ];
+    row = 6;
+    col = 2;
+    diceArray = arr[shapeRandom];
+  } else {
+    const arr = [
+      [1, 2, 3, 9, 10, 11],
+      [3, 4, 5, 7, 8, 9],
+    ];
+    row = 2;
+    col = 6;
+    diceArray = arr[shapeRandom];
+  }
 
-            <Grid item>
-              <Paper style={DBox}>
-                <FontAwesomeIcon
-                  style={image_style}
-                  icon={"dice-five"}
-                  
-                
-                />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
-            <Grid item>
-              <Paper style={TBox}></Paper>
-            </Grid>
-
-            <Grid item>
-              <Paper style={DBox}>
-                <FontAwesomeIcon
-                  style={image_style}
-                  icon={"dice-six"}
-               
-                />
-              </Paper>
-            </Grid>
-          </Grid>
-        </Grid> */}
-      </Grid>
-    );
-  
-  const diceIcons = [
+  const tDiceIcons: IconName[] = [
     "dice-one",
-    "fa-dice-two",
-    "fa-dice-three",
-    "fa-dice-four",
-    "fa-dice-five",
-    "fa-dice-six",
+    "dice-two",
+    "dice-three",
+    "dice-four",
+    "dice-five",
+    "dice-six",
   ];
-  question.question_image = question_image
-//  = (
-//     <div>
-//       <FontAwesomeIcon icon={"dice-one"} size="2x" color="black" />
-//     </div>
-//   );
+
+  let diceIcons: IconName[] = [];
+
+  for (let index = tDiceIcons.length - 1; index >= 0; index--) {
+    const random = Math.floor(Math.random() * index);
+    diceIcons.push(tDiceIcons[random]);
+    let temp = tDiceIcons[random];
+    tDiceIcons[random] = tDiceIcons[index];
+    tDiceIcons[index] = temp;
+  }
+  // console.log(option);
+
+  let question: any = {};
+  let count = 0;
+  let question_image = (
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      ref={questionRefs.current[index].questionRef}
+    >
+      <Grid item sx={{ w: "50%", m: "auto", backgroundColor: "transparent" }}>
+        {eArray.slice(0, row).map((rowItem, rowIndex) => {
+          // console.log(rowIndex * col, (rowIndex + 1) * col);
+          return (
+            <Grid
+              container
+              sx={{ w: "100%", m: "auto" }}
+              columns={3}
+              key={rowIndex}
+            >
+              {eArray
+                .slice(rowIndex * col, (rowIndex + 1) * col)
+                .map((colItem, colIndex) => {
+                  // console.log(colItem);
+                  const dice = diceArray.find(
+                    (item: number) => item === colItem
+                  );
+                  if (dice) {
+                    return (
+                      <Grid item key={colIndex}>
+                        <Paper style={DBox}>
+                          {/* {colItem} */}
+                          <FontAwesomeIcon
+                            icon={diceIcons[count++]}
+                            style={image_style}
+                          ></FontAwesomeIcon>
+                        </Paper>
+                      </Grid>
+                    );
+                  } else {
+                    return (
+                      <Grid item key={colIndex}>
+                        <Paper style={TBox}> {colItem}</Paper>
+                      </Grid>
+                    );
+                  }
+                })}
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Grid>
+  );
+  const randomQ = Math.floor(Math.random() * 6);
+  let ans = "";
+  let temp = diceIcons[randomQ].split("-")[1];
+  switch (randomQ) {
+    case 0:
+      ans = diceIcons[2].split("-")[1];
+      break;
+    case 1:
+      ans = diceIcons[4].split("-")[1];
+      break;
+    case 2:
+      ans = diceIcons[0].split("-")[1];
+      break;
+    case 3:
+      ans = diceIcons[5].split("-")[1];
+      break;
+    case 4:
+      ans = diceIcons[1].split("-")[1];
+      break;
+    case 5:
+      ans = diceIcons[3].split("-")[1];
+      break;
+  }
+  console.log(diceIcons[randomQ], ans);
+  const option = tDiceIcons.filter(
+    (item: string) =>
+      item.split("-")[1] != ans &&
+      item.split("-")[1] != diceIcons[randomQ].split("-")[1]
+  );
+  console.log(option);
+  let temp_options = [
+    ans,
+    option[0].split("-")[1],
+    option[2].split("-")[1],
+    option[1].split("-")[1],
+  ];
+  let correct_ans = -1;
+  const options: any = [];
+  for (let i = 3; i >= 0; i--) {
+    let random = Math.floor(Math.random() * (i + 1));
+    if (random == 0 && correct_ans < 0) {
+      correct_ans = 3 - i + 1;
+    }
+    options.push(temp_options[random]);
+    let temp = temp_options[random];
+    temp_options[random] = temp_options[i];
+    temp_options[i] = temp;
+  }
+  question.question = `
+  How many dots lie opposite to the face having ${
+    diceIcons[randomQ]?.split("-")[1]
+  } dots, when the given figure is folded to form a cube?`;
+  question.question_image = question_image;
+  question.options = options;
+  question.correct_ans = correct_ans;
+
   return question;
 };
 

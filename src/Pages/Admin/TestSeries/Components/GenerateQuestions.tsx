@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi } from "openai";
 
 import Test from "../../../../Test";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Alert, Box, Dialog, Pagination, Stack } from "@mui/material";
+import {  Pagination, Stack } from "@mui/material";
 import { BButton2 } from "../../../../Components/Common/Button";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import PdfMaker from "./PdfMaker";

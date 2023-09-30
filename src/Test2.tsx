@@ -444,6 +444,7 @@ const MyComponent = () => {
   }
 
   const generateQuestions = async () => {
+    console.log("newArr2");
     let newArr2: any = [];
     let count = -1;
     setNewData([]);
@@ -481,8 +482,10 @@ const MyComponent = () => {
     // }
 
     setNewData(newArr2);
+    console.log(newArr2);
+    
   };
-  console.log(newData);
+ 
 
   const imageG = async () => {
     const res = await generateQuestionObjects(newData);
