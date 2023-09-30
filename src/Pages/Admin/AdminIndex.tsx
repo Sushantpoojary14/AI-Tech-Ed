@@ -32,6 +32,7 @@ import ViewProductDetail from "./TestSeries/ViewProductDetail/ViewProductDetail"
 import ViewTopicDetail from "./TestSeries/ViewTestSeriesTopics/TopicView/ViewProductDetail/ViewTopicDetail";
 import AlertBox from "../../Components/Common/AlertBox";
 import EditProduct from "../../Components/Model/EditProduct";
+import NonVebal from "./nonVerbal/NonVebal";
 
 const AdminIndex = () => {
   const { admin, adminLogout } = AppContext();
@@ -127,7 +128,7 @@ const AdminIndex = () => {
             text="Back to Dashboard"
             link="/admin/login"
           />
-        
+
           <SuccessModel
             handleClose={handlePESuccessClose}
             open={openPESuccess}
@@ -148,7 +149,7 @@ const AdminIndex = () => {
             text="Back to Dashboard"
             link="/user"
           />
-            <EditProduct />
+          <EditProduct />
           <Container
             maxWidth={false}
             sx={{
@@ -203,6 +204,8 @@ const AdminIndex = () => {
                 path="/view-topics/view-topic-questions/:topicId"
                 element={<ViewTopicDetail />}
               />
+
+              <Route path="/non-verbal" element={<NonVebal />} />
 
               <Route path="*" element={<ErrorPage />} />
             </Routes>

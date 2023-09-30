@@ -27,7 +27,7 @@ const DBox = {
   justifyContent: "center",
   alignItem: "center",
 };
-const cube1 = async ( index: number, questionRefs: any) => {
+const cube1 = async (index: number, questionRefs: any) => {
   // console.log(index);
   const image_style = {
     width: "80%",

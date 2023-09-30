@@ -53,6 +53,11 @@ const pages: Type[] = [
     icon: <EventRepeatOutlinedIcon sx={pCss} />,
   },
   {
+    name: "Non-Verbal",
+    url: "/admin/non-verbal",
+    icon: <EventRepeatOutlinedIcon sx={pCss} />,
+  },
+  {
     name: "Profile",
     url: "/admin/profile",
     icon: <AccountBoxOutlinedIcon sx={pCss} />,
