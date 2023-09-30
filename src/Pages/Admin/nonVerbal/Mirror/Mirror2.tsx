@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import randomicon from "../../../../utils/randomIcon";
 
-const Mirror2 = async (paraData: any, index: number, questionRefs: any) => {
+const Mirror2 = async (index: number, questionRefs: any) => {
   const i = Math.floor(Math.random() * 4) + 5;
   const letters = [
     "A",
@@ -13,7 +13,6 @@ const Mirror2 = async (paraData: any, index: number, questionRefs: any) => {
     "F",
     "G",
     "H",
-
     "J",
     "K",
     "L",
@@ -40,7 +39,6 @@ const Mirror2 = async (paraData: any, index: number, questionRefs: any) => {
     "h",
     "i",
     "k",
-
     "m",
     "n",
     "o",

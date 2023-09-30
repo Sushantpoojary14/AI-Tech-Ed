@@ -33,12 +33,11 @@ const image_style = {
   height: "80%",
   margin: "auto",
 };
-const cube2 = async ( index: number, questionRefs: any) => {
+const cube2 = async (index: number, questionRefs: any) => {
   //   console.log(index);
 
   let newData: any = [];
   const options: any = [];
-
 
   let question: any = {};
   for (let i = 5; i >= 0; i--) {
@@ -49,12 +48,16 @@ const cube2 = async ( index: number, questionRefs: any) => {
   let random = Math.floor(Math.random() * 6);
   let ans = [];
   if (random < 3) {
-    ans.push(newData[random ], newData[random + 1], newData[random + 2]);
+    ans.push(newData[random], newData[random + 1], newData[random + 2]);
   } else {
-    ans.push(newData[random ], newData[random - 1], newData[random - 2]);
+    ans.push(newData[random], newData[random - 1], newData[random - 2]);
   }
   let question_image = (
-    <div className="cube" ref={questionRefs.current[index].questionRef}>
+    <div
+      className="cube"
+      ref={questionRefs.current[index].questionRef}
+      key={index}
+    >
       <div className="face top" style={Line}>
         <FontAwesomeIcon
           style={image_style}

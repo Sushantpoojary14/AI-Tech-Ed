@@ -397,6 +397,7 @@ import { generateQuestionObjects } from "./Pages/Admin/nonVerbal/HtmlToImage";
 import cube2 from "./Pages/Admin/nonVerbal/Cube/Cube2";
 import mirror1 from "./Pages/Admin/nonVerbal/Mirror/Mirror1";
 import Cube3 from "./Pages/Admin/nonVerbal/Cube/Cube3";
+import Paper1 from "./Pages/Admin/nonVerbal/PaperFold/Paper1";
 // import potrace from "potrace-js";
 const MyComponent = () => {
   const [newData, setNewData] = useState<any>([]);
@@ -435,22 +436,24 @@ const MyComponent = () => {
     ],
   ];
 
+  for (let index = 0; index < 15; index++) {
+    const questionRef = useRef(null);
+    const optionRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
 
-    for (let index = 0; index < 15; index++) {
-      const questionRef = useRef(null);
-      const optionRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
-
-      questionRefs.current.push({ questionRef, optionRefs });
-    }
-
- 
+    questionRefs.current.push({ questionRef, optionRefs });
+  }
 
   const generateQuestions = async () => {
     let newArr2: any = [];
     let count = -1;
-    setNewData([])
+    setNewData([]);
     // data.map(async (item) => {
 
+    // for (let index = 0; index < 2; index++) {
+    //   count++;
+    //   let newA = await cube3(count, questionRefs);
+    //   newArr2.push(newA);
+    // }
     // for (let index = 0; index < 2; index++) {
     //   count++;
     //   let newA = await cube2(count, questionRefs);
@@ -461,16 +464,21 @@ const MyComponent = () => {
     //   let newA = await cube1(count, questionRefs);
     //   newArr2.push(newA);
     // }
+    for (let index = 0; index < 1; index++) {
+      count++;
+      let newA = await Paper1(count, questionRefs);
+      newArr2.push(newA);
+    }
     // for (let index = 0; index < 2; index++) {
     //   count++;
     //   let newA2 = await mirror1(count, questionRefs);
     //   newArr2.push(newA2);
     // }
-    for (let index = 0; index < 2; index++) {
-      count++;
-      let newA2 = await Cube3(count, questionRefs);
-      newArr2.push(newA2);
-    }
+    // for (let index = 0; index < 2; index++) {
+    //   count++;
+    //   let newA2 = await Cube3(count, questionRefs);
+    //   newArr2.push(newA2);
+    // }
 
     setNewData(newArr2);
   };
@@ -526,7 +534,7 @@ const MyComponent = () => {
             </Stack>
           ))}
         </React.Fragment>
-        
+
         {/* <img src={svgImage} /> */}
         {/* <ImageToSvgConverter url={"http://localhost:8000/images/car.jpg"} /> */}
       </Box>
