@@ -20,20 +20,41 @@
     line-height: 120px;
     font-size: 24px;
   }
+  .cube2 {
+    width: 90px;
+    height: 100px;
+    margin-top: "10px";
+    margin: "20px";    
+    position:relative;
+    background-color: "#000000";
+    transform-style: preserve-3d;
+    transform: rotateX(-44deg) rotateY(51deg);
+  }
+  
+  .face2 {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: "#000000";
+    border: 1px solid #000000;
+    text-align: center;
+    line-height: 120px;
+    font-size: 24px;
+  }
   
   .front {
-    transform: translateZ(30px);
+    transform: translateZ(20px);
   }
   
 
   .top {
-    transform: rotateX(90deg) translateZ(30px);
+    transform: rotateX(90deg) translateZ(20px);
   }
   
 
   
   .left {
-    transform: rotateY(-90deg) translateZ(30px);
+    transform: rotateY(-90deg) translateZ(20px);
   }
   
   

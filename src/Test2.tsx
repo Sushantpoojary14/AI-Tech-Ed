@@ -398,6 +398,7 @@ import cube2 from "./Pages/Admin/nonVerbal/Cube/Cube2";
 import mirror1 from "./Pages/Admin/nonVerbal/Mirror/Mirror1";
 import Cube3 from "./Pages/Admin/nonVerbal/Cube/Cube3";
 import Paper1 from "./Pages/Admin/nonVerbal/PaperFold/Paper1";
+import Cube4 from "./Pages/Admin/nonVerbal/Cube/Cube4";
 // import potrace from "potrace-js";
 const MyComponent = () => {
   const [newData, setNewData] = useState<any>([]);
@@ -444,7 +445,7 @@ const MyComponent = () => {
   }
 
   const generateQuestions = async () => {
-    console.log("newArr2");
+    // console.log("newArr2");
     let newArr2: any = [];
     let count = -1;
     setNewData([]);
@@ -465,11 +466,11 @@ const MyComponent = () => {
     //   let newA = await cube1(count, questionRefs);
     //   newArr2.push(newA);
     // }
-    for (let index = 0; index < 1; index++) {
-      count++;
-      let newA = await Paper1(count, questionRefs);
-      newArr2.push(newA);
-    }
+    // for (let index = 0; index < 1; index++) {
+    //   count++;
+    //   let newA = await Paper1(count, questionRefs);
+    //   newArr2.push(newA);
+    // }
     // for (let index = 0; index < 2; index++) {
     //   count++;
     //   let newA2 = await mirror1(count, questionRefs);
@@ -480,7 +481,11 @@ const MyComponent = () => {
     //   let newA2 = await Cube3(count, questionRefs);
     //   newArr2.push(newA2);
     // }
-
+    for (let index = 0; index < 2; index++) {
+      count++;
+      let newA2 = await Cube4(count, questionRefs);
+      newArr2.push(newA2);
+    }
     setNewData(newArr2);
     console.log(newArr2);
   };
@@ -525,10 +530,10 @@ const MyComponent = () => {
               >
                 {item2?.options?.map((item3: any, key3: number) => (
                   <>
-                    <Box key={key3}>
+                    {/* <Box key={key3}>
                       {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
                       {item3}
-                    </Box>
+                    </Box> */}
                   </>
                 ))}
               </Stack>
