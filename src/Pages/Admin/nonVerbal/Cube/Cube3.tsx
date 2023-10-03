@@ -46,25 +46,41 @@ const Cube3 = (index: number, questionRefs: any): any => {
   let diceArray: number[] = [3, 4, 5, 7, 8, 9]; //[0,1,2,3,4,5]
   let value = 0;
 
-  const random = Math.floor(Math.random() * 2);
+  const random = Math.floor(Math.random() * 4);
   const shapeRandom = Math.floor(Math.random() * 2);
   let row = 0;
   let col = 0;
-  if (random) {
+  if (random == 1) {
     const arr = [
-      [5, 7, 9, 2, 4, 6],
+      [2, 4, 6, 5, 7, 9],
       [1, 3, 5, 6, 8, 10],
     ];
     row = 6;
     col = 2;
     diceArray = arr[shapeRandom];
-  } else {
+  } else if (random == 0) {
     const arr = [
       [1, 2, 3, 9, 10, 11],
       [3, 4, 5, 7, 8, 9],
     ];
     row = 2;
     col = 6;
+    diceArray = arr[shapeRandom];
+  } else if (random == 2) {
+    const arr = [
+      [1, 2, 5, 8, 11, 12],
+      [3, 2, 5, 8, 11, 10],
+    ];
+    row = 4;
+    col = 3;
+    diceArray = arr[shapeRandom];
+  } else {
+    const arr = [
+      [1, 5, 6, 7, 8, 12],
+      [4, 5, 6, 7, 8, 9],
+    ];
+    row = 3;
+    col = 4;
     diceArray = arr[shapeRandom];
   }
 
@@ -142,28 +158,66 @@ const Cube3 = (index: number, questionRefs: any): any => {
   );
   const randomQ = Math.floor(Math.random() * 6);
   let ans = "";
+  let t = 0;
   let temp = diceIcons[randomQ].split("-")[1];
-  switch (randomQ) {
-    case 0:
-      ans = diceIcons[2].split("-")[1];
-      break;
-    case 1:
-      ans = diceIcons[4].split("-")[1];
-      break;
-    case 2:
-      ans = diceIcons[0].split("-")[1];
-      break;
-    case 3:
-      ans = diceIcons[5].split("-")[1];
-      break;
-    case 4:
-      ans = diceIcons[1].split("-")[1];
-      break;
-    case 5:
-      ans = diceIcons[3].split("-")[1];
-      break;
+  if (random > 1) {
+    switch (randomQ) {
+      case 0:
+        ans = diceIcons[5].split("-")[1];
+        t = diceArray[5];
+        break;
+      case 1:
+        ans = diceIcons[3].split("-")[1];
+        t = diceArray[3];
+        break;
+      case 2:
+        ans = diceIcons[4].split("-")[1];
+        4;
+        t = diceArray[4];
+        break;
+      case 3:
+        ans = diceIcons[1].split("-")[1];
+        t = diceArray[1];
+        break;
+      case 4:
+        ans = diceIcons[2].split("-")[1];
+        t = diceArray[2];
+        break;
+      case 5:
+        ans = diceIcons[0].split("-")[1];
+        t = diceArray[0];
+        break;
+    }
+  } else {
+    switch (randomQ) {
+      case 0:
+        ans = diceIcons[2].split("-")[1];
+        t = diceArray[2];
+        break;
+      case 1:
+        ans = diceIcons[4].split("-")[1];
+        t = diceArray[4];
+        break;
+      case 2:
+        ans = diceIcons[0].split("-")[1];
+        t = diceArray[0];
+        break;
+      case 3:
+        ans = diceIcons[5].split("-")[1];
+        t = diceArray[5];
+        break;
+      case 4:
+        ans = diceIcons[1].split("-")[1];
+        t = diceArray[1];
+        break;
+      case 5:
+        ans = diceIcons[3].split("-")[1];
+        t = diceArray[3];
+        break;
+    }
   }
-  console.log(diceIcons[randomQ], ans);
+
+  console.log(diceArray, diceArray[randomQ], t);
   const option = tDiceIcons.filter(
     (item: string) =>
       item.split("-")[1] != ans &&

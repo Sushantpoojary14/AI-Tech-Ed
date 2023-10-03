@@ -3,10 +3,11 @@ import React, { useRef, useState } from "react";
 import { Header1 } from "../../../Components/Common/HeaderText";
 import SelectBox from "../../../Components/Common/Select";
 import { BButton } from "../../../Components/Common/Button";
-import cube1 from "./Cube/Cube1";
 import { generateQuestionObjects } from "./HtmlToImage";
 import { ParaText1 } from "../../../Components/Common/ParaText";
 import cube2 from "./Cube/Cube2";
+import cube1 from "./Cube/Cube1";
+import cube3 from "./Cube/Cube3";
 import mirror1 from "./Mirror/Mirror1";
 import Mirror2 from "./Mirror/Mirror2";
 
@@ -50,17 +51,17 @@ const NonVebal = () => {
         newArr2.push(newA);
       }
 
-      //   for (let index = 0; index < 2; index++) {
-      //     count++;
-      //     let newA = await cube2(count, questionRefs);
-      //     newArr2.push(newA);
-      //   }
+        for (let index = 0; index < 2; index++) {
+          count++;
+          let newA = await cube2(count, questionRefs);
+          newArr2.push(newA);
+        }
 
-      //  for (let index = 0; index < 2; index++) {
-      //   count++;
-      //   let newA = await cube3(count, questionRefs);
-      //   newArr2.push(newA);
-      // }
+       for (let index = 0; index < 2; index++) {
+        count++;
+        let newA = await cube3(count, questionRefs);
+        newArr2.push(newA);
+      }
     } else if (selectValue === 2) {
       for (let index = 0; index < 2; index++) {
         count++;
@@ -75,6 +76,8 @@ const NonVebal = () => {
     }
 
     setNewData(newArr2);
+    console.log(newArr2);
+    
   };
 
   const imageG = async () => {
@@ -175,6 +178,7 @@ const NonVebal = () => {
                   </>
                 ))}
               </Stack>
+              <ParaText1 text={`Answer: ${String.fromCharCode("A".charCodeAt(0) +(item2.correct_ans-1))}`}/>
             </Stack>
           ))}
         </React.Fragment>

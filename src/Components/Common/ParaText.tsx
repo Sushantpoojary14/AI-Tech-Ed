@@ -13,6 +13,7 @@ const ParaText1 = (props: props) => {
         fontSize: "16px",
         fontWeight: 400,
         color: "#000000",
+        
         ...props.css,
       }}
     >
