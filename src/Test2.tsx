@@ -399,6 +399,7 @@ import mirror1 from "./Pages/Admin/nonVerbal/Mirror/Mirror1";
 import Cube3 from "./Pages/Admin/nonVerbal/Cube/Cube3";
 import Paper1 from "./Pages/Admin/nonVerbal/PaperFold/Paper1";
 import Cube4 from "./Pages/Admin/nonVerbal/Cube/Cube4";
+import Cube5 from "./Pages/Admin/nonVerbal/Cube/Cube5";
 // import potrace from "potrace-js";
 const MyComponent = () => {
   const [newData, setNewData] = useState<any>([]);
@@ -481,11 +482,17 @@ const MyComponent = () => {
     //   let newA2 = await Cube3(count, questionRefs);
     //   newArr2.push(newA2);
     // }
+    // for (let index = 0; index < 2; index++) {
+    //   count++;
+    //   let newA2 = await Cube4(count, questionRefs);
+    //   newArr2.push(newA2);
+    // }
     for (let index = 0; index < 2; index++) {
       count++;
-      let newA2 = await Cube4(count, questionRefs);
+      let newA2 = await Cube5(count, questionRefs);
       newArr2.push(newA2);
     }
+    
     setNewData(newArr2);
     console.log(newArr2);
   };

@@ -4,7 +4,7 @@ import { fas, faB } from "@fortawesome/free-solid-svg-icons";
 import { Icon, IconName, library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ParaText1 } from "../../../../Components/Common/ParaText";
-import randomicon from "../../../../utils/randomIcon";
+import randomicon from "../../../../utils/randomicon";
 library.add(fas);
 library.add(faB);
 const TBox = {
@@ -121,7 +121,7 @@ const Cube4 = (index: number, questionRefs: any): any => {
     arr = arr.filter((item: number) => item != val);
     const icon = qArr.find((item: number) => item === tempArr[random]);
     console.log(icon,tempArr);
-    if(icon){
+    // if(icon){
       if (index < randomAns) {
         if (arr[random] < 3) {
           OptionAns.push([ [random], arr[random] + 1, arr[random] + 2]);
@@ -135,9 +135,9 @@ const Cube4 = (index: number, questionRefs: any): any => {
         } else {
           OptionRan.push([arr[random] - 1, arr[random], arr[random] - 2]);
         }
-      }
-      val = arr[random];
+      // }
     } 
+    val = arr[random];
  
     // console.log(index);
 
@@ -258,7 +258,7 @@ const Cube4 = (index: number, questionRefs: any): any => {
                     ref={questionRefs.current[index].questionRef}
                     key={index}
                   >
-                    <div className="face2 top" style={Line}>
+                    <div className="face2 top2" style={Line}>
                       {newArr[0] && (
                         <FontAwesomeIcon
                           style={{ ...image_style }}
@@ -266,7 +266,7 @@ const Cube4 = (index: number, questionRefs: any): any => {
                         />
                       )}
                     </div>
-                    <div className="face2 left" style={Line}>
+                    <div className="face2 left2" style={Line}>
                       {newArr[1] && (
                         <FontAwesomeIcon
                           style={{ ...image_style }}
@@ -274,7 +274,7 @@ const Cube4 = (index: number, questionRefs: any): any => {
                         />
                       )}
                     </div>
-                    <div className="face2 front" style={Line}>
+                    <div className="face2 front2" style={Line}>
                       {newArr[2] && (
                         <FontAwesomeIcon
                           style={{ ...image_style }}
