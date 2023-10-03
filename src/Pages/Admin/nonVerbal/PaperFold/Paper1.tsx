@@ -4,6 +4,8 @@ import randomicon from "../../../../utils/randomIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas, faB } from "@fortawesome/free-solid-svg-icons";
+
+import Canvas1 from "./component/Canvas1";
 library.add(fas);
 library.add(faB);
 
@@ -52,197 +54,294 @@ const Paper1 = async (index: number, questionRefs: any) => {
   console.log("icons", newData);
   let question_image = (
     <Stack px={1} ref={questionRefs.current[index].questionRef}>
-      <Box
-        sx={{
-          width: 200,
-          height: 200,
-          border: "1px",
-          borderColor: "yellow",
-        }}
-      >
-        <Grid container>
-          <Grid item xs={6}>
-            <Box
-              sx={{
-                width: 100,
-                height: 100,
-                backgroundColor: "white",
-              }}
-            >
-              <Grid
-                container
+      <Stack direction={"row"} spacing={1}>
+        {/* Box 1 */}
+        <Canvas1 />
+        <Box
+          sx={{
+            width: 100,
+            height: 100,
+            border: 1,
+            borderColor: "black",
+            backgroundColor: "yellow",
+          }}
+        />
+
+        {/* Box 2 */}
+        <Box
+          sx={{
+            width: 100,
+            height: 100,
+            border: 1,
+            borderStyle: "dashed",
+            borderColor: "black",
+            backgroundColor: "yellow",
+          }}
+        />
+        {/* Box 3 */}
+        <Box
+          sx={{
+            width: 100,
+            height: 100,
+          }}
+        >
+          <Grid container>
+            {/* Box 3.1 */}
+            <Grid item xs={6}>
+              <Box
                 sx={{
-                  width: 100,
-                  height: 100,
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gridTemplateRows: "repeat(3, 1fr)",
+                  width: 50,
+                  height: 50,
+                  border: 1,
+                  borderStyle: "dashed dashed none dashed",
+                  borderColor: "black",
                 }}
               >
                 <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                ></Grid>
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-              </Grid>
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box
-              sx={{
-                width: 100,
-                height: 100,
-                backgroundColor: "green",
-              }}
-            >
-              <Grid
-                container
+                  container
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gridTemplateRows: "repeat(3, 1fr)",
+                  }}
+                >
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  ></Grid>
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                </Grid>
+              </Box>
+            </Grid>
+            {/* Box 3.2 */}
+            <Grid item xs={6}>
+              <Box
                 sx={{
-                  width: 100,
-                  height: 100,
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gridTemplateRows: "repeat(3, 1fr)",
+                  width: 50,
+                  height: 50,
+                  border: 1,
+                  borderStyle: "dashed dashed dashed none",
+                  borderColor: "black",
                 }}
               >
                 <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                ></Grid>
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-              </Grid>
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box
-              sx={{
-                width: 100,
-                height: 100,
-                backgroundColor: "black",
-              }}
-            >
-              <Grid
-                container
+                  container
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gridTemplateRows: "repeat(3, 1fr)",
+                  }}
+                >
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  ></Grid>
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                </Grid>
+              </Box>
+            </Grid>
+            {/* Box 3.3 */}
+            <Grid item xs={6}>
+              <Box
                 sx={{
-                  width: 100,
-                  height: 100,
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gridTemplateRows: "repeat(3, 1fr)",
+                  width: 50,
+                  height: 50,
+                  border: 2,
+                  borderColor: "black",
+                  borderStyle: "solid",
                 }}
               >
                 <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                ></Grid>
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-              </Grid>
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box
-              sx={{
-                width: 100,
-                height: 100,
-                backgroundColor: "orange",
-              }}
-            >
-              <Grid
-                container
+                  container
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gridTemplateRows: "repeat(3, 1fr)",
+                  }}
+                >
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  ></Grid>
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                </Grid>
+              </Box>
+            </Grid>
+            {/* Box 3.4 */}
+            <Grid item xs={6}>
+              <Box
                 sx={{
-                  width: 100,
-                  height: 100,
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gridTemplateRows: "repeat(3, 1fr)",
+                  width: 50,
+                  height: 50,
+
+                  border: 1,
+                  borderStyle: "none dashed dashed none",
+                  borderColor: "black",
                 }}
               >
                 <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                ></Grid>
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-                <Grid
-                  item
-                  sx={{ width: "100%", height: "100%", bgcolor: "blueviolet" }}
-                />
-                <Grid item sx={{ width: "100%", height: "100%" }} />
-              </Grid>
-            </Box>
+                  container
+                  sx={{
+                    width: 50,
+                    height: 50,
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gridTemplateRows: "repeat(3, 1fr)",
+                  }}
+                >
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  ></Grid>
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                  <Grid
+                    item
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                  <Grid item sx={{ width: "100%", height: "100%" }} />
+                </Grid>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </Stack>
       {/* <Box>
         {shapes.map((item: string, index: number) => (
           <Box>
@@ -371,7 +470,7 @@ const Paper1 = async (index: number, questionRefs: any) => {
   question.question_image = question_image;
   question.options = options;
   question.question =
-    "Choose the alternative which is closely resembles the water-image of the given combination:";
+    "The following question consists of a set of three figures X, Y and Z showing a sequence of folding of a piece of paper. Fig (Z) shows the manner in which the folded paper has been cut. These three figures are followed by four answer figures from which you have to choose a figure which would most closely resemble the unfolded form fig. (Z).";
   question.correct_ans = correct_ans;
   // return question;
   // console.log(questionRefs);

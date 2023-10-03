@@ -483,9 +483,7 @@ const MyComponent = () => {
 
     setNewData(newArr2);
     console.log(newArr2);
-    
   };
- 
 
   const imageG = async () => {
     const res = await generateQuestionObjects(newData);
