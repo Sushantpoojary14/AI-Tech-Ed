@@ -113,15 +113,20 @@ const NonVebal = () => {
 
   const imageG = async (e: any) => {
     e.preventDefault();
-    console.log("place", inputValue);
     const res = await generateQuestionObjects(newData);
     let data = {
-      t_name: selectValue,
-      topic: inputValue,
+      t_name: inputValue,
+      topic:
+        selectValue === 1
+          ? "cubes & dice"
+          : selectValue === 2
+          ? "water & mirror"
+          : "",
       tsc_id: 3,
       ts_id: selectValue1,
       question: res,
     };
+    console.log("NVData", data);
     addNonVerbalMU.mutate(data);
   };
 

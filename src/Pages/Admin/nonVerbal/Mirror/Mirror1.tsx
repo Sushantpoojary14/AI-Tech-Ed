@@ -18,7 +18,7 @@ const DBox = {
   border: "1px solid ",
   paddingY: "10px",
 };
-const mirror1 = async ( index: number, questionRefs: any) => {
+const mirror1 = async (index: number, questionRefs: any) => {
   // console.log(index);
   const image_style = {
     width: "30px",
@@ -381,7 +381,7 @@ const mirror1 = async ( index: number, questionRefs: any) => {
   question.question_image = question_image;
   question.options = options;
   question.question =
-    "You are required to determine which of the cubes could be formed by folding the following figure:";
+    "Choose the alternative which is closely resembles the mirror of the given combination:";
   question.correct_ans = correct_ans;
   // return question;
   // console.log(questionRefs);

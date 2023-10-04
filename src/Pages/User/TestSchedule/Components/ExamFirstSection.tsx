@@ -279,38 +279,111 @@ const ExamFirstSection = (props: props) => {
                     control={control}
                     render={({ field }) => (
                       <RadioGroup {...field} name="radio-buttons-group">
-                        <FormControlLabel
-                          checked={
-                            props.data ? question?.test_answer == "A" : false
-                          }
-                          value="A"
-                          control={<Radio />}
-                          label={`A. ${question?.questions.option_1}`}
-                        />
-                        <FormControlLabel
-                          value="B"
-                          checked={
-                            props.data ? question?.test_answer == "B" : false
-                          }
-                          control={<Radio />}
-                          label={`B. ${question?.questions.option_2}`}
-                        />
-                        <FormControlLabel
-                          value="C"
-                          checked={
-                            props.data ? question?.test_answer == "C" : false
-                          }
-                          control={<Radio />}
-                          label={`C. ${question?.questions.option_3}`}
-                        />
-                        <FormControlLabel
-                          value="D"
-                          checked={
-                            props.data ? question?.test_answer == "D" : false
-                          }
-                          control={<Radio />}
-                          label={`D. ${question?.questions.option_4}`}
-                        />
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            checked={
+                              props.data ? question?.test_answer == "A" : false
+                            }
+                            value="A"
+                            control={<Radio />}
+                            label={`A.  ${
+                              question?.questions.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : question?.questions.option_1
+                            }`}
+                          />
+                          {question?.questions.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                question?.questions.option_1
+                              }
+                            />
+                          )}
+                        </Stack>
+
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            value="B"
+                            checked={
+                              props.data ? question?.test_answer == "B" : false
+                            }
+                            control={<Radio />}
+                            label={`B. ${
+                              question?.questions.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : question?.questions.option_2
+                            }`}
+                          />
+                          {question?.questions.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                question?.questions.option_2
+                              }
+                            />
+                          )}
+                        </Stack>
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            value="C"
+                            checked={
+                              props.data ? question?.test_answer == "C" : false
+                            }
+                            control={<Radio />}
+                            label={`C.  ${
+                              question?.questions.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : question?.questions.option_3
+                            }`}
+                          />
+                          {question?.questions.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                question?.questions.option_3
+                              }
+                            />
+                          )}
+                        </Stack>
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            value="D"
+                            checked={
+                              props.data ? question?.test_answer == "D" : false
+                            }
+                            control={<Radio />}
+                            label={`D. ${
+                              question?.questions.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : question?.questions.option_4
+                            }`}
+                          />
+                          {question?.questions.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                question?.questions.option_4
+                              }
+                            />
+                          )}
+                        </Stack>
                       </RadioGroup>
                     )}
                   />
