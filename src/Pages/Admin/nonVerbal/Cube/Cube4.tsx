@@ -142,7 +142,7 @@ const Cube4 = (index: number, questionRefs: any): any => {
   let val = -1;
   let OptionAns: any = [];
   let OptionRan: any = [];
-  let qArr: number[] = [];
+  let qArr:any = [];
   let tempArr = diceArray.slice();
 
   for (let i = 0; i < 3; i++) {
