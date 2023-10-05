@@ -71,9 +71,9 @@ const MainTestSchedule = () => {
     onSuccess: (response) => {
       console.log(response);
 
-      navigate(`/user/Test-schedule/Test-section/${response.data.uts_id}`);
-      // let url =`/user/Test-schedule/Exam-section/${response?.data?.user_test}`;
-      // window.open(url, '_blank', 'width=1400,height=600');
+      // navigate(`/user/Test-schedule/Test-section/${response.data.uts_id}`);
+      let url =`/user/Test-schedule/Exam-section/${response?.data?.user_test}`;
+      window.open(url, '_blank', 'width=1400,height=600');
     },
   });
 
