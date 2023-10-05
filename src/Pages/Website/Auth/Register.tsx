@@ -180,7 +180,7 @@ const Register = () => {
           </Box>
         ) : (
           <OButton2
-            name="Login"
+            name="Register"
             css={{ my: "30px", width: "100%" }}
             type="submit"
           />
