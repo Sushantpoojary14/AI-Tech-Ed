@@ -222,8 +222,8 @@ const Cube4 = (index: number, questionRefs: any): any => {
                   );
 
                   if (dice) {
-                    const icon:number = qArr.findLastIndex(
-                      (item: number) => item === colItem
+                    const icon:any = qArr.findLastIndex(
+                      (item: any) => item === colItem
                     );
                     // console.log(icon);
 
@@ -255,7 +255,7 @@ const Cube4 = (index: number, questionRefs: any): any => {
       </Grid>
       <Grid>
         <Stack flexDirection={"row"}>
-          {all_option.map((rowItem: number[], rowIndex: number) => {
+          {all_option.map((rowItem: any, rowIndex: number) => {
             // console.log(rowIndex * col, (rowIndex + 1) * col);
             // if (rowIndex < OptionAns.length) {
             // console.log(diceIcons[1]);
