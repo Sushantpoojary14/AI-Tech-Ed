@@ -43,7 +43,7 @@ const image_style = {
 
 // 6 - [5,7, 9,2,4,6][1,3,5,6,8,10],2-[1,2,3,9,10,11],[3,4,5,7,8,9]
 const Cube4 = (index: number, questionRefs: any): any => {
-  let eArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  let eArray: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   let diceArray: number[] = []; //[0,1,2,3,4,5]
   let value = 0;
 
@@ -209,20 +209,20 @@ const Cube4 = (index: number, questionRefs: any): any => {
       ref={questionRefs.current[index].questionRef}
     >
       <Grid item sx={{ m: "auto", backgroundColor: "transparent" }}>
-        {eArray.slice(0, row).map((rowItem, rowIndex) => {
+        {eArray.slice(0, row).map((rowItem:any, rowIndex:any) => {
           // console.log(rowIndex * col, (rowIndex + 1) * col);
           return (
             <Grid container sx={{ w: "100%", m: "auto" }} key={rowIndex}>
               {eArray
                 .slice(rowIndex * col, (rowIndex + 1) * col)
-                .map((colItem, colIndex) => {
+                .map((colItem:any, colIndex:any) => {
                   // console.log(colItem);
                   const dice = diceArray.find(
                     (item: number) => item === colItem
                   );
 
                   if (dice) {
-                    const icon = qArr.findLastIndex(
+                    const icon:number = qArr.findLastIndex(
                       (item: number) => item === colItem
                     );
                     // console.log(icon);
@@ -260,18 +260,18 @@ const Cube4 = (index: number, questionRefs: any): any => {
             // if (rowIndex < OptionAns.length) {
             // console.log(diceIcons[1]);
             let oCount = 0;
-            const icon: number | undefined = qArr.findLastIndex(
+            const icon:any = qArr.findLastIndex(
               (item: number) => item === rowItem[0]
             );
-            const icon2: number | undefined = qArr.findLastIndex(
+            const icon2:any= qArr.findLastIndex(
               (item: number) => item === rowItem[1]
             );
-            const icon3: number | undefined = qArr.findLastIndex(
+            const icon3:any = qArr.findLastIndex(
               (item: number) => item === rowItem[2]
             );
             // // console.log( icon, icon2, icon3);
             let newArr = [icon, icon2, icon3].map(
-              (item: number | undefined) => {
+              (item: any) => {
                 if (item && item === qArr[0]) {
                   return 0;
                 } else if (item && item === qArr[1]) {

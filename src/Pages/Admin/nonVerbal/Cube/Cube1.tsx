@@ -1,6 +1,6 @@
 import { Grid, Paper } from "@mui/material";
 import imagetosvg from "../../../../utils/imagetosvg";
-import randomicon from "../../../../utils/randomIcon";
+import randomicon from "../../../../utils/randomicon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const TBox = {
