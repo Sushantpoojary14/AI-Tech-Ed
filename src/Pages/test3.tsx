@@ -9,13 +9,13 @@ library.add(fas);
 library.add(faB);
 
 const test3 = () => {
-  const iconList: any = Object.keys(Icons)
-    .filter((key: any) => key !== "fas" && key !== "prefix")
-    .map((icon: any) => Icons[icon]);
+  // const iconList: any = Object.keys(Icons)
+    // .filter((key: any) => key !== "fas" && key !== "prefix")
+    // .map((icon: any) => Icons[icon]);
 
   //   library.add(...iconList);
-  console.log(iconList[564]);
-  const [icon, setIcon] = useState<any>(null);
+  // console.log(iconList[564]);
+  // const [icon, setIcon] = useState<any>(null);
 
   const generateNewIcon = () => {
     const iconTypes = ["address-book", "clock", "book"];
@@ -25,12 +25,12 @@ const test3 = () => {
     const allColor = ["red", "blue", "green"];
     const color = allColor[Math.floor(Math.random() * allColor.length)];
 
-    setIcon({ type: iconType, color });
+    // setIcon({ type: iconType, color });
   };
 
   return (
     <div>
-      <button onClick={() => randomicon()}>Generate New Icon</button>
+      {/* <button onClick={() => randomicon()}>Generate New Icon</button>
 
       {icon && (
         <i
@@ -46,7 +46,7 @@ const test3 = () => {
         >
           <FontAwesomeIcon icon={icon.type} color={icon.color} />
         </i>
-      )}
+      )} */}
     </div>
   );
 };

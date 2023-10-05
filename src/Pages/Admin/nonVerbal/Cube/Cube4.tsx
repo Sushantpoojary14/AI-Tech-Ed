@@ -46,7 +46,7 @@ const Cube4 = (index: number, questionRefs: any): any => {
   let eArray: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   let diceArray: number[] = []; //[0,1,2,3,4,5]
   let value = 0;
-
+  // randomicon()
   const random = Math.floor(Math.random() * 4);
   const shapeRandom = Math.floor(Math.random() * 2);
   let row = 0;
@@ -261,13 +261,13 @@ const Cube4 = (index: number, questionRefs: any): any => {
             // console.log(diceIcons[1]);
             let oCount = 0;
             const icon:any = qArr.findLastIndex(
-              (item: number) => item === rowItem[0]
+              (item: any) => item === rowItem[0]
             );
             const icon2:any= qArr.findLastIndex(
-              (item: number) => item === rowItem[1]
+              (item: any) => item === rowItem[1]
             );
             const icon3:any = qArr.findLastIndex(
-              (item: number) => item === rowItem[2]
+              (item: any) => item === rowItem[2]
             );
             // // console.log( icon, icon2, icon3);
             let newArr = [icon, icon2, icon3].map(

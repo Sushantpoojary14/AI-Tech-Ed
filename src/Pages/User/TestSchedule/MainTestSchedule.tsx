@@ -72,7 +72,7 @@ const MainTestSchedule = () => {
       console.log(response);
 
       // navigate(`/user/Test-schedule/Test-section/${response.data.uts_id}`);
-      let url =`/user/Test-schedule/Exam-section/${response?.data?.user_test}`;
+      let url =`/#/user/Test-schedule/Test-section/${response.data.uts_id}`;
       window.open(url, '_blank', 'width=1400,height=600');
     },
   });
