@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import { fas, faB } from "@fortawesome/free-solid-svg-icons";
 import { library } from "../../node_modules/@fortawesome/fontawesome-svg-core";
-import randomicon from "../utils/randomIcon";
+import randomicon from "../utils/randomicon";
 library.add(fas);
 library.add(faB);
 
