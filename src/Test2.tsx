@@ -482,17 +482,17 @@ const MyComponent = () => {
     //   let newA2 = await Cube3(count, questionRefs);
     //   newArr2.push(newA2);
     // }
-    // for (let index = 0; index < 2; index++) {
-    //   count++;
-    //   let newA2 = await Cube4(count, questionRefs);
-    //   newArr2.push(newA2);
-    // }
     for (let index = 0; index < 2; index++) {
       count++;
-      let newA2 = await Cube5(count, questionRefs);
+      let newA2 = await Cube4(count, questionRefs);
       newArr2.push(newA2);
     }
-    
+    // for (let index = 0; index < 2; index++) {
+    //   count++;
+    //   let newA2 = await Cube5(count, questionRefs);
+    //   newArr2.push(newA2);
+    // }
+
     setNewData(newArr2);
     console.log(newArr2);
   };
@@ -537,10 +537,10 @@ const MyComponent = () => {
               >
                 {item2?.options?.map((item3: any, key3: number) => (
                   <>
-                    {/* <Box key={key3}>
+                    <Box key={key3}>
                       {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
                       {item3}
-                    </Box> */}
+                    </Box>
                   </>
                 ))}
               </Stack>

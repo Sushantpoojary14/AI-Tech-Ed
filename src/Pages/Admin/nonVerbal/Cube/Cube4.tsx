@@ -37,6 +37,7 @@ const image_style = {
   margin: "auto",
   color: "#red",
   border: 0,
+
   p: 16,
 };
 
@@ -50,6 +51,7 @@ const Cube4 = (index: number, questionRefs: any): any => {
   const shapeRandom = Math.floor(Math.random() * 2);
   let row = 0;
   let col = 0;
+  let new_option: Array<number[]> = [];
 
   if (random == 1) {
     const arr = [
@@ -58,6 +60,12 @@ const Cube4 = (index: number, questionRefs: any): any => {
     ];
     row = 6;
     col = 2;
+    new_option = [
+      [1, 5, 6],
+      [2, 3, 4],
+      [3, 2, 1],
+      [4, 3, 2],
+    ];
     diceArray = arr[shapeRandom];
   } else if (random == 0) {
     const arr = [
@@ -66,14 +74,26 @@ const Cube4 = (index: number, questionRefs: any): any => {
     ];
     row = 2;
     col = 6;
+    new_option = [
+      [1, 2, 3],
+      [2, 3, 4],
+      [3, 2, 1],
+      [4, 3, 2],
+    ];
     diceArray = arr[shapeRandom];
   } else if (random == 2) {
     const arr = [
       [1, 2, 5, 8, 11, 12],
-      [3, 2, 5, 8, 11, 10],
+      [2, 3, 5, 8, 11, 10],
     ];
     row = 4;
     col = 3;
+    new_option = [
+      [1, 2, 3],
+      [2, 3, 4],
+      [3, 2, 1],
+      [4, 3, 2],
+    ];
     diceArray = arr[shapeRandom];
   } else {
     const arr = [
@@ -82,23 +102,40 @@ const Cube4 = (index: number, questionRefs: any): any => {
     ];
     row = 3;
     col = 4;
+    const arr2 = [
+      [
+        [1, 5, 6],
+        [8, 7, 12],
+        [12, 7, 8],
+        [6, 5, 1],
+      ],
+      [
+        [4, 7, 8],
+        [7, 8, 4],
+        [9, 5, 6],
+        [6, 5, 9],
+      ],
+    ];
+    new_option = arr2[shapeRandom]
     diceArray = arr[shapeRandom];
   }
-
+  console.log(random, diceArray);
   let diceIcons: IconName[] = [];
-  for (let i = 3; i > 0; i--) {
-    let random = Math.floor(Math.random() * (i + 1));
-    let imageData = randomicon();
-    diceIcons.push(imageData.type);
+  // for (let i = 3; i > 0; i--) {
+  //   let random = Math.floor(Math.random() * (i + 1));
+  //   let imageData:IconName[] =  ["1", "2", "3", "4", "5", "6"];
+  //   diceIcons.push(imageData[random]);
+  // }
+  let tDiceIcons: IconName[] = ["1", "2", "3", "4", "5", "6"];
+  for (let index = tDiceIcons.length - 1; index >= 0; index--) {
+    const random = Math.floor(Math.random() * index);
+    diceIcons.push(tDiceIcons[random]);
+    let temp = tDiceIcons[random];
+    tDiceIcons[random] = tDiceIcons[index];
+    tDiceIcons[index] = temp;
   }
-  //   for (let index = tDiceIcons.length - 1; index >= 0; index--) {
-  //     const random = Math.floor(Math.random() * index);
-  //     diceIcons.push(tDiceIcons[random]);
-  //     let temp = tDiceIcons[random];
-  //     tDiceIcons[random] = tDiceIcons[index];
-  //     tDiceIcons[index] = temp;
-  //   }
-  // console.log(option);
+
+  // console.log(diceIcons);
 
   let question: any = {};
   const randomAns = Math.floor(Math.random() * 4) + 1;
@@ -106,7 +143,8 @@ const Cube4 = (index: number, questionRefs: any): any => {
   let OptionAns: any = [];
   let OptionRan: any = [];
   let qArr: number[] = [];
-  let tempArr = diceArray;
+  let tempArr = diceArray.slice();
+
   for (let i = 0; i < 3; i++) {
     let random = Math.floor(Math.random() * (tempArr.length - i));
     const temp = tempArr[random];
@@ -114,56 +152,51 @@ const Cube4 = (index: number, questionRefs: any): any => {
     tempArr[random] = tempArr[tempArr.length - 1 - i];
     tempArr[tempArr.length - 1 - i] = temp;
   }
-  let arr: number[] = [0, 1, 2, 3, 4, 5];
-  
+
   for (let index = 0; index < 4; index++) {
-    const random = Math.floor(Math.random() * (6 - index));
-    arr = arr.filter((item: number) => item != val);
-    const icon = qArr.find((item: number) => item === tempArr[random]);
-    console.log(icon,tempArr);
-    // if(icon){
-      if (index < randomAns) {
-        if (arr[random] < 3) {
-          OptionAns.push([ [random], arr[random] + 1, arr[random] + 2]);
-        } else {
-          OptionAns.push([arr[random], arr[random] - 1, arr[random] - 2]);
-        }
-      } else {
-        if (arr[random] < 3) {
-          // console.log(random);
-          OptionRan.push([arr[random], arr[random] + 2, arr[random] + 1]);
-        } else {
-          OptionRan.push([arr[random] - 1, arr[random], arr[random] - 2]);
-        }
-      // }
-    } 
-    val = arr[random];
- 
-    // console.log(index);
+    const random = Math.floor(Math.random() * (3 - index));
 
-   
+    if (index < randomAns) {
+      OptionAns.push([
+        diceArray[new_option[random][0]],
+        diceArray[new_option[random][1]],
+        diceArray[new_option[random][2]],
+      ]);
+    } else {
+      OptionRan.push([
+        diceArray[new_option[random][0]],
+        diceArray[new_option[random][2]],
+        diceArray[new_option[random][1]],
+      ]);
+    }
+
+    // Swap elements in arr
+    const temp = new_option[random];
+    new_option[random] = new_option[3 - index];
+    new_option[3 - index] = temp;
   }
-  // console.log(OptionAns, OptionRan);
-
-  
-
+  // console.log(index);
+  // console.log(diceArray);
   const all_option = OptionAns.concat(OptionRan);
+  console.log(qArr, diceArray, OptionAns, all_option);
   let correct_ans: number[] = [];
   let correct_option: number[] = [];
   let ans = "";
   let temp_options: string[] = [];
   const options: any = [];
-  for (let i = 3; i >= 0; i--) {
-    let random = Math.floor(Math.random() * (i + 1));
-    if (random == 0 && correct_ans.length <= OptionAns.length) {
-      correct_option.push(3 - i);
-    }
-    options.push(all_option[random]);
-    let temp = all_option[random];
-    all_option[random] = all_option[i];
-    all_option[i] = temp;
-  }
-  // console.log(qArr, OptionAns, OptionRan);
+  // for (let i = 3; i >= 0; i--) {
+  //   let random = Math.floor(Math.random() * (i + 1));
+  //   if (OptionAns.length <= options.length) {
+  //     // console.log(3 - i);
+
+  //     correct_option.push(3 - i);
+  //   }
+  //   options.push(all_option[random]);
+  //   let temp = all_option[random];
+  //   all_option[random] = all_option[i];
+  //   all_option[i] = temp;
+  // }
+  // console.log(options);
   let count = 0;
 
   let question_image = (
@@ -189,19 +222,21 @@ const Cube4 = (index: number, questionRefs: any): any => {
                   );
 
                   if (dice) {
-                    const icon = qArr.find((item: number) => item === colItem);
+                    const icon = qArr.findLastIndex(
+                      (item: number) => item === colItem
+                    );
                     // console.log(icon);
 
                     return (
                       <Grid item key={colIndex}>
                         <Paper style={DBox}>
-                          {/* {colItem} */}
-                          {icon && (
+                          {colItem}
+                          {/* {icon > -1 && (
                             <FontAwesomeIcon
-                              icon={diceIcons[count++]}
+                              icon={diceIcons[icon]}
                               style={image_style}
                             ></FontAwesomeIcon>
-                          )}
+                          )} */}
                         </Paper>
                       </Grid>
                     );
@@ -225,16 +260,16 @@ const Cube4 = (index: number, questionRefs: any): any => {
             // if (rowIndex < OptionAns.length) {
             // console.log(diceIcons[1]);
             let oCount = 0;
-            const icon: number | undefined = qArr.find(
-              (item: number) => item === diceArray[rowItem[0]]
+            const icon: number | undefined = qArr.findLastIndex(
+              (item: number) => item === rowItem[0]
             );
-            const icon2: number | undefined = qArr.find((item: number) => {
-              item === diceArray[rowItem[1]];
-            });
-            const icon3: number | undefined = qArr.find(
-              (item: number) => item === diceArray[rowItem[2]]
+            const icon2: number | undefined = qArr.findLastIndex(
+              (item: number) => item === rowItem[1]
             );
-            // console.log( icon, icon2, icon3);
+            const icon3: number | undefined = qArr.findLastIndex(
+              (item: number) => item === rowItem[2]
+            );
+            // // console.log( icon, icon2, icon3);
             let newArr = [icon, icon2, icon3].map(
               (item: number | undefined) => {
                 if (item && item === qArr[0]) {
@@ -244,11 +279,11 @@ const Cube4 = (index: number, questionRefs: any): any => {
                 } else if (item && item === qArr[2]) {
                   return 2;
                 }
-                return undefined;
+                return null;
               }
             );
 
-            // console.log(qArr,newArr);
+            console.log(newArr, [icon, icon2, icon3]);
 
             return (
               <Stack>
@@ -259,26 +294,29 @@ const Cube4 = (index: number, questionRefs: any): any => {
                     key={index}
                   >
                     <div className="face2 top2" style={Line}>
-                      {newArr[0] && (
+                      {/* {rowItem[0]} */}
+                      {!!(icon > -1) && (
                         <FontAwesomeIcon
-                          style={{ ...image_style }}
-                          icon={diceIcons[newArr[0]]}
+                          style={image_style}
+                          icon={diceIcons[icon]}
                         />
                       )}
                     </div>
                     <div className="face2 left2" style={Line}>
-                      {newArr[1] && (
+                      {/* {rowItem[1]} */}
+                      {!!(icon2 > -1) && (
                         <FontAwesomeIcon
-                          style={{ ...image_style }}
-                          icon={diceIcons[newArr[1]]}
+                          style={image_style}
+                          icon={diceIcons[icon2]}
                         />
                       )}
                     </div>
                     <div className="face2 front2" style={Line}>
-                      {newArr[2] && (
+                      {/* {rowItem[2]} */}
+                      {!!(icon3 > -1) && (
                         <FontAwesomeIcon
-                          style={{ ...image_style }}
-                          icon={diceIcons[newArr[2]]}
+                          style={image_style}
+                          icon={diceIcons[icon3]}
                         />
                       )}
                     </div>
