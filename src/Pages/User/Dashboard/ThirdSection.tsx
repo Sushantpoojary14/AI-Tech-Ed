@@ -31,7 +31,7 @@ const ThirdSection = ({ data }: any) => {
     return <LoadingBar />;
   }
 
-  console.log(data.data.tsp);
+  console.log("third section", data.data);
 
   return (
     <Container maxWidth="xl">

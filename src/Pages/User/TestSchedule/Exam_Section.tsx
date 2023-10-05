@@ -137,7 +137,7 @@ const Exam_Section = () => {
       return await tokenAxios.post(`/update-test-status/${data.id}`, {
         status_id: 1,
         test_answer: data.answer,
-        current_timer: `${minutes}.${seconds}`
+        current_timer: `${minutes}.${seconds}`,
       });
     },
     onSuccess: (res) => {
@@ -256,7 +256,7 @@ const Exam_Section = () => {
           sx={{ width: "100%", my: "5px" }}
           direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
         >
-          <Header1 header="Section" />
+          {/* <Header1 header="Section" /> */}
           <ParaText3
             text={`Time Remaining: ${minutes}:${seconds}`}
             css={{ margin: "auto" }}
@@ -264,7 +264,7 @@ const Exam_Section = () => {
           <Stack
             direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
             spacing={2}
-          > 
+          >
             <Button
               variant="outlined"
               sx={{
@@ -294,7 +294,6 @@ const Exam_Section = () => {
             data={question}
             count={count}
             mutation={updateAStatus}
-
             isLoading={isLoading}
             preventCopyPaste={preventCopyPaste}
           />

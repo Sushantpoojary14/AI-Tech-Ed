@@ -205,6 +205,7 @@ const ExamFirstSection = (props: props) => {
                                         item.image_url
                                       }
                                       alt={`Image ${key}`}
+                                      style={{ maxWidth: "200px" }}
                                     />
                                   </ImageListItem>
                                 )
@@ -251,13 +252,14 @@ const ExamFirstSection = (props: props) => {
                                 (item: image, key: number) => (
                                   <ImageListItem
                                     key={key}
-                                    sx={{ width: "200px" }}
+                                    // sx={{ width: "200px" }}
                                   >
                                     <img
                                       src={
                                         import.meta.env.VITE_IMAGE_URL +
                                         item.image_url
                                       }
+                                      style={{ maxWidth: "200px" }}
                                       alt={`Image ${key}`}
                                     />
                                   </ImageListItem>
@@ -271,7 +273,7 @@ const ExamFirstSection = (props: props) => {
                 )}
               </Stack>
               <Stack>
-                <ParaText4 text="Option" css={{ fontWeight: "600" }} />
+                {/* <ParaText4 text="Option" css={{ fontWeight: "600" }} /> */}
                 <form onChange={handleSubmit(onSubmit)}>
                   <Controller
                     name="Answer"
@@ -302,6 +304,7 @@ const ExamFirstSection = (props: props) => {
                                 import.meta.env.VITE_IMAGE_URL +
                                 question?.questions.option_1
                               }
+                              style={{ maxWidth: "200px" }}
                             />
                           )}
                         </Stack>
@@ -329,6 +332,7 @@ const ExamFirstSection = (props: props) => {
                                 import.meta.env.VITE_IMAGE_URL +
                                 question?.questions.option_2
                               }
+                              style={{ maxWidth: "200px" }}
                             />
                           )}
                         </Stack>
@@ -355,6 +359,7 @@ const ExamFirstSection = (props: props) => {
                                 import.meta.env.VITE_IMAGE_URL +
                                 question?.questions.option_3
                               }
+                              style={{ maxWidth: "200px" }}
                             />
                           )}
                         </Stack>
@@ -381,6 +386,7 @@ const ExamFirstSection = (props: props) => {
                                 import.meta.env.VITE_IMAGE_URL +
                                 question?.questions.option_4
                               }
+                              style={{ maxWidth: "200px" }}
                             />
                           )}
                         </Stack>
