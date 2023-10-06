@@ -13,6 +13,7 @@ import Mirror2 from "./Mirror/Mirror2";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import adminTokenAxios from "../../../Hooks/AdminTokenAxios";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
+import AlertBox from "../../../Components/Common/AlertBox";
 
 const options = [
   {
@@ -34,8 +35,25 @@ const NonVebal = () => {
   const [selectValue1, setSelectValue1] = useState(1);
   const [inputValue, setInputValue] = useState<string>("");
   const [newData, setNewData] = useState<any>([]);
+  const [open, setOpen] = useState<boolean>(false);
+  const [open1, setOpen1] = useState<boolean>(false);
 
   const questionRefs: any = useRef([]);
+
+  const handleAlertBoxOpen = () => {
+    setOpen(true);
+  };
+
+  const handleAlertBoxClose = () => {
+    setOpen(false);
+  };
+  const handleAlertBoxOpen1 = () => {
+    setOpen1(true);
+  };
+
+  const handleAlertBoxClose1 = () => {
+    setOpen1(false);
+  };
 
   for (let index = 0; index < 15; index++) {
     const questionRef = useRef(null);
@@ -98,6 +116,8 @@ const NonVebal = () => {
     },
     onError: (error: any) => {
       console.error("Error creating user:", error.response?.data);
+      handleAlertBoxOpen1();
+      setNewData([]);
     },
     onSuccess: (res) => {
       // if (res.status == 200) {
@@ -108,6 +128,8 @@ const NonVebal = () => {
       //   handleAlertBoxOpen();
       // }
       console.log("Success", res);
+      handleAlertBoxOpen();
+      setNewData([]);
     },
   });
 
@@ -152,130 +174,148 @@ const NonVebal = () => {
   }
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{
-        width: "96%",
-        my: 1,
-        // mx: "auto",
-        // py: 2,
+    <>
+      <AlertBox
+        name={`Successfully Uploaded`}
+        type="success"
+        bol={open}
+        handleAlertBoxClose={handleAlertBoxClose}
+      />
+      <AlertBox
+        name={`Refresh & Try Again!!`}
+        type="error"
+        bol={open1}
+        handleAlertBoxClose={handleAlertBoxClose1}
+      />
+      <Container
+        maxWidth="lg"
+        sx={{
+          width: "96%",
+          my: 1,
+          // mx: "auto",
+          // py: 2,
 
-        // minHeight: "100vh",
-        // display: "flex",
-        // flexDirection: "column",
-        // border: 1,
-        // height: "85vh",
-        backgroundColor: "#F5F5F5",
-      }}
-      disableGutters
-    >
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        // spacing={2}
-        paddingY={2}
+          // minHeight: "100vh",
+          // display: "flex",
+          // flexDirection: "column",
+          // border: 1,
+          // height: "85vh",
+          backgroundColor: "#F5F5F5",
+        }}
+        disableGutters
       >
-        <Box>
-          <Header1 header="Non Verbal" />
-        </Box>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          // spacing={2}
+          paddingY={2}
+        >
+          <Box>
+            <Header1 header="Non Verbal" />
+          </Box>
 
-        <Stack direction="row" spacing={1}>
-          {/* <Link to="view-test-series-topics">
+          <Stack direction="row" spacing={1}>
+            {/* <Link to="view-test-series-topics">
           <OButton name="View Topics" />
         </Link> */}
-          {/* <Link to="add-test-packages">
+            {/* <Link to="add-test-packages">
           <OButton name="Add Packages" />
         </Link> */}
+          </Stack>
         </Stack>
-      </Stack>
 
-      <Stack spacing={2}>
-        <SelectBox
-          name="select-test-type"
-          defaultValue="1"
-          selectName="test-type"
-          options={testSeries?.data?.ts}
-          func={setSelectValue1}
-        />
+        <Stack spacing={2}>
+          <SelectBox
+            name="select-test-type"
+            defaultValue="1"
+            selectName="test-type"
+            options={testSeries?.data?.ts}
+            func={setSelectValue1}
+          />
 
-        <SelectBox
-          name="select-nonverbal-topic"
-          defaultValue="1"
-          selectName="test-type"
-          options={options}
-          func={setSelectValue}
-        />
+          <SelectBox
+            name="select-nonverbal-topic"
+            defaultValue="1"
+            selectName="test-type"
+            options={options}
+            func={setSelectValue}
+          />
 
-        <TextField
-          label="Enter Topic Name"
-          variant="outlined"
-          margin="normal"
-          sx={{ backgroundColor: "white", maxWidth: "400px" }}
-          value={inputValue} // Bind the input value to the state variable
-          onChange={handleInputChange} // Handle input changes
-        />
-      </Stack>
-      <Box flexDirection={"row"} marginTop={2}>
-        <BButton
-          func={generateQuestions}
-          type="button"
-          name="Generate"
-          css={{}}
-        />
-      </Box>
+          <TextField
+            label="Enter Topic Name"
+            variant="outlined"
+            margin="normal"
+            sx={{ backgroundColor: "white", maxWidth: "400px" }}
+            value={inputValue} // Bind the input value to the state variable
+            onChange={handleInputChange} // Handle input changes
+          />
+        </Stack>
+        <Box flexDirection={"row"} marginTop={2}>
+          <BButton
+            func={generateQuestions}
+            type="button"
+            name="Generate"
+            css={{}}
+          />
+        </Box>
 
-      <Box flexDirection={"row"} marginTop={2}>
-        {newData.length > 1 && (
-          <BButton func={imageG} type="button" name="Upload" />
-        )}
-      </Box>
+        <Box flexDirection={"row"} marginTop={2}>
+          {newData.length > 1 && (
+            <BButton
+              func={imageG}
+              type="button"
+              name={addNonVerbalMU.isLoading ? "Uploading" : "Upload"}
+            />
+          )}
+        </Box>
 
-      <Box flexDirection={"row"} textAlign={"left"}>
-        <React.Fragment>
-          {newData?.map((item2: any, key2: number) => (
-            <Stack
-              margin={"auto"}
-              width={"90%"}
-              height={"auto"}
-              spacing={2}
-              key={key2}
-              marginY={"15px"}
-            >
-              <ParaText1 text={"Q) " + item2?.question} />
-              <Box>{item2?.question_image}</Box>
+        <Box flexDirection={"row"} textAlign={"left"}>
+          <React.Fragment>
+            {newData?.map((item2: any, key2: number) => (
               <Stack
-                direction={"row"}
                 margin={"auto"}
                 width={"90%"}
+                height={"auto"}
+                spacing={2}
+                key={key2}
                 marginY={"15px"}
-                sx={{
-                  gridColumn: "auto auto auto auto",
-                  columnGap: "30px",
-                }}
               >
-                {item2?.options?.map((item3: any, key3: number) => (
-                  <>
-                    <Box key={key3}>
-                      {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
-                      {item3}
-                    </Box>
-                  </>
-                ))}
+                <ParaText1 text={"Q) " + item2?.question} />
+                <Box>{item2?.question_image}</Box>
+                <Stack
+                  direction={"row"}
+                  margin={"auto"}
+                  width={"90%"}
+                  marginY={"15px"}
+                  sx={{
+                    gridColumn: "auto auto auto auto",
+                    columnGap: "30px",
+                  }}
+                >
+                  {item2?.options?.map((item3: any, key3: number) => (
+                    <>
+                      <Box key={key3}>
+                        {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
+                        {item3}
+                      </Box>
+                    </>
+                  ))}
+                </Stack>
+                <ParaText1
+                  text={`Answer: ${String.fromCharCode(
+                    "A".charCodeAt(0) + (item2.correct_ans - 1)
+                  )}`}
+                />
               </Stack>
-              <ParaText1
-                text={`Answer: ${String.fromCharCode(
-                  "A".charCodeAt(0) + (item2.correct_ans - 1)
-                )}`}
-              />
-            </Stack>
-          ))}
-        </React.Fragment>
+            ))}
+          </React.Fragment>
 
-        {/* <img src={svgImage} /> */}
-        {/* <ImageToSvgConverter url={"http://localhost:8000/images/car.jpg"} /> */}
-      </Box>
-    </Container>
+          {/* <img src={svgImage} /> */}
+          {/* <ImageToSvgConverter url={"http://localhost:8000/images/car.jpg"} /> */}
+        </Box>
+      </Container>
+    </>
   );
 };
 

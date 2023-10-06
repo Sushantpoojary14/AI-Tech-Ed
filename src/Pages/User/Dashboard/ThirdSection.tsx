@@ -3,9 +3,10 @@ import { Header1 } from "../../../Components/Common/HeaderText";
 import { TableHeader, TableData } from "../../../Components/Common/Table";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import UseGet from "../../../Hooks/UseGet";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { OButton2 } from "../../../Components/Common/Button";
+import tokenAxios from "../../../Hooks/TokenAxios";
 
 const header = [
   "SrNo",
@@ -40,7 +41,11 @@ const ThirdSection = ({ data }: any) => {
         <TableContainer>
           <Table sx={{ minWidth: 650 }}>
             <TableHeader header={header} />
-            <TableData data={data?.data?.tsp} url="/user/Test-schedule" />
+            <TableData
+              data={data?.data?.tsp}
+              psId={data?.data?.ps_id}
+              third={true}
+            />
           </Table>
         </TableContainer>
       </Card>
