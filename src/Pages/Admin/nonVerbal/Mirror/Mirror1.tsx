@@ -1,7 +1,7 @@
 import { Box, Divider, Grid, Paper, Stack } from "@mui/material";
 import imagetosvg from "../../../../utils/imagetosvg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import randomicon from "../../../../utils/randomIcon";
+import randomicon from "../../../../utils/randomicon";
 
 const TBox = {
   height: "60px",

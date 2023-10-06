@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
-import React from "react";
-import randomicon from "../../../../utils/randomIcon";
+
+
 
 const Mirror2 = async (index: number, questionRefs: any) => {
   const i = Math.floor(Math.random() * 4) + 5;
