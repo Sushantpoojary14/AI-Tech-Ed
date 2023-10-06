@@ -47,7 +47,8 @@ const Cube4 = (index: number, questionRefs: any): any => {
   let diceArray: number[] = []; //[0,1,2,3,4,5]
   let value = 0;
   // randomicon()
-  const random = Math.floor(Math.random() * 4);
+  // const random = Math.floor(Math.random() * 4);
+  const random = 5;
   const shapeRandom = Math.floor(Math.random() * 2);
   let row = 0;
   let col = 0;
@@ -230,13 +231,13 @@ const Cube4 = (index: number, questionRefs: any): any => {
                     return (
                       <Grid item key={colIndex}>
                         <Paper style={DBox}>
-                          {colItem}
-                          {/* {icon > -1 && (
+                          {/* {colItem} */}
+                          {icon > -1 && (
                             <FontAwesomeIcon
                               icon={diceIcons[icon]}
                               style={image_style}
                             ></FontAwesomeIcon>
-                          )} */}
+                          )}
                         </Paper>
                       </Grid>
                     );

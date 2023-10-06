@@ -50,6 +50,7 @@ const styles = {
     padding: 2,
     marginTop: 6,
     marginBottom: 15,
+
     // border: "1pt solid #000",
   },
   options: {
@@ -87,9 +88,15 @@ const styles = {
     width: "100px",
     height: "100px",
   },
+  optionImage: {
+    width: "60px",
+    height: "60px",
+    marginBottom: 5,
+    marginLeft: 5,
+  },
   mainText: {
     fontSize: 13,
-    fontWeight: 900 ,
+    fontWeight: 900,
   },
 };
 
@@ -118,6 +125,7 @@ type questions = {
   marks?: null | number;
   status?: number;
   images?: string;
+  question_image?: any;
 };
 
 // type questionList = {
@@ -193,7 +201,7 @@ const MyDocument = ({
   topic: string;
 }) => {
   console.log(selected_question);
-  
+
   return (
     <>
       {/* <img src="http://127.0.0.1:8000/images/product-7.jpg" alt="" /> */}
@@ -213,6 +221,31 @@ const MyDocument = ({
                           {` ${item.Paragraph}`}
                         </Text>
                       )}
+                      {item.paragraph && item?.question_image && (
+                        <View>
+                          {item?.question_image?.map((item2: any) => {
+                            console.log(
+                              `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                item2?.image_url.split("/")[3]
+                              }`
+                            );
+                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
+                            return (
+                              <Image
+                                style={styles.image}
+                                src={{
+                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                    item2?.image_url.split("/")[3]
+                                  }`,
+                                  method: "GET",
+                                  headers: { "Cache-Control": "no-cache" },
+                                  body: "",
+                                }}
+                              />
+                            );
+                          })}
+                        </View>
+                      )}
                       {item.Conversation && (
                         <Text style={styles.conversation}>
                           {`${item.Conversation}`}
@@ -224,33 +257,47 @@ const MyDocument = ({
                         >{`${item.Question}`}</Text>
                       ) : (
                         <Text style={styles.question}>
-                        <Text style={styles.mainText}>{`${key + 1}: `}</Text>
-                        {item.Question}
-                      </Text>
+                          <Text style={styles.mainText}>{`${key + 1}: `}</Text>
+                          {item.Question}
+                        </Text>
                       )}
-
-                      {item?.images && (
+                        {!item.paragraph && item?.question_image && (
                         <View>
-                          <Text>
-                            {import.meta.env.VITE_IMAGE_URL + item.images[0]}
-                          </Text>
-                          <Image
-                              style={styles.image}
-                              src={
-                                item?.images[0]
-                              }
-                            />
-
-                          <Image
-                            style={styles.image}
-                            src={{
-                              uri:
-                                import.meta.env.VITE_IMAGE_URL + item.images[0],
-                              method: "GET",
-                              headers: { "Cache-Control": "no-cache" },
-                              body: "",
-                            }}
-                          />
+                          {item?.question_image?.map((item2: any) => {
+                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
+                            return (
+                              <Image
+                                style={styles.image}
+                                src={{
+                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                    item2?.image_url.split("/")[3]
+                                  }`,
+                                  method: "GET",
+                                  headers: { "Cache-Control": "no-cache" },
+                                  body: "",
+                                }}
+                              />
+                            );
+                          })}
+                        </View>
+                      )}
+                      {item?.question_image && (
+                        <View>
+                          {item?.question_image.map((item2: string) => {
+                            return (
+                              <Image
+                                style={styles.image}
+                                src={{
+                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                    item2.split("/")[3]
+                                  }`,
+                                  method: "GET",
+                                  headers: { "Cache-Control": "no-cache" },
+                                  body: "",
+                                }}
+                              />
+                            );
+                          })}
                         </View>
                       )}
                       <View style={styles.optionContainer}>
@@ -275,6 +322,31 @@ const MyDocument = ({
                           {`${key + 1}: ${item.paragraph}`}
                         </Text>
                       )}
+                      {item.paragraph && item?.question_image && (
+                        <View>
+                          {item?.question_image?.map((item2: any) => {
+                            console.log(
+                              `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                item2?.image_url.split("/")[3]
+                              }`
+                            );
+                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
+                            return (
+                              <Image
+                                style={styles.image}
+                                src={{
+                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                    item2?.image_url.split("/")[3]
+                                  }`,
+                                  method: "GET",
+                                  headers: { "Cache-Control": "no-cache" },
+                                  body: "",
+                                }}
+                              />
+                            );
+                          })}
+                        </View>
+                      )}
                       {item.conversation && (
                         <Text style={styles.conversation}>
                           {`${item.conversation}`}
@@ -289,20 +361,130 @@ const MyDocument = ({
                           {`${key + 1}: ${item.question} `}
                         </Text>
                       )}
+                      {!item.paragraph && item?.question_image && (
+                        <View>
+                          {item?.question_image?.map((item2: any) => {
+                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
+                            return (
+                              <Image
+                                style={styles.image}
+                                src={{
+                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                    item2?.image_url.split("/")[3]
+                                  }`,
+                                  method: "GET",
+                                  headers: { "Cache-Control": "no-cache" },
+                                  body: "",
+                                }}
+                              />
+                            );
+                          })}
+                        </View>
+                      )}
                       <View style={styles.optionContainer}>
-                        <Text style={styles.options}>
-                          <Text style={styles.mainText}>A.</Text>{" "}
-                          {item.option_1}
-                        </Text>
-                        <Text
-                          style={styles.options}
-                        >{`B. ${item.option_2}`}</Text>
-                        <Text
-                          style={styles.options}
-                        >{`C. ${item.option_3}`}</Text>
-                        <Text
-                          style={styles.options}
-                        >{`D. ${item.option_4}`}</Text>
+                        {item.option_1?.split(".")[1] === "png" ||
+                        item.option_1?.split(".")[1] === "jpg" ||
+                        item.option_1?.split(".")[1] === "jpeg" ? (
+                          <>
+                            <View
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                flexDirection: "row",
+                              }}
+                            >
+                              <Text style={styles.options}>A.</Text>
+                              <Image
+                                style={styles.optionImage}
+                                src={{
+                                  uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
+                                    item.option_1?.split("/")[3]
+                                  }`,
+                                  method: "GET",
+                                  headers: { "Cache-Control": "no-cache" },
+                                  body: "",
+                                }}
+                              />
+                            </View>
+
+                            {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
+                            <View
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                flexDirection: "row",
+                              }}
+                            >
+                              <Text style={styles.options}>B.</Text>
+                              <Image
+                                style={styles.optionImage}
+                                src={{
+                                  uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
+                                    item.option_2?.split("/")[3]
+                                  }`,
+                                  method: "GET",
+                                  headers: { "Cache-Control": "no-cache" },
+                                  body: "",
+                                }}
+                              />
+                            </View>
+                            <View
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                flexDirection: "row",
+                              }}
+                            >
+                              <Text style={styles.options}>C.</Text>
+                              <Image
+                                style={styles.optionImage}
+                                src={{
+                                  uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
+                                    item.option_3?.split("/")[3]
+                                  }`,
+                                  method: "GET",
+                                  headers: { "Cache-Control": "no-cache" },
+                                  body: "",
+                                }}
+                              />
+                            </View>
+                            <View
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                flexDirection: "row",
+                              }}
+                            >
+                              <Text style={styles.options}>D.</Text>
+                              <Image
+                                style={styles.optionImage}
+                                src={{
+                                  uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
+                                    item.option_4?.split("/")[3]
+                                  }`,
+                                  method: "GET",
+                                  headers: { "Cache-Control": "no-cache" },
+                                  body: "",
+                                }}
+                              />
+                            </View>
+                          </>
+                        ) : (
+                          <>
+                            <Text
+                              style={styles.options}
+                            >{`A. ${item.option_1}`}</Text>
+                            <Text
+                              style={styles.options}
+                            >{`A. ${item.option_2}`}</Text>
+                            <Text
+                              style={styles.options}
+                            >{`C. ${item.option_3}`}</Text>
+                            <Text
+                              style={styles.options}
+                            >{`D. ${item.option_4}`}</Text>
+                          </>
+                        )}
                       </View>
                     </>
                   )}
@@ -331,21 +513,25 @@ const MyDocument = ({
                 <View style={styles.Container} key={key}>
                   {item.Answer ? (
                     <>
-                      <Text style={styles.answer2}>
-                        {`${key + 1}. ${item.Answer?.toUpperCase()} `}
-                      </Text>
-                      <Text
-                        style={styles.explanation}
-                      >{`${item.Explanation} `}</Text>
+                      <Text style={styles.answer2}>{`${key + 1}.`}</Text>
+                      {!!item.explanation ? (
+                        <Text
+                          style={styles.explanation}
+                        >{`${item.Explanation} `}</Text>
+                      ) : (
+                        <Text style={styles.explanation}>No Explanation</Text>
+                      )}
                     </>
                   ) : (
                     <>
-                      <Text style={styles.answer2}>
-                        {`${key + 1}. ${item.correct_option}`}
-                      </Text>
-                      <Text
-                        style={styles.explanation}
-                      >{`${item.explanation} `}</Text>
+                      <Text style={styles.answer2}>{`${key + 1}.`}</Text>
+                      {!!item.explanation ? (
+                        <Text
+                          style={styles.explanation}
+                        >{`${item.explanation}`}</Text>
+                      ) : (
+                        <Text style={styles.explanation}>No Explanation</Text>
+                      )}
                     </>
                   )}
                 </View>
