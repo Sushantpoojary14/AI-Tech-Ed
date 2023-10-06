@@ -1,4 +1,4 @@
-import { Grid, Paper } from "@mui/material";
+import { Box, Grid, Paper } from "@mui/material";
 import randomicon from "../../../../utils/randomicon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -52,33 +52,34 @@ const cube2 = async (index: number, questionRefs: any) => {
     ans.push(newData[random], newData[random - 1], newData[random - 2]);
   }
   let question_image = (
-    <div
-      className="cube"
+    <Box
+      sx={{ maxWidth: "160px" }}
       ref={questionRefs.current[index].questionRef}
-      key={index}
     >
-      <div className="face top" style={Line}>
-        <FontAwesomeIcon
-          style={image_style}
-          icon={ans[0].type.iconName}
-          color={ans[0].color}
-        />
+      <div className="cube" key={index} style={{ margin: "auto" }}>
+        <div className="face top" style={Line}>
+          <FontAwesomeIcon
+            style={image_style}
+            icon={ans[0].type.iconName}
+            color={ans[0].color}
+          />
+        </div>
+        <div className="face left" style={Line}>
+          <FontAwesomeIcon
+            style={image_style}
+            icon={ans[1].type.iconName}
+            color={ans[1].color}
+          />
+        </div>
+        <div className="face front" style={Line}>
+          <FontAwesomeIcon
+            style={image_style}
+            icon={ans[2].type.iconName}
+            color={ans[2].color}
+          />
+        </div>
       </div>
-      <div className="face left" style={Line}>
-        <FontAwesomeIcon
-          style={image_style}
-          icon={ans[1].type.iconName}
-          color={ans[1].color}
-        />
-      </div>
-      <div className="face front" style={Line}>
-        <FontAwesomeIcon
-          style={image_style}
-          icon={ans[2].type.iconName}
-          color={ans[2].color}
-        />
-      </div>
-    </div>
+    </Box>
   );
 
   // console.log(ans);
