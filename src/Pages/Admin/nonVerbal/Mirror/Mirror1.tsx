@@ -187,6 +187,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
     <Box
       sx={{ transform: `rotate(${degree[ans]}deg)`, backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[0]}
+      maxWidth={"437px"}
     >
       <Grid
         sx={{
