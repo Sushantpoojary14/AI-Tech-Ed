@@ -28,6 +28,20 @@ function blobToBase64(blob: any) {
   });
 }
 
+async function fetchAndConvertImage(imageUrl: string) {
+  const url = import.meta.env.VITE_IMAGE_URL + `${imageUrl}`;
+  const response = await axios.get(url, { responseType: "blob" });
+
+  if (response.status === 200) {
+    const blob = response.data;
+    const base64Image = await blobToBase64(blob);
+    return base64Image;
+  } else {
+    console.error(`Failed to fetch image: ${imageUrl}`);
+    return imageUrl;
+  }
+}
+
 export async function fetchAndReplaceImagesTopic(apiData: any, total: any) {
   let selected_question: any = [];
   // console.log(props.data,props.total);
@@ -67,6 +81,17 @@ export async function fetchAndReplaceImagesTopic(apiData: any, total: any) {
     selected_question.map(async (question: any) => {
       try {
         const images = question.question_image;
+
+        const option1Image = question.option_1;
+        const option2Image = question.option_2;
+        const option3Image = question.option_3;
+        const option4Image = question.option_4;
+
+        const base64Option1Image = await fetchAndConvertImage(option1Image);
+        const base64Option2Image = await fetchAndConvertImage(option2Image);
+        const base64Option3Image = await fetchAndConvertImage(option3Image);
+        const base64Option4Image = await fetchAndConvertImage(option4Image);
+
         const base64Images = await Promise.all(
           images.map(async (image: any) => {
             const imageUrl =
@@ -91,6 +116,10 @@ export async function fetchAndReplaceImagesTopic(apiData: any, total: any) {
         // Replace the image URLs with Base64-encoded images in the question object
         const updatedQuestion = { ...question };
         updatedQuestion.images = base64Images;
+        updatedQuestion.option_1 = base64Option1Image;
+        updatedQuestion.option_2 = base64Option2Image;
+        updatedQuestion.option_3 = base64Option3Image;
+        updatedQuestion.option_4 = base64Option4Image;
 
         return updatedQuestion;
       } catch (error) {
@@ -340,9 +369,43 @@ export const downloadAsDocx = async (data: any) => {
                   }),
                 ],
               }),
+
               new Paragraph({
                 text: `${question?.question}`,
               }),
+
+              // new Paragraph({
+              //   children: [
+              //     new ImageRun({
+              //       data: question?.option_1,
+              //       transformation: {
+              //         width: 100,
+              //         height: 100,
+              //       },
+              //     }),
+              //     new ImageRun({
+              //       data: question?.option_2,
+              //       transformation: {
+              //         width: 100,
+              //         height: 100,
+              //       },
+              //     }),
+              //     new ImageRun({
+              //       data: question?.option_3,
+              //       transformation: {
+              //         width: 100,
+              //         height: 100,
+              //       },
+              //     }),
+              //     new ImageRun({
+              //       data: question?.option_4,
+              //       transformation: {
+              //         width: 100,
+              //         height: 100,
+              //       },
+              //     }),
+              //   ],
+              // }),
               new Paragraph({
                 text: `A. ${question?.option_1}`,
               }),

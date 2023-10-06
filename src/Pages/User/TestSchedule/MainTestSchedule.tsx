@@ -161,7 +161,7 @@ const MainTestSchedule = () => {
     []
   );
 
-  // console.log(data?.data?.tsp);
+  console.log("Test schedule", data?.data?.tsp);
 
   if (isLoading) {
     return <LoadingBar />;

@@ -205,6 +205,7 @@ const ExamFirstSection = (props: props) => {
                                         item.image_url
                                       }
                                       alt={`Image ${key}`}
+                                      style={{ maxWidth: "200px" }}
                                     />
                                   </ImageListItem>
                                 )
@@ -251,13 +252,14 @@ const ExamFirstSection = (props: props) => {
                                 (item: image, key: number) => (
                                   <ImageListItem
                                     key={key}
-                                    sx={{ width: "200px" }}
+                                    // sx={{ width: "200px" }}
                                   >
                                     <img
                                       src={
                                         import.meta.env.VITE_IMAGE_URL +
                                         item.image_url
                                       }
+                                      style={{ maxWidth: "200px" }}
                                       alt={`Image ${key}`}
                                     />
                                   </ImageListItem>
@@ -271,7 +273,7 @@ const ExamFirstSection = (props: props) => {
                 )}
               </Stack>
               <Stack>
-                <ParaText4 text="Option" css={{ fontWeight: "600" }} />
+                {/* <ParaText4 text="Option" css={{ fontWeight: "600" }} /> */}
                 <form onChange={handleSubmit(onSubmit)}>
                   <Controller
                     name="Answer"
@@ -279,38 +281,115 @@ const ExamFirstSection = (props: props) => {
                     control={control}
                     render={({ field }) => (
                       <RadioGroup {...field} name="radio-buttons-group">
-                        <FormControlLabel
-                          checked={
-                            props.data ? question?.test_answer == "A" : false
-                          }
-                          value="A"
-                          control={<Radio />}
-                          label={`A. ${question?.questions.option_1}`}
-                        />
-                        <FormControlLabel
-                          value="B"
-                          checked={
-                            props.data ? question?.test_answer == "B" : false
-                          }
-                          control={<Radio />}
-                          label={`B. ${question?.questions.option_2}`}
-                        />
-                        <FormControlLabel
-                          value="C"
-                          checked={
-                            props.data ? question?.test_answer == "C" : false
-                          }
-                          control={<Radio />}
-                          label={`C. ${question?.questions.option_3}`}
-                        />
-                        <FormControlLabel
-                          value="D"
-                          checked={
-                            props.data ? question?.test_answer == "D" : false
-                          }
-                          control={<Radio />}
-                          label={`D. ${question?.questions.option_4}`}
-                        />
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            checked={
+                              props.data ? question?.test_answer == "A" : false
+                            }
+                            value="A"
+                            control={<Radio />}
+                            label={`A.  ${
+                              question?.questions.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : question?.questions.option_1
+                            }`}
+                          />
+                          {question?.questions.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                question?.questions.option_1
+                              }
+                              style={{ maxWidth: "200px" }}
+                            />
+                          )}
+                        </Stack>
+
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            value="B"
+                            checked={
+                              props.data ? question?.test_answer == "B" : false
+                            }
+                            control={<Radio />}
+                            label={`B. ${
+                              question?.questions.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : question?.questions.option_2
+                            }`}
+                          />
+                          {question?.questions.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                question?.questions.option_2
+                              }
+                              style={{ maxWidth: "200px" }}
+                            />
+                          )}
+                        </Stack>
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            value="C"
+                            checked={
+                              props.data ? question?.test_answer == "C" : false
+                            }
+                            control={<Radio />}
+                            label={`C.  ${
+                              question?.questions.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : question?.questions.option_3
+                            }`}
+                          />
+                          {question?.questions.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                question?.questions.option_3
+                              }
+                              style={{ maxWidth: "200px" }}
+                            />
+                          )}
+                        </Stack>
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            value="D"
+                            checked={
+                              props.data ? question?.test_answer == "D" : false
+                            }
+                            control={<Radio />}
+                            label={`D. ${
+                              question?.questions.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : question?.questions.option_4
+                            }`}
+                          />
+                          {question?.questions.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                question?.questions.option_4
+                              }
+                              style={{ maxWidth: "200px" }}
+                            />
+                          )}
+                        </Stack>
                       </RadioGroup>
                     )}
                   />
