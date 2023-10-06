@@ -8,6 +8,8 @@ import {
 import { ParaText3, ParaText1 } from "./ParaText";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import tokenAxios from "../../Hooks/TokenAxios";
 
 interface headerProps {
   header: Array<string>;
@@ -15,8 +17,15 @@ interface headerProps {
 interface dataProps {
   data: Array<object>;
   func?: () => void;
-  url: string;
+  url?: string;
+  psId?: number;
+  third?: boolean;
 }
+
+type mUData = {
+  ps_id?: number;
+  set_id: number;
+};
 
 const TableHeader = (props: headerProps) => {
   return (
@@ -39,6 +48,24 @@ const TableHeader = (props: headerProps) => {
   );
 };
 const TableData = (props: dataProps) => {
+  const TestMU = useMutation({
+    mutationFn: async (data: mUData) => {
+      console.log(data.set_id);
+
+      return await tokenAxios.post("/post-user-test-status", {
+        ps_id: data.ps_id,
+        set_id: data.set_id,
+      });
+    },
+    onSuccess: (response) => {
+      console.log(response);
+
+      // navigate(`/user/Test-schedule/Test-section/${response.data.uts_id}`);
+      let url = `/#/user/Test-schedule/Test-section/${response.data.uts_id}`;
+      window.open(url, "_blank", "width=1400,height=600");
+    },
+  });
+
   return (
     <TableBody>
       {props.data?.length === 0 ? (
@@ -64,11 +91,25 @@ const TableData = (props: dataProps) => {
                 );
               })}
               <TableCell align="center" sx={{ border: 0 }}>
-                <Link to={`${props.url}/${item.id}`}>
-                  <FindInPageOutlinedIcon
-                    sx={{ width: "25px", height: "25px", color: "#3A9BDC" }}
-                  />
-                </Link>
+                {props?.third ? (
+                  <Link to="Test-schedule">
+                    <FindInPageOutlinedIcon
+                      sx={{ width: "25px", height: "25px", color: "#3A9BDC" }}
+                      onClick={() =>
+                        TestMU.mutate({
+                          ps_id: props.psId,
+                          set_id: item.id,
+                        })
+                      }
+                    />
+                  </Link>
+                ) : (
+                  <Link to={`${props.url}/${item.id}`}>
+                    <FindInPageOutlinedIcon
+                      sx={{ width: "25px", height: "25px", color: "#3A9BDC" }}
+                    />
+                  </Link>
+                )}
               </TableCell>
             </TableRow>
           );
