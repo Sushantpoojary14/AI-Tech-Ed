@@ -29,6 +29,10 @@ function blobToBase64(blob: any) {
 }
 
 async function fetchAndConvertImage(imageUrl: string) {
+  const firstLetter = imageUrl[0];
+  if (firstLetter !== "/") {
+    return imageUrl;
+  }
   const url = import.meta.env.VITE_IMAGE_URL + `${imageUrl}`;
   const response = await axios.get(url, { responseType: "blob" });
 
@@ -407,16 +411,60 @@ export const downloadAsDocx = async (data: any) => {
               //   ],
               // }),
               new Paragraph({
-                text: `A. ${question?.option_1}`,
+                text: `A. ${
+                  question?.option_1.length > 150 ? "" : question?.option_1
+                }`,
+                children: [
+                  new ImageRun({
+                    data: question?.option_1,
+                    transformation: {
+                      width: 100,
+                      height: 100,
+                    },
+                  }),
+                ],
               }),
               new Paragraph({
-                text: `B. ${question?.option_2}`,
+                text: `B. ${
+                  question?.option_2.length > 150 ? "" : question?.option_2
+                }`,
+                children: [
+                  new ImageRun({
+                    data: question?.option_2,
+                    transformation: {
+                      width: 100,
+                      height: 100,
+                    },
+                  }),
+                ],
               }),
               new Paragraph({
-                text: `C. ${question?.option_3}`,
+                text: `C. ${
+                  question?.option_3.length > 150 ? "" : question?.option_3
+                }`,
+                children: [
+                  new ImageRun({
+                    data: question?.option_3,
+                    transformation: {
+                      width: 100,
+                      height: 100,
+                    },
+                  }),
+                ],
               }),
               new Paragraph({
-                text: `D. ${question?.option_4}`,
+                text: `D. ${
+                  question?.option_4.length > 150 ? "" : question?.option_4
+                }`,
+                children: [
+                  new ImageRun({
+                    data: question?.option_4,
+                    transformation: {
+                      width: 100,
+                      height: 100,
+                    },
+                  }),
+                ],
               }),
               new Paragraph({
                 text: "",
@@ -466,7 +514,11 @@ export const downloadAsDocx = async (data: any) => {
                 text: `${index + 1}. ${expl?.correct_option}`,
               }),
               new Paragraph({
-                text: `${expl?.explanation} \n`,
+                text: `${
+                  expl?.explanation === null
+                    ? "No Explanation"
+                    : expl?.explanation
+                } \n`,
               }),
             ];
           }),
