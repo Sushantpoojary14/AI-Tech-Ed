@@ -107,7 +107,7 @@ const ViewTestSeriesTopics = () => {
             <Tab label="OTT" value="2" /> */}
             </TabList>
           </Box>
-          {testSeries?.data?.tsc.map((item: any) => (
+          {testSeries?.data?.tsc?.map((item: any) => (
             <TabPanel value={JSON.stringify(item.id)} key={item.id}>
               {/* Render dynamic content based on the tab value */}
               {/* For example, you can fetch content related to this tab */}

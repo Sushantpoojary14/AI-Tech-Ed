@@ -14,20 +14,22 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import adminTokenAxios from "../../../Hooks/AdminTokenAxios";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import AlertBox from "../../../Components/Common/AlertBox";
+import cube5 from "./Cube/Cube5";
+import Paper1 from "./PaperFold/Paper1";
 
 const options = [
   {
-    test_type: "cube & dice",
+    test_type: "Cube & Dice",
     id: 1,
   },
   {
-    test_type: "water & mirror",
+    test_type: "Water & Mirror",
     id: 2,
   },
-  //   {
-  //     test_type: "dice",
-  //     id: 3,
-  //   },
+    {
+      test_type: "Paper Folding",
+      id: 3,
+    },
 ];
 
 const NonVebal = () => {
@@ -55,7 +57,7 @@ const NonVebal = () => {
     setOpen1(false);
   };
 
-  for (let index = 0; index < 15; index++) {
+  for (let index = 0; index < 25; index++) {
     const questionRef = useRef(null);
     const optionRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
 
@@ -68,34 +70,47 @@ const NonVebal = () => {
     let count = -1;
     setNewData([]);
     if (selectValue === 1) {
-      for (let index = 0; index < 2; index++) {
+      for (let index = 0; index < 5; index++) {
         count++;
         let newA = await cube1(count, questionRefs);
         newArr2.push(newA);
       }
 
-      for (let index = 0; index < 2; index++) {
+      for (let index = 0; index < 5; index++) {
         count++;
         let newA = await cube2(count, questionRefs);
         newArr2.push(newA);
       }
 
-      for (let index = 0; index < 2; index++) {
+      for (let index = 0; index < 5; index++) {
         count++;
         let newA = await cube3(count, questionRefs);
         newArr2.push(newA);
       }
+      
+      for (let index = 0; index < 5; index++) {
+        count++;
+        let newA = await cube5(count, questionRefs);
+        newArr2.push(newA);
+      }
     } else if (selectValue === 2) {
-      for (let index = 0; index < 2; index++) {
+      for (let index = 0; index < 7; index++) {
         count++;
         let newA2 = await mirror1(count, questionRefs);
         newArr2.push(newA2);
       }
-      for (let index = 0; index < 2; index++) {
+      for (let index = 0; index < 8; index++) {
         count++;
         let newA2 = await Mirror2(count, questionRefs);
         newArr2.push(newA2);
       }
+    }else if (selectValue === 3){
+      for (let index = 0; index < 7; index++) {
+        count++;
+        let newA2 = await Paper1(count, questionRefs);
+        newArr2.push(newA2);
+      }
+   
     }
 
     setNewData(newArr2);
@@ -104,6 +119,8 @@ const NonVebal = () => {
 
   const addNonVerbalMU = useMutation({
     mutationFn: async (formattedData: any) => {
+      console.log(formattedData);
+      
       return await adminTokenAxios.post(
         `/admin/add-nv-question`,
         formattedData
@@ -140,11 +157,12 @@ const NonVebal = () => {
       t_name: inputValue,
       topic:
         selectValue === 1
-          ? "cubes & dice"
+          ? "Cubes & Dice"
           : selectValue === 2
-          ? "water & mirror"
-          : "",
-      tsc_id: 3,
+          ? "Water & Mirror"
+          : "Paper Folding",
+        
+      tsc_id: 1,
       ts_id: selectValue1,
       question: res,
     };
@@ -288,10 +306,10 @@ const NonVebal = () => {
                   margin={"auto"}
                   width={"90%"}
                   marginY={"15px"}
-                  sx={{
-                    gridColumn: "auto auto auto auto",
-                    columnGap: "30px",
-                  }}
+                  flexWrap={{md:"nowrap",sm:"wrap"}}
+                  columnGap={"20px"}
+                  rowGap={"20px"}
+
                 >
                   {item2?.options?.map((item3: any, key3: number) => (
                     <>
@@ -304,7 +322,7 @@ const NonVebal = () => {
                 </Stack>
                 <ParaText1
                   text={`Answer: ${String.fromCharCode(
-                    "A".charCodeAt(0) + (item2.correct_ans - 1)
+                    "A".charCodeAt(0) + (item2.correct_ans-1)
                   )}`}
                 />
               </Stack>

@@ -10,8 +10,9 @@ import {
 import { BButton2 } from "../../../../Components/Common/Button";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import imagetosvg from "../../../../utils/imagetosvg";
 const styles = {
   page: {
     padding: 20,
@@ -201,7 +202,82 @@ const MyDocument = ({
   topic: string;
 }) => {
   console.log(selected_question);
+  const [dataLoaded, setDataLoaded] = useState<any>(null);
 
+  // Create a cache object for storing preloaded images
+  const imageCache: Record<string, string | null> = {};
+
+  const preloadImages = async (imageUrls: any) => {
+    // console.log(imageUrls);
+    if (imageCache[imageUrls]) {
+  
+      return imageCache[imageUrls];
+    }
+
+    const response = await axios.get(
+      `${import.meta.env.VITE_IMAGE_QAPI_URL}${imageUrls?.split("/")[3]}`,
+      { responseType: "blob" }
+    );
+    
+    if (response.status === 200) {
+      const blob = response.data;
+      console.log(blob);
+      
+      const imageUrl = URL.createObjectURL(blob);
+    
+      // Cache the image
+      imageCache[imageUrls] = imageUrl;
+    
+      return imageUrl;
+    }
+    
+    return null;
+  };
+
+  // Replace 'imageUrls' with an array of your image URLs
+  useEffect(() => {
+    Promise.all(
+      selected_question?.map(async (item: questions, key) => {
+        if (item.question_image) {
+          const preloadedImages = await Promise.all(
+            item.question_image.map(async (item2: any) => {
+              const image = await preloadImages(item2.image_url);
+              console.log(image);
+              
+              item2.image_url = image;
+              return item2;
+            })
+          );
+
+          item.question_image = preloadedImages;
+        }
+        // if (item?.Options) {
+        //   const a = await imagetosvg(item.Options.a);
+        //   a && (item.Options.a = a);
+        //   const b = await imagetosvg(item.Options.b);
+        //   b && (item.Options.b = b);
+        //   const c = await imagetosvg(item.Options.c);
+        //   c && (item.Options.c = c);
+        //   const d = await imagetosvg(item.Options.d);
+        //   d && (item.Options.d = d);
+        // } else {
+        //   const a = await preloadImages(item.option_1);
+        //   a && (item.option_1 = a);
+        //   const b = await preloadImages(item.option_2);
+        //   b && (item.option_2 = b);
+        //   const c = await preloadImages(item.option_3);
+        //   c && (item.option_3 = c);
+        //   const d = await preloadImages(item.option_4);
+        //   d && (item.option_4 = d);
+        // }
+        return item;
+      })
+    ).then((data) => {
+      setDataLoaded(data);
+    });
+  }, []);
+
+  console.log(dataLoaded);
   return (
     <>
       {/* <img src="http://127.0.0.1:8000/images/product-7.jpg" alt="" /> */}
@@ -211,7 +287,7 @@ const MyDocument = ({
           <Text style={styles.header}>{topic?.toUpperCase()}</Text>
           <View style={styles.mainContainer}>
             {selected_question?.length != 0 &&
-              selected_question?.map((item: questions, key) => (
+              selected_question?.map((item: questions, key: number) => (
                 <View style={styles.Container} key={key}>
                   {item.Options ? (
                     <>
@@ -223,27 +299,17 @@ const MyDocument = ({
                       )}
                       {item.paragraph && item?.question_image && (
                         <View>
-                          {item?.question_image?.map((item2: any) => {
-                            console.log(
-                              `${import.meta.env.VITE_IMAGE_QAPI_URL}${
-                                item2?.image_url.split("/")[3]
-                              }`
-                            );
-                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
-                            return (
-                              <Image
-                                style={styles.image}
-                                src={{
-                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
-                                    item2?.image_url.split("/")[3]
-                                  }`,
-                                  method: "GET",
-                                  headers: { "Cache-Control": "no-cache" },
-                                  body: "",
-                                }}
-                              />
-                            );
-                          })}
+                          {item?.question_image?.map(
+                            (item2: any, index2: any) => {
+                              return (
+                                <Image
+                                  key={index2}
+                                  style={styles.image}
+                                  src={item2.image_url}
+                                />
+                              );
+                            }
+                          )}
                         </View>
                       )}
                       {item.Conversation && (
@@ -261,43 +327,36 @@ const MyDocument = ({
                           {item.Question}
                         </Text>
                       )}
-                        {!item.paragraph && item?.question_image && (
+                      {!item.paragraph && item?.question_image && (
                         <View>
-                          {item?.question_image?.map((item2: any) => {
-                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
-                            return (
-                              <Image
-                                style={styles.image}
-                                src={{
-                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
-                                    item2?.image_url.split("/")[3]
-                                  }`,
-                                  method: "GET",
-                                  headers: { "Cache-Control": "no-cache" },
-                                  body: "",
-                                }}
-                              />
-                            );
-                          })}
+                          {item?.question_image?.map(
+                            (item2: any, index2: any) => {
+                              return (
+                                <Image
+                                  key={index2}
+                                  style={styles.image}
+                                  src={
+                                    "http://127.0.0.1:8000/NVImages/qImage/q_image_1.png"
+                                  }
+                                />
+                              );
+                            }
+                          )}
                         </View>
                       )}
                       {item?.question_image && (
                         <View>
-                          {item?.question_image.map((item2: string) => {
-                            return (
-                              <Image
-                                style={styles.image}
-                                src={{
-                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
-                                    item2.split("/")[3]
-                                  }`,
-                                  method: "GET",
-                                  headers: { "Cache-Control": "no-cache" },
-                                  body: "",
-                                }}
-                              />
-                            );
-                          })}
+                          {item?.question_image?.map(
+                            (item2: any, index2: any) => {
+                              return (
+                                <Image
+                                  key={index2}
+                                  style={styles.image}
+                                  src={item2.image_url}
+                                />
+                              );
+                            }
+                          )}
                         </View>
                       )}
                       <View style={styles.optionContainer}>
@@ -324,27 +383,17 @@ const MyDocument = ({
                       )}
                       {item.paragraph && item?.question_image && (
                         <View>
-                          {item?.question_image?.map((item2: any) => {
-                            console.log(
-                              `${import.meta.env.VITE_IMAGE_QAPI_URL}${
-                                item2?.image_url.split("/")[3]
-                              }`
-                            );
-                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
-                            return (
-                              <Image
-                                style={styles.image}
-                                src={{
-                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
-                                    item2?.image_url.split("/")[3]
-                                  }`,
-                                  method: "GET",
-                                  headers: { "Cache-Control": "no-cache" },
-                                  body: "",
-                                }}
-                              />
-                            );
-                          })}
+                          {item?.question_image?.map(
+                            (item2: any, index2: any) => {
+                              return (
+                                <Image
+                                  key={index2}
+                                  style={styles.image}
+                                  src={item2.image_url}
+                                />
+                              );
+                            }
+                          )}
                         </View>
                       )}
                       {item.conversation && (
@@ -363,22 +412,17 @@ const MyDocument = ({
                       )}
                       {!item.paragraph && item?.question_image && (
                         <View>
-                          {item?.question_image?.map((item2: any) => {
-                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
-                            return (
-                              <Image
-                                style={styles.image}
-                                src={{
-                                  uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
-                                    item2?.image_url.split("/")[3]
-                                  }`,
-                                  method: "GET",
-                                  headers: { "Cache-Control": "no-cache" },
-                                  body: "",
-                                }}
-                              />
-                            );
-                          })}
+                          {item?.question_image?.map(
+                            (item2: any, index2: any) => {
+                              return (
+                                <Image
+                                  key={index2}
+                                  style={styles.image}
+                                  src={"http://127.0.0.1:8000/NVImages/qImage/q_image_1.png"}
+                                />
+                              );
+                            }
+                          )}
                         </View>
                       )}
                       <View style={styles.optionContainer}>
@@ -394,7 +438,7 @@ const MyDocument = ({
                               }}
                             >
                               <Text style={styles.options}>A.</Text>
-                              <Image
+                              {/* <Image
                                 style={styles.optionImage}
                                 src={{
                                   uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
@@ -404,7 +448,7 @@ const MyDocument = ({
                                   headers: { "Cache-Control": "no-cache" },
                                   body: "",
                                 }}
-                              />
+                              /> */}
                             </View>
 
                             {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
@@ -416,7 +460,7 @@ const MyDocument = ({
                               }}
                             >
                               <Text style={styles.options}>B.</Text>
-                              <Image
+                              {/* <Image
                                 style={styles.optionImage}
                                 src={{
                                   uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
@@ -426,7 +470,7 @@ const MyDocument = ({
                                   headers: { "Cache-Control": "no-cache" },
                                   body: "",
                                 }}
-                              />
+                              /> */}
                             </View>
                             <View
                               style={{
@@ -436,7 +480,7 @@ const MyDocument = ({
                               }}
                             >
                               <Text style={styles.options}>C.</Text>
-                              <Image
+                              {/* <Image
                                 style={styles.optionImage}
                                 src={{
                                   uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
@@ -446,7 +490,7 @@ const MyDocument = ({
                                   headers: { "Cache-Control": "no-cache" },
                                   body: "",
                                 }}
-                              />
+                              /> */}
                             </View>
                             <View
                               style={{
@@ -456,7 +500,7 @@ const MyDocument = ({
                               }}
                             >
                               <Text style={styles.options}>D.</Text>
-                              <Image
+                              {/* <Image
                                 style={styles.optionImage}
                                 src={{
                                   uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
@@ -466,7 +510,7 @@ const MyDocument = ({
                                   headers: { "Cache-Control": "no-cache" },
                                   body: "",
                                 }}
-                              />
+                              /> */}
                             </View>
                           </>
                         ) : (
@@ -496,8 +540,8 @@ const MyDocument = ({
           <View style={styles.mainContainer}>
             <Text style={styles.header2}>Answers:</Text>
             <View style={styles.Container}>
-              {selected_question?.length != 0 &&
-                selected_question?.map((item: questions, key) => (
+              {dataLoaded?.length != 0 &&
+                dataLoaded?.map((item: questions, key: number) => (
                   <Text style={styles.answer} key={key}>
                     {item.Answer
                       ? `${key + 1}.  ${item.Answer?.toUpperCase()}`

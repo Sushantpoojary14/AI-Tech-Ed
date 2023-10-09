@@ -467,11 +467,11 @@ const MyComponent = () => {
     //   let newA = await cube1(count, questionRefs);
     //   newArr2.push(newA);
     // }
-    // for (let index = 0; index < 1; index++) {
-    //   count++;
-    //   let newA = await Paper1(count, questionRefs);
-    //   newArr2.push(newA);
-    // }
+    for (let index = 0; index < 1; index++) {
+      count++;
+      let newA = await Paper1(count, questionRefs);
+      newArr2.push(newA);
+    }
     // for (let index = 0; index < 2; index++) {
     //   count++;
     //   let newA2 = await mirror1(count, questionRefs);
@@ -482,11 +482,11 @@ const MyComponent = () => {
     //   let newA2 = await Cube3(count, questionRefs);
     //   newArr2.push(newA2);
     // }
-    for (let index = 0; index < 2; index++) {
-      count++;
-      let newA2 = await Cube4(count, questionRefs);
-      newArr2.push(newA2);
-    }
+    // for (let index = 0; index < 2; index++) {
+    //   count++;
+    //   let newA2 = await Cube4(count, questionRefs);
+    //   newArr2.push(newA2);
+    // }
     // for (let index = 0; index < 2; index++) {
     //   count++;
     //   let newA2 = await Cube5(count, questionRefs);
@@ -544,6 +544,11 @@ const MyComponent = () => {
                   </>
                 ))}
               </Stack>
+               <ParaText1
+                  text={`Answer: ${String.fromCharCode(
+                    "A".charCodeAt(0) + (item2.correct_ans-1)
+                  )}`}
+                />
             </Stack>
           ))}
         </React.Fragment>

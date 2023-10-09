@@ -43,6 +43,15 @@ const cube1 = async (index: number, questionRefs: any) => {
     let imageData = randomicon();
     newData.push(imageData);
   }
+  const Option_random = Math.floor(Math.random() * 5);
+  let option_arr = [
+    { arr: [0, 1, 2], rotation: [0, 0, 0] },
+    { arr: [2, 4, 3], rotation: [90, 0, 90] },
+    { arr: [4, 3, 2], rotation: [180, 180, 180] },
+    { arr: [0, 2, 3], rotation: [90, 0, 0] },
+    { arr: [2, 1, 4], rotation: [0, 270, 0] },
+    { arr: [4, 2, 1], rotation: [180, 180, 180] },
+  ];
 
   let question_image = (
     <Grid
@@ -56,7 +65,7 @@ const cube1 = async (index: number, questionRefs: any) => {
         item
         xs={12}
         sm={5}
-        sx={{ w: "50%", m: "auto", backgroundColor: "transparent" }}
+        sx={{ w: "80%", m: "auto", backgroundColor: "transparent" }}
       >
         <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
           <Grid item>
@@ -137,55 +146,56 @@ const cube1 = async (index: number, questionRefs: any) => {
     </Grid>
   );
   let random = Math.floor(Math.random() * 6);
-  let ans = [];
-  if (random < 3) {
-    ans.push(newData[random], newData[random + 1], newData[random + 2]);
-  } else {
-    ans.push(newData[random], newData[random - 1], newData[random - 2]);
-  }
+  let ans:any = [];
+  ans = option_arr[Option_random]
+  // if (random < 3) {
+  //   ans.push(newData[random], newData[random + 1], newData[random + 2]);
+  // } else {
+  //   ans.push(newData[random], newData[random - 1], newData[random - 2]);
+  // }
   // console.log(random);
   let temp_options = [
     <div className="cube" ref={questionRefs.current[index].optionRefs[0]}>
       <div className="face top" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
-          icon={ans[0].type.iconName}
-          color={ans[0].color}
+          style={{...image_style,transform: `rotate(${ans.rotation[0]}deg)`,}}
+          icon={newData[ans.arr[0]].type.iconName}
+          color={newData[ans.arr[0]].color}
         />
       </div>
       <div className="face left" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
-          icon={ans[1].type.iconName}
-          color={ans[1].color}
+          style={{...image_style,transform: `rotate(${ans.rotation[1]}deg)`,}}
+          icon={newData[ans.arr[1]].type.iconName}
+          color={newData[ans.arr[1]].color}
         />
       </div>
       <div className="face front" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
-          icon={ans[2].type.iconName}
-          color={ans[2].color}
+          style={{...image_style,transform: `rotate(${ans.rotation[2]}deg)`,}}
+          icon={newData[ans.arr[2]].type.iconName}
+          color={newData[ans.arr[2]].color}
         />
       </div>
     </div>,
     <div className="cube" ref={questionRefs.current[index].optionRefs[1]}>
       <div className="face front" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
+          style={{...image_style,transform: `rotate(${ans.rotation[1]}deg)`,}}
           icon={newData[1].type.iconName}
           color={newData[1].color}
         />
       </div>
       <div className="face top" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
+          style={{...image_style,transform: `rotate(${ans.rotation[0]}deg)`,}}
           icon={newData[3].type.iconName}
           color={newData[3].color}
         />
       </div>
       <div className="face left" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
+          style={{...image_style,transform: `rotate(${ans.rotation[2]}deg)`,}}
           icon={newData[4].type.iconName}
           color={newData[4].color}
         />
@@ -194,21 +204,21 @@ const cube1 = async (index: number, questionRefs: any) => {
     <div className="cube" ref={questionRefs.current[index].optionRefs[2]}>
       <div className="face front" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
+          style={{...image_style,transform: `rotate(${ans.rotation[0]}deg)`,}}
           icon={newData[0].type.iconName}
           color={newData[0].color}
         />
       </div>
       <div className="face top" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
+          style={{...image_style,transform: `rotate(${ans.rotation[1]}deg)`,}}
           icon={newData[3].type.iconName}
           color={newData[3].color}
         />
       </div>
       <div className="face left" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
+          style={{...image_style,transform: `rotate(${ans.rotation[2]}deg)`,}}
           icon={newData[2].type.iconName}
           color={newData[2].color}
         />
@@ -217,21 +227,21 @@ const cube1 = async (index: number, questionRefs: any) => {
     <div className="cube" ref={questionRefs.current[index].optionRefs[3]}>
       <div className="face front" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
+          style={{...image_style,transform: `rotate(${ans.rotation[0]}deg)`,}}
           icon={newData[5].type.iconName}
           color={newData[5].color}
         />
       </div>
       <div className="face top" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
+          style={{...image_style,transform: `rotate(${ans.rotation[2]}deg)`,}}
           icon={newData[2].type.iconName}
           color={newData[2].color}
         />
       </div>
       <div className="face left" style={Line}>
         <FontAwesomeIcon
-          style={image_style}
+          style={{...image_style,transform: `rotate(${ans.rotation[1]}deg)`,}}
           icon={newData[0].type.iconName}
           color={newData[0].color}
         />

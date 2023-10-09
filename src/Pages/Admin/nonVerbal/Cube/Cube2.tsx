@@ -45,12 +45,23 @@ const cube2 = async (index: number, questionRefs: any) => {
     newData.push(imageData);
   }
   let random = Math.floor(Math.random() * 6);
-  let ans = [];
-  if (random < 3) {
-    ans.push(newData[random], newData[random + 1], newData[random + 2]);
-  } else {
-    ans.push(newData[random], newData[random - 1], newData[random - 2]);
-  }
+  let option_arr = [
+    { arr: [0, 1, 2], rotation: [0, 0, 0] },
+    { arr: [2, 4, 3], rotation: [90, 0, 90] },
+    { arr: [4, 3, 2], rotation: [180, 180, 180] },
+    { arr: [0, 2, 3], rotation: [90, 0, 0] },
+    { arr: [2, 1, 4], rotation: [0, 270, 0] },
+    { arr: [4, 2, 1], rotation: [180, 180, 180] },
+  ];
+  let ans: any = [];
+  ans = option_arr[random];
+  // if (random < 3) {
+  //   ans.push(newData[random], newData[random + 1], newData[random + 2]);
+  // } else {
+  //   ans.push(newData[random], newData[random - 1], newData[random - 2]);
+  // }
+  console.log(ans);
+
   let question_image = (
     <Box
       sx={{ maxWidth: "160px" }}
@@ -58,24 +69,35 @@ const cube2 = async (index: number, questionRefs: any) => {
     >
       <div className="cube" key={index} style={{ margin: "auto" }}>
         <div className="face top" style={Line}>
+          {/* <div style={{transform: `rotate(${ans.rotation[0]}deg)`,backgroundColor:"blue"}}> */}
           <FontAwesomeIcon
-            style={image_style}
-            icon={ans[0].type.iconName}
-            color={ans[0].color}
+            style={{
+              ...image_style,
+              transform: `rotate(${ans.rotation[0]}deg)`,
+            }}
+            icon={newData[ans.arr[0]].type.iconName}
+            color={newData[ans.arr[0]].color}
           />
+          {/* </div> */}
         </div>
         <div className="face left" style={Line}>
           <FontAwesomeIcon
-            style={image_style}
-            icon={ans[1].type.iconName}
-            color={ans[1].color}
+            style={{
+              ...image_style,
+              transform: `rotate(${ans.rotation[1]}deg)`,
+            }}
+            icon={newData[ans.arr[1]].type.iconName}
+            color={newData[ans.arr[1]].color}
           />
         </div>
         <div className="face front" style={Line}>
           <FontAwesomeIcon
-            style={image_style}
-            icon={ans[2].type.iconName}
-            color={ans[2].color}
+            style={{
+              ...image_style,
+              transform: `rotate(${ans.rotation[2]}deg)`,
+            }}
+            icon={newData[ans.arr[2]].type.iconName}
+            color={newData[ans.arr[2]].color}
           />
         </div>
       </div>
@@ -89,7 +111,7 @@ const cube2 = async (index: number, questionRefs: any) => {
       justifyContent="center"
       alignItems="center"
       ref={questionRefs.current[index].optionRefs[0]}
-      sx={{ w: "40%", m: "auto", backgroundColor: "transparent" }}
+      sx={{ w: "30%", m: "auto", backgroundColor: "transparent" }}
     >
       <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
         <Grid item>

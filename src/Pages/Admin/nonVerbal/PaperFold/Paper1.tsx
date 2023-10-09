@@ -1,34 +1,56 @@
-import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Divider, Grid, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 // import randomicon from "../../../../utils/randomicon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas, faB } from "@fortawesome/free-solid-svg-icons";
-
+import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
 import Canvas1 from "./component/Canvas1";
 library.add(fas);
 library.add(faB);
-
+import RedoIcon from "@mui/icons-material/Redo";
+import randomicon from "../../../../utils/randomicon";
+import { ParaText1 } from "../../../../Components/Common/ParaText";
 const outerSquare = {
-  width: "300px", // Set the desired width of the outer square
-  height: "300px", // Set the desired height of the outer square
-  border: `2px solid black`, // Light color border
-  display: "flex",
-  wrap: "wrap",
-  justifyContent: "center",
+  width: "160px", // Set the desired width of the outer square
+  height: "160px", // Set the desired height of the outer square
+  // border: `1px solid black`, // Light color border
+  // display: "flex",
+  // wrap: "wrap",
+  // justifyContent: "center",
 };
 const innerSquare = {
-  width: "50%", // Each inner square takes up 50% of the outer square
+  width: "100%", // Each inner square takes up 50% of the outer square
   height: "50%", // Each inner square takes up 50% of the outer square
-  border: `1px solid green`,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+
+  // display: "flex",
+  // justifyContent: "center",
+  // alignItems: "center",
+};
+const image_style = {
+  width: "50%",
+  height: "50%",
+  margin: "auto",
+  color: "#000000",
+  border: 1,
+  p: 16,
+  backgroundColor: "#ffffff",
+};
+const innerSquare2 = {
+  width: "50%",
+  height: "100%",
+};
+const innerSquare3 = {
+  minWidth: "100%",
+  minHeight: "100%",
+  border: `1px solid #000000"`,
 };
 const gridItem = {
-  border: `1px solid black`,
-  padding: "1rem",
-  textAlign: "center",
+  border: "0px solid #000000",
+  width: "100%",
+  height: "100%",
+  // padding: "1rem",
+  // textAlign: "center",
 };
 
 const Paper1 = async (index: number, questionRefs: any) => {
@@ -41,432 +63,655 @@ const Paper1 = async (index: number, questionRefs: any) => {
     "heart",
     "diamond",
   ];
-
-  let newData: any = [];
-  const options: any = [];
-
-  let question: any = {};
-
-  for (let j = 0; j < 6; j++) {
-    const random = Math.floor(Math.random() * shapes.length);
-    newData.push(shapes[random]);
+  const gridData: any = [];
+  for (let i = 0; i <= 8; i++) {
+    let random = Math.floor(Math.random() * 6);
+    let imageData = shapes[random];
+    gridData.push(imageData);
   }
-  console.log("icons", newData);
+  let newData: any = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  const options: any = [];
+  const gridArr: any = [];
+  let question: any = {};
+  let random = Math.floor(Math.random() * 3) + 4;
+  console.log(random);
+  let c = 0;
+  for (let j = random; j >= 0; j--) {
+    const random = Math.floor(Math.random() * (newData.length - 1 - c));
+
+    console.log(random, newData.length - 1 - c);
+
+    gridArr.push(newData[random]);
+    let temp = newData[random];
+    newData[random] = newData[newData.length - 1];
+    newData[newData.length - 1] = temp;
+    c++;
+  }
+  let count = 0;
+
+  for (let i = 5; i >= 0; i--) {
+    //   let random = Math.floor(Math.random() * (i + 1));
+    //   // let imageData = randomicon();
+    //   newData.push(imageData);
+  }
+  console.log("icons", gridData, gridArr);
   let question_image = (
-    <Stack px={1} ref={questionRefs.current[index].questionRef}>
-      <Stack direction={"row"} spacing={1}>
-        {/* Box 1 */}
-        <Canvas1 />
-        <Box
-          sx={{
-            width: 100,
-            height: 100,
-            border: 1,
-            borderColor: "black",
-            backgroundColor: "yellow",
-          }}
-        />
+    // <Stack px={1} ref={questionRefs.current[index].questionRef}>
+    //   <Stack direction={"row"} spacing={1}>
+    //     {/* Box 1 */}
+    //     <Canvas1 />
+    //     <Box
+    //       sx={{
+    //         width: 100,
+    //         height: 100,
+    //         border: 1,
+    //         borderColor: "black",
+    //         backgroundColor: "yellow",
+    //       }}
+    //     />
 
-        {/* Box 2 */}
-        <Box
-          sx={{
-            width: 100,
-            height: 100,
-            border: 1,
-            borderStyle: "dashed",
-            borderColor: "black",
-            backgroundColor: "yellow",
-          }}
-        />
-        {/* Box 3 */}
-        <Box
-          sx={{
-            width: 100,
-            height: 100,
-          }}
-        >
-          <Grid container>
-            {/* Box 3.1 */}
-            <Grid item xs={6}>
-              <Box
-                sx={{
-                  width: 50,
-                  height: 50,
-                  border: 1,
-                  borderStyle: "dashed dashed none dashed",
-                  borderColor: "black",
-                }}
-              >
-                <Grid
-                  container
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gridTemplateRows: "repeat(3, 1fr)",
-                  }}
-                >
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  ></Grid>
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                </Grid>
-              </Box>
-            </Grid>
-            {/* Box 3.2 */}
-            <Grid item xs={6}>
-              <Box
-                sx={{
-                  width: 50,
-                  height: 50,
-                  border: 1,
-                  borderStyle: "dashed dashed dashed none",
-                  borderColor: "black",
-                }}
-              >
-                <Grid
-                  container
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gridTemplateRows: "repeat(3, 1fr)",
-                  }}
-                >
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  ></Grid>
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                </Grid>
-              </Box>
-            </Grid>
-            {/* Box 3.3 */}
-            <Grid item xs={6}>
-              <Box
-                sx={{
-                  width: 50,
-                  height: 50,
-                  border: 2,
-                  borderColor: "black",
-                  borderStyle: "solid",
-                }}
-              >
-                <Grid
-                  container
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gridTemplateRows: "repeat(3, 1fr)",
-                  }}
-                >
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  ></Grid>
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                </Grid>
-              </Box>
-            </Grid>
-            {/* Box 3.4 */}
-            <Grid item xs={6}>
-              <Box
-                sx={{
-                  width: 50,
-                  height: 50,
+    //     {/* Box 2 */}
+    //     <Box
+    //       sx={{
+    //         width: 100,
+    //         height: 100,
+    //         border: 1,
+    //         borderStyle: "dashed",
+    //         borderColor: "black",
+    //         backgroundColor: "yellow",
+    //       }}
+    //     />
+    //     {/* Box 3 */}
+    //     <Box
+    //       sx={{
+    //         width: 100,
+    //         height: 100,
+    //       }}
+    //     >
+    //       <Grid container>
+    //         {/* Box 3.1 */}
+    //         <Grid item xs={6}>
+    //           <Box
+    //             sx={{
+    //               width: 50,
+    //               height: 50,
+    //               border: 1,
+    //               borderStyle: "dashed dashed none dashed",
+    //               borderColor: "black",
+    //             }}
+    //           >
+    //             <Grid
+    //               container
+    //               sx={{
+    //                 width: 50,
+    //                 height: 50,
+    //                 display: "grid",
+    //                 gridTemplateColumns: "repeat(3, 1fr)",
+    //                 gridTemplateRows: "repeat(3, 1fr)",
+    //               }}
+    //             >
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               ></Grid>
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //             </Grid>
+    //           </Box>
+    //         </Grid>
+    //         {/* Box 3.2 */}
+    //         <Grid item xs={6}>
+    //           <Box
+    //             sx={{
+    //               width: 50,
+    //               height: 50,
+    //               border: 1,
+    //               borderStyle: "dashed dashed dashed none",
+    //               borderColor: "black",
+    //             }}
+    //           >
+    //             <Grid
+    //               container
+    //               sx={{
+    //                 width: 50,
+    //                 height: 50,
+    //                 display: "grid",
+    //                 gridTemplateColumns: "repeat(3, 1fr)",
+    //                 gridTemplateRows: "repeat(3, 1fr)",
+    //               }}
+    //             >
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               ></Grid>
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //             </Grid>
+    //           </Box>
+    //         </Grid>
+    //         {/* Box 3.3 */}
+    //         <Grid item xs={6}>
+    //           <Box
+    //             sx={{
+    //               width: 50,
+    //               height: 50,
+    //               border: 2,
+    //               borderColor: "black",
+    //               borderStyle: "solid",
+    //             }}
+    //           >
+    //             <Grid
+    //               container
+    //               sx={{
+    //                 width: 50,
+    //                 height: 50,
+    //                 display: "grid",
+    //                 gridTemplateColumns: "repeat(3, 1fr)",
+    //                 gridTemplateRows: "repeat(3, 1fr)",
+    //               }}
+    //             >
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               ></Grid>
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //             </Grid>
+    //           </Box>
+    //         </Grid>
+    //         {/* Box 3.4 */}
+    //         <Grid item xs={6}>
+    //           <Box
+    //             sx={{
+    //               width: 50,
+    //               height: 50,
 
-                  border: 1,
-                  borderStyle: "none dashed dashed none",
-                  borderColor: "black",
-                }}
-              >
-                <Grid
-                  container
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gridTemplateRows: "repeat(3, 1fr)",
-                  }}
-                >
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  ></Grid>
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                  <Grid
-                    item
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                  <Grid item sx={{ width: "100%", height: "100%" }} />
-                </Grid>
-              </Box>
-            </Grid>
-          </Grid>
+    //               border: 1,
+    //               borderStyle: "none dashed dashed none",
+    //               borderColor: "black",
+    //             }}
+    //           >
+    //             <Grid
+    //               container
+    //               sx={{
+    //                 width: 50,
+    //                 height: 50,
+    //                 display: "grid",
+    //                 gridTemplateColumns: "repeat(3, 1fr)",
+    //                 gridTemplateRows: "repeat(3, 1fr)",
+    //               }}
+    //             >
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               ></Grid>
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //               <Grid
+    //                 item
+    //                 sx={{
+    //                   width: "100%",
+    //                   height: "100%",
+    //                 }}
+    //               />
+    //               <Grid item sx={{ width: "100%", height: "100%" }} />
+    //             </Grid>
+    //           </Box>
+    //         </Grid>
+    //       </Grid>
+    //     </Box>
+    //   </Stack>
+    //   {/* <Box>
+    //     {shapes.map((item: string, index: number) => (
+    //       <Box>
+    //         <FontAwesomeIcon
+    //           icon={shapes[index]}
+    //         />
+    //       </Box>
+    //     ))}
+    //   </Box> */}
+    // </Stack>
+    <Stack
+      px={1}
+      ref={questionRefs.current[index].questionRef}
+      // display={"grid"}
+      flexDirection={"row"}
+      columnGap={"2px"}
+      // gridColumn={"auto auto auto"}
+      maxWidth={"500px"}
+    >
+      <Stack>
+        <Box border={"1px solid #000000"} sx={{ ...outerSquare }}>
+          <Divider
+            sx={{
+              width: "100%",
+              mt: "78px",
+              // height:"10px"
+              // borderColor: "#000000",
+              borderBottom: "1px dotted #000000",
+            }}
+          />
+          <UndoOutlinedIcon
+            sx={{
+              width: "20px",
+              height: "20px",
+              position: "absolute",
+              marginX: "60px",
+              marginTop: "-11px",
+              zIndex: "2",
+              transform: "rotate(270deg)",
+            }}
+          />
         </Box>
+        <ParaText1 text="X" css={{ marginX: "auto" }} />
       </Stack>
-      {/* <Box>
-        {shapes.map((item: string, index: number) => (
-          <Box>
-            <FontAwesomeIcon
-              icon={shapes[index]}
+      <Stack>
+        <Stack sx={{ ...outerSquare, border: "none" }}>
+          <Box
+            border={"1px dotted #000000"}
+            borderBottom={"0"}
+            sx={{ ...innerSquare }}
+          ></Box>
+          <Box border={"1px solid #000000"} sx={{ ...innerSquare }}>
+            <Divider
+              sx={{
+                height: "100%",
+                width: "0",
+                // my: "auto",
+                // borderColor: "#000000",
+                mx: "auto",
+                borderLeft: "1px dotted #000000",
+              }}
+
+              // orientation="vertical"
             />
           </Box>
-        ))}
-      </Box> */}
+          <RedoIcon
+            sx={{
+              width: "20px",
+              height: "20px",
+              position: "absolute",
+              marginX: "60px",
+              marginTop: "110px",
+              zIndex: "1",
+              transform: "rotate(180deg)",
+            }}
+          />
+        </Stack>
+        <ParaText1 text="Y" css={{ marginX: "auto" }} />
+      </Stack>
+
+      <Stack>
+        <Stack sx={{ ...outerSquare, border: "none" }}>
+          <Box
+            border={"1px dotted #000000"}
+            borderBottom={"0"}
+            sx={{ ...innerSquare }}
+          ></Box>
+          <Stack sx={{ ...innerSquare }} flexDirection={"row"}>
+            <Box
+              border={"1px solid #000000"}
+              // borderBottom={"0"}
+              sx={{
+                ...innerSquare2,
+                display: "grid",
+                gridTemplateColumns: "auto auto auto",
+              }}
+            >
+              {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item: number) => {
+                if (gridArr.includes(item)) {
+                  return (
+                    <Box
+                      // border={"0"}
+                      // borderBottom={"0"}
+                      sx={{ ...gridItem }}
+                    >
+                      <FontAwesomeIcon
+                        style={{
+                          ...image_style,
+                          // transform: `rotate(${ans.rotation[0]}deg)`,
+                        }}
+                        icon={gridData[count++]}
+                      />
+                      {/* {item} */}
+                    </Box>
+                  );
+                }
+                return (
+                  <Box
+                    // border={"1px solid #000000"}
+                    // borderBottom={"0"}
+                    sx={{ ...gridItem }}
+                  ></Box>
+                );
+              })}
+              <Box
+                border={"1px solid #000000"}
+                // borderBottom={"0"}
+                sx={{ ...gridItem }}
+              ></Box>
+            </Box>
+            <Box
+              border={"1px dotted #000000"}
+              borderLeft={"0"}
+              sx={{ ...innerSquare2 }}
+            ></Box>
+          </Stack>
+        </Stack>
+        <ParaText1 text="Z" css={{ marginX: "auto" }} />
+      </Stack>
     </Stack>
   );
-
-  //   let temp_options = [
-  //     <Box
-  //       ref={questionRefs.current[index].optionRefs[0]}
-  //       sx={{ transform: "scaleY(-1)", display: "inline-block" }}
-  //     >
-  //       {newData.map((item: string) => (
-  //         <Box>
-  //           <FontAwesomeIcon
-  //             //   style={image_style}
-  //             icon={newData[0]}
-  //             //   color={ans[0].color}
-  //           />
-  //         </Box>
-  //       ))}
-  //     </Box>,
-  //     <Box
-  //       ref={questionRefs.current[index].optionRefs[1]}
-  //       sx={{ transform: "scaleY(-1)", display: "inline-block" }}
-  //     >
-  //       {newData.map((item: string, key: number) => {
-  //         if (key === 2) {
-  //           return (
-  //             <Box
-  //               sx={{
-  //                 display: "inline-block",
-
-  //                 transform: "scaleY(-1)",
-  //               }}
-  //             >
-  //               <Typography variant="h5" component={"span"} fontWeight={"bolder"}>
-  //                 {item}
-  //               </Typography>
-  //             </Box>
-  //           );
-  //         }
-  //         if (key === 4) {
-  //           return (
-  //             <Box
-  //               sx={{
-  //                 display: "inline-block",
-
-  //                 transform: "scaleY(-1)",
-  //               }}
-  //             >
-  //               <Typography variant="h5" component={"span"} fontWeight={"bolder"}>
-  //                 {item}
-  //               </Typography>
-  //             </Box>
-  //           );
-  //         }
-  //         return (
-  //           <Box sx={{ display: "inline-block" }}>
-  //             <Typography variant="h5" component={"span"} fontWeight={"bolder"}>
-  //               {item}
-  //             </Typography>
-  //           </Box>
-  //         );
-  //       })}
-  //     </Box>,
-  //     <Box
-  //       ref={questionRefs.current[index].optionRefs[2]}
-  //       sx={{ transform: "scaleY(-1)", display: "inline-block" }}
-  //     >
-  //       {newData.map((item: string, key: number) => {
-  //         if (key === 3) {
-  //           return (
-  //             <Box
-  //               sx={{
-  //                 display: "inline-block",
-
-  //                 transform: "scaleY(-1)",
-  //               }}
-  //             >
-  //               <Typography variant="h5" component={"span"} fontWeight={"bolder"}>
-  //                 {item}
-  //               </Typography>
-  //             </Box>
-  //           );
-  //         }
-  //         return (
-  //           <Box sx={{ display: "inline-block" }}>
-  //             <Typography variant="h5" component={"span"} fontWeight={"bolder"}>
-  //               {item}
-  //             </Typography>
-  //           </Box>
-  //         );
-  //       })}
-  //     </Box>,
-  //     <Box
-  //       ref={questionRefs.current[index].optionRefs[3]}
-  //       sx={{ transform: "scaleX(-1)", display: "inline-block" }}
-  //     >
-  //       {newData.map((item: string) => (
-  //         <Box sx={{ display: "inline-block" }}>
-  //           <Typography variant="h5" component={"span"} fontWeight={"bolder"}>
-  //             {item}
-  //           </Typography>
-  //         </Box>
-  //       ))}
-  //     </Box>,
-  //   ];
+  const scale = [-1, 1, 1, -1];
+  const deg = [180, 180, 0, 0];
+  const scale2 = [-1, -1, 1, 1];
+  const deg2 = [270, 270, 270, 270];
+  let temp_options = [
+    <Box
+      ref={questionRefs.current[index].optionRefs[0]}
+      sx={{
+        ...outerSquare,
+        display: "grid",
+        gridTemplateColumns: "auto auto",
+      }}
+    >
+      {[0, 1, 2, 3].map((item: number) => {
+        count = 0;
+        return (
+          <Stack
+            // sx={{ ...gridItem }}
+            // flexDirection={"row"}
+            sx={{
+              ...innerSquare3,
+              transform: `scaleX(${scale[item]}) rotate(${deg[item]}deg)`,
+              border: "1px solid black",
+              display: "grid",
+              gridTemplateColumns: "auto auto auto",
+            }}
+          >
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item: number, key) => {
+              if (gridArr.includes(item)) {
+                return (
+                  <Box sx={{ ...gridItem }}>
+                    <FontAwesomeIcon
+                      style={{
+                        ...image_style,
+                      }}
+                      icon={gridData[count++]}
+                    />
+                    {/* {item} */}
+                  </Box>
+                );
+              }
+              return <Box sx={{ ...gridItem }}></Box>;
+            })}
+          </Stack>
+        );
+      })}
+    </Box>,
+    <Box
+      ref={questionRefs.current[index].optionRefs[0]}
+      sx={{
+        ...outerSquare,
+        display: "grid",
+        gridTemplateColumns: "auto auto",
+      }}
+    >
+      {[0, 3 ,1, 2, ].map((item: number,key) => {
+        count = 0;
+        return (
+          <Stack
+            // sx={{ ...gridItem }}
+            // flexDirection={"row"}
+            sx={{
+              ...innerSquare3,
+              transform: `scaleX(${scale[key]}) scaleY(${scale[item]}) rotate(${deg[key]}deg)`,
+              border: "1px solid black",
+              display: "grid",
+              gridTemplateColumns: "auto auto auto",
+            }}
+          >
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item: number, key) => {
+              if (gridArr.includes(item)) {
+                return (
+                  <Box sx={{ ...gridItem }}>
+                    <FontAwesomeIcon
+                      style={{
+                        ...image_style,
+                      }}
+                      icon={gridData[count++]}
+                    />
+                    {/* {item} */}
+                  </Box>
+                );
+              }
+              return <Box sx={{ ...gridItem }}></Box>;
+            })}
+          </Stack>
+        );
+      })}
+    </Box>,
+    <Box
+      ref={questionRefs.current[index].optionRefs[0]}
+      sx={{
+        ...outerSquare,
+        display: "grid",
+        gridTemplateColumns: "auto auto",
+      }}
+    >
+      {[0, 1, 3, 2].map((item: number, key) => {
+        count = 0;
+        return (
+          <Stack
+            // sx={{ ...gridItem }}
+            // flexDirection={"row"}
+            sx={{
+              ...innerSquare3,
+              transform: `scaleY(${scale2[key]}) scaleX(${scale[item]})rotate(${deg2[key]}deg)`,
+              border: "1px solid black",
+              display: "grid",
+              gridTemplateColumns: "auto auto auto",
+            }}
+          >
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item: number, key) => {
+              if (gridArr.includes(item)) {
+                return (
+                  <Box sx={{ ...gridItem }}>
+                    <FontAwesomeIcon
+                      style={{
+                        ...image_style,
+                      }}
+                      icon={gridData[count++]}
+                    />
+                    {/* {item} */}
+                  </Box>
+                );
+              }
+              return <Box sx={{ ...gridItem }}></Box>;
+            })}
+          </Stack>
+        );
+      })}
+    </Box>,
+    <Box
+      ref={questionRefs.current[index].optionRefs[0]}
+      sx={{
+        ...outerSquare,
+        display: "grid",
+        gridTemplateColumns: "auto auto",
+      }}
+    >
+      {[1, 0, 2, 3].map((item: number, key) => {
+        count = 0;
+        return (
+          <Stack
+            // sx={{ ...gridItem }}
+            // flexDirection={"row"}
+            sx={{
+              ...innerSquare3,
+              transform: `scaleY(${scale2[key]}) scaleX(${scale[item]}) rotate(${deg2[key]}deg)`,
+              border: "1px solid black",
+              display: "grid",
+              gridTemplateColumns: "auto auto auto",
+            }}
+          >
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item: number, key) => {
+              if (gridArr.includes(item)) {
+                return (
+                  <Box sx={{ ...gridItem }}>
+                    <FontAwesomeIcon
+                      style={{
+                        ...image_style,
+                      }}
+                      icon={gridData[count++]}
+                    />
+                    {/* {item} */}
+                  </Box>
+                );
+              }
+              return <Box sx={{ ...gridItem }}></Box>;
+            })}
+          </Stack>
+        );
+      })}
+    </Box>,
+  ];
 
   let correct_ans = -1;
-  //   for (let i = 3; i >= 0; i--) {
-  //     let random = Math.floor(Math.random() * (i + 1));
-  //     if (random == 0 && correct_ans < 0) {
-  //       correct_ans = 3 - i + 1;
-  //     }
-  //     options.push(temp_options[random]);
-  //     let temp = temp_options[random];
-  //     temp_options[random] = temp_options[i];
-  //     temp_options[i] = temp;
-  //   }
+  for (let i = 3; i >= 0; i--) {
+    let random = Math.floor(Math.random() * (i + 1));
+    if (random == 0 && correct_ans < 0) {
+      correct_ans = 3 - i + 1;
+    }
+    options.push(temp_options[random]);
+    let temp = temp_options[random];
+    temp_options[random] = temp_options[i];
+    temp_options[i] = temp;
+  }
   question.question_image = question_image;
   question.options = options;
   question.question =
