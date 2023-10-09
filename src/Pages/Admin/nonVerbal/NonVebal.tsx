@@ -147,6 +147,7 @@ const NonVebal = () => {
       console.log("Success", res);
       handleAlertBoxOpen();
       setNewData([]);
+      setInputValue("");
     },
   });
 
@@ -267,6 +268,7 @@ const NonVebal = () => {
             sx={{ backgroundColor: "white", maxWidth: "400px" }}
             value={inputValue} // Bind the input value to the state variable
             onChange={handleInputChange} // Handle input changes
+            required
           />
         </Stack>
         <Box flexDirection={"row"} marginTop={2}>
