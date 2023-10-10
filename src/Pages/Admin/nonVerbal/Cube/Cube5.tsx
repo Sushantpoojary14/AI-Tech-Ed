@@ -170,7 +170,8 @@ const cube5 = async (index: number, questionRefs: any) => {
       ref={questionRefs.current[index].questionRef}
       flexDirection={"row"}
       justifyContent={"space-between"}
-      maxWidth={"437px"}
+      maxWidth={"460px"}
+      maxHeight={"437px"}
       sx={{ backgroundColor: "transparent" }}
     >
       <Stack>

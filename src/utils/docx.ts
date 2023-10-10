@@ -15,7 +15,7 @@ import {
   UnderlineType,
 } from "docx";
 
-function blobToBase64(blob: any) {
+export function blobToBase64(blob: any) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -28,7 +28,7 @@ function blobToBase64(blob: any) {
   });
 }
 
-async function fetchAndConvertImage(imageUrl: string) {
+export async function fetchAndConvertImage(imageUrl: string) {
   const firstLetter = imageUrl[0];
   if (firstLetter !== "/") {
     return imageUrl;
@@ -108,6 +108,7 @@ export async function fetchAndReplaceImagesTopic(apiData: any, total: any) {
               const blob = response.data;
               // console.log("BLOB", blob);
 
+              // return blob;
               const base64Image = await blobToBase64(blob);
               return base64Image;
             } else {
@@ -347,7 +348,9 @@ export const downloadAsDocx = async (data: any) => {
                   ...question?.images?.flatMap((img: any, index: number) => {
                     return [
                       new ImageRun({
-                        data: img,
+                        data: Uint8Array.from(atob(img), (c) =>
+                          c.charCodeAt(0)
+                        ),
                         transformation: {
                           width: 100,
                           height: 100,

@@ -111,7 +111,8 @@ const Cube3 = (index: number, questionRefs: any): any => {
       container
       justifyContent="center"
       alignItems="center"
-      maxWidth={"437px"}
+      maxWidth={"460px"}
+      // maxHeight={"437px"}
       ref={questionRefs.current[index].questionRef}
     >
       <Grid item sx={{ w: "50%", m: "auto", backgroundColor: "transparent" }}>
