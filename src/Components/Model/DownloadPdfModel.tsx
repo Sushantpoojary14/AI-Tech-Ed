@@ -125,7 +125,7 @@ ModalProps) => {
                 <PdfMaker
                   bol={!!setData}
                   data={setData?.get_question}
-                  //   randomG={true}
+                  randomG={true}
                   // button={
                   //   <BButton
                   //     type="button"
@@ -149,7 +149,10 @@ ModalProps) => {
                 />
               </Stack>
             ) : (
-              <BButton type="button" name="Download" css={{ width: "100%" }} />
+              <Stack direction={"row"} justifyContent={"space-between"}>
+                <BButton disabled={true} type="button" name="Download PDF" />
+                <BButton disabled={true} type="button" name="Download Docx" />
+              </Stack>
             )}
           </Stack>
         </Box>

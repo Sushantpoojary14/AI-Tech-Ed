@@ -217,66 +217,13 @@ const PdfMaker = (props: props) => {
         <BButton
           type="button"
           name="Download PDF"
-          css={{ width: "100%" }}
+          // css={{ width: "100%" }}
           func={() => openPDFInNewTab(blob, `${props.topic}.pdf`)}
         />
       )}
     </BlobProvider>
   );
 };
-
-//  const newQuestions = await Promise.all(
-//     selected_question.map(async (question: any) => {
-//       try {
-//         const images = question.question_image;
-
-//         const option1Image = question.option_1;
-//         const option2Image = question.option_2;
-//         const option3Image = question.option_3;
-//         const option4Image = question.option_4;
-
-//         const base64Option1Image = await fetchAndConvertImage(option1Image);
-//         const base64Option2Image = await fetchAndConvertImage(option2Image);
-//         const base64Option3Image = await fetchAndConvertImage(option3Image);
-//         const base64Option4Image = await fetchAndConvertImage(option4Image);
-
-//         const base64Images = await Promise.all(
-//           images.map(async (image: any) => {
-//             const imageUrl =
-//               import.meta.env.VITE_IMAGE_URL + `${image.image_url}`; // Replace with your base URL
-//             const response = await axios.get(imageUrl, {
-//               responseType: "blob",
-//             });
-
-//             if (response.status === 200) {
-//               const blob = response.data;
-//               // console.log("BLOB", blob);
-
-//               // return blob;
-//               const base64Image = await blobToBase64(blob);
-//               return base64Image;
-//             } else {
-//               console.error(`Failed to fetch image: ${imageUrl}`);
-//               return null; // Return null for failed requests
-//             }
-//           })
-//         );
-
-//         // Replace the image URLs with Base64-encoded images in the question object
-//         const updatedQuestion = { ...question };
-//         updatedQuestion.images = base64Images;
-//         updatedQuestion.option_1 = base64Option1Image;
-//         updatedQuestion.option_2 = base64Option2Image;
-//         updatedQuestion.option_3 = base64Option3Image;
-//         updatedQuestion.option_4 = base64Option4Image;
-
-//         return updatedQuestion;
-//       } catch (error) {
-//         console.error("Error fetching or encoding image:", error);
-//         return question; // Return the original question object on error
-//       }
-//     })
-//   );
 
 const MyDocument = ({
   selected_question,
