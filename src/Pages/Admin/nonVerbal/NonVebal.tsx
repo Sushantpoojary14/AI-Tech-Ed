@@ -40,7 +40,8 @@ const NonVebal = () => {
   const [newData, setNewData] = useState<any>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [open1, setOpen1] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const questionRefs: any = useRef([]);
 
   const handleAlertBoxOpen = () => {
@@ -142,42 +143,46 @@ const NonVebal = () => {
       setNewData([]);
     },
     onSuccess: (res) => {
-      // if (res.status == 200) {
-      //   setData(res?.data?.data);
-      //   setCategory(res?.data?.tspc);
-      //   setOpen(true);
-      // } else {
-      //   handleAlertBoxOpen();
-      // }
-      console.log("Success", res);
-      handleAlertBoxOpen();
-      setNewData([]);
-      setInputValue("");
+      setLoading(false);
+      if (res.status == 200) {
+        console.log("Success", res);
+        handleAlertBoxOpen();
+        setNewData([]);
+        setInputValue("");
+      } else {
+        handleAlertBoxOpen();
+      }
     },
   });
 
   const imageG = async (e: any) => {
     e.preventDefault();
-    const res = await generateQuestionObjects(newData);
-    let data = {
-      t_name: inputValue,
-      topic:
-        selectValue === 1
-          ? "Cubes & Dice"
-          : selectValue === 2
-          ? "Water & Mirror"
-          : "Paper Folding",
+    if (!inputValue) {
+      setError(true);
+    } else {
+      setLoading(true);
+      const res = await generateQuestionObjects(newData);
+      let data = {
+        t_name: inputValue,
+        topic:
+          selectValue === 1
+            ? "Cubes & Dice"
+            : selectValue === 2
+            ? "Water & Mirror"
+            : "Paper Folding",
 
-      tsc_id: 1,
-      ts_id: selectValue1,
-      question: res,
-    };
-    console.log("NVData", data);
-    addNonVerbalMU.mutate(data);
+        tsc_id: 1,
+        ts_id: selectValue1,
+        question: res,
+      };
+      console.log("NVData", data);
+      addNonVerbalMU.mutate(data);
+    }
   };
 
   const handleInputChange = (e: any) => {
     setInputValue(e.target.value);
+    setError(false);
   };
 
   const getTestSeries = async () => {
@@ -273,27 +278,29 @@ const NonVebal = () => {
             sx={{ backgroundColor: "white", maxWidth: "400px" }}
             value={inputValue} // Bind the input value to the state variable
             onChange={handleInputChange} // Handle input changes
-            required
           />
+          {error && <ParaText1 text={"*Please Enter the topic"} css={{color:"red"}} />}
         </Stack>
-        <Box flexDirection={"row"} marginTop={2}>
-          <BButton
-            func={generateQuestions}
-            type="button"
-            name="Generate"
-            css={{}}
-          />
-        </Box>
-
-        <Box flexDirection={"row"} marginTop={2}>
-          {newData.length > 1 && (
+        <Stack flexDirection={"row"} columnGap={2}>
+          <Box flexDirection={"row"} marginTop={2}>
             <BButton
-              func={imageG}
+              func={generateQuestions}
               type="button"
-              name={addNonVerbalMU.isLoading ? "Uploading" : "Upload"}
+              name="Generate"
+              css={{}}
             />
-          )}
-        </Box>
+          </Box>
+
+          <Box flexDirection={"row"} marginTop={2}>
+            {newData.length > 1 && (
+              <BButton
+                func={imageG}
+                type="button"
+                name={loading ? "Uploading" : "Upload"}
+              />
+            )}
+          </Box>
+        </Stack>
 
         <Box flexDirection={"row"} textAlign={"left"}>
           <React.Fragment>
