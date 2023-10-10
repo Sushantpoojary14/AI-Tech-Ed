@@ -182,7 +182,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
   const newDegree = degree.filter((item, key) => {
     return key != rd;
   });
-
+  console.log(degree[ans], degree[rd]);
   let temp_options = [
     <Box
       sx={{ transform: `rotate(${degree[ans]}deg)`, backgroundColor: "white" }}
@@ -381,8 +381,9 @@ const mirror1 = async (index: number, questionRefs: any) => {
   }
   question.question_image = question_image;
   question.options = options;
-  question.question =
-    "Choose the alternative which is closely resembles the mirror of the given combination:";
+  question.question = `Choose the alternative which is closely resembles the ${
+    rd == 1 || rd == 3 ? "mirror" : "water"
+  } of the given combination:`;
   question.correct_ans = correct_ans;
   // return question;
   // console.log(questionRefs);

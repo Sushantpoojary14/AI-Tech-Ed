@@ -400,6 +400,8 @@ import Cube3 from "./Pages/Admin/nonVerbal/Cube/Cube3";
 import Paper1 from "./Pages/Admin/nonVerbal/PaperFold/Paper1";
 import Cube4 from "./Pages/Admin/nonVerbal/Cube/Cube4";
 import Cube5 from "./Pages/Admin/nonVerbal/Cube/Cube5";
+import Mirror2 from "./Pages/Admin/nonVerbal/Mirror/Mirror2";
+import Mirror3 from "./Pages/Admin/nonVerbal/Mirror/Mirror3";
 // import potrace from "potrace-js";
 const MyComponent = () => {
   const [newData, setNewData] = useState<any>([]);
@@ -467,16 +469,21 @@ const MyComponent = () => {
     //   let newA = await cube1(count, questionRefs);
     //   newArr2.push(newA);
     // }
-    for (let index = 0; index < 1; index++) {
-      count++;
-      let newA = await Paper1(count, questionRefs);
-      newArr2.push(newA);
-    }
+    // for (let index = 0; index < 1; index++) {
+    //   count++;
+    //   let newA = await Paper1(count, questionRefs);
+    //   newArr2.push(newA);
+    // }
     // for (let index = 0; index < 2; index++) {
     //   count++;
-    //   let newA2 = await mirror1(count, questionRefs);
+    //   let newA2 = await Mirror2(count, questionRefs);
     //   newArr2.push(newA2);
     // }
+    for (let index = 0; index < 2; index++) {
+      count++;
+      let newA2 = await Mirror3(count, questionRefs);
+      newArr2.push(newA2);
+    }
     // for (let index = 0; index < 2; index++) {
     //   count++;
     //   let newA2 = await Cube3(count, questionRefs);

@@ -16,6 +16,7 @@ import LoadingBar from "../../../Components/Headers/LoadingBar";
 import AlertBox from "../../../Components/Common/AlertBox";
 import cube5 from "./Cube/Cube5";
 import Paper1 from "./PaperFold/Paper1";
+import Mirror3 from "./Mirror/Mirror3";
 
 const options = [
   {
@@ -26,10 +27,10 @@ const options = [
     test_type: "Water & Mirror",
     id: 2,
   },
-    {
-      test_type: "Paper Folding",
-      id: 3,
-    },
+  {
+    test_type: "Paper Folding",
+    id: 3,
+  },
 ];
 
 const NonVebal = () => {
@@ -87,7 +88,7 @@ const NonVebal = () => {
         let newA = await cube3(count, questionRefs);
         newArr2.push(newA);
       }
-      
+
       for (let index = 0; index < 5; index++) {
         count++;
         let newA = await cube5(count, questionRefs);
@@ -104,13 +105,17 @@ const NonVebal = () => {
         let newA2 = await Mirror2(count, questionRefs);
         newArr2.push(newA2);
       }
-    }else if (selectValue === 3){
+      for (let index = 0; index < 8; index++) {
+        count++;
+        let newA2 = await Mirror3(count, questionRefs);
+        newArr2.push(newA2);
+      }
+    } else if (selectValue === 3) {
       for (let index = 0; index < 7; index++) {
         count++;
         let newA2 = await Paper1(count, questionRefs);
         newArr2.push(newA2);
       }
-   
     }
 
     setNewData(newArr2);
@@ -120,7 +125,7 @@ const NonVebal = () => {
   const addNonVerbalMU = useMutation({
     mutationFn: async (formattedData: any) => {
       console.log(formattedData);
-      
+
       return await adminTokenAxios.post(
         `/admin/add-nv-question`,
         formattedData
@@ -162,7 +167,7 @@ const NonVebal = () => {
           : selectValue === 2
           ? "Water & Mirror"
           : "Paper Folding",
-        
+
       tsc_id: 1,
       ts_id: selectValue1,
       question: res,
@@ -308,10 +313,9 @@ const NonVebal = () => {
                   margin={"auto"}
                   width={"90%"}
                   marginY={"15px"}
-                  flexWrap={{md:"nowrap",sm:"wrap"}}
+                  flexWrap={{ md: "nowrap", sm: "wrap" }}
                   columnGap={"20px"}
                   rowGap={"20px"}
-
                 >
                   {item2?.options?.map((item3: any, key3: number) => (
                     <>
@@ -324,7 +328,7 @@ const NonVebal = () => {
                 </Stack>
                 <ParaText1
                   text={`Answer: ${String.fromCharCode(
-                    "A".charCodeAt(0) + (item2.correct_ans-1)
+                    "A".charCodeAt(0) + (item2.correct_ans - 1)
                   )}`}
                 />
               </Stack>
