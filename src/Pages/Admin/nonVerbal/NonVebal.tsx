@@ -100,18 +100,18 @@ const NonVebal = () => {
         let newA2 = await mirror1(count, questionRefs);
         newArr2.push(newA2);
       }
-      for (let index = 0; index < 8; index++) {
+      for (let index = 0; index < 6; index++) {
         count++;
         let newA2 = await Mirror2(count, questionRefs);
         newArr2.push(newA2);
       }
-      for (let index = 0; index < 8; index++) {
+      for (let index = 0; index < 7; index++) {
         count++;
         let newA2 = await Mirror3(count, questionRefs);
         newArr2.push(newA2);
       }
     } else if (selectValue === 3) {
-      for (let index = 0; index < 7; index++) {
+      for (let index = 0; index < 10; index++) {
         count++;
         let newA2 = await Paper1(count, questionRefs);
         newArr2.push(newA2);
