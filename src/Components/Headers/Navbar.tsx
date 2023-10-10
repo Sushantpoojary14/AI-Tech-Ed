@@ -99,7 +99,7 @@ const Navbar = () => {
           <Toolbar disableGutters sx={{ mt: { sm: 0, lg: 5 } }}>
             {/* PC View Header and header*/}
             {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-            <Box sx={{ pb: "10px", display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ pb: "10px", display: { xs: "none", lg: "flex" } }}>
               <Link to="/">
                 {/* <Header4
                   header="AI Tech Ed"
@@ -146,11 +146,10 @@ const Navbar = () => {
                 direction="row"
                 sx={{
                   alignItems: "center",
-                  display: { xs: "flex", md: "none" },
+                  display: { xs: "flex", lg: "none" },
                 }}
               >
                 <Link to="/">
-                  {/* <Header4 header="AI Tech Ed" /> */}
                   <img src={img} style={{ width: "200px", height: "100px" }} />
                 </Link>
                 {user && (
