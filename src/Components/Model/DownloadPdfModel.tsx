@@ -125,14 +125,14 @@ ModalProps) => {
                 <PdfMaker
                   bol={!!setData}
                   data={setData?.get_question}
-                  //   randomG={true}
-                  button={
-                    <BButton
-                      type="button"
-                      name="Download PDF"
-                      css={{ width: "100%" }}
-                    />
-                  }
+                  randomG={true}
+                  // button={
+                  //   <BButton
+                  //     type="button"
+                  //     name="Download PDF"
+                  //     css={{ width: "100%" }}
+                  //   />
+                  // }
                   total={watch("total_questions")}
                   topic={setData?.t_name}
                 />
@@ -149,7 +149,10 @@ ModalProps) => {
                 />
               </Stack>
             ) : (
-              <BButton type="button" name="Download" css={{ width: "100%" }} />
+              <Stack direction={"row"} justifyContent={"space-between"}>
+                <BButton disabled={true} type="button" name="Download PDF" />
+                <BButton disabled={true} type="button" name="Download Docx" />
+              </Stack>
             )}
           </Stack>
         </Box>
