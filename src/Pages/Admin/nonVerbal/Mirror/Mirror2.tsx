@@ -1,7 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-
-
 const Mirror2 = async (index: number, questionRefs: any) => {
   const i = Math.floor(Math.random() * 4) + 5;
   const letters = [
@@ -149,6 +147,21 @@ const Mirror2 = async (index: number, questionRefs: any) => {
     >
       {newData.map((item: string, key: number) => {
         if (key === 3) {
+          return (
+            <Box
+              sx={{
+                display: "inline-block",
+
+                transform: "scaleY(-1)",
+              }}
+            >
+              <Typography variant="h5" component={"span"} fontWeight={"bolder"}>
+                {item}
+              </Typography>
+            </Box>
+          );
+        }
+        if (key === 7) {
           return (
             <Box
               sx={{

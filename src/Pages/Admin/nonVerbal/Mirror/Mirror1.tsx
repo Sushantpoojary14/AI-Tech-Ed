@@ -42,8 +42,8 @@ const mirror1 = async (index: number, questionRefs: any) => {
     <Stack
       justifyItems={"center"}
       ref={questionRefs.current[index].questionRef}
-      maxHeight="160px"
-      maxWidth="160px"
+      maxHeight="150px"
+      maxWidth="150px"
       padding={"10px"}
       //
       sx={{
@@ -187,7 +187,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
     <Box
       sx={{ transform: `rotate(${degree[ans]}deg)`, backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[0]}
-      maxWidth={"437px"}
+      maxWidth={"150px"}
     >
       <Grid
         sx={{
@@ -234,6 +234,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
     <Box
       sx={{ transform: `rotate(${newDegree[2]}deg)`, backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[1]}
+      maxWidth={"150px"}
     >
       <Grid
         sx={{
@@ -279,6 +280,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
     <Box
       sx={{ transform: `rotate(${newDegree[0]}deg)`, backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[2]}
+      maxWidth={"150px"}
     >
       <Grid
         sx={{
@@ -324,6 +326,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
     <Box
       sx={{ transform: `rotate(${newDegree[1]}deg)`, backgroundColor: "white" }}
       ref={questionRefs.current[index].optionRefs[3]}
+      maxWidth={"150px"}
     >
       <Grid
         sx={{

@@ -5,14 +5,17 @@ import {
   View,
   Image,
   PDFDownloadLink,
+  PDFViewer,
+  BlobProvider,
 } from "@react-pdf/renderer";
 
-import { BButton2 } from "../../../../Components/Common/Button";
+import { BButton, BButton2 } from "../../../../Components/Common/Button";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import imagetosvg from "../../../../utils/imagetosvg";
+import { blobToBase64, fetchAndConvertImage } from "../../../../utils/docx";
+import { Console } from "console";
 const styles = {
   page: {
     padding: 20,
@@ -110,10 +113,10 @@ type questions = {
     c: string;
     d: string;
   };
-  option_1?: string;
-  option_2?: string;
-  option_3?: string;
-  option_4?: string;
+  option_1?: any;
+  option_2?: any;
+  option_3?: any;
+  option_4?: any;
   Answer?: string;
   Explanation?: string;
   Conversation?: string;
@@ -125,7 +128,7 @@ type questions = {
   tst_id?: number;
   marks?: null | number;
   status?: number;
-  images?: string;
+  images?: any;
   question_image?: any;
 };
 
@@ -154,11 +157,9 @@ interface props {
   button?: ReactJSXElement;
 }
 const PdfMaker = (props: props) => {
-  // const arr: number[] = [];
+  const [first, setFirst] = useState<any>([]);
   let selected_question: questions[] = [];
-  // console.log(props.data,props.total);
 
-  // const random: questions[] = [];
   const questions: questions[] = props.data;
 
   if (!props.randomG) {
@@ -174,110 +175,193 @@ const PdfMaker = (props: props) => {
         }
       } else {
         selected_question = questions;
+        console.log("pdf", selected_question);
       }
-
-      // console.log(selected_question);
     }
   } else {
     selected_question = questions;
   }
 
+  const openPDFInNewTab = (blob: any, filename: string) => {
+    const pdfUrl = URL.createObjectURL(blob);
+    const newTab = window.open(pdfUrl, "_blank");
+    if (newTab) {
+      // Set the name for the generated PDF
+      newTab.document.title = filename;
+    }
+    // setFirst([]);
+  };
+
   return (
-    <PDFDownloadLink
+    // <PDFViewer
+    // // document={
+    // //   <MyDocument selected_question={selected_question} topic={props.topic} />
+    // // }
+    // // fileName={`${props.topic}.pdf`}
+    // >
+    //   {/* {props.button} */}
+    //   <MyDocument selected_question={selected_question} topic={props.topic} />
+    // </PDFViewer>
+
+    <BlobProvider
       document={
-        <MyDocument selected_question={selected_question} topic={props.topic} />
+        <MyDocument
+          selected_question={selected_question}
+          topic={props.topic}
+          first={first}
+          setFirst={setFirst}
+        />
       }
-      fileName={`${props.topic}.pdf`}
     >
-      {props.button}
-    </PDFDownloadLink>
+      {({ blob, url, loading, error }) => (
+        <BButton
+          type="button"
+          name="Download PDF"
+          css={{ width: "100%" }}
+          func={() => openPDFInNewTab(blob, `${props.topic}.pdf`)}
+        />
+      )}
+    </BlobProvider>
   );
 };
+
+//  const newQuestions = await Promise.all(
+//     selected_question.map(async (question: any) => {
+//       try {
+//         const images = question.question_image;
+
+//         const option1Image = question.option_1;
+//         const option2Image = question.option_2;
+//         const option3Image = question.option_3;
+//         const option4Image = question.option_4;
+
+//         const base64Option1Image = await fetchAndConvertImage(option1Image);
+//         const base64Option2Image = await fetchAndConvertImage(option2Image);
+//         const base64Option3Image = await fetchAndConvertImage(option3Image);
+//         const base64Option4Image = await fetchAndConvertImage(option4Image);
+
+//         const base64Images = await Promise.all(
+//           images.map(async (image: any) => {
+//             const imageUrl =
+//               import.meta.env.VITE_IMAGE_URL + `${image.image_url}`; // Replace with your base URL
+//             const response = await axios.get(imageUrl, {
+//               responseType: "blob",
+//             });
+
+//             if (response.status === 200) {
+//               const blob = response.data;
+//               // console.log("BLOB", blob);
+
+//               // return blob;
+//               const base64Image = await blobToBase64(blob);
+//               return base64Image;
+//             } else {
+//               console.error(`Failed to fetch image: ${imageUrl}`);
+//               return null; // Return null for failed requests
+//             }
+//           })
+//         );
+
+//         // Replace the image URLs with Base64-encoded images in the question object
+//         const updatedQuestion = { ...question };
+//         updatedQuestion.images = base64Images;
+//         updatedQuestion.option_1 = base64Option1Image;
+//         updatedQuestion.option_2 = base64Option2Image;
+//         updatedQuestion.option_3 = base64Option3Image;
+//         updatedQuestion.option_4 = base64Option4Image;
+
+//         return updatedQuestion;
+//       } catch (error) {
+//         console.error("Error fetching or encoding image:", error);
+//         return question; // Return the original question object on error
+//       }
+//     })
+//   );
 
 const MyDocument = ({
   selected_question,
   topic,
+  first,
+  setFirst,
 }: {
   selected_question: questions[];
   topic: string;
+  first: any;
+  setFirst: any;
 }) => {
-  console.log(selected_question);
-  const [dataLoaded, setDataLoaded] = useState<any>(null);
+  const base64: string = "data:image/png;base64,";
+  const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
 
-  // Create a cache object for storing preloaded images
-  const imageCache: Record<string, string | null> = {};
-
-  const preloadImages = async (imageUrls: any) => {
-    // console.log(imageUrls);
-    if (imageCache[imageUrls]) {
-  
-      return imageCache[imageUrls];
-    }
-
-    const response = await axios.get(
-      `${import.meta.env.VITE_IMAGE_QAPI_URL}${imageUrls?.split("/")[3]}`,
-      { responseType: "blob" }
-    );
-    
-    if (response.status === 200) {
-      const blob = response.data;
-      console.log(blob);
-      
-      const imageUrl = URL.createObjectURL(blob);
-    
-      // Cache the image
-      imageCache[imageUrls] = imageUrl;
-    
-      return imageUrl;
-    }
-    
-    return null;
-  };
-
-  // Replace 'imageUrls' with an array of your image URLs
   useEffect(() => {
-    Promise.all(
-      selected_question?.map(async (item: questions, key) => {
-        if (item.question_image) {
-          const preloadedImages = await Promise.all(
-            item.question_image.map(async (item2: any) => {
-              const image = await preloadImages(item2.image_url);
-              console.log(image);
-              
-              item2.image_url = image;
-              return item2;
+    (async () => {
+      try {
+        // Your async code here
+        const result = await newQuestions();
+        setFirst(result);
+        console.log("result", result);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    })();
+  }, []);
+
+  const newQuestions = async () => {
+    const selected_question1 = await Promise.all(
+      selected_question.map(async (question: any) => {
+        try {
+          const images = question.question_image;
+
+          const option1Image = question.option_1;
+          const option2Image = question.option_2;
+          const option3Image = question.option_3;
+          const option4Image = question.option_4;
+
+          const base64Option1Image = await fetchAndConvertImage(option1Image);
+          const base64Option2Image = await fetchAndConvertImage(option2Image);
+          const base64Option3Image = await fetchAndConvertImage(option3Image);
+          const base64Option4Image = await fetchAndConvertImage(option4Image);
+
+          const base64Images = await Promise.all(
+            images.map(async (image: any) => {
+              const imageUrl =
+                import.meta.env.VITE_IMAGE_URL + `${image.image_url}`; // Replace with your base URL
+              const response = await axios.get(imageUrl, {
+                responseType: "blob",
+              });
+
+              if (response.status === 200) {
+                const blob = response.data;
+                // console.log("BLOB", blob);
+
+                // return blob;
+                const base64Image = await blobToBase64(blob);
+                return base64Image;
+              } else {
+                console.error(`Failed to fetch image: ${imageUrl}`);
+                return null; // Return null for failed requests
+              }
             })
           );
 
-          item.question_image = preloadedImages;
-        }
-        // if (item?.Options) {
-        //   const a = await imagetosvg(item.Options.a);
-        //   a && (item.Options.a = a);
-        //   const b = await imagetosvg(item.Options.b);
-        //   b && (item.Options.b = b);
-        //   const c = await imagetosvg(item.Options.c);
-        //   c && (item.Options.c = c);
-        //   const d = await imagetosvg(item.Options.d);
-        //   d && (item.Options.d = d);
-        // } else {
-        //   const a = await preloadImages(item.option_1);
-        //   a && (item.option_1 = a);
-        //   const b = await preloadImages(item.option_2);
-        //   b && (item.option_2 = b);
-        //   const c = await preloadImages(item.option_3);
-        //   c && (item.option_3 = c);
-        //   const d = await preloadImages(item.option_4);
-        //   d && (item.option_4 = d);
-        // }
-        return item;
-      })
-    ).then((data) => {
-      setDataLoaded(data);
-    });
-  }, []);
+          // Replace the image URLs with Base64-encoded images in the question object
+          const updatedQuestion = { ...question };
+          updatedQuestion.images = base64Images;
+          updatedQuestion.option_1 = base64Option1Image;
+          updatedQuestion.option_2 = base64Option2Image;
+          updatedQuestion.option_3 = base64Option3Image;
+          updatedQuestion.option_4 = base64Option4Image;
 
-  console.log(dataLoaded);
+          return updatedQuestion;
+        } catch (error) {
+          console.error("Error fetching or encoding image:", error);
+          return question; // Return the original question object on error
+        }
+      })
+    );
+
+    return selected_question1;
+  };
+
   return (
     <>
       {/* <img src="http://127.0.0.1:8000/images/product-7.jpg" alt="" /> */}
@@ -286,8 +370,8 @@ const MyDocument = ({
         <Page size="A4" style={styles.page}>
           <Text style={styles.header}>{topic?.toUpperCase()}</Text>
           <View style={styles.mainContainer}>
-            {selected_question?.length != 0 &&
-              selected_question?.map((item: questions, key: number) => (
+            {first?.length != 0 &&
+              first?.map((item: questions, key: any) => (
                 <View style={styles.Container} key={key}>
                   {item.Options ? (
                     <>
@@ -299,17 +383,28 @@ const MyDocument = ({
                       )}
                       {item.paragraph && item?.question_image && (
                         <View>
-                          {item?.question_image?.map(
-                            (item2: any, index2: any) => {
-                              return (
-                                <Image
-                                  key={index2}
-                                  style={styles.image}
-                                  src={item2.image_url}
-                                />
-                              );
-                            }
-                          )}
+                          {item?.images?.map((item2: any) => {
+                            // console.log(
+                            //   `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                            //     item2?.image_url.split("/")[3]
+                            //   }`
+                            // );
+                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
+                            return (
+                              <Image
+                                style={styles.image}
+                                // src={{
+                                //   uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                //     item2?.image_url.split("/")[3]
+                                //   }`,
+                                //   method: "GET",
+                                //   headers: { "Cache-Control": "no-cache" },
+                                //   body: "",
+                                // }}
+                                src={base64 + item2}
+                              />
+                            );
+                          })}
                         </View>
                       )}
                       {item.Conversation && (
@@ -329,34 +424,43 @@ const MyDocument = ({
                       )}
                       {!item.paragraph && item?.question_image && (
                         <View>
-                          {item?.question_image?.map(
-                            (item2: any, index2: any) => {
-                              return (
-                                <Image
-                                  key={index2}
-                                  style={styles.image}
-                                  src={
-                                    "http://127.0.0.1:8000/NVImages/qImage/q_image_1.png"
-                                  }
-                                />
-                              );
-                            }
-                          )}
+                          {item?.images?.map((item2: any) => {
+                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
+                            return (
+                              <Image
+                                style={styles.image}
+                                // src={{
+                                //   uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                //     item2?.image_url.split("/")[3]
+                                //   }`,
+                                //   method: "GET",
+                                //   headers: { "Cache-Control": "no-cache" },
+                                //   body: "",
+                                // }}
+                                src={base64 + item2}
+                              />
+                            );
+                          })}
                         </View>
                       )}
                       {item?.question_image && (
                         <View>
-                          {item?.question_image?.map(
-                            (item2: any, index2: any) => {
-                              return (
-                                <Image
-                                  key={index2}
-                                  style={styles.image}
-                                  src={item2.image_url}
-                                />
-                              );
-                            }
-                          )}
+                          {item?.images.map((item2: string) => {
+                            return (
+                              <Image
+                                style={styles.image}
+                                // src={{
+                                //   uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                //     item2.split("/")[3]
+                                //   }`,
+                                //   method: "GET",
+                                //   headers: { "Cache-Control": "no-cache" },
+                                //   body: "",
+                                // }}
+                                src={base64 + item2}
+                              />
+                            );
+                          })}
                         </View>
                       )}
                       <View style={styles.optionContainer}>
@@ -383,17 +487,28 @@ const MyDocument = ({
                       )}
                       {item.paragraph && item?.question_image && (
                         <View>
-                          {item?.question_image?.map(
-                            (item2: any, index2: any) => {
-                              return (
-                                <Image
-                                  key={index2}
-                                  style={styles.image}
-                                  src={item2.image_url}
-                                />
-                              );
-                            }
-                          )}
+                          {item?.images?.map((item2: any) => {
+                            // console.log(
+                            //   `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                            //     item2?.image_url.split("/")[3]
+                            //   }`
+                            // );
+                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
+                            return (
+                              <Image
+                                style={styles.image}
+                                // src={{
+                                //   uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                //     item2?.image_url.split("/")[3]
+                                //   }`,
+                                //   method: "GET",
+                                //   headers: { "Cache-Control": "no-cache" },
+                                //   body: "",
+                                // }}
+                                src={base64 + item2}
+                              />
+                            );
+                          })}
                         </View>
                       )}
                       {item.conversation && (
@@ -412,123 +527,152 @@ const MyDocument = ({
                       )}
                       {!item.paragraph && item?.question_image && (
                         <View>
-                          {item?.question_image?.map(
-                            (item2: any, index2: any) => {
-                              return (
-                                <Image
-                                  key={index2}
-                                  style={styles.image}
-                                  src={"http://127.0.0.1:8000/NVImages/qImage/q_image_1.png"}
-                                />
-                              );
-                            }
-                          )}
+                          {item?.images?.map((item2: any) => {
+                            // console.log(`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_1?.split("/")[3]}`);
+                            return (
+                              <Image
+                                style={styles.image}
+                                // src={{
+                                //   uri: `${import.meta.env.VITE_IMAGE_QAPI_URL}${
+                                //     item2?.image_url.split("/")[3]
+                                //   }`,
+                                //   method: "GET",
+                                //   headers: {
+                                //     "Cache-Control": "no-cache",
+                                //     "Content-Type": "image/png",
+                                //   },
+                                //   body: "",
+                                // }}
+                                src={base64 + item2}
+                              />
+                            );
+                          })}
                         </View>
                       )}
                       <View style={styles.optionContainer}>
-                        {item.option_1?.split(".")[1] === "png" ||
-                        item.option_1?.split(".")[1] === "jpg" ||
-                        item.option_1?.split(".")[1] === "jpeg" ? (
-                          <>
-                            <View
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <Text style={styles.options}>A.</Text>
-                              {/* <Image
-                                style={styles.optionImage}
-                                src={{
-                                  uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
-                                    item.option_1?.split("/")[3]
-                                  }`,
-                                  method: "GET",
-                                  headers: { "Cache-Control": "no-cache" },
-                                  body: "",
-                                }}
-                              /> */}
-                            </View>
+                        {
+                          // item.option_1?.split(".")[1] === "png" ||
+                          // item.option_1?.split(".")[1] === "jpg" ||
+                          // item.option_1?.split(".")[1] === "jpeg"
 
-                            {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
-                            <View
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <Text style={styles.options}>B.</Text>
-                              {/* <Image
-                                style={styles.optionImage}
-                                src={{
-                                  uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
-                                    item.option_2?.split("/")[3]
-                                  }`,
-                                  method: "GET",
-                                  headers: { "Cache-Control": "no-cache" },
-                                  body: "",
+                          item?.option_1.length > 150 ? (
+                            <>
+                              <View
+                                style={{
+                                  ...styles.optionContainer,
+                                  display: "flex",
+                                  flexDirection: "row",
                                 }}
-                              /> */}
-                            </View>
-                            <View
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <Text style={styles.options}>C.</Text>
-                              {/* <Image
-                                style={styles.optionImage}
-                                src={{
-                                  uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
-                                    item.option_3?.split("/")[3]
-                                  }`,
-                                  method: "GET",
-                                  headers: { "Cache-Control": "no-cache" },
-                                  body: "",
+                              >
+                                <Text style={styles.options}>A.</Text>
+                                <Image
+                                  style={styles.optionImage}
+                                  // src={{
+                                  //   uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
+                                  //     item.option_1?.split("/")[3]
+                                  //   }`,
+                                  //   method: "GET",
+                                  //   headers: {
+                                  //     "Cache-Control": "no-cache",
+                                  //     "Content-Type": "image/png",
+                                  //   },
+                                  //   body: "",
+                                  // }}
+                                  src={base64 + item.option_1}
+                                />
+                              </View>
+
+                              {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
+                              <View
+                                style={{
+                                  ...styles.optionContainer,
+                                  display: "flex",
+                                  flexDirection: "row",
                                 }}
-                              /> */}
-                            </View>
-                            <View
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <Text style={styles.options}>D.</Text>
-                              {/* <Image
-                                style={styles.optionImage}
-                                src={{
-                                  uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
-                                    item.option_4?.split("/")[3]
-                                  }`,
-                                  method: "GET",
-                                  headers: { "Cache-Control": "no-cache" },
-                                  body: "",
+                              >
+                                <Text style={styles.options}>B.</Text>
+                                <Image
+                                  style={styles.optionImage}
+                                  // src={{
+                                  //   uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
+                                  //     item.option_2?.split("/")[3]
+                                  //   }`,
+                                  //   method: "GET",
+                                  //   headers: {
+                                  //     "Cache-Control": "no-cache",
+                                  //     "Content-Type": "image/png",
+                                  //   },
+                                  //   body: "",
+                                  // }}
+                                  src={base64 + item.option_2}
+                                />
+                              </View>
+                              <View
+                                style={{
+                                  ...styles.optionContainer,
+                                  display: "flex",
+                                  flexDirection: "row",
                                 }}
-                              /> */}
-                            </View>
-                          </>
-                        ) : (
-                          <>
-                            <Text
-                              style={styles.options}
-                            >{`A. ${item.option_1}`}</Text>
-                            <Text
-                              style={styles.options}
-                            >{`A. ${item.option_2}`}</Text>
-                            <Text
-                              style={styles.options}
-                            >{`C. ${item.option_3}`}</Text>
-                            <Text
-                              style={styles.options}
-                            >{`D. ${item.option_4}`}</Text>
-                          </>
-                        )}
+                              >
+                                <Text style={styles.options}>C.</Text>
+                                <Image
+                                  style={styles.optionImage}
+                                  // src={{
+                                  //   uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
+                                  //     item.option_3?.split("/")[3]
+                                  //   }`,
+                                  //   method: "GET",
+                                  //   headers: {
+                                  //     "Cache-Control": "no-cache",
+                                  //     "Content-Type": "image/png",
+                                  //   },
+                                  //   body: "",
+                                  // }}
+                                  src={base64 + item.option_3}
+                                />
+                              </View>
+                              <View
+                                style={{
+                                  ...styles.optionContainer,
+                                  display: "flex",
+                                  flexDirection: "row",
+                                }}
+                              >
+                                <Text style={styles.options}>D.</Text>
+                                <Image
+                                  style={styles.optionImage}
+                                  // src={{
+                                  //   uri: `${import.meta.env.VITE_IMAGE_OAPI_URL}${
+                                  //     item.option_4?.split("/")[3]
+                                  //   }`,
+                                  //   method: "GET",
+                                  //   headers: {
+                                  //     "Cache-Control": "no-cache",
+                                  //     "Content-Type": "image/png",
+                                  //   },
+                                  //   body: "",
+                                  // }}
+                                  src={base64 + item.option_4}
+                                />
+                              </View>
+                            </>
+                          ) : (
+                            <>
+                              <Text
+                                style={styles.options}
+                              >{`A. ${item.option_1}`}</Text>
+                              <Text
+                                style={styles.options}
+                              >{`A. ${item.option_2}`}</Text>
+                              <Text
+                                style={styles.options}
+                              >{`C. ${item.option_3}`}</Text>
+                              <Text
+                                style={styles.options}
+                              >{`D. ${item.option_4}`}</Text>
+                            </>
+                          )
+                        }
                       </View>
                     </>
                   )}
@@ -540,8 +684,8 @@ const MyDocument = ({
           <View style={styles.mainContainer}>
             <Text style={styles.header2}>Answers:</Text>
             <View style={styles.Container}>
-              {dataLoaded?.length != 0 &&
-                dataLoaded?.map((item: questions, key: number) => (
+              {first?.length != 0 &&
+                first?.map((item: questions, key: any) => (
                   <Text style={styles.answer} key={key}>
                     {item.Answer
                       ? `${key + 1}.  ${item.Answer?.toUpperCase()}`
@@ -552,8 +696,8 @@ const MyDocument = ({
           </View>
           <View style={styles.mainContainer}>
             <Text style={styles.header2}>Explanation:</Text>
-            {selected_question?.length != 0 &&
-              selected_question?.map((item: questions, key) => (
+            {first?.length != 0 &&
+              first?.map((item: questions, key: any) => (
                 <View style={styles.Container} key={key}>
                   {item.Answer ? (
                     <>

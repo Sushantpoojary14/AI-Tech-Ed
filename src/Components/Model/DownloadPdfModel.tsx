@@ -126,13 +126,13 @@ ModalProps) => {
                   bol={!!setData}
                   data={setData?.get_question}
                   //   randomG={true}
-                  button={
-                    <BButton
-                      type="button"
-                      name="Download PDF"
-                      css={{ width: "100%" }}
-                    />
-                  }
+                  // button={
+                  //   <BButton
+                  //     type="button"
+                  //     name="Download PDF"
+                  //     css={{ width: "100%" }}
+                  //   />
+                  // }
                   total={watch("total_questions")}
                   topic={setData?.t_name}
                 />

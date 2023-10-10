@@ -197,7 +197,7 @@ const ExamFirstSection = (props: props) => {
                                 (item: image, key: number) => (
                                   <ImageListItem
                                     key={key}
-                                    sx={{ width: "200px" }}
+                                    // sx={{ width: "200px" }}
                                   >
                                     <img
                                       src={
@@ -205,7 +205,7 @@ const ExamFirstSection = (props: props) => {
                                         item.image_url
                                       }
                                       alt={`Image ${key}`}
-                                      style={{ maxWidth: "200px" }}
+                                      // style={{ maxWidth: "200px" }}
                                     />
                                   </ImageListItem>
                                 )
@@ -252,14 +252,17 @@ const ExamFirstSection = (props: props) => {
                                 (item: image, key: number) => (
                                   <ImageListItem
                                     key={key}
-                                    // sx={{ width: "200px" }}
+                                    sx={{ minWidth: "200px" }}
                                   >
                                     <img
                                       src={
                                         import.meta.env.VITE_IMAGE_URL +
                                         item.image_url
                                       }
-                                      style={{ maxWidth: "200px" }}
+                                      style={{
+                                        // minWidth: "150px",
+                                        objectFit: "cover",
+                                      }}
                                       alt={`Image ${key}`}
                                     />
                                   </ImageListItem>

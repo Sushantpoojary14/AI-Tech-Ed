@@ -60,6 +60,7 @@ const cube1 = async (index: number, questionRefs: any) => {
       alignItems="center"
       ref={questionRefs.current[index].questionRef}
       maxWidth={"437px"}
+      maxHeight={"437px"}
     >
       <Grid
         item
