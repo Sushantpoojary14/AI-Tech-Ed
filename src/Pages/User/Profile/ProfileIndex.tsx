@@ -14,16 +14,18 @@ interface Detail {
 const ProfileIndex = () => {
   const { handlePEOpen } = UserContext();
   const { user } = AppContext();
-  const { data ,isLoading} = useQuery(["user-data", user ], async () => {
-    return await tokenAxios.get("/user");
+  const { data ,isLoading} = useQuery(["user-profile-data" ], async () => {
+   const data = await tokenAxios.get("/user");
+   return data?.data
   });
-
+  // console.log(data);
+  
   const details: Detail[] = [
-    { title: "Name", data: data?.data.name },
-    { title: "User id", data: data?.data.id },
-    { title: "Birth date", data: data?.data.DOB ? user?.DOB : "" },
-    { title: "Email", data: data?.data.email },
-    { title: "Phone number", data: `+61 ${data?.data.phone}` },
+    { title: "Name", data: data?.name },
+    { title: "User id", data: data?.id },
+    { title: "Birth date", data: data?.DOB ? data?.DOB : "" },
+    { title: "Email", data: data?.email },
+    { title: "Phone number", data: `+61 ${data?.phone}` },
   ];
   if(isLoading){
     return <LoadingBar/>

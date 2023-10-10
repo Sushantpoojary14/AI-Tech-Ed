@@ -18,7 +18,13 @@ type Inputs = {
   email: string;
   phone: string;
 };
-
+type user = {
+  name: string;
+  id: number;
+  DOB: string;
+  email: string;
+  phone: string;
+};
 const ProfileEditModal = () => {
   const { user, updateUser } = AppContext();
   const {
@@ -32,29 +38,35 @@ const ProfileEditModal = () => {
     handlePESuccessOpen,
   } = UserContext();
   const { register, handleSubmit } = useForm<Inputs>();
+  
   const [profileData, setProfileData] = useState<Inputs | null>(null);
   const queryClient = useQueryClient();
+  const data: user | undefined = queryClient.getQueryData([
+    "user-profile-data",
+  ]);
   const updateUserMu = useMutation({
     mutationFn: async (profileData: Inputs | null) => {
-      return await tokenAxios.post("/profile-change", {
+      return await tokenAxios.post(`/profile-change/${user?.id}`, {
         name: profileData?.name,
         DOB: profileData?.birth_date,
         phone: profileData?.phone,
       });
     },
     onSuccess: (res) => {
-
-      console.log(res);
-      updateUser(res.data.data);
-      dispatch({ type: "SET_dataSubmit", payload: false });
-      handlePE2Close();
-      handlePESuccessOpen();
-      queryClient.setQueryData(["user-data"],res);
+      console.log(res.data.data);
+      
+      if (res.status === 200) {
+        updateUser(res.data.data);
+        dispatch({ type: "SET_dataSubmit", payload: false });
+        handlePE2Close();
+        handlePESuccessOpen();
+        queryClient.setQueryData(["user-profile-data"], res.data.data);
+      }
     },
   });
-  const { data, isLoading } = useQuery(["user-data", user], async () => {
-    return await tokenAxios.get("/user");
-  });
+  // const { data, isLoading } = useQuery(["user-data", user], async () => {
+  //   return await tokenAxios.get("/user");
+  // });
 
   useEffect(() => {
     if (dataSubmit == true && openPE2 == true) {
@@ -69,6 +81,7 @@ const ProfileEditModal = () => {
     setProfileData(para_data);
   };
 
+  // console.log(data);
 
   return (
     <Dialog onClose={handlePEClose} open={openPE} sx={{ height: "630px" }}>
@@ -81,64 +94,62 @@ const ProfileEditModal = () => {
           px: "40px",
         }}
       >
-       {( isLoading ? <LoadingBar /> :<>
-          <Stack spacing={1} direction="row" margin="auto" sx={{ my: "20px" }}>
-            <LockOpenIcon
-              sx={{ height: "30px", width: "30px", color: "#FA8128" }}
-            />
-            <Header1 header="EDIT PROFILE" />
-          </Stack>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={4} direction="column" margin="auto">
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Input
-                  label="Name"
-                  type="text"
-                  reg={register("name")}
-                  defaultVal={data?.data.name}
-                />
-              </Box>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Input
-                  label="Birth Date"
-                  type="date"
-                  reg={register("birth_date")}
-                  defaultVal={data?.data.DOB}
-                />
-              </Box>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Input
-                  label="Email"
-                  inputProps={{ disabled: true }}
-                  type="email"
-                  reg={register("email")}
-                  defaultVal={data?.data.email}
-                />
-              </Box>
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Input
-                  label="Phone Number"
-                  type="telephone"
-                  reg={register("phone")}
-                  defaultVal={data?.data.phone}
-                />
-              </Box>
-              <Stack
-                spacing={{ lg: 6, md: 6, sm: 6, xs: 2 }}
-                direction="row"
-                marginX="auto"
-                paddingTop={2}
-              >
-                <WButton
-                  name="CANCEL"
-                  css={{ width: "177px" }}
-                  func={handlePEClose}
-                />
-                <OButton name="NEXT" css={{ width: "177px" }} type="submit" />
-              </Stack>
+        <Stack spacing={1} direction="row" margin="auto" sx={{ my: "20px" }}>
+          <LockOpenIcon
+            sx={{ height: "30px", width: "30px", color: "#FA8128" }}
+          />
+          <Header1 header="EDIT PROFILE" />
+        </Stack>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={4} direction="column" margin="auto">
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Input
+                label="Name"
+                type="text"
+                reg={register("name")}
+                defaultVal={data?.name}
+              />
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Input
+                label="Birth Date"
+                type="date"
+                reg={register("birth_date")}
+                defaultVal={data?.DOB}
+              />
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Input
+                label="Email"
+                inputProps={{ disabled: true }}
+                type="email"
+                reg={register("email")}
+                defaultVal={data?.email}
+              />
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Input
+                label="Phone Number"
+                type="telephone"
+                reg={register("phone")}
+                defaultVal={data?.phone}
+              />
+            </Box>
+            <Stack
+              spacing={{ lg: 6, md: 6, sm: 6, xs: 2 }}
+              direction="row"
+              marginX="auto"
+              paddingTop={2}
+            >
+              <WButton
+                name="CANCEL"
+                css={{ width: "177px" }}
+                func={handlePEClose}
+              />
+              <OButton name="NEXT" css={{ width: "177px" }} type="submit" />
             </Stack>
-          </form>
-        </>)}
+          </Stack>
+        </form>
       </Box>
     </Dialog>
   );

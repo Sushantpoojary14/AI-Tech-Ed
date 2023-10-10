@@ -59,7 +59,7 @@ const cube1 = async (index: number, questionRefs: any) => {
       justifyContent="center"
       alignItems="center"
       ref={questionRefs.current[index].questionRef}
-      maxWidth={"437px"}
+      maxWidth={"460px"}
     >
       <Grid
         item
@@ -155,7 +155,7 @@ const cube1 = async (index: number, questionRefs: any) => {
   // }
   // console.log(random);
   let temp_options = [
-    <div className="cube" ref={questionRefs.current[index].optionRefs[0]}>
+    <div className="cube" ref={questionRefs.current[index].optionRefs[0]}  style ={{maxWidth: "160px"}}>
       <div className="face top" style={Line}>
         <FontAwesomeIcon
           style={{...image_style,transform: `rotate(${ans.rotation[0]}deg)`,}}
@@ -178,7 +178,7 @@ const cube1 = async (index: number, questionRefs: any) => {
         />
       </div>
     </div>,
-    <div className="cube" ref={questionRefs.current[index].optionRefs[1]}>
+    <div className="cube" ref={questionRefs.current[index].optionRefs[1]} style ={{maxWidth: "160px"}}>
       <div className="face front" style={Line}>
         <FontAwesomeIcon
           style={{...image_style,transform: `rotate(${ans.rotation[1]}deg)`,}}
@@ -201,7 +201,7 @@ const cube1 = async (index: number, questionRefs: any) => {
         />
       </div>
     </div>,
-    <div className="cube" ref={questionRefs.current[index].optionRefs[2]}>
+    <div className="cube" ref={questionRefs.current[index].optionRefs[2]}  style ={{maxWidth: "160px"}}>
       <div className="face front" style={Line}>
         <FontAwesomeIcon
           style={{...image_style,transform: `rotate(${ans.rotation[0]}deg)`,}}
@@ -224,7 +224,7 @@ const cube1 = async (index: number, questionRefs: any) => {
         />
       </div>
     </div>,
-    <div className="cube" ref={questionRefs.current[index].optionRefs[3]}>
+    <div className="cube" ref={questionRefs.current[index].optionRefs[3]}  style ={{maxWidth: "160px"}}>
       <div className="face front" style={Line}>
         <FontAwesomeIcon
           style={{...image_style,transform: `rotate(${ans.rotation[0]}deg)`,}}

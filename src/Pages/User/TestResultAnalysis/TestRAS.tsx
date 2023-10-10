@@ -103,10 +103,9 @@ const TestRAS = () => {
     },
   });
 
-  // console.log(
-  //   "getQuestionSolutionQuery",
-  //   getQuestionSolutionQuery.data?.data?.questions
-  // );
+  console.log(
+    data,
+  );
 
   const columns = useMemo<MRT_ColumnDef<SetResult>[]>(
     () => [

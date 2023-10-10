@@ -96,6 +96,7 @@ const PasswordChangeModal = () => {
     setPasswordData(para_data);
   };
 
+console.log(passwordCheck?.data);
 
   return (
     <Dialog onClose={handlePCClose} open={openPC}>
@@ -125,7 +126,7 @@ const PasswordChangeModal = () => {
               <Header1 header="CHANGE PASSWORD" />
             </Stack>
 
-            {passwordCheck?.data?.status !== 200 && (
+            {passwordCheck?.data && passwordCheck?.data?.status !== 200 && (
               <Typography sx={{ color: "red", textAlign: "left", mb: "6px" }}>
                 *Incorrect Current Password
               </Typography>

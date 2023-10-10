@@ -73,8 +73,9 @@ export default function SolutionsModal({
     enabled: !!id,
   });
 
-  console.log("sa", data?.data?.questions?.questions);
-
+  // console.log("sa", data?.data?.questions.questions);
+  const qData= data?.data?.questions.questions;
+  const qData2 = data?.data?.questions;
   if (isLoading) {
     return <LoadingBar />;
   }
@@ -133,7 +134,7 @@ export default function SolutionsModal({
               //   onCopy={(e) => props.preventCopyPaste(e)}
             >
               <Stack>
-                {data?.data?.questions && (
+                {qData && (
                   <>
                     <ParaText4
                       text="Question Details"
@@ -143,17 +144,17 @@ export default function SolutionsModal({
                         textAlign: "center",
                       }}
                     />
-                    {!!data?.data?.questions?.questions.conversation ||
-                    !!data?.data?.questions?.questions.paragraph ? (
+                    {!!qData?.conversation ||
+                    !!qData?.paragraph ? (
                       <>
-                        {data?.data?.questions?.questions.paragraph && (
+                        {qData?.paragraph && (
                           <ParaText4
-                            text={data?.data?.questions?.questions.paragraph}
+                            text={qData?.paragraph}
                             css={{ fontWeight: "400", marginBottom: "10px" }}
                           />
                         )}
-                        {data?.data?.questions?.questions.question_image &&
-                          data?.data?.questions?.questions.question_image
+                        {qData?.question_image &&
+                          qData?.question_image
                             .length !== 0 && (
                             <ImageList
                               sx={{
@@ -170,7 +171,7 @@ export default function SolutionsModal({
                               gap={7}
                               // rowHeight={164}
                             >
-                              {data?.data?.questions?.questions.question_image.map(
+                              {qData?.question_image.map(
                                 (item: any, key: number) => (
                                   <ImageListItem
                                     key={key}
@@ -188,9 +189,9 @@ export default function SolutionsModal({
                               )}
                             </ImageList>
                           )}
-                        {data?.data?.questions?.questions.conversation && (
+                        {qData?.conversation && (
                           <ConverationComp
-                            text={data?.data?.questions.questions.conversation}
+                            text={qData?.conversation}
                           />
 
                           // <ParaText4
@@ -203,23 +204,25 @@ export default function SolutionsModal({
                           css={{ fontWeight: "600" }}
                         />
                         <ParaText4
-                          text={data?.data?.questions.questions.question}
+                          text={qData?.question}
                           css={{ fontWeight: "400", marginBottom: "10px" }}
                         />
                       </>
-                    ) : (
+                    )
+                    : 
+                    (
                       <>
                         <ParaText4
                           text="Question"
                           css={{ fontWeight: "600" }}
                         />
                         <ParaText4
-                          text={data?.data?.questions.questions.question}
+                          text={qData?.question}
                           css={{ fontWeight: "400", marginBottom: "10px" }}
                         />
 
-                        {data?.data?.questions?.questions.question_image &&
-                          data?.data?.questions?.questions.question_image
+                        {qData?.question_image &&
+                          qData?.question_image
                             .length !== 0 && (
                             <ImageList
                               sx={{
@@ -233,7 +236,7 @@ export default function SolutionsModal({
                               gap={7}
                               // rowHeight={164}
                             >
-                              {data?.data?.questions?.questions.question_image.map(
+                              {qData?.question_image.map(
                                 (item: any, key: number) => (
                                   <ImageListItem
                                     key={key}
@@ -252,6 +255,7 @@ export default function SolutionsModal({
                             </ImageList>
                           )}
                       </>
+                    
                     )}
                   </>
                 )}
@@ -265,37 +269,126 @@ export default function SolutionsModal({
                   control={control}
                   render={({ field }) => (
                     <RadioGroup {...field} name="radio-buttons-group">
-                      <FormControlLabel
-                        value="A"
-                        checked={data?.data?.questions?.test_answer === "A"}
-                        control={<Radio readOnly />}
-                        label={`A. ${data?.data?.questions?.questions.option_1}`}
-                      />
-                      <FormControlLabel
-                        value="B"
-                        checked={data?.data?.questions?.test_answer === "B"}
-                        control={<Radio readOnly />}
-                        label={`B. ${data?.data?.questions?.questions.option_2}`}
-                      />
-                      <FormControlLabel
-                        value="C"
-                        checked={data?.data?.questions?.test_answer === "C"}
-                        control={<Radio readOnly />}
-                        label={`C. ${data?.data?.questions?.questions.option_3}`}
-                      />
-                      <FormControlLabel
-                        value="D"
-                        checked={data?.data?.questions?.test_answer === "D"}
-                        control={<Radio readOnly />}
-                        label={`D. ${data?.data?.questions?.questions.option_4}`}
-                      />
+                     <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            checked={
+                              qData2?.test_answer
+                              ==="A" 
+                            }
+                            value="A"
+                            control={<Radio readOnly />}
+                            label={`${
+                              qData?.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : qData?.option_1
+                            }`}
+                          />
+                          {qData?.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                qData?.option_1
+                              }
+                              style={{ maxWidth: "200px" }}
+                            />
+                          )}
+                        </Stack>
+
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            value="B"
+                            checked={
+                              qData2?.test_answer
+                             === "B"
+                            }
+                            control={<Radio readOnly />}
+                            label={`B. ${
+                              qData?.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : qData?.option_2
+                            }`}
+                          />
+                          {qData?.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                qData?.option_2
+                              }
+                              style={{ maxWidth: "200px" }}
+                            />
+                          )}
+                        </Stack>
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            value="C"
+                            checked={
+                              qData2?.test_answer
+                             === "C" 
+                            }
+                            control={<Radio readOnly />}
+                            label={`C.  ${
+                              qData?.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : qData?.option_3
+                            }`}
+                          />
+                          {qData?.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                qData?.option_3
+                              }
+                              style={{ maxWidth: "200px" }}
+                            />
+                          )}
+                        </Stack>
+                        <Stack direction={"row"} mb={1}>
+                          <FormControlLabel
+                            value="D"
+                            checked={
+                              qData2?.test_answer
+                             === "D" 
+                            }
+                            control={<Radio readOnly />}
+                            label={`D. ${
+                              qData?.option_1.endsWith(
+                                ".png" || ".jpeg" || ".jpg"
+                              )
+                                ? ""
+                                : qData?.option_4
+                            }`}
+                          />
+                          {qData?.option_1.endsWith(
+                            ".png" || ".jpeg" || ".jpg"
+                          ) && (
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL +
+                                qData?.option_4
+                              }
+                              style={{ maxWidth: "200px" }}
+                            />
+                          )}
+                        </Stack>
                     </RadioGroup>
                   )}
                 />
                 {/* </form> */}
               </Stack>
               <Stack spacing={2}>
-                {data?.data?.questions?.test_answer === null ? (
+                {qData2?.test_answer=== null ? (
                   <ParaText4
                     text="You have not Attempted"
                     css={{ fontWeight: "600", color: "red" }}

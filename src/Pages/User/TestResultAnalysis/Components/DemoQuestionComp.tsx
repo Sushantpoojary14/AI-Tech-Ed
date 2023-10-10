@@ -125,8 +125,8 @@ const DemoQuestionComp = ({ questions,total_questions }: any) => {
   };
 
   const splitConversation = (conversation: any) => {
-    const lines = conversation.split("\n");
-    const styledLines = lines.map((line: any, index: any) => {
+    const lines = conversation?.split("\n");
+    const styledLines = lines?.map((line: any, index: any) => {
       const speakerRegex = /^(.*?):\s/;
       const match = line.match(speakerRegex);
       if (match) {

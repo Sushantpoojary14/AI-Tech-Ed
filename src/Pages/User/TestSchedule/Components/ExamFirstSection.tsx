@@ -288,7 +288,7 @@ const ExamFirstSection = (props: props) => {
                             }
                             value="A"
                             control={<Radio />}
-                            label={`A.  ${
+                            label={`${
                               question?.questions.option_1.endsWith(
                                 ".png" || ".jpeg" || ".jpg"
                               )
