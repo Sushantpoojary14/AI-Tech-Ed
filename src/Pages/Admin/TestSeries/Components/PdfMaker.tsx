@@ -182,6 +182,8 @@ const PdfMaker = (props: props) => {
     selected_question = questions;
   }
 
+  console.log("PDF COMP DATAselected_question", selected_question);
+
   const openPDFInNewTab = (blob: any, filename: string) => {
     const pdfUrl = URL.createObjectURL(blob);
     const newTab = window.open(pdfUrl, "_blank");
@@ -210,6 +212,7 @@ const PdfMaker = (props: props) => {
           topic={props.topic}
           first={first}
           setFirst={setFirst}
+          total={props.total}
         />
       }
     >
@@ -230,11 +233,13 @@ const MyDocument = ({
   topic,
   first,
   setFirst,
+  total,
 }: {
   selected_question: questions[];
   topic: string;
   first: any;
   setFirst: any;
+  total: number;
 }) => {
   const base64: string = "data:image/png;base64,";
   const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
@@ -250,7 +255,7 @@ const MyDocument = ({
         console.error("Error:", error);
       }
     })();
-  }, []);
+  }, [total]);
 
   const newQuestions = async () => {
     const selected_question1 = await Promise.all(
@@ -272,6 +277,8 @@ const MyDocument = ({
             images.map(async (image: any) => {
               const imageUrl =
                 import.meta.env.VITE_IMAGE_URL + `${image.image_url}`; // Replace with your base URL
+              // console.log("url", imageUrl);
+
               const response = await axios.get(imageUrl, {
                 responseType: "blob",
               });
