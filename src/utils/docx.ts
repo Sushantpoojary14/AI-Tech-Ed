@@ -34,7 +34,11 @@ export async function fetchAndConvertImage(imageUrl: string) {
     return imageUrl;
   }
   const url = import.meta.env.VITE_IMAGE_URL + `${imageUrl}`;
-  const response = await axios.get(url, { responseType: "blob" });
+  const response = await axios.get(url, {
+    responseType: "blob", headers: {
+      'Access-Control-Allow-Origin': '*',
+    }
+  });
 
   if (response.status === 200) {
     const blob = response.data;
@@ -312,12 +316,11 @@ export const downloadAsDocx = async (data: any) => {
               new Paragraph({
                 children: [
                   new TextRun({
-                    text: `${
-                      question?.paragraph == null ||
-                      question?.paragraph == undefined
+                    text: `${question?.paragraph == null ||
+                        question?.paragraph == undefined
                         ? ""
                         : "Discussion"
-                    }`,
+                      }`,
                     bold: true,
                   }),
                 ],
@@ -325,20 +328,18 @@ export const downloadAsDocx = async (data: any) => {
               new Paragraph({
                 children: [
                   new TextRun({
-                    text: `${
-                      question?.paragraph == null ||
-                      question?.paragraph == undefined
+                    text: `${question?.paragraph == null ||
+                        question?.paragraph == undefined
                         ? ""
                         : question?.paragraph + "\n"
-                    }`,
+                      }`,
                   }),
                   new TextRun({
-                    text: `${
-                      question?.conversation == null ||
-                      question?.conversation == undefined
+                    text: `${question?.conversation == null ||
+                        question?.conversation == undefined
                         ? ""
                         : question?.conversation + "\n"
-                    }`,
+                      }`,
                   }),
                 ],
               }),
@@ -414,9 +415,8 @@ export const downloadAsDocx = async (data: any) => {
               //   ],
               // }),
               new Paragraph({
-                text: `A. ${
-                  question?.option_1.length > 150 ? "" : question?.option_1
-                }`,
+                text: `A. ${question?.option_1.length > 150 ? "" : question?.option_1
+                  }`,
                 children: [
                   new ImageRun({
                     data: question?.option_1,
@@ -428,9 +428,8 @@ export const downloadAsDocx = async (data: any) => {
                 ],
               }),
               new Paragraph({
-                text: `B. ${
-                  question?.option_2.length > 150 ? "" : question?.option_2
-                }`,
+                text: `B. ${question?.option_2.length > 150 ? "" : question?.option_2
+                  }`,
                 children: [
                   new ImageRun({
                     data: question?.option_2,
@@ -442,9 +441,8 @@ export const downloadAsDocx = async (data: any) => {
                 ],
               }),
               new Paragraph({
-                text: `C. ${
-                  question?.option_3.length > 150 ? "" : question?.option_3
-                }`,
+                text: `C. ${question?.option_3.length > 150 ? "" : question?.option_3
+                  }`,
                 children: [
                   new ImageRun({
                     data: question?.option_3,
@@ -456,9 +454,8 @@ export const downloadAsDocx = async (data: any) => {
                 ],
               }),
               new Paragraph({
-                text: `D. ${
-                  question?.option_4.length > 150 ? "" : question?.option_4
-                }`,
+                text: `D. ${question?.option_4.length > 150 ? "" : question?.option_4
+                  }`,
                 children: [
                   new ImageRun({
                     data: question?.option_4,
@@ -517,11 +514,10 @@ export const downloadAsDocx = async (data: any) => {
                 text: `${index + 1}. ${expl?.correct_option}`,
               }),
               new Paragraph({
-                text: `${
-                  expl?.explanation === null
+                text: `${expl?.explanation === null
                     ? "No Explanation"
                     : expl?.explanation
-                } \n`,
+                  } \n`,
               }),
             ];
           }),

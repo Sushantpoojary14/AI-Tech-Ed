@@ -1,5 +1,5 @@
-import { Button, Stack } from "@mui/material";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { Button, Stack, Typography } from "@mui/material";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { MRT_ColumnDef } from "material-react-table";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -25,6 +25,7 @@ type topicList = {
   id: number;
   t_name: string;
   tsc_id: number;
+  nv_topic: number;
   status: number;
 };
 const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
@@ -60,6 +61,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
   const handleClose3 = () => {
     setOpen3(false);
   };
+  const queryClient = useQueryClient();
 
   const topics = useQuery({
     queryKey: ["topicList", tabId, selectValue],
@@ -86,6 +88,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
       // handleAlertBoxOpen();
       // navigate(-1);
       if (res.status == 200) {
+        queryClient.setQueryData(["topicList", tabId, selectValue], res);
         handleAlertBoxOpen2();
       } else {
         handleAlertBoxOpen();
@@ -147,18 +150,18 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
         accessorKey: "t_name",
         header: "Topic Name",
       },
+
       {
         accessorKey: "id",
         header: "",
-        Cell: ({ cell }) => (
+        Cell: ({ cell, row }) => (
           <Stack direction={"row"} spacing={1}>
-            {/* <Link to={`view-topic-questions/${cell.getValue<string>()}`}>
-              <Button variant="outlined">View</Button>
-            </Link> */}
             <EditIconButton
               type="button"
+              disabled={cell.row.original.nv_topic === 1}
               func={() => handleEdit(cell.getValue<string>())}
             />
+
             {/* <PdfMaker
               bol={true}
               topic={topics.t_name}

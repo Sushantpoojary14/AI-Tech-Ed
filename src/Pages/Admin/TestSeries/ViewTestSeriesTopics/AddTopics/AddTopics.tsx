@@ -86,7 +86,7 @@ const AddTopics = () => {
     "ts_id",
     "topic_name",
   ]);
-
+  const tsc_id = watch("tsc_id")
   const handleSubmitData = () => {
     // setGenerate(false);
   };
@@ -313,7 +313,7 @@ const AddTopics = () => {
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
                     id="enter-topic"
                   >
-                    Enter Topic To Generate
+                    {tsc_id == "2" ? "Enter Reading Set" :"Enter Topic To Generate"}
                   </FormLabel>
                   <Controller
                     name="topic"
@@ -334,7 +334,7 @@ const AddTopics = () => {
                   />
                 </Stack>
               </Grid>
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={4} >
                 <Stack spacing={1}>
                   <FormLabel
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
@@ -345,10 +345,13 @@ const AddTopics = () => {
                   <Controller
                     name="total_questions"
                     control={control}
-                    defaultValue=""
+                    
+                    defaultValue={""}
+                    disabled={tsc_id == "2"}
                     render={({ field }) => (
                       <FormControl fullWidth>
                         <Select
+                   
                           {...field}
                           labelId="demo-controlled-open-select-label"
                           id="demo-controlled-open-select"

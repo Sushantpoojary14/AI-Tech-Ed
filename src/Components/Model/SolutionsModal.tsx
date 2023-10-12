@@ -18,7 +18,7 @@ import {
   RadioGroup,
   Stack,
 } from "@mui/material";
-import { ConverationComp, ParaText4 } from "../Common/ParaText";
+import { ConverationComp, ParaText3, ParaText4 } from "../Common/ParaText";
 import { Controller, useForm } from "react-hook-form";
 
 const style = {
@@ -50,6 +50,8 @@ interface ModalProps {
   setQuestionID: any;
   open: boolean;
   id: string;
+  index: number[];
+  indexID: string;
 }
 
 export default function SolutionsModal({
@@ -57,6 +59,8 @@ export default function SolutionsModal({
   id,
   setOpen,
   setQuestionID,
+  index,
+  indexID,
 }: ModalProps) {
   const { control } = useForm<Inputs>();
 
@@ -65,7 +69,7 @@ export default function SolutionsModal({
     setQuestionID("");
   };
 
-  const { isLoading, data, refetch } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["get-user-set-question"],
     queryFn: () => {
       return tokenAxios.get(`/get-user-set-question/${id}`);
@@ -74,11 +78,35 @@ export default function SolutionsModal({
   });
 
   // console.log("sa", data?.data?.questions.questions);
-  const qData= data?.data?.questions.questions;
+  const qData = data?.data?.questions.questions;
   const qData2 = data?.data?.questions;
   if (isLoading) {
     return <LoadingBar />;
   }
+  // let new_index: any;
+  // if (index.length != 0) {
+  //   let count = 1;
+  //   new_index = index.map((item: number) => {
+  //     const start = count;
+  //     const element = [];
+  //     for (let i = 0; i < item; i++) {
+  //       element.push(count++);
+  //     }
+  //     const end = count == 1 ? count : count - 1;
+  //     return {
+  //       end: end,
+  //       start: start,
+  //       element: element,
+  //     };
+  //   });
+  // }
+  // console.log(
+  //   index?.find((item: any) => item?.element.includes(indexID + 1))
+  // );
+  const index_data:any = index?.find((item: any) =>
+    item.element.includes(parseInt(indexID) + 1)
+  );
+  // console.log(indexID + 1);
 
   return (
     <div>
@@ -144,8 +172,19 @@ export default function SolutionsModal({
                         textAlign: "center",
                       }}
                     />
-                    {!!qData?.conversation ||
-                    !!qData?.paragraph ? (
+                    {index?.length != 0 && (
+                      <Stack spacing={2} marginBottom={3}>
+                        <ParaText4
+                          text={`${index_data?.start} - ${index_data?.end}): For questions ${index_data?.start} - ${index_data?.end} choose the option (A,B,C or D) which think the best answers the question`}
+                          css={{ fontWeight: "500" }}
+                        />
+                        <ParaText3
+                          text={`Read the extracts below then answer the question`}
+                          css={{ fontWeight: "500" }}
+                        />
+                      </Stack>
+                    )}
+                    {!!qData?.conversation || !!qData?.paragraph ? (
                       <>
                         {qData?.paragraph && (
                           <ParaText4
@@ -154,8 +193,7 @@ export default function SolutionsModal({
                           />
                         )}
                         {qData?.question_image &&
-                          qData?.question_image
-                            .length !== 0 && (
+                          qData?.question_image.length !== 0 && (
                             <ImageList
                               sx={{
                                 width: "100%",
@@ -190,9 +228,7 @@ export default function SolutionsModal({
                             </ImageList>
                           )}
                         {qData?.conversation && (
-                          <ConverationComp
-                            text={qData?.conversation}
-                          />
+                          <ConverationComp text={qData?.conversation} />
 
                           // <ParaText4
                           //   text={question.questions.conversation}
@@ -208,9 +244,7 @@ export default function SolutionsModal({
                           css={{ fontWeight: "400", marginBottom: "10px" }}
                         />
                       </>
-                    )
-                    : 
-                    (
+                    ) : (
                       <>
                         <ParaText4
                           text="Question"
@@ -222,8 +256,7 @@ export default function SolutionsModal({
                         />
 
                         {qData?.question_image &&
-                          qData?.question_image
-                            .length !== 0 && (
+                          qData?.question_image.length !== 0 && (
                             <ImageList
                               sx={{
                                 width: "100%",
@@ -255,7 +288,6 @@ export default function SolutionsModal({
                             </ImageList>
                           )}
                       </>
-                    
                     )}
                   </>
                 )}
@@ -269,126 +301,110 @@ export default function SolutionsModal({
                   control={control}
                   render={({ field }) => (
                     <RadioGroup {...field} name="radio-buttons-group">
-                     <Stack direction={"row"} mb={1}>
-                          <FormControlLabel
-                            checked={
-                              qData2?.test_answer
-                              ==="A" 
+                      <Stack direction={"row"} mb={1}>
+                        <FormControlLabel
+                          checked={qData2?.test_answer === "A"}
+                          value="A"
+                          control={<Radio readOnly />}
+                          label={`${
+                            qData?.option_1.endsWith(
+                              ".png" || ".jpeg" || ".jpg"
+                            )
+                              ? ""
+                              : qData?.option_1
+                          }`}
+                        />
+                        {qData?.option_1.endsWith(
+                          ".png" || ".jpeg" || ".jpg"
+                        ) && (
+                          <img
+                            src={
+                              import.meta.env.VITE_IMAGE_URL + qData?.option_1
                             }
-                            value="A"
-                            control={<Radio readOnly />}
-                            label={`${
-                              qData?.option_1.endsWith(
-                                ".png" || ".jpeg" || ".jpg"
-                              )
-                                ? ""
-                                : qData?.option_1
-                            }`}
+                            style={{ maxWidth: "200px" }}
                           />
-                          {qData?.option_1.endsWith(
-                            ".png" || ".jpeg" || ".jpg"
-                          ) && (
-                            <img
-                              src={
-                                import.meta.env.VITE_IMAGE_URL +
-                                qData?.option_1
-                              }
-                              style={{ maxWidth: "200px" }}
-                            />
-                          )}
-                        </Stack>
+                        )}
+                      </Stack>
 
-                        <Stack direction={"row"} mb={1}>
-                          <FormControlLabel
-                            value="B"
-                            checked={
-                              qData2?.test_answer
-                             === "B"
+                      <Stack direction={"row"} mb={1}>
+                        <FormControlLabel
+                          value="B"
+                          checked={qData2?.test_answer === "B"}
+                          control={<Radio readOnly />}
+                          label={`B. ${
+                            qData?.option_1.endsWith(
+                              ".png" || ".jpeg" || ".jpg"
+                            )
+                              ? ""
+                              : qData?.option_2
+                          }`}
+                        />
+                        {qData?.option_1.endsWith(
+                          ".png" || ".jpeg" || ".jpg"
+                        ) && (
+                          <img
+                            src={
+                              import.meta.env.VITE_IMAGE_URL + qData?.option_2
                             }
-                            control={<Radio readOnly />}
-                            label={`B. ${
-                              qData?.option_1.endsWith(
-                                ".png" || ".jpeg" || ".jpg"
-                              )
-                                ? ""
-                                : qData?.option_2
-                            }`}
+                            style={{ maxWidth: "200px" }}
                           />
-                          {qData?.option_1.endsWith(
-                            ".png" || ".jpeg" || ".jpg"
-                          ) && (
-                            <img
-                              src={
-                                import.meta.env.VITE_IMAGE_URL +
-                                qData?.option_2
-                              }
-                              style={{ maxWidth: "200px" }}
-                            />
-                          )}
-                        </Stack>
-                        <Stack direction={"row"} mb={1}>
-                          <FormControlLabel
-                            value="C"
-                            checked={
-                              qData2?.test_answer
-                             === "C" 
+                        )}
+                      </Stack>
+                      <Stack direction={"row"} mb={1}>
+                        <FormControlLabel
+                          value="C"
+                          checked={qData2?.test_answer === "C"}
+                          control={<Radio readOnly />}
+                          label={`C.  ${
+                            qData?.option_1.endsWith(
+                              ".png" || ".jpeg" || ".jpg"
+                            )
+                              ? ""
+                              : qData?.option_3
+                          }`}
+                        />
+                        {qData?.option_1.endsWith(
+                          ".png" || ".jpeg" || ".jpg"
+                        ) && (
+                          <img
+                            src={
+                              import.meta.env.VITE_IMAGE_URL + qData?.option_3
                             }
-                            control={<Radio readOnly />}
-                            label={`C.  ${
-                              qData?.option_1.endsWith(
-                                ".png" || ".jpeg" || ".jpg"
-                              )
-                                ? ""
-                                : qData?.option_3
-                            }`}
+                            style={{ maxWidth: "200px" }}
                           />
-                          {qData?.option_1.endsWith(
-                            ".png" || ".jpeg" || ".jpg"
-                          ) && (
-                            <img
-                              src={
-                                import.meta.env.VITE_IMAGE_URL +
-                                qData?.option_3
-                              }
-                              style={{ maxWidth: "200px" }}
-                            />
-                          )}
-                        </Stack>
-                        <Stack direction={"row"} mb={1}>
-                          <FormControlLabel
-                            value="D"
-                            checked={
-                              qData2?.test_answer
-                             === "D" 
+                        )}
+                      </Stack>
+                      <Stack direction={"row"} mb={1}>
+                        <FormControlLabel
+                          value="D"
+                          checked={qData2?.test_answer === "D"}
+                          control={<Radio readOnly />}
+                          label={`D. ${
+                            qData?.option_1.endsWith(
+                              ".png" || ".jpeg" || ".jpg"
+                            )
+                              ? ""
+                              : qData?.option_4
+                          }`}
+                        />
+                        {qData?.option_1.endsWith(
+                          ".png" || ".jpeg" || ".jpg"
+                        ) && (
+                          <img
+                            src={
+                              import.meta.env.VITE_IMAGE_URL + qData?.option_4
                             }
-                            control={<Radio readOnly />}
-                            label={`D. ${
-                              qData?.option_1.endsWith(
-                                ".png" || ".jpeg" || ".jpg"
-                              )
-                                ? ""
-                                : qData?.option_4
-                            }`}
+                            style={{ maxWidth: "200px" }}
                           />
-                          {qData?.option_1.endsWith(
-                            ".png" || ".jpeg" || ".jpg"
-                          ) && (
-                            <img
-                              src={
-                                import.meta.env.VITE_IMAGE_URL +
-                                qData?.option_4
-                              }
-                              style={{ maxWidth: "200px" }}
-                            />
-                          )}
-                        </Stack>
+                        )}
+                      </Stack>
                     </RadioGroup>
                   )}
                 />
                 {/* </form> */}
               </Stack>
               <Stack spacing={2}>
-                {qData2?.test_answer=== null ? (
+                {qData2?.test_answer === null ? (
                   <ParaText4
                     text="You have not Attempted"
                     css={{ fontWeight: "600", color: "red" }}

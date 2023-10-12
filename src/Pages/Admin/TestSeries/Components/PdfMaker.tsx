@@ -14,7 +14,7 @@ import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { blobToBase64, fetchAndConvertImage } from "../../../../utils/docx";
+import { blobToBase64 } from "../../../../utils/docx";
 import { Console } from "console";
 const styles = {
   page: {
@@ -239,6 +239,29 @@ const MyDocument = ({
   const base64: string = "data:image/png;base64,";
   const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
 
+  const fetchAndConvertImage = async function (imageUrl: string) {
+    const firstLetter = imageUrl[0];
+    if (firstLetter !== "/") {
+      return imageUrl;
+    }
+    const url = import.meta.env.VITE_IMAGE_QAPI_URL;
+    const response = await axios.post(url, {
+      path: imageUrl,
+    });
+
+    if (response.status === 200) {
+      console.log(response);
+      return response.data;
+      
+      // const blob = response.data;
+      // const base64Image = await blobToBase64(blob);
+      // return base64Image;
+    } else {
+      console.error(`Failed to fetch image: ${imageUrl}`);
+      return imageUrl;
+    }
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -256,6 +279,7 @@ const MyDocument = ({
     const selected_question1 = await Promise.all(
       selected_question.map(async (question: any) => {
         try {
+          const updatedQuestion = { ...question };
           const images = question.question_image;
 
           const option1Image = question.option_1;
@@ -263,40 +287,40 @@ const MyDocument = ({
           const option3Image = question.option_3;
           const option4Image = question.option_4;
 
-          const base64Option1Image = await fetchAndConvertImage(option1Image);
-          const base64Option2Image = await fetchAndConvertImage(option2Image);
-          const base64Option3Image = await fetchAndConvertImage(option3Image);
-          const base64Option4Image = await fetchAndConvertImage(option4Image);
-
-          const base64Images = await Promise.all(
+          updatedQuestion.option_1 = await fetchAndConvertImage(option1Image);
+          updatedQuestion.option_2 =  await fetchAndConvertImage(option2Image);
+          updatedQuestion.option_3 = await fetchAndConvertImage(option3Image);
+          updatedQuestion.option_4 = await fetchAndConvertImage(option4Image);
+           
+          updatedQuestion.images = await Promise.all(
             images.map(async (image: any) => {
-              const imageUrl =
-                import.meta.env.VITE_IMAGE_URL + `${image.image_url}`; // Replace with your base URL
-              const response = await axios.get(imageUrl, {
-                responseType: "blob",
-              });
+              // const imageUrl =
+              //   import.meta.env.VITE_IMAGE_URL + `${image.image_url}`; // Replace with your base URL
+              // const response = await axios.get(imageUrl, {
+              //   responseType: "blob",
+              //   headers:{
+              //     'Access-Control-Allow-Origin': '*',
+              //   }
+              // });
+              return await fetchAndConvertImage(image.image_url);
+              // if (response.status === 200) {
+              //   const blob = response.data;
+              //   // console.log("BLOB", blob);
 
-              if (response.status === 200) {
-                const blob = response.data;
-                // console.log("BLOB", blob);
-
-                // return blob;
-                const base64Image = await blobToBase64(blob);
-                return base64Image;
-              } else {
-                console.error(`Failed to fetch image: ${imageUrl}`);
-                return null; // Return null for failed requests
-              }
+              //   // return blob;
+              //   const base64Image = await blobToBase64(blob);
+              //   return base64Image;
+              // } else {
+              //   console.error(`Failed to fetch image: ${imageUrl}`);
+              //   return null; // Return null for failed requests
+              // }
             })
           );
+          // console.log(base64Images);
 
           // Replace the image URLs with Base64-encoded images in the question object
-          const updatedQuestion = { ...question };
-          updatedQuestion.images = base64Images;
-          updatedQuestion.option_1 = base64Option1Image;
-          updatedQuestion.option_2 = base64Option2Image;
-          updatedQuestion.option_3 = base64Option3Image;
-          updatedQuestion.option_4 = base64Option4Image;
+         
+   
 
           return updatedQuestion;
         } catch (error) {
