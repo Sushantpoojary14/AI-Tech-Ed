@@ -43,10 +43,29 @@ export async function fetchAndConvertImage(imageUrl: string) {
   if (response.status === 200) {
     const blob = response.data;
     const base64Image = await blobToBase64(blob);
-    return base64Image;
+
+    if (isValidBase64(base64Image)) {
+      return base64Image; // It's a valid base64 image
+    } else {
+      console.error(`Invalid base64-encoded image: ${imageUrl}`);
+      return null;
+    }
+
+    // return base64Image;
   } else {
     console.error(`Failed to fetch image: ${imageUrl}`);
     return imageUrl;
+  }
+}
+
+function isValidBase64(str: any) {
+  try {
+    const result = btoa(atob(str)) === str;
+    console.log("isValidBase64 result:", result);
+    return result;
+  } catch (e) {
+    console.log("false");
+    return false;
   }
 }
 
@@ -114,7 +133,15 @@ export async function fetchAndReplaceImagesTopic(apiData: any, total: any) {
 
               // return blob;
               const base64Image = await blobToBase64(blob);
-              return base64Image;
+
+              if (isValidBase64(base64Image)) {
+                return base64Image; // It's a valid base64 image
+              } else {
+                console.error(`Invalid base64-encoded image: ${imageUrl}`);
+                return null;
+              }
+
+              // return base64Image;
             } else {
               console.error(`Failed to fetch image: ${imageUrl}`);
               return null; // Return null for failed requests
@@ -169,6 +196,17 @@ export async function fetchAndReplaceImages(apiData: any) {
     questions.map(async (question: any) => {
       try {
         const images = question.images;
+
+        const option1Image = question.option_1;
+        const option2Image = question.option_2;
+        const option3Image = question.option_3;
+        const option4Image = question.option_4;
+
+        const base64Option1Image = await fetchAndConvertImage(option1Image);
+        const base64Option2Image = await fetchAndConvertImage(option2Image);
+        const base64Option3Image = await fetchAndConvertImage(option3Image);
+        const base64Option4Image = await fetchAndConvertImage(option4Image);
+
         const base64Images = await Promise.all(
           images.map(async (image: any) => {
             const imageUrl =
@@ -182,6 +220,7 @@ export async function fetchAndReplaceImages(apiData: any) {
               // console.log("BLOB", blob);
 
               const base64Image = await blobToBase64(blob);
+              // console.log("base64Image:", base64Image);
               return base64Image;
             } else {
               console.error(`Failed to fetch image: ${imageUrl}`);
@@ -193,6 +232,10 @@ export async function fetchAndReplaceImages(apiData: any) {
         // Replace the image URLs with Base64-encoded images in the question object
         const updatedQuestion = { ...question };
         updatedQuestion.images = base64Images;
+        updatedQuestion.option_1 = base64Option1Image;
+        updatedQuestion.option_2 = base64Option2Image;
+        updatedQuestion.option_3 = base64Option3Image;
+        updatedQuestion.option_4 = base64Option4Image;
 
         return updatedQuestion;
       } catch (error) {

@@ -101,6 +101,7 @@ const NonVebal = () => {
         let newA2 = await mirror1(count, questionRefs);
         newArr2.push(newA2);
       }
+
       for (let index = 0; index < 6; index++) {
         count++;
         let newA2 = await Mirror2(count, questionRefs);
@@ -279,7 +280,12 @@ const NonVebal = () => {
             value={inputValue} // Bind the input value to the state variable
             onChange={handleInputChange} // Handle input changes
           />
-          {error && <ParaText1 text={"*Please Enter the topic"} css={{color:"red"}} />}
+          {error && (
+            <ParaText1
+              text={"*Please Enter the topic"}
+              css={{ color: "red" }}
+            />
+          )}
         </Stack>
         <Stack flexDirection={"row"} columnGap={2}>
           <Box flexDirection={"row"} marginTop={2}>
