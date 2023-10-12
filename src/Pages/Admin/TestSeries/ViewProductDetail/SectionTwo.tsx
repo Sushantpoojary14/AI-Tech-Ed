@@ -284,7 +284,7 @@ const SectionTwo = ({
                           /> */}
                           <DownloadPDF
                             bol={true}
-                            data={setData?.get_question}
+                            data={set?.questions}
                             randomG={true}
                             total={set?.questions?.length}
                             topic={setData?.t_name}
