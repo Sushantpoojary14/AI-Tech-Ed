@@ -299,18 +299,13 @@ const MyDocument = ({
 
           updatedQuestion.images = await Promise.all(
             images.map(async (image: any) => {
-              // const imageUrl =
-              //   import.meta.env.VITE_IMAGE_URL + `${image.image_url}`; // Replace with your base URL
-              // const response = await axios.get(imageUrl, {
-              //   responseType: "blob",
-              //   headers:{
-              //     'Access-Control-Allow-Origin': '*',
-              //   }
-              // });
-              return await fetchAndConvertImage(image.image_url);
-              // if (response.status === 200) {
-              //   const blob = response.data;
-              //   // console.log("BLOB", blob);
+              const imageUrl =
+                import.meta.env.VITE_IMAGE_URL + `${image.image_url}`; // Replace with your base URL
+              // console.log("url", imageUrl);
+
+              const response = await axios.get(imageUrl, {
+                responseType: "blob",
+              });
 
               //   // return blob;
               //   const base64Image = await blobToBase64(blob);
