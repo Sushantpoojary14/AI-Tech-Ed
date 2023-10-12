@@ -20,7 +20,7 @@ const TestCard = (props: props) => {
   return (
     <Card
       sx={{
-        width: { lg: "415px", md: "415px", sm: "355px", xs: "355px" },
+        width: { lg: "400px", md: "450px", sm: "355px", xs: "355px" },
         height: { lg: "495px", sm: "490px", xs: "490px", md: "490px" },
         border: "1px solid #ccc",
         borderRadius: "3px",
@@ -34,7 +34,7 @@ const TestCard = (props: props) => {
         <CardMedia
           sx={{
             height: "317px",
-            width: { sm: "301px", xs: "301px", md: "331px", lg: "361px" },
+            maxWidth: { sm: "301px", xs: "301px", md: "331px", lg: "100%" },
           }}
           image={props.data.p_image  ? import.meta.env.VITE_IMAGE_URL+props.data.p_image : img }
         />

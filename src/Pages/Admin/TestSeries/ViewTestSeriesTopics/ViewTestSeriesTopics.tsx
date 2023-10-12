@@ -4,7 +4,7 @@ import { Header1 } from "../../../../Components/Common/HeaderText";
 import { OButton } from "../../../../Components/Common/Button";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Link } from "react-router-dom";
 import TSTComp from "../Components/TSTComp";

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import {
   ConverationComp,
+  ParaText3,
   ParaText4,
 } from "../../../../Components/Common/ParaText";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
@@ -69,6 +70,7 @@ interface props {
   data: questionType | null;
   count: number;
   isLoading: boolean;
+  index: number[];
   preventCopyPaste: (e: React.ClipboardEvent<HTMLDivElement>) => void;
   mutation: UseMutationResult<
     AxiosResponse<any, any>,
@@ -119,7 +121,30 @@ const ExamFirstSection = (props: props) => {
     props.data &&
       props.mutation.mutate({ id: props.data?.id, answer: data.Answer });
   };
-  // console.log(question?.questions);
+  // console.log(question);
+  let index: any;
+  if (props.index.length != 0) {
+    let count = 1;
+    index = props.index.map((item: number) => {
+      const start = count;
+      const element = [];
+      for (let index = 0; index < item; index++) {
+        element.push(count++);
+      }
+      const end = count == 1 ? count : count - 1;
+      return {
+        end: end,
+        start: start,
+        element: element,
+      };
+    });
+  }
+  console.log(
+    index?.find((item: any) => item.element.includes(props.count + 1))
+  );
+  const index_data = index?.find((item: any) =>
+    item.element.includes(props.count + 1)
+  );
   return (
     <Card
       sx={{
@@ -128,6 +153,7 @@ const ExamFirstSection = (props: props) => {
         flexDirection: "column",
         width: "70%",
         paddingX: "10px",
+        maxHeight: "88vh",
       }}
     >
       {props.isLoading ? (
@@ -136,10 +162,17 @@ const ExamFirstSection = (props: props) => {
         props.data && (
           <>
             <Box width="950px" marginX="auto" marginTop={3}>
-              <ParaText4
-                text={`Question ${props.count + 1}`}
+              <Stack flexDirection={"row"}>
+                <ParaText4
+                  text={`Question No ${props.count + 1} `}
+                  css={{ fontWeight: "600" }}
+                />
+                {/* <ParaText4
+                text={`Question ${props.count + 1} `}
                 css={{ fontWeight: "600" }}
-              />
+              /> */}
+              </Stack>
+
               <Divider orientation="horizontal" />
             </Box>
             <Stack
@@ -165,6 +198,19 @@ const ExamFirstSection = (props: props) => {
               onCopy={(e) => props.preventCopyPaste(e)}
             >
               <Stack>
+                {props.index?.length != 0 && (
+                  <Stack spacing={2} marginBottom={3}>
+                    <ParaText4
+                      text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
+                      css={{ fontWeight: "500" }}
+                    />
+                    <ParaText3
+                      text={`Read the extracts below then answer the question`}
+                      css={{ fontWeight: "500" }}
+                    />
+                  </Stack>
+                )}
+
                 {question && (
                   <>
                     {!!question?.questions.conversation ||
@@ -275,7 +321,7 @@ const ExamFirstSection = (props: props) => {
                   </>
                 )}
               </Stack>
-              <Stack>
+              <Stack sx={{mx:8}}>
                 {/* <ParaText4 text="Option" css={{ fontWeight: "600" }} /> */}
                 <form onChange={handleSubmit(onSubmit)}>
                   <Controller
@@ -319,7 +365,7 @@ const ExamFirstSection = (props: props) => {
                               props.data ? question?.test_answer == "B" : false
                             }
                             control={<Radio />}
-                            label={`B. ${
+                            label={`${
                               question?.questions.option_1.endsWith(
                                 ".png" || ".jpeg" || ".jpg"
                               )
@@ -346,7 +392,7 @@ const ExamFirstSection = (props: props) => {
                               props.data ? question?.test_answer == "C" : false
                             }
                             control={<Radio />}
-                            label={`C.  ${
+                            label={`${
                               question?.questions.option_1.endsWith(
                                 ".png" || ".jpeg" || ".jpg"
                               )
@@ -373,7 +419,7 @@ const ExamFirstSection = (props: props) => {
                               props.data ? question?.test_answer == "D" : false
                             }
                             control={<Radio />}
-                            label={`D. ${
+                            label={`${
                               question?.questions.option_1.endsWith(
                                 ".png" || ".jpeg" || ".jpg"
                               )

@@ -11,11 +11,12 @@ import {
   whiteText,
   answeredMarkFR,
 } from "../../../../Assets/Css/TestStatus";
-
+const fontStyle = { fontSize: "12px", fontWeight: 600 };
 interface props {
   questions: any;
   func: (id: number, key: number) => void;
   submit: () => void;
+ 
 }
 
 const ExamSecondSection = (props: props) => {
@@ -27,64 +28,79 @@ const ExamSecondSection = (props: props) => {
         // display: "flex",
         // flexDirection: { lg: "row", md: "row", sm: "row", xs: "column" },
         paddingY: "25px",
-        // width: "435px",
-   
+        width: "435px",
+        maxHeight:"88vh",
+        overflow: "auto"
       }}
     >
       <Box sx={{ paddingX: "20px" }}>
-        <Stack direction="row" spacing={2} marginBottom="10px">
-          <Box sx={answered}>
-            <Typography
-              sx={{
-                fontSize: "16px",
-                fontWeight: 400,
-                color: "#FFFFFF",
-              }}
-            >
-              1
-            </Typography>
-          </Box>
-          <ParaText1 text="Answered" />
+        <Stack
+          direction="row"
+          marginBottom="10px"
+          
+        >
+          <Stack direction="row" spacing={1} marginRight="89px" alignItems={"center"}>
+            <Box sx={{ ...answered ,}}>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: 400,
+                  color: "#FFFFFF",
+                }}
+              >
+                1
+              </Typography>
+            </Box>
+            <ParaText1 text="Answered" css={fontStyle} />
+          </Stack>
+          <Stack direction="row" spacing={1} alignItems={"center"}>
+            <Box sx={{ ...notAnswered }}>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: 400,
+                  color: "#FFFFFF",
+                }}
+              >
+                1
+              </Typography>
+            </Box>
+            <ParaText1 text="Not Answered" css={fontStyle} />
+          </Stack>
         </Stack>
-        <Stack direction="row" spacing={2} marginBottom="10px">
-          <Box sx={notAnswered}>
-            <Typography
-              sx={{
-                fontSize: "16px",
-                fontWeight: 400,
-                color: "#FFFFFF",
-              }}
-            >
-              1
-            </Typography>
-          </Box>
-          <ParaText1 text="Not Answered" />
+
+        <Stack
+          direction="row"
+          marginBottom="10px"
+         
+        >
+          <Stack direction="row" spacing={1} marginRight="89px" alignItems={"center"}>
+            <Box sx={notVisited}>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: 400,
+                  color: "#000000",
+                }}
+              >
+                1
+              </Typography>
+            </Box>
+            <ParaText1 text="Not Visited" css={fontStyle} />
+          </Stack>
+          <Stack direction="row" spacing={1} marginBottom="10px" alignItems={"center"}>
+            <Box sx={markFR}>
+              <Typography sx={whiteText}>0</Typography>
+            </Box>
+            <ParaText1 text="Marked for Review" css={fontStyle} />
+          </Stack>
         </Stack>
-        <Stack direction="row" spacing={2} marginBottom="10px">
-          <Box sx={notVisited}>
-            <Typography
-              sx={{
-                fontSize: "16px",
-                fontWeight: 400,
-                color: "#000000",
-              }}
-            >
-              1
-            </Typography>
-          </Box>
-          <ParaText1 text="Not Visited" />
-        </Stack>
-        <Stack direction="row" spacing={2} marginBottom="10px">
-          <Box sx={markFR}>
-            <Typography sx={whiteText}>0</Typography>
-          </Box>
-          <ParaText1 text="Marked for Review" />
-        </Stack>
-        <Stack direction="row" spacing={2} marginBottom="10px">
+
+        <Stack direction="row" spacing={1} marginBottom="10px" alignItems={"center"}>
           <Box sx={answeredMarkFR}>
             <Typography sx={whiteText}>0</Typography>
           </Box>
-          <ParaText1 text="Answered And Marked for Review" />
+          <ParaText1 text="Answered And Marked for Review" css={fontStyle} />
         </Stack>
       </Box>
       <Box
@@ -100,10 +116,10 @@ const ExamSecondSection = (props: props) => {
           },
         }}
       ></Box>
-      <Stack paddingX={"20px"} spacing={2} width={"400px"}>
+      <Stack paddingX={"20px"} spacing={2} maxWidth={"400px"}>
         <ExamStatus questions={props.questions} func={props.func} />
 
-        <BButton2 name="Submit Test" func={props.submit} />
+        <BButton2 name="Submit Test" func={props.submit} css={{width:"100%"}}/>
       </Stack>
     </Card>
   );

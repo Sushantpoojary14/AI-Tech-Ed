@@ -90,9 +90,12 @@ const TestRAS = () => {
   // const {user} = AppContext()
 
   const [questionID, setQuestionID] = useState("");
+  const [indexID, setIndexID] = useState(0);
   const [open, setOpen] = useState(false);
-  const handleOpen = (id: string) => {
+  const handleOpen = (id: string,index:any) => {
     setQuestionID(id);
+   
+    setIndexID(index)
     setOpen(true);
   };
 
@@ -103,10 +106,25 @@ const TestRAS = () => {
     },
   });
 
-  console.log(
-    data,
-  );
-
+  console.log(indexID);
+  let new_index: any;
+  if (data?.data.index.length != 0) {
+    let count = 1;
+    new_index = data?.data.index.map((item: number) => {
+      const start = count;
+      const element = [];
+      for (let i = 0; i < item; i++) {
+        element.push(count++);
+      }
+      const end = count == 1 ? count : count - 1;
+      return {
+        end: end,
+        start: start,
+        element: element,
+      };
+    });
+  }
+  console.log(new_index,indexID + 1);
   const columns = useMemo<MRT_ColumnDef<SetResult>[]>(
     () => [
       // {
@@ -184,7 +202,7 @@ const TestRAS = () => {
         accessorKey: "id",
         header: "",
         size: 100,
-        Cell: ({ cell }: any) => (
+        Cell: ({ cell }:any) => (
           <ArticleOutlinedIcon
             sx={{
               width: "25px",
@@ -192,7 +210,7 @@ const TestRAS = () => {
               color: "#3A9BDC",
               cursor: "pointer",
             }}
-            onClick={() => handleOpen(cell.getValue())} //cell.getValue()
+            onClick={() => handleOpen(cell.getValue(),cell.row.id)} //cell.getValue()
           />
         ),
         //   enableSorting: false,
@@ -223,7 +241,7 @@ const TestRAS = () => {
     // setPagination: setPagination,
     // setSorting: setSorting,
   };
-
+  const indexIDString = indexID?.toString(); 
   return (
     <>
       <Container maxWidth="lg">
@@ -253,6 +271,8 @@ const TestRAS = () => {
         setQuestionID={setQuestionID}
         open={open}
         id={questionID}
+        index={new_index}
+        indexID ={indexIDString}
       />
     </>
   );

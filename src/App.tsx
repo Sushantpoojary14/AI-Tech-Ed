@@ -13,6 +13,8 @@ import img from "./Assets/images/password_success.jpg";
 import { useEffect, useState } from "react";
 import AlertBox from "./Components/Common/AlertBox";
 import Test3 from "./Pages/test3";
+import TestSeries from "./Pages/User/TestSchedule/TestSeries";
+import { AppContext } from "./Context/AppContext";
 function App() {
   const {
     handlePUSuccessClose,
@@ -32,8 +34,7 @@ function App() {
   useEffect(() => {
     setOpen(!navigator.onLine);
   }, [navigator.onLine]);
-  
-
+  const { user, Logout } = AppContext();
   return (
     <>
       <AlertBox
@@ -86,16 +87,25 @@ function App() {
         <Routes>
           <Route path="/*" element={<Index />} />
 
+          <Route
+            path="/user/Test-schedule/Exam-section/:id"
+            element={user ? <Exam_Section /> : <Index />}
+          />
+          <Route
+            path="/user/Test-schedule/Test-section/:id"
+            element={user ? <TestSeries /> : <Index />}
+          />
+          <Route
+            path="/user/Test-result/:id"
+            element={user ? <TestResult /> : <Index />}
+          />
+
           <Route path="/user/*" element={<UserIndex />} />
           <Route path="/admin/*" element={<AdminIndex />} />
           {/* <Route path="/test" element={<Test />} /> */}
           <Route path="/test2" element={<Test2 />} />
           <Route path="/test3" element={<Test3 />} />
-          <Route
-            path="/user/Test-schedule/Exam-section/:id"
-            element={<Exam_Section />}
-          />
-          <Route path="/user/Test-result/:id" element={<TestResult />} />
+          <Route path="*" element={<Index />} />
           {/* <Route path="/admin/login" element={<LoginComponent />} /> */}
         </Routes>
       </MainCartContext>
