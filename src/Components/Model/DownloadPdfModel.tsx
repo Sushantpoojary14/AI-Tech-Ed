@@ -16,6 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import PdfMaker from "../../Pages/Admin/TestSeries/Components/PdfMaker";
 import { BButton, BButton2 } from "../Common/Button";
 import { fetchAndReplaceImagesTopic } from "../../utils/docx";
+import DownloadPDF from "../../Pages/Admin/TestSeries/Components/PDF/DownloadPDF";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -122,7 +123,7 @@ ModalProps) => {
             </Stack>
             {setData ? (
               <Stack direction={"row"} justifyContent={"space-between"}>
-                <PdfMaker
+                {/* <PdfMaker
                   bol={!!setData}
                   data={setData?.get_question}
                   randomG={true}
@@ -133,6 +134,13 @@ ModalProps) => {
                   //     css={{ width: "100%" }}
                   //   />
                   // }
+                  total={watch("total_questions")}
+                  topic={setData?.t_name}
+                /> */}
+                <DownloadPDF
+                  bol={!!setData}
+                  data={setData?.get_question}
+                  randomG={false}
                   total={watch("total_questions")}
                   topic={setData?.t_name}
                 />
