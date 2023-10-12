@@ -140,9 +140,10 @@ ModalProps) => {
                 <DownloadPDF
                   bol={!!setData}
                   data={setData?.get_question}
-                  randomG={false}
+                  randomG={true}
                   total={watch("total_questions")}
                   topic={setData?.t_name}
+                  set={false}
                 />
                 <BButton
                   type="button"

@@ -1,5 +1,8 @@
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
-import { BButton } from "../../../../../Components/Common/Button";
+import {
+  BButton,
+  DownloadIconButton,
+} from "../../../../../Components/Common/Button";
 import React, { useEffect, useRef, useState } from "react";
 import jsPDF from "jspdf";
 import PDF2 from "./PDF2";
@@ -18,6 +21,7 @@ interface props {
   topic: string;
   total: number;
   button?: ReactJSXElement;
+  set: boolean;
 }
 
 type questions = {
@@ -48,7 +52,7 @@ type questions = {
   question_image?: any;
 };
 
-const DownloadPDF = ({ bol, data, randomG, topic, total }: props) => {
+const DownloadPDF = ({ bol, data, randomG, topic, total, set }: props) => {
   const [selected_question, setSelected_question] = useState<questions[]>([]);
   const pdfRef = useRef(null);
   const handlePrint = useReactToPrint({
@@ -152,7 +156,11 @@ const DownloadPDF = ({ bol, data, randomG, topic, total }: props) => {
           topic={topic}
         />
       </Box>
-      <BButton type="button" name="New PDF" func={handlePrint} />
+      {set ? (
+        <DownloadIconButton type="button" name="PDF" func={handlePrint} />
+      ) : (
+        <BButton type="button" name="Download PDF" func={handlePrint} />
+      )}
     </>
   );
 };
