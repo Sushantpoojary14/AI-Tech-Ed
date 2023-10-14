@@ -25,15 +25,22 @@ const Checkout = ({
   const [show, setShow] = useState(false);
   const [success, setSuccess] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("");
-  const [orderID, setOrderID] = useState(false);
+  const [orderID, setOrderID] = useState("");
   const navigate = useNavigate();
   console.log(amount);
 
   const purchaseMU = useMutation({
-    mutationFn: async (p_id: number[] | number | undefined) => {
-      console.log(p_id);
+    mutationFn: async ({
+      p_id,
+      order_id,
+    }: {
+      p_id: number | number[] | undefined;
+      order_id: string;
+    }) => {
+      // console.log(p_id);
       return await tokenAxios.post(`add-user-purchase`, {
-        p_id: p_id,
+        p_id:p_id,
+        order_id:order_id,
       });
     },
     onSuccess: (res: any) => {
@@ -85,7 +92,7 @@ const Checkout = ({
 
   useEffect(() => {
     if (success) {
-      purchaseMU.mutate(cartData);
+      purchaseMU.mutate({p_id:cartData,order_id:orderID});
       handleClose();
       // alert("Payment successful!!");
       console.log("Order successful . Your order id is--", orderID);
@@ -93,9 +100,14 @@ const Checkout = ({
   }, [success]);
 
   return (
-    <Dialog onClose={handleClose} open={open} sx={{ height: "100%", }}>
+    <Dialog onClose={handleClose} open={open} sx={{ height: "100%" }}>
       <DialogContent
-        sx={{ display: "flex", flexDirection: "column", rowGap: "43px" ,height:"50%",}}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          rowGap: "43px",
+          height: "50%",
+        }}
       >
         <DialogContentText
           textAlign={"center"}
@@ -109,7 +121,7 @@ const Checkout = ({
           component="form"
           sx={{
             width: "500px",
-            
+
             m: "auto",
           }}
         >
