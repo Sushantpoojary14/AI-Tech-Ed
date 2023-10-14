@@ -4,13 +4,12 @@ import {
   DownloadIconButton,
 } from "../../../../../Components/Common/Button";
 import React, { useEffect, useRef, useState } from "react";
-import jsPDF from "jspdf";
-import PDF2 from "./PDF2";
+
 import { Box, Button } from "@mui/material";
 import ReactDOM from "react-dom/client";
 import PdfMaker from "../PdfMaker";
 import { BlobProvider, PDFViewer } from "@react-pdf/renderer";
-import MyPDF from "./MyPDF";
+
 import ReactToPrint, { useReactToPrint } from "react-to-print";
 import ComponentToPrint from "./ComponentToPrint";
 
@@ -52,28 +51,28 @@ type questions = {
   question_image?: any;
 };
 
-const DownloadPDF = ({ bol, data, randomG, topic, total, set }: props) => {
+const DownloadPDF = ({ data, randomG, topic, total, set }: props) => {
   const [selected_question, setSelected_question] = useState<questions[]>([]);
   const pdfRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => pdfRef.current,
     documentTitle: topic,
   });
-
-  useEffect(() => {
-    setSelected_question(data);
-  }, []);
+  // console.log(data);
+  // useEffect(() => {
+  //   setSelected_question(data);
+  // }, []);
 
   useEffect(() => {
     const questions: questions[] = data;
-
-    if (!randomG) {
+    // console.log(questions?.length < total);
+    if (randomG) {
       if (!!questions) {
-        if (questions?.length > 15) {
+        if (questions?.length < total) {
+          
           const updatedSelectedQuestions = [];
           let count: number = total;
           // const updatedSelectedQuestions = [...selected_question];
-
           for (let i = count - 1; i >= 0; i--) {
             const ran = Math.floor(Math.random() * (i + 1));
             const temp = questions[i];
@@ -120,33 +119,7 @@ const DownloadPDF = ({ bol, data, randomG, topic, total, set }: props) => {
   //   selected_question = questions;
   // }
 
-  const openPDFInNewTab = async (
-    data: any,
-    total: any,
-    topic: any,
-    bol: boolean
-  ) => {
-    let selected_question: questions[] = [];
-    // console.log(props.data,props.total);
-
-    // const random: questions[] = [];
-    const questions: questions[] = data;
-
-    if (!!questions) {
-      if (questions?.length > 15) {
-        let count: number = total;
-        for (let i = count - 1; i >= 0; i--) {
-          const ran = Math.floor(Math.random() * (i + 1));
-          const temp = questions[i];
-          questions[i] = questions[ran];
-          questions[ran] = temp;
-          selected_question.push(questions[i]);
-        }
-      } else {
-        selected_question = questions;
-      }
-    }
-  };
+  console.log(selected_question);
   return (
     <>
       <Box display={"none"}>

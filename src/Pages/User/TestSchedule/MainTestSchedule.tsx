@@ -46,6 +46,7 @@ type Purchases = {
   valid_till: string;
   tsc_type: string;
   duration: number;
+  package_name:string;
 };
 
 const MainTestSchedule = () => {
@@ -60,6 +61,7 @@ const MainTestSchedule = () => {
   const { isLoading, data } = useQuery([selectVal, "purchases"], () =>
     tokenAxios.get(`/get-user-purchases/${selectVal}`)
   );
+// console.log(data);
 
   const TestMU = useMutation({
     mutationFn: async (data: mUData) => {
@@ -95,6 +97,11 @@ const MainTestSchedule = () => {
       //   },
       // },
       {
+        accessorKey: "package_name",
+        header: "Package Name",
+        size: 200,
+      },
+      {
         accessorKey: "set_name",
         header: "Test Name",
         size: 200,
@@ -102,20 +109,20 @@ const MainTestSchedule = () => {
       {
         accessorKey: "tsc_type",
         header: "Subject",
-        size: 150,
+        size: 50,
       },
-
+    
       {
         accessorKey: "duration",
         header: "Time Limit",
-        size: 150,
+        size: 40,
 
-        // muiTableHeadCellProps: {
-        //   align: "center",
-        // },
-        // muiTableBodyCellProps: {
-        //   align: "center",
-        // },
+        muiTableHeadCellProps: {
+          align: "center",
+        },
+        muiTableBodyCellProps: {
+          align: "center",
+        },
       },
       {
         accessorKey: "valid_from",
@@ -130,7 +137,7 @@ const MainTestSchedule = () => {
       {
         accessorKey: "id",
         header: "",
-        size: 200,
+        size: 50,
         Cell: ({ cell, row }: any) => (
           // <Link to={`${cell.getValue()}`}>
           <EventAvailableIcon
@@ -161,7 +168,7 @@ const MainTestSchedule = () => {
     []
   );
 
-  console.log("Test schedule", data?.data?.tsp);
+  // console.log("Test schedule", data?.data?.tsp);
 
   if (isLoading) {
     return <LoadingBar />;

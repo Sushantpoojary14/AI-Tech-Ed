@@ -135,13 +135,14 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
     mutationFn: async (id: number) => {
       return await adminTokenAxios.get(`admin/get-topic-question/${id}`);
     },
-    onSettled: (res) => {
+    onSuccess: (res) => {
+     
       setSetData(res?.data.topic_questions);
       setOpen3(true);
       // console.log(setData);
     },
   });
-  // console.log(setData);
+  // console.log(getTopicQuestion.data?.data.topic_questions);
 
   const columns = useMemo<MRT_ColumnDef<topicList>[]>(
     //column definitions...
@@ -230,7 +231,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
       <DownloadPdfModel
         open={open3}
         handleClose={handleClose3}
-        data={setData}
+        data={getTopicQuestion.data?.data.topic_questions}
       />
     </>
   );

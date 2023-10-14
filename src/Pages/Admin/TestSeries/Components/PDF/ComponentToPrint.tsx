@@ -123,7 +123,7 @@ type questions = {
 
 const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
   const { selected_question, topic } = props;
-  console.log("DATA", selected_question);
+  // console.log("DATA", selected_question);
 
   return (
     <div ref={ref}>
@@ -140,7 +140,7 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
               {selected_question?.length != 0 &&
                 selected_question?.map((item: questions, key: any) => (
                   <div style={styles.Container} key={key}>
-                    {item.Options ? (
+                    {item?.Options ? (
                       <>
                         {item.Paragraph && (
                           <p style={styles.paragraph}>
@@ -224,12 +224,12 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                       </>
                     ) : (
                       <>
-                        {item.paragraph && (
+                        {item?.paragraph && (
                           <p style={styles.paragraph}>
                             {`${key + 1}: ${item.paragraph}`}
                           </p>
                         )}
-                        {item.paragraph && item?.question_image && (
+                        {item?.paragraph && item?.question_image && (
                           <div>
                             {item?.question_image?.map(
                               (item2: any, key: any) => {
@@ -247,19 +247,19 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                             )}
                           </div>
                         )}
-                        {item.conversation && (
+                        {item?.conversation && (
                           <p style={styles.conversation}>
                             {`${item.conversation}`}
                           </p>
                         )}
-                        {item.conversation || item.paragraph ? (
+                        {item?.conversation || item?.paragraph ? (
                           <p style={styles.question}>{`${item.question}`}</p>
                         ) : (
                           <p style={styles.options}>
-                            {`${key + 1}: ${item.question} `}
+                            {`${key + 1}: ${item?.question} `}
                           </p>
                         )}
-                        {!item.paragraph && item?.question_image && (
+                        {!item?.paragraph && item?.question_image && (
                           <div>
                             {item?.question_image?.map(
                               (item2: any, key: number) => {
@@ -278,9 +278,9 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                           </div>
                         )}
                         <div style={styles.optionContainer}>
-                          {item.option_1?.split(".")[1] === "png" ||
-                          item.option_1?.split(".")[1] === "jpg" ||
-                          item.option_1?.split(".")[1] === "jpeg" ? (
+                          {item?.option_1?.split(".")[1] === "png" ||
+                          item?.option_1?.split(".")[1] === "jpg" ||
+                          item?.option_1?.split(".")[1] === "jpeg" ? (
                             <>
                               <div
                                 style={{
@@ -353,16 +353,16 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                             <>
                               <p
                                 style={styles.options}
-                              >{`A. ${item.option_1}`}</p>
+                              >{`A. ${item?.option_1}`}</p>
                               <p
                                 style={styles.options}
-                              >{`B. ${item.option_2}`}</p>
+                              >{`B. ${item?.option_2}`}</p>
                               <p
                                 style={styles.options}
-                              >{`C. ${item.option_3}`}</p>
+                              >{`C. ${item?.option_3}`}</p>
                               <p
                                 style={styles.options}
-                              >{`D. ${item.option_4}`}</p>
+                              >{`D. ${item?.option_4}`}</p>
                             </>
                           )}
                         </div>
@@ -379,9 +379,9 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                 {selected_question?.length != 0 &&
                   selected_question?.map((item: questions, key: any) => (
                     <p style={styles.answer} key={key}>
-                      {item.Answer
-                        ? `${key + 1}.  ${item.Answer?.toUpperCase()}`
-                        : `${key + 1}.  ${item.correct_option}`}
+                      {item?.Answer
+                        ? `${key + 1}.  ${item?.Answer?.toUpperCase()}`
+                        : `${key + 1}.  ${item?.correct_option}`}
                     </p>
                   ))}
               </div>
@@ -391,13 +391,13 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
               {selected_question?.length != 0 &&
                 selected_question?.map((item: questions, key: any) => (
                   <div style={styles.Container} key={key}>
-                    {item.Answer ? (
+                    {item?.Answer ? (
                       <>
                         <p style={styles.answer2}>{`${key + 1}.`}</p>
-                        {!!item.explanation ? (
+                        {!!item?.explanation ? (
                           <p
                           //   style={styles.explanation}
-                          >{`${item.Explanation} `}</p>
+                          >{`${item?.Explanation} `}</p>
                         ) : (
                           <p
                           // style={styles.explanation}
@@ -409,7 +409,7 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                     ) : (
                       <>
                         <p style={styles.answer2}>{`${key + 1}.`}</p>
-                        {!!item.explanation ? (
+                        {!!item?.explanation ? (
                           <p
                           //   style={styles.explanation}
                           >{`${item.explanation}`}</p>

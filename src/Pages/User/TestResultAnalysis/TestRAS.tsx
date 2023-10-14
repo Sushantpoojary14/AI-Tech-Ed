@@ -24,10 +24,7 @@ interface option {
   name: string;
   value: number;
 }
-const options: option[] = [
-  { name: "OC Online Trial test", value: 1 },
-  { name: "Selective Test", value: 2 },
-];
+
 
 const header = [
   "Sr. No",
@@ -39,38 +36,7 @@ const header = [
   "Time Taken(seconds)",
   "Real Time Difficulty Level",
 ];
-const tableData = [
-  {
-    id: 1,
-    name: "Reading",
-    Topic: "SOTT - I",
-    Correct_option: "A",
-    Result: "37/50",
-    Marks: "1/1",
-    Time_Taken: "00.45.00",
-    Total_Questions_Answered: "Easy",
-  },
-  {
-    id: 2,
-    name: "Thinking Skills",
-    Topic: "SOTT - I",
-    Correct_option: "A",
-    Result: "37/50",
-    Marks: "1/1",
-    Time_Taken: "00.45.00",
-    Level: "Easy",
-  },
-  {
-    id: 5,
-    name: "Reading",
-    Topic: "SOTT - I",
-    Correct_option: "A",
-    Result: "37/50",
-    Marks: "1/1",
-    Time_Taken: "00.45.00",
-    Level: "Easy",
-  },
-];
+
 
 type SetResult = {
   id: number;
@@ -83,6 +49,7 @@ type SetResult = {
   topic: string;
   correct_option: string;
   set_name: string;
+
 };
 
 const TestRAS = () => {
@@ -142,6 +109,7 @@ const TestRAS = () => {
       //     align: "center",
       //   },
       // },
+    
       {
         accessorKey: "set_name",
         header: "Test Name",

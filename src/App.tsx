@@ -15,6 +15,14 @@ import AlertBox from "./Components/Common/AlertBox";
 import Test3 from "./Pages/test3";
 import TestSeries from "./Pages/User/TestSchedule/TestSeries";
 import { AppContext } from "./Context/AppContext";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
+const initialOptions = {
+  clientId:import.meta.env.VITE_PAYPAL_CLIENT_ID,
+  currency: "USD",
+  intent: "capture",
+};
+
 function App() {
   const {
     handlePUSuccessClose,
@@ -83,32 +91,34 @@ function App() {
         // text="Back to Dashboard"
         // link="/"
       />
-      <MainCartContext>
-        <Routes>
-          <Route path="/*" element={<Index />} />
+      <PayPalScriptProvider  options={initialOptions}>
+        <MainCartContext>
+          <Routes>
+            <Route path="/*" element={<Index />} />
 
-          <Route
-            path="/user/Test-schedule/Exam-section/:id"
-            element={user ? <Exam_Section /> : <Index />}
-          />
-          <Route
-            path="/user/Test-schedule/Test-section/:id"
-            element={user ? <TestSeries /> : <Index />}
-          />
-          <Route
-            path="/user/Test-result/:id"
-            element={user ? <TestResult /> : <Index />}
-          />
+            <Route
+              path="/user/Test-schedule/Exam-section/:id"
+              element={user ? <Exam_Section /> : <Index />}
+            />
+            <Route
+              path="/user/Test-schedule/Test-section/:id"
+              element={user ? <TestSeries /> : <Index />}
+            />
+            <Route
+              path="/user/Test-result/:id"
+              element={user ? <TestResult /> : <Index />}
+            />
 
-          <Route path="/user/*" element={<UserIndex />} />
-          <Route path="/admin/*" element={<AdminIndex />} />
-          {/* <Route path="/test" element={<Test />} /> */}
-          <Route path="/test2" element={<Test2 />} />
-          <Route path="/test3" element={<Test3 />} />
-          <Route path="*" element={<Index />} />
-          {/* <Route path="/admin/login" element={<LoginComponent />} /> */}
-        </Routes>
-      </MainCartContext>
+            <Route path="/user/*" element={<UserIndex />} />
+            <Route path="/admin/*" element={<AdminIndex />} />
+            {/* <Route path="/test" element={<Test />} /> */}
+            <Route path="/test2" element={<Test2 />} />
+            <Route path="/test3" element={<Test3 />} />
+            <Route path="*" element={<Index />} />
+            {/* <Route path="/admin/login" element={<LoginComponent />} /> */}
+          </Routes>
+        </MainCartContext>
+      </PayPalScriptProvider>
     </>
   );
 }

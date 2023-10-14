@@ -34,7 +34,7 @@ const TestCard = (props: props) => {
         <CardMedia
           sx={{
             height: "317px",
-            maxWidth: { sm: "301px", xs: "301px", md: "331px", lg: "100%" },
+            width: { sm: "301px", xs: "301px", md: "331px", lg: "100%" },
           }}
           image={props.data.p_image  ? import.meta.env.VITE_IMAGE_URL+props.data.p_image : img }
         />

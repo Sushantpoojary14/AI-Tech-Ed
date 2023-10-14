@@ -77,6 +77,7 @@ const ViewSecondSection = ({ data }: any) => {
       justifyContent={"space-between"}
       useFlexGap
       flexWrap="wrap"
+      rowGap={4}
       margin="auto"
       width={"100%"}
     >
@@ -85,7 +86,7 @@ const ViewSecondSection = ({ data }: any) => {
           boxShadow: "6px 6px 20px 0px #808080",
           // my: "15px",
           width: { lg: "47%", md: "400px", sm: "400px", xs: "360px" },
-          height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
+          // height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
           p: "14px",
           // pl: "14px",
         }}
