@@ -215,7 +215,7 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                             )}
                           </div>
                         )}
-                        <div style={styles.optionContainer}>
+                        <div style={styles.optionContainer} className="mb-4">
                           <p style={styles.options}>{`A. ${item.Options.a}`}</p>
                           <p style={styles.options}>{`B. ${item.Options.b}`}</p>
                           <p style={styles.options}>{`C. ${item.Options.c}`}</p>
@@ -277,7 +277,7 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                             )}
                           </div>
                         )}
-                        <div style={styles.optionContainer}>
+                        <div style={styles.optionContainer} className="mb-4">
                           {item.option_1?.split(".")[1] === "png" ||
                           item.option_1?.split(".")[1] === "jpg" ||
                           item.option_1?.split(".")[1] === "jpeg" ? (

@@ -33,6 +33,8 @@ interface SubDataProps {
   tableData: DataItem[];
   studentPerformance: PerformanceItem[];
   header2: string[];
+  data: any;
+  name: string;
 }
 
 const SubData = ({
@@ -42,7 +44,11 @@ const SubData = ({
   tableData,
   header2,
   studentPerformance,
+  data,
+  name,
 }: SubDataProps) => {
+  console.log("dash", data);
+
   return (
     <Container maxWidth={false} sx={{ p: 0, border: 1 }}>
       <Box my={1}>
@@ -64,11 +70,22 @@ const SubData = ({
                 spacing={2}
                 justifyContent="center"
               >
-                <SimpleCard title="Total Tests" subtitle="30" />
-                <SimpleCard title="Total Students" subtitle="40" />
+                <SimpleCard
+                  title={`Total ${name} Packages`}
+                  subtitle={data?.product_count}
+                />
+                <SimpleCard
+                  title={`${name} Packages Purchases`}
+                  subtitle={data?.purchase_count}
+                />
+                <SimpleCard
+                  title={`Total ${name} Topics`}
+                  subtitle={data?.topic_count}
+                />
+                <SimpleCard title="Total Users" subtitle={data?.user_count} />
               </Stack>
             </Box>
-            <Box>
+            {/* <Box>
               <Header2 header="Test Series" css={{ fontSize: "1.2rem" }} />
               <Card sx={{ boxShadow: "5px 5px 20px 0px #808080", my: "15px" }}>
                 <Box sx={{ height: 240, overflow: "auto" }}>
@@ -83,10 +100,10 @@ const SubData = ({
                   </TableContainer>
                 </Box>
               </Card>
-            </Box>
+            </Box> */}
           </Stack>
           {/* Right Side */}
-          <Stack flex={1}>
+          {/* <Stack flex={1}>
             <Box>
               <Header2
                 header="Student Perforamnce"
@@ -108,7 +125,7 @@ const SubData = ({
                 </Box>
               </Card>
             </Box>
-          </Stack>
+          </Stack> */}
         </Box>
       </Box>
     </Container>

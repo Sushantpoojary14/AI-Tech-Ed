@@ -12,6 +12,8 @@ import { OutlineButton } from "../../../Components/Common/Button";
 import { useQuery } from "@tanstack/react-query";
 import { data } from "../components/Mock_Data";
 import { Link } from "react-router-dom";
+import adminTokenAxios from "../../../Hooks/AdminTokenAxios";
+import LoadingBar from "../../../Components/Headers/LoadingBar";
 
 // interface Column {
 //   id:
@@ -84,6 +86,14 @@ type UserApiResponse = {
   meta: {
     totalRowCount: number;
   };
+};
+
+type Students = {
+  name: string;
+  email: string;
+  id: number;
+  phone: string;
+  DOB: string;
 };
 
 type User = {
@@ -169,16 +179,50 @@ const StudentData = () => {
   //     keepPreviousData: true,
   //   });
 
-  const columns = useMemo<MRT_ColumnDef<User>[]>(
+  const { isLoading, data } = useQuery(["show-all-student-details"], () =>
+    adminTokenAxios.get(`admin/show-all-student-details`)
+  );
+
+  // console.log("Student DAta", data?.data?.user);
+
+  const columns = useMemo<MRT_ColumnDef<Students>[]>(
     () => [
       {
-        accessorKey: "no",
-        header: "No.",
-        Cell: ({ row }) => {
-          const { index } = row;
-          return <span>{index + 1}</span>;
-        },
+        accessorKey: "name",
+        header: "Name",
+        // Cell: ({ row }) => {
+        //   const { index } = row;
+        //   return <span>{index + 1}</span>;
+        // },
+        size: 150,
+        // muiTableHeadCellProps: {
+        //   align: "center",
+        // },
+        // muiTableBodyCellProps: {
+        //   align: "center",
+        // },
+      },
+      {
+        accessorKey: "email",
+        header: "Email",
+        size: 150,
+      },
+      {
+        accessorKey: "phone",
+        header: "Phone No",
+        size: 150,
+      },
+
+      {
+        accessorKey: "DOB",
+        header: "dob",
         size: 100,
+        Cell: ({ cell }: any) => {
+          // const { index } = row;
+          return (
+            <span>{cell.getValue() === null ? "-" : cell.getValue()}</span>
+          );
+        },
         muiTableHeadCellProps: {
           align: "center",
         },
@@ -186,32 +230,16 @@ const StudentData = () => {
           align: "center",
         },
       },
-      {
-        accessorKey: "firstName",
-        header: "First Name",
-        size: 150,
-      },
-      {
-        accessorKey: "lastName",
-        header: "Last Name",
-        size: 150,
-      },
-
-      {
-        accessorKey: "address",
-        header: "Address",
-        size: 150,
-      },
-      {
-        accessorKey: "state",
-        header: "State",
-        size: 150,
-      },
-      {
-        accessorKey: "phoneNumber",
-        header: "Phone Number",
-        size: 150,
-      },
+      // {
+      //   accessorKey: "state",
+      //   header: "State",
+      //   size: 150,
+      // },
+      // {
+      //   accessorKey: "phoneNumber",
+      //   header: "Phone Number",
+      //   size: 150,
+      // },
       {
         accessorKey: "id",
         header: "Details",
@@ -236,9 +264,13 @@ const StudentData = () => {
     []
   );
 
+  if (isLoading) {
+    return <LoadingBar />;
+  }
+
   const props = {
     columns: columns,
-    data: data,
+    data: data?.data?.user,
     // isError: isError,
     // isFetching: isFetching,
     // isLoading: isFetching,

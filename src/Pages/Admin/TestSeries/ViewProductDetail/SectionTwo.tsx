@@ -290,11 +290,11 @@ const SectionTwo = ({
                             topic={setData?.t_name}
                             set={true}
                           />
-                          <DownloadIconButton
+                          {/* <DownloadIconButton
                             type="button"
                             name="Docx"
                             func={() => handleDownload(set.id)}
-                          />
+                          /> */}
 
                           <SwitchComp
                             checked={set.status === 1}

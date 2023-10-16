@@ -138,7 +138,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
     onSettled: (res) => {
       setSetData(res?.data.topic_questions);
       setOpen3(true);
-      // console.log(setData);
+      // console.log("muta", res?.data.topic_questions);
     },
   });
   // console.log(setData);
