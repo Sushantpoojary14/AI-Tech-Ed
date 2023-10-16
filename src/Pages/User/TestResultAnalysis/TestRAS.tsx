@@ -24,10 +24,7 @@ interface option {
   name: string;
   value: number;
 }
-const options: option[] = [
-  { name: "OC Online Trial test", value: 1 },
-  { name: "Selective Test", value: 2 },
-];
+
 
 const header = [
   "Sr. No",
@@ -39,38 +36,7 @@ const header = [
   "Time Taken(seconds)",
   "Real Time Difficulty Level",
 ];
-const tableData = [
-  {
-    id: 1,
-    name: "Reading",
-    Topic: "SOTT - I",
-    Correct_option: "A",
-    Result: "37/50",
-    Marks: "1/1",
-    Time_Taken: "00.45.00",
-    Total_Questions_Answered: "Easy",
-  },
-  {
-    id: 2,
-    name: "Thinking Skills",
-    Topic: "SOTT - I",
-    Correct_option: "A",
-    Result: "37/50",
-    Marks: "1/1",
-    Time_Taken: "00.45.00",
-    Level: "Easy",
-  },
-  {
-    id: 5,
-    name: "Reading",
-    Topic: "SOTT - I",
-    Correct_option: "A",
-    Result: "37/50",
-    Marks: "1/1",
-    Time_Taken: "00.45.00",
-    Level: "Easy",
-  },
-];
+
 
 type SetResult = {
   id: number;
@@ -83,6 +49,7 @@ type SetResult = {
   topic: string;
   correct_option: string;
   set_name: string;
+
 };
 
 const TestRAS = () => {
@@ -90,9 +57,12 @@ const TestRAS = () => {
   // const {user} = AppContext()
 
   const [questionID, setQuestionID] = useState("");
+  const [indexID, setIndexID] = useState(0);
   const [open, setOpen] = useState(false);
-  const handleOpen = (id: string) => {
+  const handleOpen = (id: string,index:any) => {
     setQuestionID(id);
+   
+    setIndexID(index)
     setOpen(true);
   };
 
@@ -103,10 +73,25 @@ const TestRAS = () => {
     },
   });
 
-  console.log(
-    data,
-  );
-
+  console.log(indexID);
+  let new_index: any;
+  if (data?.data.index.length != 0) {
+    let count = 1;
+    new_index = data?.data.index.map((item: number) => {
+      const start = count;
+      const element = [];
+      for (let i = 0; i < item; i++) {
+        element.push(count++);
+      }
+      const end = count == 1 ? count : count - 1;
+      return {
+        end: end,
+        start: start,
+        element: element,
+      };
+    });
+  }
+  console.log(new_index,indexID + 1);
   const columns = useMemo<MRT_ColumnDef<SetResult>[]>(
     () => [
       // {
@@ -124,6 +109,7 @@ const TestRAS = () => {
       //     align: "center",
       //   },
       // },
+    
       {
         accessorKey: "set_name",
         header: "Test Name",
@@ -184,7 +170,7 @@ const TestRAS = () => {
         accessorKey: "id",
         header: "",
         size: 100,
-        Cell: ({ cell }: any) => (
+        Cell: ({ cell }:any) => (
           <ArticleOutlinedIcon
             sx={{
               width: "25px",
@@ -192,7 +178,7 @@ const TestRAS = () => {
               color: "#3A9BDC",
               cursor: "pointer",
             }}
-            onClick={() => handleOpen(cell.getValue())} //cell.getValue()
+            onClick={() => handleOpen(cell.getValue(),cell.row.id)} //cell.getValue()
           />
         ),
         //   enableSorting: false,
@@ -223,7 +209,7 @@ const TestRAS = () => {
     // setPagination: setPagination,
     // setSorting: setSorting,
   };
-
+  const indexIDString = indexID?.toString(); 
   return (
     <>
       <Container maxWidth="lg">
@@ -253,6 +239,8 @@ const TestRAS = () => {
         setQuestionID={setQuestionID}
         open={open}
         id={questionID}
+        index={new_index}
+        indexID ={indexIDString}
       />
     </>
   );

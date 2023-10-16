@@ -149,6 +149,7 @@ const Exam_Section = () => {
     ["question-data"],
     async () => await tokenAxios.get(`/generate-question/${params.id}`)
   );
+  console.log(data);
 
   const time = data?.data?.timer
     ? new Date(Date.now() + parseFloat(data?.data?.timer) * 60 * 1000)
@@ -249,8 +250,11 @@ const Exam_Section = () => {
     if (count + 1 < questions.length)
       questions && paginate(questions[count + 1]?.id, count + 1);
   };
+  if (isLoading) {
+    return <LoadingBar />;
+  }
   return (
-    <Container maxWidth="xl" sx={{ height: "100vh" }}>
+    <Container maxWidth="xl" sx={{ height: "50px" }}>
       <Stack direction={"column"}>
         <Stack
           sx={{ width: "100%", my: "5px" }}
@@ -295,12 +299,14 @@ const Exam_Section = () => {
             count={count}
             mutation={updateAStatus}
             isLoading={isLoading}
+            index={data?.data.index}
             preventCopyPaste={preventCopyPaste}
           />
           <ExamSecondSection
             questions={questions}
             func={paginate}
             submit={SubmitTestData}
+           
           />
         </Stack>
         <Stack direction="row" spacing={2} marginTop={2}>

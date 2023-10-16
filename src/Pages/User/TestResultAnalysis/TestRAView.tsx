@@ -72,12 +72,13 @@ const TestRAView = () => {
   });
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{maxHeight:"100%"}}>
       <Stack
         direction="column"
         spacing={{ lg: 3, md: 0, sm: 0, xs: 0 }}
+        rowGap={5}
         // flexWrap="wrap"
-        sx={{ width: "100%" , my: "20px",}}
+        sx={{ width: "100%" , my: "20px",height:"100%"}}
       >
         <ViewFirstSection data={getUserTestResultQuery} />
         {/* <Stack direction="column" useFlexGap flexWrap="wrap"> */}

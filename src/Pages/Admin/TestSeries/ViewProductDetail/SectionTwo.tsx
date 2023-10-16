@@ -33,6 +33,7 @@ import AlertBox from "../../../../Components/Common/AlertBox";
 import EditTestSetModal from "../../../../Components/Model/EditTestSetModal";
 import { fetchAndReplaceImages } from "../../../../utils/docx";
 import { demoDoc } from "../../../../utils/test";
+import DownloadPDF from "../Components/PDF/DownloadPDF";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -273,20 +274,27 @@ const SectionTwo = ({
                             disabled={releaseStatus}
                           />
                           {/* <DownloadIconButton type="button" /> */}
-                          <PdfMaker
+                          {/* <PdfMaker
                             bol={true}
                             data={set?.questions}
                             randomG={true}
                             button={<DownloadIconButton type="button" />}
                             total={set?.questions?.length}
                             topic={set?.set_name}
+                          /> */}
+                          <DownloadPDF
+                            bol={true}
+                            data={set?.questions}
+                            randomG={true}
+                            total={set?.questions?.length}
+                            topic={setData?.t_name}
+                            set={true}
                           />
-
-                          <DownloadIconButton
+                          {/* <DownloadIconButton
                             type="button"
                             name="Docx"
                             func={() => handleDownload(set.id)}
-                          />
+                          /> */}
 
                           <SwitchComp
                             checked={set.status === 1}

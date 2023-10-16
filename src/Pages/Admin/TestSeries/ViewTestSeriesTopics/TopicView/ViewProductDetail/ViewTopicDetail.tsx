@@ -92,14 +92,14 @@ const ViewTopicDetail = () => {
   return (
     <>
       <AlertBox
-        name="Cannot Delete The Product"
+        name="Cannot Delete The Topic"
         type="error"
         bol={open}
         duration={6000}
         handleAlertBoxClose={handleAlertBoxClose}
       />
       <AlertBox
-        name="Successfully Deleted The Product"
+        name="Successfully Deleted The Topic"
         type="success"
         duration={6000}
         bol={open2}

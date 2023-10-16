@@ -68,7 +68,7 @@ const SecondSection = () => {
               lg: "auto auto auto",
               xs: "auto",
             },
-            justifyContent: "space-between",
+            columnGap:2,
             width: "100%",
           }}
         >

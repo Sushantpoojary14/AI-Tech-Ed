@@ -16,6 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import PdfMaker from "../../Pages/Admin/TestSeries/Components/PdfMaker";
 import { BButton, BButton2 } from "../Common/Button";
 import { fetchAndReplaceImagesTopic } from "../../utils/docx";
+import DownloadPDF from "../../Pages/Admin/TestSeries/Components/PDF/DownloadPDF";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -45,7 +46,7 @@ ModalProps) => {
   const { register, control, watch, reset } = useForm<FormValues>();
   const [setData, setSetData] = useState<any>(null);
   // console.log(watch("total_questions"));
-  // console.log(data);
+  console.log("muta", data);
   useEffect(() => {
     setSetData(null);
     reset({
@@ -53,9 +54,10 @@ ModalProps) => {
     });
   }, [open == false]);
 
-  useEffect(() => {
-    setSetData(data);
-  }, [watch("total_questions")]);
+  // useEffect(() => {
+  //   setSetData(data);
+  // }, [watch("total_questions")]);
+  console.log(data.get_question < 25);
 
   return (
     <Modal
@@ -111,18 +113,44 @@ ModalProps) => {
                       </MenuItem>
                       {/* <MenuItem value={5}>5</MenuItem> */}
                       <MenuItem value={15}>15</MenuItem>
-                      <MenuItem value={20}>20</MenuItem>
-                      <MenuItem value={25}>25</MenuItem>
-                      <MenuItem value={30}>30</MenuItem>
-                      <MenuItem value={50}>50</MenuItem>
+                      <MenuItem
+                        value={20}
+                        disabled={data.get_question.length < 20}
+                      >
+                        20
+                      </MenuItem>
+                      <MenuItem
+                        value={25}
+                        disabled={data.get_question.length < 25}
+                      >
+                        25
+                      </MenuItem>
+                      <MenuItem
+                        value={30}
+                        disabled={data.get_question.length < 30}
+                      >
+                        30
+                      </MenuItem>
+                      <MenuItem
+                        value={30}
+                        disabled={data.get_question.length < 35}
+                      >
+                        35
+                      </MenuItem>
+                      <MenuItem
+                        value={50}
+                        disabled={data.get_question.length < 50}
+                      >
+                        50
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 )}
               />
             </Stack>
-            {setData ? (
+            {watch("total_questions") != 0 ? (
               <Stack direction={"row"} justifyContent={"space-between"}>
-                <PdfMaker
+                {/* <PdfMaker
                   bol={!!setData}
                   data={setData?.get_question}
                   randomG={true}
@@ -135,8 +163,16 @@ ModalProps) => {
                   // }
                   total={watch("total_questions")}
                   topic={setData?.t_name}
+                /> */}
+                <DownloadPDF
+                  data={data?.get_question}
+                  randomG={true}
+                  total={watch("total_questions")}
+                  topic={data?.t_name}
+                  set={false}
+                  bol={false}
                 />
-                <BButton
+                {/* <BButton
                   type="button"
                   name="Download Docx"
                   // css={{ width: "100%" }}
@@ -146,7 +182,7 @@ ModalProps) => {
                       watch("total_questions")
                     )
                   }
-                />
+                /> */}
               </Stack>
             ) : (
               <Stack direction={"row"} justifyContent={"space-between"}>

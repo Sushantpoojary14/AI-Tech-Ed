@@ -200,7 +200,7 @@ const OButton2 = (props: props) => {
       type={props.type}
       disabled={props.disabled}
       sx={{
-        ...props.css,
+       
         backgroundColor: "#FA8128",
         borderRadius: "3px",
         height: "60px",
@@ -208,6 +208,7 @@ const OButton2 = (props: props) => {
         fontSize: "16px",
         fontWeight: 600,
         border: "1px solid #F0F0F0",
+        ...props.css,
       }}
       size="large"
       disableElevation
@@ -234,6 +235,7 @@ const BButton2 = (props: props) => {
         fontWeight: 600,
         border: "1px solid #FFFFFF",
         mx: "auto",
+        ...props.css,
       }}
       size="large"
       disableElevation

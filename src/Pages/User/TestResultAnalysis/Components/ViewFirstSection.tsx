@@ -86,14 +86,14 @@ const ViewFirstSection = ({ data }: any) => {
       <Card
         sx={{
           boxShadow: "6px 6px 20px 0px #808080",
-          mt: "15px",
+
           width: "100%",
           px: "20px",
         }}
       >
         <ParaText4
           text={`Set Name : ${result?.set_name}`}
-          css={{ textAlign: "center", fontWeight: 550, my: "10px", }}
+          css={{ textAlign: "center", fontWeight: 550, my: "10px" }}
         />
         {/* <Divider
           sx={{
@@ -106,14 +106,11 @@ const ViewFirstSection = ({ data }: any) => {
         /> */}
         <Stack
           sx={{
-            flexDirection: "row",
+            flexDirection: {sm:"row",xs:"column"},
             justifyContent: "space-around",
-            border:1,
+            border: 1,
           }}
-          
         >
-      
-        
           <Box flexBasis={"30%"} sx={{}}>
             {details
               ?.slice(0, Math.ceil(details.length / 2))
@@ -136,7 +133,7 @@ const ViewFirstSection = ({ data }: any) => {
               // borderRadius: "3px",
               // width: "12%",
 
-              border:1,
+              border: 1,
               // mx: "auto",
             }}
             orientation="horizontal"
@@ -161,15 +158,19 @@ const ViewFirstSection = ({ data }: any) => {
         <Stack
           direction={"row"}
           justifyContent={"end"}
-          sx={{ width: "80%" ,m:'auto',my:'15px'}}
+          sx={{ width: "80%", m: "auto", my: "15px" }}
           spacing={5}
         >
           <OButton
             name={getTopicMutation.isLoading ? "Loading..." : "Buy Topics"}
             func={getTopicMutation.mutate}
+            css={{ maxWidth: "50%" }}
           />
-          <Link to={`/user/Test-result-analysis/solution/${result?.id}`}>
-            <OButton name="View Solution" css={{ width: "170px" }} />
+          <Link
+            to={`/user/Test-result-analysis/solution/${result?.id}`}
+            style={{ maxWidth: "50%" }}
+          >
+            <OButton name="View Solution" css={{ width: "100%" }} />
           </Link>
         </Stack>
       </Card>

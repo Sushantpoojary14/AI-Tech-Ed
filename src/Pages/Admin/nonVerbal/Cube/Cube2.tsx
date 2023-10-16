@@ -111,7 +111,7 @@ const cube2 = async (index: number, questionRefs: any) => {
       justifyContent="center"
       alignItems="center"
       ref={questionRefs.current[index].optionRefs[0]}
-      sx={{ w: "30%", m: "auto", backgroundColor: "transparent" }}
+      sx={{ w: "100%", m: "auto", backgroundColor: "transparent" }}
     >
       <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
         <Grid item>
@@ -277,7 +277,7 @@ const cube2 = async (index: number, questionRefs: any) => {
       justifyContent="center"
       alignItems="center"
       ref={questionRefs.current[index].optionRefs[2]}
-      sx={{ w: "50%", m: "auto", backgroundColor: "transparent" }}
+      sx={{ w: "100%", m: "auto", backgroundColor: "transparent" }}
     >
       <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
         <Grid item>
@@ -360,7 +360,7 @@ const cube2 = async (index: number, questionRefs: any) => {
       justifyContent="center"
       alignItems="center"
       ref={questionRefs.current[index].optionRefs[3]}
-      sx={{ w: "50%", m: "auto", backgroundColor: "transparent" }}
+      sx={{ w: "100%", m: "auto", backgroundColor: "transparent" }}
     >
       <Grid container sx={{ w: "100%", m: "auto" }} columns={3}>
         <Grid item>

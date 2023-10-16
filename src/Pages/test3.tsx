@@ -1,54 +1,100 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import icons from '@fortawesome/free-solid-svg-icons'
-import * as Icons from "@fortawesome/free-solid-svg-icons";
-import { fas, faB } from "@fortawesome/free-solid-svg-icons";
-import { library } from "../../node_modules/@fortawesome/fontawesome-svg-core";
-import randomicon from "../utils/randomicon";
-library.add(fas);
-library.add(faB);
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { Button } from "@mui/material";
+import PaymentModal from "../Components/Model/PaymentModal";
 
-const test3 = () => {
-  // const iconList: any = Object.keys(Icons)
-    // .filter((key: any) => key !== "fas" && key !== "prefix")
-    // .map((icon: any) => Icons[icon]);
+const Checkout = () => {
+  const [show, setShow] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState("");
+  const [orderID, setOrderID] = useState(false);
 
-  //   library.add(...iconList);
-  // console.log(iconList[564]);
-  // const [icon, setIcon] = useState<any>(null);
+  // creates a paypal order
+  const createOrder = (data: any, actions: any) => {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            description: "Sunflower",
+            amount: {
+              currency_code: "USD",
+              value: 20,
+            },
+          },
+        ],
+      })
+      .then((orderID: any) => {
+        setOrderID(orderID);
+        return orderID;
+      });
+  };
 
-  const generateNewIcon = () => {
-    const iconTypes = ["address-book", "clock", "book"];
+  // check Approval
+  const onApprove = (data: any, actions: any) => {
+    return actions.order.capture().then(function (details: any) {
+      const { payer } = details;
+      setSuccess(true);
+    });
+  };
 
-    const iconType = iconTypes[Math.floor(Math.random() * iconTypes.length)];
-    // console.log(iconType);s
-    const allColor = ["red", "blue", "green"];
-    const color = allColor[Math.floor(Math.random() * allColor.length)];
+  //capture likely error
+  const onError = (data: any, actions: any) => {
+    alert("Payment Failed!!");
+    setErrorMessage("An Error occured with your payment ");
+  };
 
-    // setIcon({ type: iconType, color });
+  useEffect(() => {
+    if (success) {
+      alert("Payment successful!!");
+      console.log("Order successful . Your order id is--", orderID);
+    }
+  }, [success]);
+  const [open, setOpen] = useState<boolean>(!navigator.onLine);
+  const handleAlertBoxOpen = () => {
+    setOpen(true);
+  };
+
+  const handleAlertBoxClose = () => {
+    setOpen(false);
   };
 
   return (
-    <div>
-      {/* <button onClick={() => randomicon()}>Generate New Icon</button>
-
-      {icon && (
-        <i
-          style={{
-            color: icon.color,
-            width: "100px",
-            height: "100px",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <FontAwesomeIcon icon={icon.type} color={icon.color} />
-        </i>
-      )} */}
-    </div>
+    <>
+      <Button onClick={handleAlertBoxOpen}>Open</Button>
+      {/* <PaymentModal open={open} handleClose={handleAlertBoxClose}/> */}
+    </>
+    // <div>
+    //     <div className="wrapper">
+    //         <div className="product-img">
+    //             <img
+    //                 src="https://cdn.pixabay.com/photo/2021/08/15/06/54/sunflower-6546993_1280.jpg"
+    //                 alt="SunFlower"
+    //                 height="320"
+    //                 width="300" />
+    //         </div>
+    //         <div className="product-info">
+    //             <div className="product-text">
+    //                 <h1>Sunflower</h1>
+    //             </div>
+    //             <div className="product-price-btn">
+    //                 <p>$20</p>
+    //                 <br></br>
+    //                 <button className='buy-btn' type="submit" onClick={() => setShow(true)}>
+    //                     Buy now
+    //                 </button>
+    //             </div>
+    //         </div>
+    //     </div>
+    //     <br></br>
+    //     {show ? (
+    //         <PayPalButtons
+    //             style={{ layout: "vertical" }}
+    //             createOrder={createOrder}
+    //             onApprove={onApprove}
+    //         />
+    //     ) : null}
+    // </div>
   );
 };
 
-export default test3;
+export default Checkout;

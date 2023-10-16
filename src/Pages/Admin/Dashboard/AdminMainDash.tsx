@@ -23,8 +23,8 @@ const AdminMainDash = () => {
         // minHeight: "100vh",
         // display: "flex",
         // flexDirection: "column",
-        border: 1,
-        height: "85vh",
+        // border: 1,
+        // height: "85vh",
         backgroundColor: "#F5F5F5",
       }}
       disableGutters
@@ -32,15 +32,15 @@ const AdminMainDash = () => {
       <TabContext value={value}>
         <Box sx={{ borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="Tabs">
-            <Tab label="SOTT" value="1" />
-            <Tab label="OTT" value="2" />
+            <Tab label="OTT" value="1" />
+            <Tab label="SOTT" value="2" />
           </TabList>
         </Box>
         <TabPanel value="1">
-          <SOTT />
+          <OTT value={value} />
         </TabPanel>
         <TabPanel value="2">
-          <OTT />
+          <SOTT value={value} />
         </TabPanel>
       </TabContext>
     </Container>

@@ -15,7 +15,7 @@ interface MainContextProps {
 interface ContextValue {
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  addToCart: (id: number) => void;
+  addToCart: (id: number) => number;
   RAllFromCart: () => void;
   cart: Array<number>;
   setCart: React.Dispatch<React.SetStateAction<Array<number>>>;
@@ -28,7 +28,7 @@ interface ContextValue {
 const defaultValue: ContextValue = {
   isLoading: false,
   setIsLoading: () => {},
-  addToCart: (id: number) => {},
+  addToCart: (id: number) => 0,
   RAllFromCart: () => {},
   cart: [],
   setCart: () => {},
@@ -125,6 +125,7 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
       });
     }
     localStorage.setItem("product_id", JSON.stringify(updatedCart));
+    return 1;
   };
 
   const addToCartFL = (id: number) => {

@@ -30,8 +30,9 @@ const ViewThirdSection = ({ data }: any) => {
         boxShadow: "6px 6px 20px 0px #808080",
         // my: "20px",
         width:  "100%" ,
-        height: { lg: "auto", md: "286px", sm: "286px", xs: "286px" },
+        // height: ?
         p: "14px",
+        
       }}
     >
       <ParaText3 text="Time Taken per Question" />
@@ -41,6 +42,7 @@ const ViewThirdSection = ({ data }: any) => {
           borderWidth: "3px",
           borderRadius: "3px",
           width: "200px",
+         
         }}
       />
       <Box

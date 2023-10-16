@@ -84,6 +84,7 @@ type Results = {
   total_marks: number;
   total_answered: number;
   q_id: number;
+  package_name:string;
   set_name: string;
 };
 
@@ -129,6 +130,11 @@ const MainTestRA = () => {
       //   },
       // },
       {
+        accessorKey: "package_name",
+        header: "Package Name",
+        size: 200,
+      },
+      {
         accessorKey: "set_name",
         header: "Test Name",
         size: 200,
@@ -136,13 +142,13 @@ const MainTestRA = () => {
       {
         accessorKey: "start_date",
         header: "Start Date",
-        size: 150,
+        size: 100,
       },
 
       {
         accessorKey: "end_date",
         header: "End Date",
-        size: 150,
+        size: 100,
 
         // muiTableHeadCellProps: {
         //   align: "center",
@@ -154,7 +160,7 @@ const MainTestRA = () => {
       {
         accessorKey: "time_taken",
         header: "Total Time Taken",
-        size: 150,
+        size: 50,
         muiTableHeadCellProps: {
           align: "center",
         },
@@ -165,7 +171,7 @@ const MainTestRA = () => {
       {
         accessorKey: "total_answered",
         header: "Total Answered",
-        size: 150,
+        size: 50,
         muiTableHeadCellProps: {
           align: "center",
         },
@@ -176,7 +182,7 @@ const MainTestRA = () => {
       {
         accessorKey: "total_marks",
         header: "Total Marks",
-        size: 150,
+        size: 50,
         muiTableHeadCellProps: {
           align: "center",
         },
@@ -187,7 +193,7 @@ const MainTestRA = () => {
       {
         accessorKey: "percentage",
         header: "Percentage",
-        size: 150,
+        size: 50,
         muiTableHeadCellProps: {
           align: "center",
         },
@@ -198,7 +204,7 @@ const MainTestRA = () => {
       {
         accessorKey: "id",
         header: "",
-        size: 200,
+        size: 50,
         Cell: ({ cell, row }: any) => (
           <Link to={`view/${cell.getValue()}`}>
             <FindInPageOutlinedIcon

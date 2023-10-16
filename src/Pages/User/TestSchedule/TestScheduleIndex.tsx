@@ -7,7 +7,7 @@ const TestScheduleIndex = () => {
   return (
     <Routes>
       <Route index element={<MainTestSchedule />} />
-      <Route path="/Test-section/:id" element={<TestSeries />} />
+      
       
     </Routes>
   );
