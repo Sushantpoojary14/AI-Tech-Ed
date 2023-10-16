@@ -112,7 +112,14 @@ ModalProps) => {
                         <em>None</em>
                       </MenuItem>
                       {/* <MenuItem value={5}>5</MenuItem> */}
-                      <MenuItem value={15}>15</MenuItem>
+                      <MenuItem
+                        value={10}
+                   
+                      ></MenuItem>
+                         <MenuItem
+                        value={15}
+                        disabled={data?.get_question.length < 15}
+                      ></MenuItem>
                       <MenuItem
                         value={20}
                         disabled={data?.get_question.length < 20}
