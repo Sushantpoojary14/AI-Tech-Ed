@@ -257,7 +257,7 @@ const MyDocument = ({
     if (response.status === 200) {
       console.log(response);
       return response.data;
-      
+
       // const blob = response.data;
       // const base64Image = await blobToBase64(blob);
       // return base64Image;
@@ -293,10 +293,10 @@ const MyDocument = ({
           const option4Image = question.option_4;
 
           updatedQuestion.option_1 = await fetchAndConvertImage(option1Image);
-          updatedQuestion.option_2 =  await fetchAndConvertImage(option2Image);
+          updatedQuestion.option_2 = await fetchAndConvertImage(option2Image);
           updatedQuestion.option_3 = await fetchAndConvertImage(option3Image);
           updatedQuestion.option_4 = await fetchAndConvertImage(option4Image);
-           
+
           updatedQuestion.images = await Promise.all(
             images.map(async (image: any) => {
               const imageUrl =
@@ -319,8 +319,6 @@ const MyDocument = ({
           // console.log(base64Images);
 
           // Replace the image URLs with Base64-encoded images in the question object
-         
-   
 
           return updatedQuestion;
         } catch (error) {

@@ -46,7 +46,7 @@ ModalProps) => {
   const { register, control, watch, reset } = useForm<FormValues>();
   const [setData, setSetData] = useState<any>(null);
   // console.log(watch("total_questions"));
-  // console.log(data);
+  console.log("muta", data);
   useEffect(() => {
     setSetData(null);
     reset({
@@ -172,7 +172,7 @@ ModalProps) => {
                   set={false}
                   bol={false}
                 />
-                <BButton
+                {/* <BButton
                   type="button"
                   name="Download Docx"
                   // css={{ width: "100%" }}
@@ -182,7 +182,7 @@ ModalProps) => {
                       watch("total_questions")
                     )
                   }
-                />
+                /> */}
               </Stack>
             ) : (
               <Stack direction={"row"} justifyContent={"space-between"}>

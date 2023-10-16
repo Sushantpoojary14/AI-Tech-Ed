@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../../Context/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import UseGet from "../../../Hooks/UseGet";
@@ -15,6 +15,7 @@ import {
   Header4,
 } from "../../../Components/Common/HeaderText";
 import { Link } from "react-router-dom";
+import adminTokenAxios from "../../../Hooks/AdminTokenAxios";
 
 interface Detail {
   title: string;
@@ -24,13 +25,15 @@ interface Detail {
 const StudentDetails = () => {
   const { admin } = AppContext();
   const { studentid } = useParams();
-
+  const navigate = useNavigate();
   const { dataSubmit } = UserContext();
 
   const { isLoading, data, refetch } = useQuery({
-    queryKey: ["adminData", dataSubmit],
-    queryFn: UseGet("https://dummyjson.com/users/3"),
+    queryKey: ["show-student-details", studentid],
+    queryFn: () =>
+      adminTokenAxios.get(`admin/show-student-details/${studentid}`),
   });
+  console.log("ID", data?.data);
 
   if (isLoading) {
     return <LoadingBar />;
@@ -45,20 +48,7 @@ const StudentDetails = () => {
   //     { title: "Total Test Answered", data: data.phone },
   //     { title: "Number Of Completed Test", data: data.phone },
   //   ];
-  const studentData = {
-    id: "12345",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "123-456-7890",
-    birthDate: "1990-01-01",
-    state: "California",
-    city: "Los Angeles",
-    totalTestsAnswered: 50,
-    completedTests: 35,
-    incompleteTests: 5,
-    missedTests: 5,
-    remainingTests: 5,
-  };
+
   return (
     <Container maxWidth="lg">
       {/* <ProfileComponent admin={admin} details={details} /> */}
@@ -72,19 +62,23 @@ const StudentDetails = () => {
         {/* <Typography variant="h6">Student Details</Typography> */}
         <Header1 header="Student Details" />
         <Stack direction="row" spacing={1}>
-          <Link to={`testanswered`}>
+          {/* <Link to={`testanswered`}>
             <WButton name="View Test Answered" css={{ height: "3rem" }} />
-          </Link>
+          </Link> */}
           {/* <Button variant="outlined" color="primary">
             View Test Answered
           </Button> */}
           {/* <Button variant="outlined" color="primary">
             Back
           </Button> */}
-          <BButton name="Back" css={{ height: "3rem" }} />
+          <BButton
+            name="Back"
+            css={{ height: "3rem" }}
+            func={() => navigate(-1)}
+          />
         </Stack>
       </Stack>
-      <Details student={studentData} />
+      <Details data={data?.data} />
     </Container>
   );
 };

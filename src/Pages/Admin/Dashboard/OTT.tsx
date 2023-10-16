@@ -4,8 +4,12 @@ import UseGet from "../../../Hooks/UseGet";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 
 import SubData from "./SubData";
+import adminTokenAxios from "../../../Hooks/AdminTokenAxios";
+interface Props {
+  value: string;
+}
 
-const OTT = () => {
+const OTT = ({ value }: Props) => {
   interface Option {
     name: string;
     value: number;
@@ -52,8 +56,8 @@ const OTT = () => {
   const [selectVal, setSelectVal] = useState<number>(1);
 
   const { isLoading, data, refetch } = useQuery({
-    queryKey: ["selectTest", selectVal],
-    queryFn: UseGet("https://dummyjson.com/products?limit=6"),
+    queryKey: ["OC-Data", value],
+    queryFn: () => adminTokenAxios.get(`admin/show-details/${value}`),
   });
 
   if (isLoading) {
@@ -68,6 +72,8 @@ const OTT = () => {
       tableData={tableData}
       studentPerformance={studentPerformance}
       header2={header2}
+      data={data?.data}
+      name="OC"
     />
   );
 };
