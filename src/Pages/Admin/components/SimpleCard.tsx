@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
 
 interface Props {
   title: string;
@@ -14,18 +14,23 @@ const SimpleCard = ({ title, subtitle }: Props) => {
         // height: "10rem",
         border: "1px solid lightgray",
         boxShadow: "2px 2px 6px rgba(0, 0, 0, 0.1)",
-        p: 2,
+        py: 2,
       }}
     >
-      <CardContent>
-        <Box textAlign="center">
-          <Typography variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography mt={1} variant="body1" color="textSecondary">
+      <CardContent >
+        <Stack textAlign="center" rowGap={2} >
+          <Typography
+            mt={1}
+            variant="h4"
+            color="textSecondary"
+            fontWeight={600}
+          >
             {subtitle}
           </Typography>
-        </Box>
+          <Typography variant="h6" component="div" fontWeight={600}>
+            {title}
+          </Typography>
+        </Stack>
       </CardContent>
     </Card>
   );

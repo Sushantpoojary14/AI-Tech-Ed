@@ -71,15 +71,15 @@ const SubData = ({
                 justifyContent="center"
               >
                 <SimpleCard
-                  title={`Total ${name} Packages`}
+                  title={`Total Packages`}
                   subtitle={data?.product_count}
                 />
                 <SimpleCard
-                  title={`${name} Packages Purchases`}
+                  title={`Total Package Purchases`}
                   subtitle={data?.purchase_count}
                 />
                 <SimpleCard
-                  title={`Total ${name} Topics`}
+                  title={`Total Topics`}
                   subtitle={data?.topic_count}
                 />
                 <SimpleCard title="Total Users" subtitle={data?.user_count} />

@@ -56,7 +56,7 @@ const Details = ({ data }: StudentDetailProps) => {
     { label: "Remaining Tests:", value: data.Remaining_test },
   ];
   return (
-    <Card elevation={3}>
+    <Card elevation={3} sx={{paddingY:"20px"}}>
       <CardContent>
         <Grid paddingLeft={4} container spacing={2}>
           {fields.map((field) => (
