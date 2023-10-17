@@ -142,7 +142,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
       // console.log("muta", res?.data.topic_questions);
     },
   });
-  // console.log(getTopicQuestion.data?.data.topic_questions);
+  console.log(getTopicQuestion.data);
 
   const columns = useMemo<MRT_ColumnDef<topicList>[]>(
     //column definitions...

@@ -3,7 +3,7 @@ import randomicon from "../../../../utils/randomicon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconName, library } from "@fortawesome/fontawesome-svg-core";
 import { faB, fas } from "@fortawesome/free-solid-svg-icons";
-import { ParaText1 } from "../../../../Components/Common/ParaText";
+import { ParaText1, ParaText4 } from "../../../../Components/Common/ParaText";
 
 library.add(fas);
 library.add(faB);
@@ -170,7 +170,7 @@ const cube5 = async (index: number, questionRefs: any) => {
       ref={questionRefs.current[index].questionRef}
       flexDirection={"row"}
       justifyContent={"space-between"}
-      maxWidth={"460px"}
+      maxWidth={"480px"}
       maxHeight={"437px"}
       sx={{ backgroundColor: "transparent" }}
     >
@@ -198,7 +198,7 @@ const cube5 = async (index: number, questionRefs: any) => {
             />
           </div>
         </div>
-        <ParaText1 text={"(i)"} css={{ ml: "40px" }} />
+        <ParaText4 text={"(i)"} css={{ ml: "40px" ,fontWeight:700}} />
       </Stack>
 
       <Stack>
@@ -225,7 +225,7 @@ const cube5 = async (index: number, questionRefs: any) => {
             />
           </div>
         </div>
-        <ParaText1 text={"(ii)"} css={{ ml: "40px" }} />
+        <ParaText4 text={"(ii)"} css={{ ml: "40px" ,fontWeight:700}} />
       </Stack>
     </Stack>
   );
