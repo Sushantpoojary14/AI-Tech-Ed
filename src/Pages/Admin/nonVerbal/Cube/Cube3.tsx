@@ -2,9 +2,9 @@ import React from "react";
 import { Grid, Paper } from "@mui/material";
 import { fas, faB } from "@fortawesome/free-solid-svg-icons";
 import { Icon, IconName, library } from "@fortawesome/fontawesome-svg-core";
-import { Icon, IconName, library } from "@fortawesome/fontawesome-svg-core";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ParaText1 } from "../../../../Components/Common/ParaText";
+
 import { ParaText1 } from "../../../../Components/Common/ParaText";
 library.add(fas);
 library.add(faB);
