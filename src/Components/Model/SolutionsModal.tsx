@@ -106,7 +106,7 @@ export default function SolutionsModal({
   const index_data:any = index?.find((item: any) =>
     item.element.includes(parseInt(indexID) + 1)
   );
-  // console.log(indexID + 1);
+  console.log(index);
 
   return (
     <div>
@@ -172,7 +172,7 @@ export default function SolutionsModal({
                         textAlign: "center",
                       }}
                     />
-                    {index?.length != 0 && (
+                    {index && index?.length != 0 && (
                       <Stack spacing={2} marginBottom={3}>
                         <ParaText4
                           text={`${index_data?.start} - ${index_data?.end}): For questions ${index_data?.start} - ${index_data?.end} choose the option (A,B,C or D) which think the best answers the question`}
@@ -331,7 +331,7 @@ export default function SolutionsModal({
                           value="B"
                           checked={qData2?.test_answer === "B"}
                           control={<Radio readOnly />}
-                          label={`B. ${
+                          label={`${
                             qData?.option_1.endsWith(
                               ".png" || ".jpeg" || ".jpg"
                             )
@@ -355,7 +355,7 @@ export default function SolutionsModal({
                           value="C"
                           checked={qData2?.test_answer === "C"}
                           control={<Radio readOnly />}
-                          label={`C.  ${
+                          label={`${
                             qData?.option_1.endsWith(
                               ".png" || ".jpeg" || ".jpg"
                             )
@@ -379,7 +379,7 @@ export default function SolutionsModal({
                           value="D"
                           checked={qData2?.test_answer === "D"}
                           control={<Radio readOnly />}
-                          label={`D. ${
+                          label={`${
                             qData?.option_1.endsWith(
                               ".png" || ".jpeg" || ".jpg"
                             )

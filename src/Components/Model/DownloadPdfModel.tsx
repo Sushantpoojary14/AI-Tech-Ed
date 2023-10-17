@@ -57,7 +57,7 @@ ModalProps) => {
   // useEffect(() => {
   //   setSetData(data);
   // }, [watch("total_questions")]);
-  console.log(data?.get_question < 25);
+  // console.log(data?.get_question < 25);
 
   return (
     <Modal
@@ -115,7 +115,7 @@ ModalProps) => {
                       <MenuItem
                         value={10}
                    
-                      ></MenuItem>
+                      >10</MenuItem>
                          <MenuItem
                         value={15}
                         disabled={data?.get_question.length < 15}
@@ -194,7 +194,7 @@ ModalProps) => {
             ) : (
               <Stack direction={"row"} justifyContent={"space-between"}>
                 <BButton disabled={true} type="button" name="Download PDF" />
-                <BButton disabled={true} type="button" name="Download Docx" />
+                {/* <BButton disabled={true} type="button" name="Download Docx" /> */}
               </Stack>
             )}
           </Stack>

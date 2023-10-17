@@ -111,11 +111,11 @@ const Cube3 = (index: number, questionRefs: any): any => {
       container
       justifyContent="center"
       alignItems="center"
-      maxWidth={"460px"}
+      maxWidth={"480px"}
       // maxHeight={"437px"}
       ref={questionRefs.current[index].questionRef}
     >
-      <Grid item sx={{ w: "50%", m: "auto", backgroundColor: "transparent" }}>
+      <Grid item sx={{ w: "60%", m: "auto", backgroundColor: "transparent" }}>
         {eArray.slice(0, row).map((rowItem, rowIndex) => {
           // console.log(rowIndex * col, (rowIndex + 1) * col);
           return (

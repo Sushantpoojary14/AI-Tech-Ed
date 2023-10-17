@@ -73,7 +73,7 @@ const TestRAS = () => {
     },
   });
 
-  console.log(indexID);
+  // console.log(indexID);
   let new_index: any;
   if (data?.data.index.length != 0) {
     let count = 1;
@@ -91,7 +91,7 @@ const TestRAS = () => {
       };
     });
   }
-  console.log(new_index,indexID + 1);
+  console.log(new_index);
   const columns = useMemo<MRT_ColumnDef<SetResult>[]>(
     () => [
       // {

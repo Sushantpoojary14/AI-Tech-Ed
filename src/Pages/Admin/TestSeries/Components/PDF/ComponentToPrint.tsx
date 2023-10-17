@@ -78,12 +78,12 @@ const styles = {
     textAlign: "center" as const,
   },
   image: {
-    width: "100px",
-    height: "100px",
+    maxWidth: "150px",
+    height: "110px",
   },
   optionImage: {
-    width: "60px",
-    height: "60px",
+    width: "100px",
+    height: "100px",
     marginBottom: 5,
     marginLeft: 5,
   },

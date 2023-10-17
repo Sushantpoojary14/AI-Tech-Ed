@@ -117,7 +117,6 @@ const cube2 = async (index: number, questionRefs: any) => {
         <Grid item>
           <Paper style={TBox}></Paper>
         </Grid>
-
         <Grid item>
           <Paper style={DBox}>
             <FontAwesomeIcon

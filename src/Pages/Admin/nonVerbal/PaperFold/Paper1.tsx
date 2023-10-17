@@ -402,7 +402,7 @@ const Paper1 = async (index: number, questionRefs: any) => {
       flexDirection={"row"}
       columnGap={"2px"}
       // gridColumn={"auto auto auto"}
-      maxWidth={"500px"}
+      maxWidth={"100%"}
     >
       <Stack>
         <Box border={"1px solid #000000"} sx={{ ...outerSquare }}>

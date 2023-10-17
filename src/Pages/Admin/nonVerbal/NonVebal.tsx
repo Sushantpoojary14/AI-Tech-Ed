@@ -324,7 +324,7 @@ const NonVebal = () => {
                 <Stack
                   direction={"row"}
                   margin={"auto"}
-                  width={"90%"}
+                  width={"100%"}
                   marginY={"15px"}
                   flexWrap={{ md: "nowrap", sm: "wrap" }}
                   columnGap={"20px"}
@@ -332,8 +332,8 @@ const NonVebal = () => {
                 >
                   {item2?.options?.map((item3: any, key3: number) => (
                     <>
-                      <Box key={key3}>
-                        {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
+                      <Box key={key3} width={"100%"}>
+                        {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}
                         {item3}
                       </Box>
                     </>
