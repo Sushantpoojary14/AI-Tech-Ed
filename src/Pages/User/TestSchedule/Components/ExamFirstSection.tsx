@@ -198,7 +198,7 @@ const ExamFirstSection = (props: props) => {
               onCopy={(e) => props.preventCopyPaste(e)}
             >
               <Stack>
-                {props.index?.length != 0 && (
+                {props.index && props.index?.length != 0 && (
                   <Stack spacing={2} marginBottom={3}>
                     <ParaText4
                       text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}

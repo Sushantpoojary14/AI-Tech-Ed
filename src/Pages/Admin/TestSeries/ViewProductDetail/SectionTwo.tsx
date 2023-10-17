@@ -116,7 +116,7 @@ const SectionTwo = ({
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-  console.log(sets);
+  // console.log(sets);
 
   const deleteSetMU = useMutation({
     mutationFn: async (id: number) => {
@@ -154,7 +154,8 @@ const SectionTwo = ({
     //   }
     // },
   });
-
+  
+  
   const handleDownload = (id: number) => {
     getSetQuestion.mutate(id);
   };
@@ -289,6 +290,7 @@ const SectionTwo = ({
                             total={set?.questions?.length}
                             topic={setData?.t_name}
                             set={true}
+                            index={set?.index}
                           />
                           {/* <DownloadIconButton
                             type="button"

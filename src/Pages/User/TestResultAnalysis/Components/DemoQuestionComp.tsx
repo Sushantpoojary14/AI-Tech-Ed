@@ -227,11 +227,25 @@ const DemoQuestionComp = ({ questions,total_questions }: any) => {
                   checked={userAnswers[currentQuestionIndex] === option}
                   onChange={handleAnswerChange}
                 />
-                {
+               {questions[currentQuestionIndex][
+                  "option_" + option.toLowerCase()
+                ].endsWith(".png" || ".jpeg" || ".jpg") ? (
+                  <img
+                    src={
+                      import.meta.env.VITE_IMAGE_URL +
+                      questions[currentQuestionIndex][
+                        "option_" + option.toLowerCase()
+                      ]
+                    }
+                    alt="Image"
+                  />
+                ) : (
                   questions[currentQuestionIndex][
                     "option_" + option.toLowerCase()
                   ]
-                }
+                )}
+             
+       
               </div>
             ))}
           </StyledOptions>

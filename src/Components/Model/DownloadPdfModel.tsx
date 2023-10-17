@@ -57,7 +57,7 @@ ModalProps) => {
   // useEffect(() => {
   //   setSetData(data);
   // }, [watch("total_questions")]);
-  console.log(data?.topic_questions);
+  console.log(data?.index);
 let count = data?.topic_questions.get_question
   return (
     <Modal
@@ -178,6 +178,7 @@ let count = data?.topic_questions.get_question
                   topic={data?.topic_questions.topic}
                   set={false}
                   bol={false}
+                  index={data?.index}
                 />
                 {/* <BButton
                   type="button"
