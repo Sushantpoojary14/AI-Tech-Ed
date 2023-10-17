@@ -142,8 +142,9 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
       // console.log("muta", res?.data.topic_questions);
     },
   });
-  console.log(getTopicQuestion.data);
+  console.log(getTopicQuestion.data?.data.index);
 
+  
   const columns = useMemo<MRT_ColumnDef<topicList>[]>(
     //column definitions...
     () => [
@@ -231,7 +232,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
       <DownloadPdfModel
         open={open3}
         handleClose={handleClose3}
-        data={getTopicQuestion.data?.data.topic_questions}
+        data={getTopicQuestion.data?.data}
       />
     </>
   );
