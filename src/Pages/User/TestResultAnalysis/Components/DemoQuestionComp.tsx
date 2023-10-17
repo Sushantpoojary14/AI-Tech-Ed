@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import {
   Typography,
   Radio,
@@ -81,7 +81,7 @@ const StyledButton = styled(Button)`
 type FormValues = {
   total_questions: number;
 };
-const DemoQuestionComp = ({ questions,total_questions }: any) => {
+const DemoQuestionComp = ({ questions, total_questions }: any) => {
   const [setData, setSetData] = useState<any>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
@@ -151,8 +151,8 @@ const DemoQuestionComp = ({ questions,total_questions }: any) => {
           <Typography variant="body1">
             Your Score: {calculateScore()} out of {questions.length}
           </Typography> */}
-          <StyledStack flexDirection={"column"} padding={10} spacing={2} >
-            <Stack spacing={1}  width={340}>
+          <StyledStack flexDirection={"column"} padding={10} spacing={2}>
+            <Stack spacing={1} width={340}>
               <FormLabel
                 sx={{ fontWeight: "900", fontSize: "1.1rem" }}
                 id="demo-controlled-open-select-label"
@@ -227,11 +227,23 @@ const DemoQuestionComp = ({ questions,total_questions }: any) => {
                   checked={userAnswers[currentQuestionIndex] === option}
                   onChange={handleAnswerChange}
                 />
-                {
+                {questions[currentQuestionIndex][
+                  "option_" + option.toLowerCase()
+                ].endsWith(".png" || ".jpeg" || ".jpg") ? (
+                  <img
+                    src={
+                      import.meta.env.VITE_IMAGE_URL +
+                      questions[currentQuestionIndex][
+                        "option_" + option.toLowerCase()
+                      ]
+                    }
+                    alt="Image"
+                  />
+                ) : (
                   questions[currentQuestionIndex][
                     "option_" + option.toLowerCase()
                   ]
-                }
+                )}
               </div>
             ))}
           </StyledOptions>

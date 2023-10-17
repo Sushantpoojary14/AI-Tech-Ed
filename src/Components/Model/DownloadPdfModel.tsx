@@ -57,7 +57,7 @@ ModalProps) => {
   // useEffect(() => {
   //   setSetData(data);
   // }, [watch("total_questions")]);
-  console.log(data.get_question < 25);
+  console.log(data?.get_question < 25);
 
   return (
     <Modal
@@ -115,31 +115,31 @@ ModalProps) => {
                       <MenuItem value={15}>15</MenuItem>
                       <MenuItem
                         value={20}
-                        disabled={data.get_question.length < 20}
+                        disabled={data?.get_question.length < 20}
                       >
                         20
                       </MenuItem>
                       <MenuItem
                         value={25}
-                        disabled={data.get_question.length < 25}
+                        disabled={data?.get_question.length < 25}
                       >
                         25
                       </MenuItem>
                       <MenuItem
                         value={30}
-                        disabled={data.get_question.length < 30}
+                        disabled={data?.get_question.length < 30}
                       >
                         30
                       </MenuItem>
                       <MenuItem
                         value={30}
-                        disabled={data.get_question.length < 35}
+                        disabled={data?.get_question.length < 35}
                       >
                         35
                       </MenuItem>
                       <MenuItem
                         value={50}
-                        disabled={data.get_question.length < 50}
+                        disabled={data?.get_question.length < 50}
                       >
                         50
                       </MenuItem>

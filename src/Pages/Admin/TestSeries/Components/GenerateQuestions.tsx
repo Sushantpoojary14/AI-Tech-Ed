@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi } from "openai";
 
 import Test from "../../../../Test";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import {  Pagination, Stack } from "@mui/material";
+import { Pagination, Stack } from "@mui/material";
 import { BButton2 } from "../../../../Components/Common/Button";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import PdfMaker from "./PdfMaker";
@@ -565,7 +565,7 @@ const GenerateQuestions = ({
 
         // console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
-          model: "gpt-3.5-turbo-16k",
+          model: "gpt-4", //"gpt-3.5-turbo-16k",
           messages: [{ role: "user", content: query }],
         });
 
@@ -622,7 +622,6 @@ const GenerateQuestions = ({
           let count: number = 1;
 
           maleNames.forEach((search: string) => {
-          
             const caps = search.toUpperCase();
             let match = data.find(
               (word: string) => word.toUpperCase() === caps
@@ -652,8 +651,6 @@ const GenerateQuestions = ({
             return count == 3;
           });
           femaleNames.forEach((search: string) => {
-          
-            
             const caps = search.toUpperCase();
             const match = data.find(
               (word: string) => word.replace(/:/g, "").toUpperCase() === caps
