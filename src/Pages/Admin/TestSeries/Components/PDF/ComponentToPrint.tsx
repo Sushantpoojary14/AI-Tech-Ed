@@ -172,10 +172,10 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                         <>
                           {item.Paragraph && (
                             <Stack flexDirection={"row"} columnGap={1}>
-                              <Typography sx={styles.mainText} className="">{`${key + 1}: `}</Typography>
-                              <Typography>  
-                                {` ${item.Paragraph}`}
-                              </Typography>
+                              <Typography sx={styles.mainText} className="">{`${
+                                key + 1
+                              }: `}</Typography>
+                              <Typography>{` ${item.Paragraph}`}</Typography>
                             </Stack>
                           )}
                           {item.paragraph && item?.question_image && (
@@ -197,20 +197,21 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                             </div>
                           )}
                           {item.Conversation && (
-                            <Typography sx={{my:"10px"}}>
+                            <Typography sx={{ my: "10px" }}>
                               {`${item.Conversation}`}
                             </Typography>
                           )}
                           {item.Conversation || item.Paragraph ? (
-                            <Typography sx={{mt:"10px",mb:"20px",fontSize:"16px"}}>{`${item.Question}`}</Typography>
+                            <Typography
+                              sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
+                            >{`${item.Question}`}</Typography>
                           ) : (
                             <Stack flexDirection={"row"} columnGap={1}>
-                            <Typography sx={styles.mainText} className="">{`${key + 1}: `}</Typography>
-                            <Typography>  
-                              {` ${item.Question}`}
-                            </Typography>
-                          </Stack>
-                         
+                              <Typography sx={styles.mainText} className="">{`${
+                                key + 1
+                              }: `}</Typography>
+                              <Typography>{` ${item.Question}`}</Typography>
+                            </Stack>
                           )}
                           {!item.paragraph && item?.question_image && (
                             <div>
@@ -279,9 +280,9 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                       ) : (
                         <>
                           {item?.paragraph && (
-                            <p style={styles.paragraph}>
+                            <Typography sx={{ my: "10px" }}>
                               {`${key + 1}: ${item.paragraph}`}
-                            </p>
+                            </Typography>
                           )}
                           {item?.paragraph && item?.images && (
                             <div>
@@ -299,23 +300,25 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                               })}
                             </div>
                           )}
-                           {item.conversation && (
-                            <Typography sx={{my:"10px"}}>
+                          {item.conversation && (
+                            <Typography sx={{ my: "10px" }}>
                               {`${item.conversation}`}
                             </Typography>
                           )}
-                          
-                            {item.conversation || item.paragraph ? (
-                            <Typography sx={{mt:"10px",mb:"20px",fontSize:"16px"}}>{`${item.question}`}</Typography>
+
+                          {item.conversation || item.paragraph ? (
+                            <Typography
+                              sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
+                            >{`${item.question}`}</Typography>
                           ) : (
                             <Stack flexDirection={"row"} columnGap={1}>
-                            <Typography sx={styles.mainText} className="">{`${key + 1}: `}</Typography>
-                            <Typography>  
-                              {` ${item.question}`}
-                            </Typography>
-                          </Stack>
+                              <Typography sx={styles.mainText} className="">{`${
+                                key + 1
+                              }: `}</Typography>
+                              <Typography>{` ${item.question}`}</Typography>
+                            </Stack>
                           )}
-                      
+
                           {!item?.paragraph && item?.question_image && (
                             <div>
                               {item?.question_image?.map(
@@ -334,17 +337,22 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                               )}
                             </div>
                           )}
-                          { !!item?.paragraph && item?.question_image && (
+                          {!!item?.paragraph && item?.question_image && (
                             <Stack flexDirection={"row"} columnGap={16}>
-                              {item?.question_image?.map((item2: any, key: number) => {
-                                return (
-                                  <img
-                                    key={key}
-                                    style={styles.image}
-                                    src={import.meta.env.VITE_IMAGE_URL +  item2?.image_url}
-                                  />
-                                );
-                              })}
+                              {item?.question_image?.map(
+                                (item2: any, key: number) => {
+                                  return (
+                                    <img
+                                      key={key}
+                                      style={styles.image}
+                                      src={
+                                        import.meta.env.VITE_IMAGE_URL +
+                                        item2?.image_url
+                                      }
+                                    />
+                                  );
+                                }
+                              )}
                             </Stack>
                           )}
                           <div style={styles.optionContainer}>
