@@ -22,6 +22,7 @@ import {
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useMutation } from "@tanstack/react-query";
 import adminTokenAxios from "../../Hooks/AdminTokenAxios";
+import AlertBox from "../Common/AlertBox";
 
 const style = {
   position: "absolute" as "absolute",
@@ -52,9 +53,27 @@ type FormData = {
 };
 
 const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
-  const { register, control, handleSubmit } = useForm<FormData>();
+  const { register, control, handleSubmit, reset } = useForm<FormData>();
 
   const [multipleImages, setMultipleImages] = React.useState([]);
+  const [open1, setOpen1] = React.useState<boolean>(false);
+  const [open2, setOpen2] = React.useState<boolean>(false);
+
+  const handleAlertBoxOpen = () => {
+    setOpen1(true);
+  };
+
+  const handleAlertBoxClose = () => {
+    setOpen1(false);
+  };
+
+  const handleAlertBoxOpen2 = () => {
+    setOpen2(true);
+  };
+
+  const handleAlertBoxClose2 = () => {
+    setOpen2(false);
+  };
   // Functions to preview multiple images
   const changeMultipleFiles = (e: any) => {
     if (e.target.files) {
@@ -79,13 +98,15 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
     },
     onError: (error: any) => {
       console.error("Error creating user:", error.response?.data);
+      handleAlertBoxOpen2();
     },
     onSuccess: (res) => {
       if (res.status == 200) {
         // setData(res?.data?.data);
         // setCategory(res?.data?.tspc);
         // setOpen(true);
-        alert("Success");
+        handleAlertBoxOpen();
+        reset();
       } else {
         // handleAlertBoxOpen();
       }
@@ -113,6 +134,20 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
 
   return (
     <div>
+      <AlertBox
+        name="Successfully uploaded Images"
+        type="success"
+        bol={open1}
+        handleAlertBoxClose={handleAlertBoxClose}
+      />
+
+      <AlertBox
+        name="Please try again"
+        type="error"
+        bol={open2}
+        handleAlertBoxClose={handleAlertBoxClose2}
+      />
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
