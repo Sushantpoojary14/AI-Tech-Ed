@@ -33,7 +33,6 @@ interface ModalProps {
   handleClose: () => void;
   open: boolean;
   data: any;
-  cate_id: string | number;
 }
 type FormValues = {
   total_questions: number;
@@ -42,13 +41,12 @@ const DownloadPdfModel = ({
   open,
   handleClose,
   data,
-  cate_id,
 }: //   handleSubmit,
 ModalProps) => {
   const { register, control, watch, reset } = useForm<FormValues>();
   const [setData, setSetData] = useState<any>(null);
   // console.log(watch("total_questions"));
-  // console.log("muta", data);
+  console.log("muta", data);
   useEffect(() => {
     setSetData(null);
     reset({
@@ -59,9 +57,8 @@ ModalProps) => {
   // useEffect(() => {
   //   setSetData(data);
   // }, [watch("total_questions")]);
-  const result = (cate_id === "3" || cate_id === 3) ? [] : data?.index;
-  console.log(result);
-  let count = data?.topic_questions.get_question;
+  console.log(data?.index);
+let count = data?.topic_questions.get_question
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -115,23 +112,42 @@ ModalProps) => {
                         <em>None</em>
                       </MenuItem>
                       {/* <MenuItem value={5}>5</MenuItem> */}
-                      <MenuItem value={10}>10</MenuItem>
-                      <MenuItem value={15} disabled={count.length < 15}>
-                        15
-                      </MenuItem>
-                      <MenuItem value={20} disabled={count.length < 20}>
+                      <MenuItem
+                        value={10}
+                   
+                      >10</MenuItem>
+                         <MenuItem
+                        value={15}
+                        disabled={count.length < 15}
+                      >15</MenuItem>
+                      <MenuItem
+                        value={20}
+                        disabled={count.length < 20}
+                      >
                         20
                       </MenuItem>
-                      <MenuItem value={25} disabled={count.length < 25}>
+                      <MenuItem
+                        value={25}
+                        disabled={count.length < 25}
+                      >
                         25
                       </MenuItem>
-                      <MenuItem value={30} disabled={count.length < 30}>
+                      <MenuItem
+                        value={30}
+                        disabled={count.length < 30}
+                      >
                         30
                       </MenuItem>
-                      <MenuItem value={30} disabled={count.length < 35}>
+                      <MenuItem
+                        value={30}
+                        disabled={count.length < 35}
+                      >
                         35
                       </MenuItem>
-                      <MenuItem value={50} disabled={count.length < 50}>
+                      <MenuItem
+                        value={50}
+                        disabled={count.length < 50}
+                      >
                         50
                       </MenuItem>
                     </Select>
@@ -162,7 +178,7 @@ ModalProps) => {
                   topic={data?.topic_questions.topic}
                   set={false}
                   bol={false}
-                  index={result}
+                  index={data?.index}
                 />
                 {/* <BButton
                   type="button"
