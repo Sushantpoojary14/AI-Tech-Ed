@@ -11,6 +11,7 @@ import AlertBox from "../../../../Components/Common/AlertBox";
 import { UserContext } from "../../../../Context/UserContext";
 import QuestionCard from "./QuestionCard";
 import { count, log } from "console";
+import DownloadPDF from "./PDF/DownloadPDF";
 
 type CsvItem = {
   Answer: string;
@@ -565,7 +566,7 @@ const GenerateQuestions = ({
 
         // console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
-          model: "gpt-3.5-turbo-16k",
+          model: "gpt-4",
           messages: [{ role: "user", content: query }],
         });
 
@@ -620,83 +621,85 @@ const GenerateQuestions = ({
 
           item.images = []; // Initialize an empty array for images
           let count: number = 1;
-
-          maleNames.forEach((search: string) => {
+          if (item.images?.length !== 2) {
           
-            const caps = search.toUpperCase();
-            let match = data.find(
-              (word: string) => word.toUpperCase() === caps
-            );
-            if (match) {
-              match = data.find((word: string) => word.toUpperCase() === caps);
-            }
-            if (match) {
-              switch (count) {
-                case 1:
-                  item.images?.push("/images/boy.jpg");
-                  count++;
-                  break;
-                case 2:
-                  item.images?.push("/images/left_boy.jpg");
-                  count++;
-                  break;
-                case 3:
-                  item.images?.push("/images/boy.jpg");
-                  count++;
-                  break;
-                default:
-                  item.images?.push("/images/left_boy.jpg");
-                  count++;
-              }
-            }
-            return count == 3;
-          });
-          femaleNames.forEach((search: string) => {
-          
+            maleNames.forEach((search: string) => {
             
-            const caps = search.toUpperCase();
-            const match = data.find(
-              (word: string) => word.replace(/:/g, "").toUpperCase() === caps
-            );
-
-            if (match) {
-              switch (count) {
-                case 1:
-                  item.images?.push("/images/right_girl.jpg");
-                  count++;
-                  break;
-                case 2:
-                  item.images?.push("/images/girl.jpg");
-                  count++;
-                  break;
-                case 3:
-                  item.images?.push("/images/right_girl.jpg");
-                  count++;
-                  break;
-                default:
-                  item.images?.push("/images/girl.jpg");
-                  count++;
+              const caps = search.toUpperCase();
+              let match = data.find(
+                (word: string) => word.toUpperCase() === caps
+              );
+              if (match) {
+                match = data.find((word: string) => word.toUpperCase() === caps);
               }
-            }
-            return count == 3;
-          });
-          image_data.forEach(
-            (search: { image_name: string; image_url: string }) => {
-              const caps = search.image_name.toUpperCase();
-
+              if (match) {
+                switch (count) {
+                  case 1:
+                    item.images?.push("/images/boy.jpg");
+                    count++;
+                    break;
+                  case 2:
+                    item.images?.push("/images/left_boy.jpg");
+                    count++;
+                    break;
+                  case 3:
+                    item.images?.push("/images/boy.jpg");
+                    count++;
+                    break;
+                  default:
+                    item.images?.push("/images/left_boy.jpg");
+                    count++;
+                }
+              }
+              return count == 3;
+            });
+            femaleNames.forEach((search: string) => {
+            
+              
+              const caps = search.toUpperCase();
               const match = data.find(
                 (word: string) => word.replace(/:/g, "").toUpperCase() === caps
               );
-
+  
               if (match) {
-                if (match) {
-                  item.images?.push(search.image_url); // Add the image URL to the question
+                switch (count) {
+                  case 1:
+                    item.images?.push("/images/right_girl.jpg");
+                    count++;
+                    break;
+                  case 2:
+                    item.images?.push("/images/girl.jpg");
+                    count++;
+                    break;
+                  case 3:
+                    item.images?.push("/images/right_girl.jpg");
+                    count++;
+                    break;
+                  default:
+                    item.images?.push("/images/girl.jpg");
+                    count++;
                 }
               }
-
-              return item.images?.length === 3;
-            }
-          );
+              return count == 3;
+            });
+            image_data.forEach(
+              (search: { image_name: string; image_url: string }) => {
+                const caps = search.image_name.toUpperCase();
+  
+                const match = data.find(
+                  (word: string) => word.replace(/:/g, "").toUpperCase() === caps
+                );
+  
+                if (match) {
+                  if (match) {
+                    item.images?.push(search.image_url); // Add the image URL to the question
+                  }
+                }
+  
+                return item.images?.length === 3;
+              }
+            );
+          }
           // console.log(male,female);
 
           if (item.images?.length === 0) {
@@ -757,9 +760,11 @@ const GenerateQuestions = ({
                   />
                 ))}
               {resData.length != 0 && newRes.data && (
-                <PdfMaker
+                <DownloadPDF
+                  randomG={true}
                   data={newRes.data}
-                  bol={!!newRes.data}
+                  set={false}
+                  bol={false}
                   topic={topic1[1]}
                   button={<BButton2 type="button" name="Download" />}
                   total={topic1[2]}
@@ -828,7 +833,7 @@ const GenerateQuestions = ({
       {/* ) : ( */}
       {/* <></> */}
       {/* )} */}
-      {resData.length > 1 && (
+      {resData?.length > 1 && (
         <>
           <Stack alignItems={"center"} mt={2} mb={1}>
             <Pagination
@@ -840,17 +845,17 @@ const GenerateQuestions = ({
             />
           </Stack>
           <Stack spacing={2}>
-            {currentData.map((questionData: any, index: any) => (
+            {currentData?.map((questionData: any, index: any) => (
               <QuestionCard
                 key={index}
                 // questionNo={index + 1}
-                paragraph={questionData.Paragraph}
-                conversation={questionData.Conversation}
-                images={questionData.images}
-                question={questionData.Question}
-                options={questionData.Options}
-                answer={questionData.Answer}
-                explanation={questionData.Explanation}
+                paragraph={questionData?.Paragraph}
+                conversation={questionData?.Conversation}
+                images={questionData?.images}
+                question={questionData?.Question}
+                options={questionData?.Options}
+                answer={questionData?.Answer}
+                explanation={questionData?.Explanation}
               />
             ))}
           </Stack>

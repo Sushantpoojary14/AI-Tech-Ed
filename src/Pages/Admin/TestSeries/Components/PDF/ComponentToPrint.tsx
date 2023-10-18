@@ -141,7 +141,7 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
             <div style={styles.mainContainer}>
               {selected_question?.length != 0 &&
                 selected_question?.map((item: questions, key: any) => {
-                  const index_data = index?.find((item: any) =>
+                  const index_data:any = index?.find((item: any) =>
                   item.element.includes(count)
                 );
                 count++
