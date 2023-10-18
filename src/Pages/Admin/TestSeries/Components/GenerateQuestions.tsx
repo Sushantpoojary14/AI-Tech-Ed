@@ -567,7 +567,7 @@ const GenerateQuestions = ({
         // console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
           // model: "gpt-4",
-          model:"gpt-3.5-turbo-16k",
+          model:"gpt-3.5-turbo",
           messages: [{ role: "user", content: query }],
         });
 
@@ -582,8 +582,9 @@ const GenerateQuestions = ({
           handleAlertBoxOpen();
         }
         // console.log(message);
-
+        console.log(questions);
         questions?.map((item: mapData, index: any) => {
+          
           item.Paragraph = item.Paragraph
             ? item.Paragraph.replace(/Paragraph:/g, "")
             : "";
@@ -600,7 +601,7 @@ const GenerateQuestions = ({
           const exists = keysToCheck.every((key) => {
             return itemKeys.includes(key);
           });
-          console.log(exists);
+          
           if (exists) {
             if (item.Paragraph || item.Conversation) {
               const paragraphData = item.Paragraph?.split(" ") ?? [];

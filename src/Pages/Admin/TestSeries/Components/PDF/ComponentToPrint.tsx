@@ -1,6 +1,9 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
-import { ParaText3, ParaText4 } from "../../../../../Components/Common/ParaText";
+import {
+  ParaText3,
+  ParaText4,
+} from "../../../../../Components/Common/ParaText";
 
 const styles = {
   //     pageBreak: {
@@ -27,7 +30,7 @@ const styles = {
     // border: "1pt solid #000",
   },
   question: {
-    fontSize: 12,
+    fontSize: 16,
     margin: 0,
   },
   conversation: {
@@ -36,9 +39,9 @@ const styles = {
     marginBottom: 5,
   },
   paragraph: {
-    fontSize: 12,
-    marginTop: 5,
-    marginBottom: 5,
+    // fontSize: 12,
+    // marginTop: 5,
+    // marginBottom: 5,
   },
   optionContainer: {
     padding: 2,
@@ -48,7 +51,7 @@ const styles = {
     // border: "1pt solid #000",
   },
   options: {
-    fontSize: 12,
+    fontSize: 16,
     marginTop: 2,
     marginBottom: 2,
   },
@@ -89,8 +92,8 @@ const styles = {
     marginLeft: 5,
   },
   mainText: {
-    fontSize: 13,
-    fontWeight: 900,
+    fontSize: 16,
+    fontWeight: 700,
   },
 };
 
@@ -125,7 +128,7 @@ type questions = {
 const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
   const { selected_question, topic, index } = props;
   // console.log("DATA", selected_question);
-  console.log(index);
+  console.log(selected_question);
   let count = 1;
   return (
     <div ref={ref}>
@@ -138,261 +141,309 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
         <Box>
           <Box style={styles.page} className="break-after-page">
             <div style={styles.header}>{topic?.toUpperCase()}</div>
-            <div style={styles.mainContainer} >
+            <div style={styles.mainContainer}>
               {selected_question?.length != 0 &&
                 selected_question?.map((item: questions, key: any) => {
-                  const index_data:any = index?.find((item: any) =>
-                  item.element.includes(count)
-                );
-                count++
-                   return(
-                  <div style={styles.Container} key={key}  className={`${key % 2 === 0 ? "" : "break-after-page"} mt-4`}>
-                    
-                    {index && index?.length  != 0 && index_data && (
-                      <Stack spacing={2} marginBottom={3}>
-                        <ParaText4
-                          text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
-                          css={{ fontWeight: "500" }}
-                        />
-                        <ParaText3
-                          text={`Read the extracts below then answer the question`}
-                          css={{ fontWeight: "500" }}
-                        />
-                      </Stack>
-                    )}
-                    {item?.Options ? (
-                      <>
-                        {item.Paragraph && (
-                          <p style={styles.paragraph}>
-                            <p style={styles.mainText}>{`${key + 1}: `}</p>
-                            {` ${item.Paragraph}`}
-                          </p>
-                        )}
-                        {item.paragraph && item?.question_image && (
-                          <div>
-                            {item?.question_image?.map(
-                              (item2: any, key: number) => {
-                                return (
-                                  <img
-                                    key={key}
-                                    style={styles.image}
-                                    src={
-                                      import.meta.env.VITE_IMAGE_URL +
-                                      item2?.image_url
-                                    }
-                                  />
-                                );
-                              }
-                            )}
-                          </div>
-                        )}
-                        {item.Conversation && (
-                          <p style={styles.conversation}>
-                            {`${item.Conversation}`}
-                          </p>
-                        )}
-                        {item.Conversation || item.Paragraph ? (
-                          <p style={styles.question}>{`${item.Question}`}</p>
-                        ) : (
-                          <p style={styles.question}>
-                            <p style={styles.mainText}>{`${key + 1}: `}</p>
-                            {item.Question}
-                          </p>
-                        )}
-                        {!item.paragraph && item?.question_image && (
-                          <div>
-                            {item?.question_image?.map(
-                              (item2: any, key: number) => {
-                                return (
-                                  <img
-                                    key={key}
-                                    style={styles.image}
-                                    src={
-                                      import.meta.env.VITE_IMAGE_URL +
-                                      item2?.image_url
-                                    }
-                                  />
-                                );
-                              }
-                            )}
-                          </div>
-                        )}
-                        {item?.question_image && (
-                          <div>
-                            {item?.question_image.map(
-                              (item2: any, key: number) => {
-                                return (
-                                  <img
-                                    key={key}
-                                    style={styles.image}
-                                    src={
-                                      import.meta.env.VITE_IMAGE_URL +
-                                      item2?.image_url
-                                    }
-                                  />
-                                );
-                              }
-                            )}
-                          </div>
-                        )}
-                        <div style={styles.optionContainer} className="mb-4">
-                          <p style={styles.options}>{`A. ${item.Options.a}`}</p>
-                          <p style={styles.options}>{`B. ${item.Options.b}`}</p>
-                          <p style={styles.options}>{`C. ${item.Options.c}`}</p>
-                          <p style={styles.options}>{`D. ${item.Options.d}`}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        {item?.paragraph && (
-                          <p style={styles.paragraph}>
-                            {`${key + 1}: ${item.paragraph}`}
-                          </p>
-                        )}
-                        {item?.paragraph && item?.question_image && (
-                          <div>
-                            {item?.question_image?.map(
-                              (item2: any, key: any) => {
-                                return (
-                                  <img
-                                    key={key}
-                                    style={styles.image}
-                                    src={
-                                      import.meta.env.VITE_IMAGE_URL +
-                                      item2?.image_url
-                                    }
-                                  />
-                                );
-                              }
-                            )}
-                          </div>
-                        )}
-                        {item?.conversation && (
-                          <p style={styles.conversation}>
-                            {`${item.conversation}`}
-                          </p>
-                        )}
-                        {item?.conversation || item?.paragraph ? (
-                          <p style={styles.question}>{`${item.question}`}</p>
-                        ) : (
-                          <p style={styles.options}>
-                            {`${key + 1}: ${item?.question} `}
-                          </p>
-                        )}
-                        {!item?.paragraph && item?.question_image && (
-                          <div>
-                            {item?.question_image?.map(
-                              (item2: any, key: number) => {
-                                return (
-                                  <img
-                                    key={key}
-                                    style={styles.image}
-                                    src={
-                                      import.meta.env.VITE_IMAGE_URL +
-                                      item2?.image_url
-                                    }
-                                  />
-                                );
-                              }
-                            )}
-                          </div>
-                        )}
-                        <div style={styles.optionContainer}>
-                          {item?.option_1?.split(".")[1] === "png" ||
-                          item?.option_1?.split(".")[1] === "jpg" ||
-                          item?.option_1?.split(".")[1] === "jpeg" ? (
-                            <>
-                              <div
-                                style={{
-                                  ...styles.optionContainer,
-                                  display: "flex",
-                                  flexDirection: "row",
-                                }}
-                              >
-                                <p style={styles.options}>A.</p>
-                                <img
-                                  style={styles.optionImage}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item.option_1
-                                  }
-                                />
-                              </div>
-
-                              {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
-                              <div
-                                style={{
-                                  ...styles.optionContainer,
-                                  display: "flex",
-                                  flexDirection: "row",
-                                }}
-                              >
-                                <p style={styles.options}>B.</p>
-                                <img
-                                  style={styles.optionImage}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item.option_2
-                                  }
-                                />
-                              </div>
-                              <div
-                                style={{
-                                  ...styles.optionContainer,
-                                  display: "flex",
-                                  flexDirection: "row",
-                                }}
-                              >
-                                <p style={styles.options}>C.</p>
-                                <img
-                                  style={styles.optionImage}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item.option_3
-                                  }
-                                />
-                              </div>
-                              <div
-                                style={{
-                                  ...styles.optionContainer,
-                                  display: "flex",
-                                  flexDirection: "row",
-                                }}
-                              >
-                                <p style={styles.options}>D.</p>
-                                <img
-                                  style={styles.optionImage}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item.option_4
-                                  }
-                                />
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <p
-                                style={styles.options}
-                              >{`A. ${item?.option_1}`}</p>
-                              <p
-                                style={styles.options}
-                              >{`B. ${item?.option_2}`}</p>
-                              <p
-                                style={styles.options}
-                              >{`C. ${item?.option_3}`}</p>
-                              <p
-                                style={styles.options}
-                              >{`D. ${item?.option_4}`}</p>
-                            </>
+                  const index_data: any = index?.find((item: any) =>
+                    item.element.includes(count)
+                  );
+                  count++;
+                  return (
+                    <div
+                      style={styles.Container}
+                      key={key}
+                      className={`${
+                        key % 2 === 0 ? "" : "break-after-page"
+                      } mt-4`}
+                    >
+                      {index && index?.length != 0 && index_data && (
+                        <Stack spacing={2} marginBottom={3}>
+                          <ParaText4
+                            text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
+                            css={{ fontWeight: "500" }}
+                          />
+                          <ParaText3
+                            text={`Read the extracts below then answer the question`}
+                            css={{ fontWeight: "500" }}
+                          />
+                        </Stack>
+                      )}
+                      {item?.Options ? (
+                        <>
+                          {item.Paragraph && (
+                            <Stack flexDirection={"row"} columnGap={1}>
+                              <Typography sx={styles.mainText} className="">{`${key + 1}: `}</Typography>
+                              <Typography>  
+                                {` ${item.Paragraph}`}
+                              </Typography>
+                            </Stack>
                           )}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )})}
+                          {item.paragraph && item?.question_image && (
+                            <div>
+                              {item?.question_image?.map(
+                                (item2: any, key: number) => {
+                                  return (
+                                    <img
+                                      key={key}
+                                      style={styles.image}
+                                      src={
+                                        import.meta.env.VITE_IMAGE_URL +
+                                        item2?.image_url
+                                      }
+                                    />
+                                  );
+                                }
+                              )}
+                            </div>
+                          )}
+                          {item.Conversation && (
+                            <Typography sx={{my:"10px"}}>
+                              {`${item.Conversation}`}
+                            </Typography>
+                          )}
+                          {item.Conversation || item.Paragraph ? (
+                            <Typography sx={{mt:"10px",mb:"20px",fontSize:"16px"}}>{`${item.Question}`}</Typography>
+                          ) : (
+                            <Stack flexDirection={"row"} columnGap={1}>
+                            <Typography sx={styles.mainText} className="">{`${key + 1}: `}</Typography>
+                            <Typography>  
+                              {` ${item.Question}`}
+                            </Typography>
+                          </Stack>
+                         
+                          )}
+                          {!item.paragraph && item?.question_image && (
+                            <div>
+                              {item?.question_image?.map(
+                                (item2: any, key: number) => {
+                                  return (
+                                    <img
+                                      key={key}
+                                      style={styles.image}
+                                      src={
+                                        import.meta.env.VITE_IMAGE_URL +
+                                        item2?.image_url
+                                      }
+                                    />
+                                  );
+                                }
+                              )}
+                            </div>
+                          )}
+                          {!item.paragraph && item?.images && (
+                            <Stack flexDirection={"row"} columnGap={16}>
+                              {item?.images?.map((item2: any, key: number) => {
+                                return (
+                                  <img
+                                    key={key}
+                                    style={styles.image}
+                                    src={import.meta.env.VITE_IMAGE_URL + item2}
+                                  />
+                                );
+                              })}
+                            </Stack>
+                          )}
+                          {item?.question_image && (
+                            <div>
+                              {item?.question_image.map(
+                                (item2: any, key: number) => {
+                                  return (
+                                    <img
+                                      key={key}
+                                      style={styles.image}
+                                      src={
+                                        import.meta.env.VITE_IMAGE_URL +
+                                        item2?.image_url
+                                      }
+                                    />
+                                  );
+                                }
+                              )}
+                            </div>
+                          )}
+                          <div style={styles.optionContainer} className="mb-4">
+                            <p
+                              style={styles.options}
+                            >{`A. ${item.Options.a}`}</p>
+                            <p
+                              style={styles.options}
+                            >{`B. ${item.Options.b}`}</p>
+                            <p
+                              style={styles.options}
+                            >{`C. ${item.Options.c}`}</p>
+                            <p
+                              style={styles.options}
+                            >{`D. ${item.Options.d}`}</p>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          {item?.paragraph && (
+                            <p style={styles.paragraph}>
+                              {`${key + 1}: ${item.paragraph}`}
+                            </p>
+                          )}
+                          {item?.paragraph && item?.images && (
+                            <div>
+                              {item?.images?.map((item2: any, key: any) => {
+                                return (
+                                  <img
+                                    key={key}
+                                    style={styles.image}
+                                    src={
+                                      import.meta.env.VITE_IMAGE_URL +
+                                      item2?.image_url
+                                    }
+                                  />
+                                );
+                              })}
+                            </div>
+                          )}
+                           {item.conversation && (
+                            <Typography sx={{my:"10px"}}>
+                              {`${item.conversation}`}
+                            </Typography>
+                          )}
+                          
+                            {item.conversation || item.paragraph ? (
+                            <Typography sx={{mt:"10px",mb:"20px",fontSize:"16px"}}>{`${item.question}`}</Typography>
+                          ) : (
+                            <Stack flexDirection={"row"} columnGap={1}>
+                            <Typography sx={styles.mainText} className="">{`${key + 1}: `}</Typography>
+                            <Typography>  
+                              {` ${item.question}`}
+                            </Typography>
+                          </Stack>
+                          )}
+                      
+                          {!item?.paragraph && item?.question_image && (
+                            <div>
+                              {item?.question_image?.map(
+                                (item2: any, key: number) => {
+                                  return (
+                                    <img
+                                      key={key}
+                                      style={styles.image}
+                                      src={
+                                        import.meta.env.VITE_IMAGE_URL +
+                                        item2?.image_url
+                                      }
+                                    />
+                                  );
+                                }
+                              )}
+                            </div>
+                          )}
+                          { !!item?.paragraph && item?.question_image && (
+                            <Stack flexDirection={"row"} columnGap={16}>
+                              {item?.question_image?.map((item2: any, key: number) => {
+                                return (
+                                  <img
+                                    key={key}
+                                    style={styles.image}
+                                    src={import.meta.env.VITE_IMAGE_URL +  item2?.image_url}
+                                  />
+                                );
+                              })}
+                            </Stack>
+                          )}
+                          <div style={styles.optionContainer}>
+                            {item?.option_1?.split(".")[1] === "png" ||
+                            item?.option_1?.split(".")[1] === "jpg" ||
+                            item?.option_1?.split(".")[1] === "jpeg" ? (
+                              <>
+                                <div
+                                  style={{
+                                    ...styles.optionContainer,
+                                    display: "flex",
+                                    flexDirection: "row",
+                                  }}
+                                >
+                                  <p style={styles.options}>A.</p>
+                                  <img
+                                    style={styles.optionImage}
+                                    src={
+                                      import.meta.env.VITE_IMAGE_URL +
+                                      item.option_1
+                                    }
+                                  />
+                                </div>
+
+                                {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
+                                <div
+                                  style={{
+                                    ...styles.optionContainer,
+                                    display: "flex",
+                                    flexDirection: "row",
+                                  }}
+                                >
+                                  <p style={styles.options}>B.</p>
+                                  <img
+                                    style={styles.optionImage}
+                                    src={
+                                      import.meta.env.VITE_IMAGE_URL +
+                                      item.option_2
+                                    }
+                                  />
+                                </div>
+                                <div
+                                  style={{
+                                    ...styles.optionContainer,
+                                    display: "flex",
+                                    flexDirection: "row",
+                                  }}
+                                >
+                                  <p style={styles.options}>C.</p>
+                                  <img
+                                    style={styles.optionImage}
+                                    src={
+                                      import.meta.env.VITE_IMAGE_URL +
+                                      item.option_3
+                                    }
+                                  />
+                                </div>
+                                <div
+                                  style={{
+                                    ...styles.optionContainer,
+                                    display: "flex",
+                                    flexDirection: "row",
+                                  }}
+                                >
+                                  <p style={styles.options}>D.</p>
+                                  <img
+                                    style={styles.optionImage}
+                                    src={
+                                      import.meta.env.VITE_IMAGE_URL +
+                                      item.option_4
+                                    }
+                                  />
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <p
+                                  style={styles.options}
+                                >{`A. ${item?.option_1}`}</p>
+                                <p
+                                  style={styles.options}
+                                >{`B. ${item?.option_2}`}</p>
+                                <p
+                                  style={styles.options}
+                                >{`C. ${item?.option_3}`}</p>
+                                <p
+                                  style={styles.options}
+                                >{`D. ${item?.option_4}`}</p>
+                              </>
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
             </div>
           </Box>
-          <Box style={styles.page} >
+          <Box style={styles.page}>
             <div style={styles.mainContainer} className="break-after-page">
               <div style={styles.header2}>Answers:</div>
               <div style={styles.Container}>
@@ -414,7 +465,7 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
                     {item?.Answer ? (
                       <>
                         <p style={styles.answer2}>{`${key + 1}.`}</p>
-                        {!!item?.explanation ? (
+                        {!!item?.Explanation ? (
                           <p
                           //   style={styles.explanation}
                           >{`${item?.Explanation} `}</p>

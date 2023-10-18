@@ -230,6 +230,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
       />
 
       <DownloadPdfModel
+        cate_id={tabId}
         open={open3}
         handleClose={handleClose3}
         data={getTopicQuestion.data?.data}
