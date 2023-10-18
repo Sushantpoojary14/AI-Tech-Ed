@@ -139,7 +139,11 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
             <div style={styles.mainContainer}>
               {selected_question?.length != 0 &&
                 selected_question?.map((item: questions, key: any) => (
-                  <div style={styles.Container} key={key}>
+                  <div
+                    style={styles.Container}
+                    key={key}
+                    // className={key % 2 === 0 ? "" : "break-after-page"}
+                  >
                     {item?.Options ? (
                       <>
                         {item.Paragraph && (
