@@ -69,7 +69,7 @@ const DownloadPDF = ({ data, randomG, topic, total, set ,index}: props) => {
     // console.log(questions?.length < total);
     if (randomG) {
       if (!!questions) {
-        if (questions?.length < total) {
+        if (questions?.length >= total) {
           
           const updatedSelectedQuestions = [];
           let count: number = total;
@@ -136,7 +136,7 @@ const DownloadPDF = ({ data, randomG, topic, total, set ,index}: props) => {
   //   selected_question = questions;
   // }
 
-  console.log(t_index,index);
+  // console.log(t_index,index);
   return (
     <>
       <Box display={"none"}>

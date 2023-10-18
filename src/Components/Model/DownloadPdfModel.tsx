@@ -46,7 +46,7 @@ ModalProps) => {
   const { register, control, watch, reset } = useForm<FormValues>();
   const [setData, setSetData] = useState<any>(null);
   // console.log(watch("total_questions"));
-  console.log("muta", data);
+  // console.log("muta", data);
   useEffect(() => {
     setSetData(null);
     reset({
@@ -57,7 +57,7 @@ ModalProps) => {
   // useEffect(() => {
   //   setSetData(data);
   // }, [watch("total_questions")]);
-  console.log(data?.index);
+  // console.log(data?.index);
 let count = data?.topic_questions.get_question
   return (
     <Modal

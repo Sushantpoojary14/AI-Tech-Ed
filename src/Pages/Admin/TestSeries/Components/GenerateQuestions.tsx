@@ -226,7 +226,7 @@ const GenerateQuestions = ({
       (JSON.stringify(header3) === JSON.stringify(array2) && topic1[0] == 2)
     ) {
       const filteredCsvData = csvData.filter((item: any) => {
-        if (item.Question && item.Answer) {
+        if (item.Question && item.Option_D) {
           // console.log(!!item.Question);
           return true;
         }
@@ -566,7 +566,8 @@ const GenerateQuestions = ({
 
         // console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
-          model: "gpt-4",
+          // model: "gpt-4",
+          model:"gpt-3.5-turbo-16k",
           messages: [{ role: "user", content: query }],
         });
 
@@ -621,10 +622,14 @@ const GenerateQuestions = ({
 
           item.images = []; // Initialize an empty array for images
           let count: number = 1;
-          if (item.images?.length !== 2) {
+          console.log(item.images?.length);
+          
+          // if (item.images?.length !== 2) {
           
             maleNames.forEach((search: string) => {
-            
+               if (item.images?.length === 2) {
+                return true; // Exit the loop
+              }
               const caps = search.toUpperCase();
               let match = data.find(
                 (word: string) => word.toUpperCase() === caps
@@ -642,10 +647,6 @@ const GenerateQuestions = ({
                     item.images?.push("/images/left_boy.jpg");
                     count++;
                     break;
-                  case 3:
-                    item.images?.push("/images/boy.jpg");
-                    count++;
-                    break;
                   default:
                     item.images?.push("/images/left_boy.jpg");
                     count++;
@@ -654,8 +655,9 @@ const GenerateQuestions = ({
               return count == 3;
             });
             femaleNames.forEach((search: string) => {
-            
-              
+              if (item.images?.length === 2) {
+                return true; // Exit the loop
+              }
               const caps = search.toUpperCase();
               const match = data.find(
                 (word: string) => word.replace(/:/g, "").toUpperCase() === caps
@@ -672,9 +674,6 @@ const GenerateQuestions = ({
                     count++;
                     break;
                   case 3:
-                    item.images?.push("/images/right_girl.jpg");
-                    count++;
-                    break;
                   default:
                     item.images?.push("/images/girl.jpg");
                     count++;
@@ -684,6 +683,9 @@ const GenerateQuestions = ({
             });
             image_data.forEach(
               (search: { image_name: string; image_url: string }) => {
+                if (item.images?.length === 2) {
+                  return true; // Exit the loop
+                }
                 const caps = search.image_name.toUpperCase();
   
                 const match = data.find(
@@ -699,7 +701,7 @@ const GenerateQuestions = ({
                 return item.images?.length === 3;
               }
             );
-          }
+          // }
           // console.log(male,female);
 
           if (item.images?.length === 0) {
