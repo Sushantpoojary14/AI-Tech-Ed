@@ -567,7 +567,7 @@ const GenerateQuestions = ({
         // console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
           // model: "gpt-4",
-          model:"gpt-3.5-turbo",
+          model: "gpt-3.5-turbo",
           messages: [{ role: "user", content: query }],
         });
 
@@ -584,51 +584,52 @@ const GenerateQuestions = ({
         // console.log(message);
         console.log(questions);
         questions?.map((item: mapData, index: any) => {
-          
-          item.Paragraph = item.Paragraph
-            ? item.Paragraph.replace(/Paragraph:/g, "")
-            : "";
-          item.Conversation = item.Conversation
-            ? item.Conversation.replace(/Conversation:/g, "")
-            : "";
+          if (topic1[0] == 3) {
+            item.Paragraph = item.Paragraph
+              ? item.Paragraph.replace(/Paragraph:/g, "")
+              : "";
+            item.Conversation = item.Conversation
+              ? item.Conversation.replace(/Conversation:/g, "")
+              : "";
+          }
           item.Explanation =
             item.Explanation && item.Explanation.replace(/Explanation:/g, "");
           item.Question =
             item.Question && item.Question.replace(/Question:/g, "");
           let data: string[] = [];
-          const keysToCheck = ["Paragraph", "Conversation"];
+          const keysToCheck = ["Paragraph", "Conversation", ""];
           const itemKeys = Object.keys(item);
           const exists = keysToCheck.every((key) => {
             return itemKeys.includes(key);
           });
-          
-          if (exists) {
-            if (item.Paragraph || item.Conversation) {
-              const paragraphData = item.Paragraph?.split(" ") ?? [];
-              const conversationData = item.Conversation?.split(" ") ?? [];
-              const questionData = item.Question.split(" ") ?? [];
-              data = [...paragraphData, ...conversationData, ...questionData];
-              // console.log(data,paragraphData,conversationData,questionData);
-            }
-          }
+
+          // if (exists) {
+          // if (item.Paragraph || item.Conversation) {
+          const paragraphData = item.Paragraph?.split(" ") ?? [];
+          const conversationData = item.Conversation?.split(" ") ?? [];
+          const questionData = item.Question.split(" ") ?? [];
+          data = [...paragraphData, ...conversationData, ...questionData];
+          console.log(paragraphData, conversationData, questionData);
+          // console.log(data,paragraphData,conversationData,questionData);
+          // }
 
           // data = [
           //   ...item.Paragraph?.split(" "),
           //   ...item.Conversation?.split(" "),
-          // ];
-          else {
-            data = item.Question.split(" ");
-          }
-          // console.log(data);
+          // // ];
+          // else {
+          //   data = item.Question.split(" ");
+          // }
+          console.log(data);
 
-          item.images = []; // Initialize an empty array for images
+          item.images = [];
           let count: number = 1;
           console.log(item.images?.length);
-          
+
           // if (item.images?.length !== 2) {
-          
+          if (exists) {
             maleNames.forEach((search: string) => {
-               if (item.images?.length === 2) {
+              if (item.images?.length === 2) {
                 return true; // Exit the loop
               }
               const caps = search.toUpperCase();
@@ -636,7 +637,9 @@ const GenerateQuestions = ({
                 (word: string) => word.toUpperCase() === caps
               );
               if (match) {
-                match = data.find((word: string) => word.toUpperCase() === caps);
+                match = data.find(
+                  (word: string) => word.toUpperCase() === caps
+                );
               }
               if (match) {
                 switch (count) {
@@ -663,7 +666,7 @@ const GenerateQuestions = ({
               const match = data.find(
                 (word: string) => word.replace(/:/g, "").toUpperCase() === caps
               );
-  
+
               if (match) {
                 switch (count) {
                   case 1:
@@ -682,26 +685,25 @@ const GenerateQuestions = ({
               }
               return count == 3;
             });
-            image_data.forEach(
-              (search: { image_name: string; image_url: string }) => {
-                if (item.images?.length === 2) {
-                  return true; // Exit the loop
-                }
-                const caps = search.image_name.toUpperCase();
-  
-                const match = data.find(
-                  (word: string) => word.replace(/:/g, "").toUpperCase() === caps
-                );
-  
-                if (match) {
-                  if (match) {
-                    item.images?.push(search.image_url); // Add the image URL to the question
-                  }
-                }
-  
-                return item.images?.length === 3;
+          }
+          image_data.forEach(
+            (search: { image_name: string; image_url: string }) => {
+              if (item.images?.length === 1) {
+                return true; // Exit the loop
               }
-            );
+              const caps = search.image_name.toUpperCase();
+
+              const match = data.find(
+                (word: string) => word.toUpperCase() === caps
+              );
+
+              if (match) {
+                item.images?.push(search.image_url); // Add the image URL to the question
+              }
+
+              return item.images?.length === 3;
+            }
+          );
           // }
           // console.log(male,female);
 
