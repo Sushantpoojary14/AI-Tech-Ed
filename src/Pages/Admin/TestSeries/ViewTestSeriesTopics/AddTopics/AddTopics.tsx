@@ -286,7 +286,7 @@ const AddTopics = () => {
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
                     id="enter-topic-name"
                   >
-                    Enter Topic Name
+                     {tsc_id == "2" ? "Enter Reading Name" : "Enter Topic Name"}
                   </FormLabel>
                   <Controller
                     name="topic_name"
@@ -313,7 +313,7 @@ const AddTopics = () => {
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
                     id="enter-topic"
                   >
-                    {tsc_id == "2" ? "Enter Reading Set" :"Enter Topic To Generate"}
+                    {tsc_id == "2" ? "Enter Reading Set Name" :"Enter Topic To Generate"}
                   </FormLabel>
                   <Controller
                     name="topic"

@@ -2,7 +2,9 @@ import React from "react";
 import { Grid, Paper } from "@mui/material";
 import { fas, faB } from "@fortawesome/free-solid-svg-icons";
 import { Icon, IconName, library } from "@fortawesome/fontawesome-svg-core";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { ParaText1 } from "../../../../Components/Common/ParaText";
 library.add(fas);
 library.add(faB);
@@ -232,6 +234,26 @@ const Cube3 = (index: number, questionRefs: any): any => {
     option[2].split("-")[1],
     option[1].split("-")[1],
   ];
+  // let correct_ans = -1;
+  // const options: any = [];
+  // for (let i = 3; i >= 0; i--) {
+  //   let random = Math.floor(Math.random() * (i + 1));
+  //   if (random == 0 && correct_ans < 0) {
+  //     correct_ans = 3 - i + 1;
+  //   }
+  //   options.push(temp_options[random]);
+  //   let temp = temp_options[random];
+  //   temp_options[random] = temp_options[i];
+  //   temp_options[i] = temp;
+  // }
+  // question.question = `
+  // How many dots lie opposite to the face having ${
+  //   diceIcons[randomQ]?.split("-")[1]
+  // } dots, when the given figure is folded to form a cube?`;
+  // question.question_image = question_image;
+  // question.options = options;
+  // question.correct_ans = correct_ans;
+
   let correct_ans = -1;
   const options: any = [];
   for (let i = 3; i >= 0; i--) {

@@ -21,6 +21,7 @@ interface props {
   total: number;
   button?: ReactJSXElement;
   set: boolean;
+  index?:any
 }
 
 type questions = {
@@ -51,7 +52,7 @@ type questions = {
   question_image?: any;
 };
 
-const DownloadPDF = ({ data, randomG, topic, total, set }: props) => {
+const DownloadPDF = ({ data, randomG, topic, total, set ,index}: props) => {
   const [selected_question, setSelected_question] = useState<questions[]>([]);
   const pdfRef = useRef(null);
   const handlePrint = useReactToPrint({
@@ -96,7 +97,23 @@ const DownloadPDF = ({ data, randomG, topic, total, set }: props) => {
   }, [total]);
 
   // let selected_question: questions[] = [];
-
+  let t_index: any;
+  if (index && index?.length != 0) {
+    let count = 1;
+    t_index = index.map((item: number) => {
+      const start = count;
+      const element = [];
+      for (let i = 0; i < item; i++) {
+        element.push(count++);
+      }
+      const end = count == 1 ? count : count - 1;
+      return {
+        end: end,
+        start: start,
+        element: element,
+      };
+    });
+  }
   // const questions: questions[] = data;
 
   // if (!randomG) {
@@ -119,7 +136,7 @@ const DownloadPDF = ({ data, randomG, topic, total, set }: props) => {
   //   selected_question = questions;
   // }
 
-  console.log(selected_question);
+  console.log(t_index,index);
   return (
     <>
       <Box display={"none"}>
@@ -127,6 +144,7 @@ const DownloadPDF = ({ data, randomG, topic, total, set }: props) => {
           ref={pdfRef}
           selected_question={selected_question}
           topic={topic}
+          index={t_index}
         />
       </Box>
       {set ? (

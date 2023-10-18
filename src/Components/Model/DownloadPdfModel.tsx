@@ -57,8 +57,8 @@ ModalProps) => {
   // useEffect(() => {
   //   setSetData(data);
   // }, [watch("total_questions")]);
-  // console.log(data?.get_question < 25);
-
+  console.log(data?.index);
+let count = data?.topic_questions.get_question
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -115,35 +115,35 @@ ModalProps) => {
                       <MenuItem value={10}>10</MenuItem>
                       <MenuItem
                         value={15}
-                        disabled={data?.get_question.length < 15}
-                      ></MenuItem>
+                        disabled={count.length < 15}
+                      >15</MenuItem>
                       <MenuItem
                         value={20}
-                        disabled={data?.get_question.length < 20}
+                        disabled={count.length < 20}
                       >
                         20
                       </MenuItem>
                       <MenuItem
                         value={25}
-                        disabled={data?.get_question.length < 25}
+                        disabled={count.length < 25}
                       >
                         25
                       </MenuItem>
                       <MenuItem
                         value={30}
-                        disabled={data?.get_question.length < 30}
+                        disabled={count.length < 30}
                       >
                         30
                       </MenuItem>
                       <MenuItem
                         value={30}
-                        disabled={data?.get_question.length < 35}
+                        disabled={count.length < 35}
                       >
                         35
                       </MenuItem>
                       <MenuItem
                         value={50}
-                        disabled={data?.get_question.length < 50}
+                        disabled={count.length < 50}
                       >
                         50
                       </MenuItem>
@@ -169,12 +169,13 @@ ModalProps) => {
                   topic={setData?.t_name}
                 /> */}
                 <DownloadPDF
-                  data={data?.get_question}
+                  data={data?.topic_questions.get_question}
                   randomG={true}
                   total={watch("total_questions")}
-                  topic={data?.t_name}
+                  topic={data?.topic_questions.topic}
                   set={false}
                   bol={false}
+                  index={data?.index}
                 />
                 {/* <BButton
                   type="button"
