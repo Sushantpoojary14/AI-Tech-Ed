@@ -21,7 +21,9 @@ interface props {
   total: number;
   button?: ReactJSXElement;
   set: boolean;
-  index?:any
+  index?: any;
+  cateId: number;
+  NVId?: number;
 }
 
 type questions = {
@@ -52,14 +54,24 @@ type questions = {
   question_image?: any;
 };
 
-const DownloadPDF = ({ data, randomG, topic, total, set ,index}: props) => {
+const DownloadPDF = ({
+  data,
+  randomG,
+  topic,
+  total,
+  set,
+  index,
+  cateId,
+  NVId,
+}: props) => {
   const [selected_question, setSelected_question] = useState<questions[]>([]);
   const pdfRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => pdfRef.current,
     documentTitle: topic,
   });
-  // console.log(data);
+  console.log("data", data);
+  console.log("cateId", cateId);
   // useEffect(() => {
   //   setSelected_question(data);
   // }, []);
@@ -70,7 +82,6 @@ const DownloadPDF = ({ data, randomG, topic, total, set ,index}: props) => {
     if (randomG) {
       if (!!questions) {
         if (questions?.length >= total) {
-          
           const updatedSelectedQuestions = [];
           let count: number = total;
           // const updatedSelectedQuestions = [...selected_question];
@@ -145,6 +156,8 @@ const DownloadPDF = ({ data, randomG, topic, total, set ,index}: props) => {
           selected_question={selected_question}
           topic={topic}
           index={t_index}
+          cateId={cateId}
+          NVId={NVId}
         />
       </Box>
       {set ? (

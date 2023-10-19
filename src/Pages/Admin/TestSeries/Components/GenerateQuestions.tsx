@@ -773,6 +773,7 @@ const GenerateQuestions = ({
                   topic={topic1[1]}
                   button={<BButton2 type="button" name="Download" />}
                   total={topic1[2]}
+                  cateId={topic1[0]}
                 />
               )}
               {(resData.length != 0 || topic1[0] == 2) && (
