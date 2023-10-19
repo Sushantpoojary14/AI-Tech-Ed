@@ -83,7 +83,7 @@ ModalProps) => {
   const ts_id = getProductDetail.ts_id;
 
   const getTopics = useQuery({
-    queryKey: ["topicEdit", tsc, ts_id],
+    queryKey: ["topicEdit", tsc, ts_id,getProductDetail],
     queryFn: async () => {
       const res = await adminTokenAxios.get(
         `admin/show-topics/${tsc}/${ts_id}`
@@ -112,13 +112,14 @@ ModalProps) => {
     enabled: !!setId,
   });
 
-  console.log("getSet", getSet.data);
-  console.log("gettopics", getTopics.data);
+  // console.log("getSet", getSet.data);
+  // console.log("gettopics", getTopics.data);
 
   // const updatedData: any = queryClient.getQueryData([
   //   "ViewProductDetails1",
   //   p_id,
   // ]);
+  console.log(122, getProductDetail.categories);
 
   const updateTestSeriesSets = useMutation({
     mutationFn: async (formattedDatav2: any) => {
@@ -134,27 +135,28 @@ ModalProps) => {
       // let data = res?.data.categories_data;
       console.log("mutation", res.data);
       reset();
+     
       handleClick();
       // setCounter(counter + 1);
-      // updatedData &&
-      //   updatedData.categories.map((item: any, key: number) => {
-      //     data.map((item2: any) => {
-      //       if (item.id == item2.id) {
-      //         updatedData.categories[key] = item2;
-      //       }
-      //     });
-      //   });
-      // console.log(updatedData.categories);
-      // queryClient.getQueryData(["ViewProductDetails1", p_id], updatedData);
+
+      getProductDetail.categories = getProductDetail.categories.map((item: any) => {
+        console.log(item.id , res.data.set_data.id);
+        
+        return item.id === res.data.set_data.id ? res.data.set_data : item;
+      });
+      
+
+      // console.log(154, getProductDetail.categories);
+      queryClient.setQueryData(["ViewProductDetails1", p_id], getProductDetail);
     },
   });
-
+  console.log(162, getProductDetail.categories);
   // const selectedCategories = Object.keys(categoryObj);
   // console.log("selectedCategories", selectedCategories);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     // const formattedData = [{setId: counter,}]
-    console.log("modal", data);
+    // console.log("modal", data);
     // const tst_id: any = []
 
     const formattedData = {

@@ -400,11 +400,12 @@ const Paper1 = async (index: number, questionRefs: any) => {
       ref={questionRefs.current[index].questionRef}
       // display={"grid"}
       flexDirection={"row"}
-      columnGap={"2px"}
+      columnGap={"1px"}
       // gridColumn={"auto auto auto"}
+      width={"50%"}
       maxWidth={"100%"}
     >
-      <Stack>
+      <Stack width={"100%"}>
         <Box border={"1px solid #000000"} sx={{ ...outerSquare }}>
           <Divider
             sx={{
@@ -429,7 +430,8 @@ const Paper1 = async (index: number, questionRefs: any) => {
         </Box>
         <ParaText1 text="X" css={{ marginX: "auto" }} />
       </Stack>
-      <Stack>
+      
+      <Stack width={"100%"}>
         <Stack sx={{ ...outerSquare, border: "none" }}>
           <Box
             border={"1px dotted #000000"}
@@ -465,7 +467,7 @@ const Paper1 = async (index: number, questionRefs: any) => {
         <ParaText1 text="Y" css={{ marginX: "auto" }} />
       </Stack>
 
-      <Stack>
+      <Stack width={"100%"}>
         <Stack sx={{ ...outerSquare, border: "none" }}>
           <Box
             border={"1px dotted #000000"}

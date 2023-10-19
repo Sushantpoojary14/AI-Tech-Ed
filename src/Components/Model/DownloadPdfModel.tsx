@@ -33,6 +33,7 @@ interface ModalProps {
   handleClose: () => void;
   open: boolean;
   data: any;
+  cate_id:any
 }
 type FormValues = {
   total_questions: number;
@@ -41,6 +42,7 @@ const DownloadPdfModel = ({
   open,
   handleClose,
   data,
+  cate_id
 }: //   handleSubmit,
 ModalProps) => {
   const { register, control, watch, reset } = useForm<FormValues>();
@@ -159,7 +161,7 @@ ModalProps) => {
                   topic={data?.topic_questions?.topic}
                   set={false}
                   bol={false}
-                  index={data?.index}
+                  index={cate_id==2?data?.index:[]}
                   NVId={data?.topic_questions?.nv_topic}
                   cateId={data?.topic_questions?.tsc_id}
                 />

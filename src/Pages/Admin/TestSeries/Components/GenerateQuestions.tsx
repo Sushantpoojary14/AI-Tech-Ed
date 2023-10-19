@@ -239,12 +239,6 @@ const GenerateQuestions = ({
     }
   };
 
-  const openAi = new OpenAIApi(
-    new Configuration({
-      apiKey: import.meta.env.VITE_OPENAI_KEY,
-    })
-  );
-
   const newRes = useMutation({
     mutationFn: async (csvData: CsvItem[]) => {
       // console.log("object 2", input);
@@ -467,104 +461,95 @@ const GenerateQuestions = ({
           ]
   `;
         } else {
-          query = `Generate five unique multiple-choice questions (MCQs) for the topic "${topic}".
-   
+          query = `Generate five unique and challenging multiple-choice questions (MCQs) to test knowledge on the topic "${topic}". Each question should be complex, requiring deep analysis and critical thinking. The options should be challenging, involving multiple steps or considerations. If a question involves a scenario, make it more intricate. Encourage the AI to think creatively and innovative. 
           Example Question:
-              Question: ${item.Question}
-  
-              Options:
-              a. ${item.Option_A}
-             b. ${item.Option_B}
-              c. ${item.Option_C}
-              d. ${item.Option_D}
-               Answer: ${
-                 item.Answer
-                   ? item.Answer
-                   : "Generate an Answer based on the question"
-               }
-              Explanation: ${
-                item.Explanation
-                  ? item.Explanation
-                  : "Generate an explanation based on the question and correct answer"
-              }
-  
-          ---
-  
-          Please follow these guidelines for generating each MCQ:
-  
-          1. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
-            ", "
-          )}, and for females, use ${femaleNames.join(", ")}.
-  
-          2.Maintain the question and Explanation sentence structure only modify variables like numbers.
-  
-          3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
-  
-          4. If there is a conversation statement between persons, generate that as well.
-  
-          5. Provide the JSON representation of the five MCQs in the following format:
-  
+         
+          Question: ${item.Question}(Include more detailed information)
+          Options:
+          a. ${item.Option_A} 
+          b. ${item.Option_B} 
+          c. ${item.Option_C} 
+          d. ${item.Option_D} 
+          Answer: ${
+            item.Answer
+              ? item.Answer
+              : "Generate a precise answer based on the question"
+          }
+          Explanation: ${
+            item.Explanation
+              ? item.Explanation
+              : "Create a detailed explanation based on the question and correct answer"
+          } (Include more detailed information based on the question and correct answer)
+          
+          .....
+
+          Provide the JSON representation of the five MCQs in the following format:
           [
             {
-              "Question": "Replace with question text",
+              "Question": "Replace with a challenging question text",
               "Options": {
-                "a": "Option A text",
-                "b": "Option B text",
-                "c": "Option C text",
-                "d": "Option D text"
+                "a": "Option A text with complexity",
+                "b": "Option B text with intricacy",
+                "c": "Option C text with nuance",
+                "d": "Option D text with exceptions"
               },
               "Answer": "Correct answer letter (a, b, c, or d)",
-              "Explanation": "Explanation for the correct answer"
+              "Explanation": "Detailed explanation for the correct answer"
             },
             {
-              "Question": "Replace with question text",
+              "Question": "Replace with another challenging question text",
               "Options": {
-                "a": "Option A text",
-                "b": "Option B text",
-                "c": "Option C text",
-                "d": "Option D text"
+                "a": "Option A text with complexity",
+                "b": "Option B text with intricacy",
+                "c": "Option C text with nuance",
+                "d": "Option D text with exceptions"
               },
               "Answer": "Correct answer letter (a, b, c, or d)",
-              "Explanation": "Explanation for the correct answer"
+              "Explanation": "Detailed explanation for the correct answer"
             },
             {
-              "Question": "Replace with question text",
+              "Question": "Replace with another challenging question text",
               "Options": {
-                "a": "Option A text",
-                "b": "Option B text",
-                "c": "Option C text",
-                "d": "Option D text"
+                "a": "Option A text with complexity",
+                "b": "Option B text with intricacy",
+                "c": "Option C text with nuance",
+                "d": "Option D text with exceptions"
               },
               "Answer": "Correct answer letter (a, b, c, or d)",
-              "Explanation": "Explanation for the correct answer"
+              "Explanation": "Detailed explanation for the correct answer"
             },
             {
-              "Question": "Replace with question text",
+              "Question": "Replace with another challenging question text",
               "Options": {
-                "a": "Option A text",
-                "b": "Option B text",
-                "c": "Option C text",
-                "d": "Option D text"
+                "a": "Option A text with complexity",
+                "b": "Option B text with intricacy",
+                "c": "Option C text with nuance",
+                "d": "Option D text with exceptions"
               },
               "Answer": "Correct answer letter (a, b, c, or d)",
-              "Explanation": "Explanation for the correct answer"
+              "Explanation": "Detailed explanation for the correct answer"
             },
             {
-              "Question": "Replace with question text",
+              "Question": "Replace with another challenging question text",
               "Options": {
-                "a": "Option A text",
-                "b": "Option B text",
-                "c": "Option C text",
-                "d": "Option D text"
+                "a": "Option A text with complexity",
+                "b": "Option B text with intricacy",
+                "c": "Option C text with nuance",
+                "d": "Option D text with exceptions"
               },
               "Answer": "Correct answer letter (a, b, c, or d)",
-              "Explanation": "Explanation for the correct answer"
+              "Explanation": "Detailed explanation for the correct answer"
             }
           ]
-  `;
+          `;
         }
 
-        // console.log("QUERY", query);
+        const openAi = new OpenAIApi(
+          new Configuration({
+            apiKey: import.meta.env.VITE_OPENAI_KEY,
+          })
+        );
+        console.log("QUERY", query);
         const response = await openAi.createChatCompletion({
           // model: "gpt-4",
           model: "gpt-3.5-turbo",
@@ -732,7 +717,7 @@ const GenerateQuestions = ({
     },
   });
 
-  // console.log(resData);
+  // console.log(!(topic1[2]));
 
   return (
     <>
@@ -771,7 +756,7 @@ const GenerateQuestions = ({
                   set={false}
                   bol={false}
                   topic={topic1[1]}
-                  button={<BButton2 type="button" name="Download" />}
+                  button={<BButton2 type="button" name="Download" disabled={!topic1[2]}/>}
                   total={topic1[2]}
                   cateId={topic1[0]}
                 />
@@ -805,15 +790,15 @@ const GenerateQuestions = ({
                     name="Re-Generate"
                   />
                 ))}
-              {resData.length != 0 && newRes.data && (
-                <PdfMaker
-                  data={resData}
-                  bol={!!resData}
-                  topic={topic1[1]}
-                  total={topic1[2]}
-                  button={<BButton2 type="button" name="Download" />}
-                />
-              )}
+              {/* {resData.length != 0 && newRes.data && (
+                // <DownloadPDF
+                //   data={resData}
+                //   bol={!!resData}
+                //   topic={topic1[1]}
+                //   total={topic1[2]}
+                //   button={<BButton2 type="button" name="Download" />}
+                // />
+              )} */}
               {(resData.length != 0 || topic1[0] == 2) && (
                 <BButton2
                   type="button"

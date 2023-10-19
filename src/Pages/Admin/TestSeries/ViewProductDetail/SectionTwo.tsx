@@ -158,7 +158,15 @@ const SectionTwo = ({
   const handleDownload = (id: number) => {
     getSetQuestion.mutate(id);
   };
-
+  const queryClient = useQueryClient();
+  const para = useParams();
+  const p_id = para.productdetails;
+  const getProductDetail: any = queryClient.getQueryData([
+    "ViewProductDetails1",
+    p_id,
+  ]);
+  console.log(getProductDetail);
+  
   return (
     <>
       {/* {setData && (
@@ -232,7 +240,7 @@ const SectionTwo = ({
                 <Tab key={index} label={category.tsc_type} />
               ))}
             </Tabs>
-            {sets?.map((category: any, index: number) => (
+            {getProductDetail?.categories?.map((category: any, index: number) => (
               <CustomTabPanel key={index} value={value} index={index}>
                 <Stack spacing={2}>
                   {category?.sets?.map((set: any) => (
@@ -289,7 +297,7 @@ const SectionTwo = ({
                             total={set?.questions?.length}
                             topic={setData?.t_name}
                             set={true}
-                            index={set?.index}
+                            index={set?.id == 2 ? set?.index : []}
                             cateId={tsc} //need to set this properly
                           />
                           {/* <DownloadIconButton
