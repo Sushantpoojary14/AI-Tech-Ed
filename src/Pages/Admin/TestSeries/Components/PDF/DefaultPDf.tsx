@@ -339,12 +339,17 @@ const DefaultPDf = ({ props }: any) => {
                         {item?.option_1?.split(".")[1] === "png" ||
                         item?.option_1?.split(".")[1] === "jpg" ||
                         item?.option_1?.split(".")[1] === "jpeg" ? (
-                          <>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
                             <div
                               style={{
                                 ...styles.optionContainer,
                                 display: "flex",
-                                flexDirection: "row",
+                                // flexDirection: "row",
                               }}
                             >
                               <p style={styles.options}>A.</p>
@@ -361,7 +366,7 @@ const DefaultPDf = ({ props }: any) => {
                               style={{
                                 ...styles.optionContainer,
                                 display: "flex",
-                                flexDirection: "row",
+                                // flexDirection: "row",
                               }}
                             >
                               <p style={styles.options}>B.</p>
@@ -376,7 +381,7 @@ const DefaultPDf = ({ props }: any) => {
                               style={{
                                 ...styles.optionContainer,
                                 display: "flex",
-                                flexDirection: "row",
+                                // flexDirection: "row",
                               }}
                             >
                               <p style={styles.options}>C.</p>
@@ -391,7 +396,7 @@ const DefaultPDf = ({ props }: any) => {
                               style={{
                                 ...styles.optionContainer,
                                 display: "flex",
-                                flexDirection: "row",
+                                // flexDirection: "row",
                               }}
                             >
                               <p style={styles.options}>D.</p>
@@ -402,7 +407,7 @@ const DefaultPDf = ({ props }: any) => {
                                 }
                               />
                             </div>
-                          </>
+                          </div>
                         ) : (
                           <>
                             <p

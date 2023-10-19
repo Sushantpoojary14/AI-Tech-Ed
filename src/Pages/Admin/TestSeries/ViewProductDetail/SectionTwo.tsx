@@ -290,7 +290,7 @@ const SectionTwo = ({
                             topic={setData?.t_name}
                             set={true}
                             index={set?.index}
-                            cateId={1} //need to set this properly
+                            cateId={tsc} //need to set this properly
                           />
                           {/* <DownloadIconButton
                             type="button"
