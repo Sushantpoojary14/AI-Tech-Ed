@@ -68,7 +68,7 @@ const DownloadPDF = ({
   const pdfRef = useRef(null);
 
   const getPageMargins = () => {
-    return `@page { margin: ${"100px"} ${0} ${"100px"} ${0} !important; }`;
+    return `@page { margin: ${"100px"} ${"100px"} ${"100px"} ${"100px"} !important; }`;
   };
 
   const handlePrint = useReactToPrint({

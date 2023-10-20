@@ -138,25 +138,33 @@ const ReadingPDF = ({ props }: any) => {
               const index_data: any = index?.find((item: any) =>
                 item.element.includes(count)
               );
+              // if(){
+                
+              // }
               // console.log(item.paragraph?.split(":")[0]);
               // console.log(item.paragraph?.split(":")[1]);
-              console.log();
+              // console.log();
               const para = item.paragraph ?  item.paragraph?.split("::") : "";
               const counts:any = [];
-              const new_par = para[1].split(".").filter((item, key) => {
-                const random = Math.floor(Math.random() * 3);
-                const counts = [];
-                for (let index = 0; index < random; index++) {
-                  counts.push(key + index);
+              const new_par = para[1].split(".").filter((item2)=>{
+                  return item2!="" 
+              }).map((item,key)=>{
+                const random = Math.round(Math.random()*3)+1;
+
+                if(!counts.includes(key)){
+                 const text = []
+                 for (let index = 0; index < random; index++) {
+                  text.push(para[1].split(".")[key+index]);
+                  counts.push(key++);
+                   
+                 }
+                //  console.log(text.join('.'));
+                 return text.join('.');
                 }
-                if (!counts.includes(key) || key === 0) {
-                  const text = [];
-                  for (let index = 0; index < random; index++) {
-                    text.push(item);
-                  }
-                  return text.join('.');
-                }
-              });
+                  return null;
+               }).filter((item2)=>{
+                  return item2!=null && item2!=""
+               })
               console.log(new_par);
               
               count++;
@@ -281,13 +289,13 @@ const ReadingPDF = ({ props }: any) => {
                       marginBottom={3}
                       className="page-break-before: always"
                     >
-                      {key + 1 == index_data.start && item?.paragraph && (
+                      {key + 1 == index_data.start && new_par && (
                         <Stack spacing={2}>
                           <Box>
                             {new_par
-                              .map((item2: string) => {
+                              .map((item2: string | null) => {
                                 return (
-                                  <Typography sx={{ mt: "2px" }}>
+                                  <Typography sx={{ mt: "10px" }}>
                                     {`${item2}.`}
                                   </Typography>
                                 );

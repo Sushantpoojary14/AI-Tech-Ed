@@ -310,7 +310,7 @@ const Exam_Section = () => {
               count={count}
               mutation={updateAStatus}
               isLoading={isLoading}
-              index={data?.data.index}
+              index={data?.data.category_id == 2 ? data?.data.index : [] }
               preventCopyPaste={preventCopyPaste}
             />
           )}
