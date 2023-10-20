@@ -130,7 +130,7 @@ const ReadingPDF = ({ props }: any) => {
   let count = 1;
   return (
     <Box>
-      <Box className="break-after-page py-20 px-10">
+      <Box className="break-after-page px-10">
         {/* <div style={styles.header}>{topic?.toUpperCase()}</div> */}
         <div style={styles.mainContainer}>
           {selected_question?.length != 0 &&
@@ -139,34 +139,37 @@ const ReadingPDF = ({ props }: any) => {
                 item.element.includes(count)
               );
               // if(){
-                
+
               // }
               // console.log(item.paragraph?.split(":")[0]);
               // console.log(item.paragraph?.split(":")[1]);
               // console.log();
-              const para = item.paragraph ?  item.paragraph?.split("::") : "";
-              const counts:any = [];
-              const new_par = para[1].split(".").filter((item2)=>{
-                  return item2!="" 
-              }).map((item,key)=>{
-                const random = Math.round(Math.random()*3)+1;
+              const para = item.paragraph ? item.paragraph?.split("::") : "";
+              const counts: any = [];
+              const new_par = para[1]
+                .split(".")
+                .filter((item2) => {
+                  return item2 != "";
+                })
+                .map((item, key) => {
+                  const random = Math.round(Math.random() * 3) + 1;
 
-                if(!counts.includes(key)){
-                 const text = []
-                 for (let index = 0; index < random; index++) {
-                  text.push(para[1].split(".")[key+index]);
-                  counts.push(key++);
-                   
-                 }
-                //  console.log(text.join('.'));
-                 return text.join('.');
-                }
+                  if (!counts.includes(key)) {
+                    const text = [];
+                    for (let index = 0; index < random; index++) {
+                      text.push(para[1].split(".")[key + index]);
+                      counts.push(key++);
+                    }
+                    //  console.log(text.join('.'));
+                    return text.join(".");
+                  }
                   return null;
-               }).filter((item2)=>{
-                  return item2!=null && item2!=""
-               })
+                })
+                .filter((item2) => {
+                  return item2 != null && item2 != "";
+                });
               console.log(new_par);
-              
+
               count++;
               return (
                 <div
@@ -287,22 +290,34 @@ const ReadingPDF = ({ props }: any) => {
                     <Stack
                       spacing={1}
                       marginBottom={3}
-                      className="page-break-before: always"
+                      className={`${
+                        key + 1 == index_data.start
+                          ? "break-after-page"
+                          : "page-break-inside: avoid"
+                      }`}
                     >
                       {key + 1 == index_data.start && new_par && (
                         <Stack spacing={2}>
                           <Box>
-                            {new_par
-                              .map((item2: string | null) => {
-                                return (
-                                  <Typography sx={{ mt: "10px" }}>
-                                    {`${item2}.`}
-                                  </Typography>
-                                );
-                              })}
+                            {new_par.map((item2: string | null) => {
+                              return (
+                                <Typography sx={{ mt: "10px" }}>
+                                  {`${item2}.`}
+                                </Typography>
+                              );
+                            })}
                           </Box>
                           <ParaText4
-                            text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
+                            text={
+                              <span>
+                                For questions
+                                <strong>
+                                  {` ${index_data.start} - ${index_data.end} `}
+                                </strong>
+                                choose the option <strong>(A,B,C or D)</strong>{" "}
+                                which think the best answers the question
+                              </span>
+                            }
                           />
                         </Stack>
                       )}
@@ -329,6 +344,7 @@ const ReadingPDF = ({ props }: any) => {
                           marginTop={0}
                           flexDirection={"row"}
                           columnGap={2}
+                          
                         >
                           <Typography padding={0}>{key + 1}</Typography>
                           <Typography
@@ -375,19 +391,19 @@ const ReadingPDF = ({ props }: any) => {
                       )}
 
                       <Stack marginY={""} paddingX={"50px"}>
-                        <Typography
-
-                        // style={styles.options}
-                        >{`A. ${item?.option_1}`}</Typography>
-                        <Typography
-                        // style={styles.options}
-                        >{`B. ${item?.option_2}`}</Typography>
-                        <Typography
-                        // style={styles.options}
-                        >{`C. ${item?.option_3}`}</Typography>
-                        <Typography
-                        // style={styles.options}
-                        >{`D. ${item?.option_4}`}</Typography>
+                        <Typography>
+                          <span><strong>A </strong>{`${item?.option_1}`}</span>
+                        </Typography>
+                        <Typography>
+                          <span><strong>B </strong>{`${item?.option_2}`}</span>
+                        </Typography>
+                        <Typography>
+                          <span><strong>C </strong>{`${item?.option_3}`}</span>
+                        </Typography>
+                        <Typography>
+                          <span><strong>D </strong>{`${item?.option_4}`}</span>
+                        </Typography>
+                      
                       </Stack>
                     </Stack>
                   )}
