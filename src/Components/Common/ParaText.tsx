@@ -13,7 +13,7 @@ const ParaText1 = (props: props) => {
         fontSize: "16px",
         fontWeight: 400,
         color: "#000000",
-        
+
         ...props.css,
       }}
     >
@@ -44,7 +44,7 @@ const ParaText3 = (props: props) => {
         fontSize: "16px",
         fontWeight: 550,
         color: "#000000",
-        
+
         ...props.css,
       }}
     >
@@ -56,6 +56,7 @@ const ParaText3 = (props: props) => {
 const ParaText4 = (props: props) => {
   return (
     <Typography
+      component={"p"}
       onClick={props.func}
       sx={{
         fontSize: "20px",

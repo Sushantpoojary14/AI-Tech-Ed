@@ -142,7 +142,7 @@ const DefaultPDf = ({ props }: any) => {
                   key={key}
                   className={`${
                     (key + 1) % 3 === 0 ? "break-after-page" : ""
-                  }  mt-4`}
+                  }  mt-8`}
                 >
                   {index && index?.length != 0 && index_data && (
                     <Stack spacing={2} marginBottom={3}>
