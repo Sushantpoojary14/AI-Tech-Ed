@@ -66,10 +66,17 @@ const DownloadPDF = ({
 }: props) => {
   const [selected_question, setSelected_question] = useState<questions[]>([]);
   const pdfRef = useRef(null);
+
+  const getPageMargins = () => {
+    return `@page { margin: ${"100px"} ${0} ${"100px"} ${0} !important; }`;
+  };
+
   const handlePrint = useReactToPrint({
     content: () => pdfRef.current,
     documentTitle: topic,
+    pageStyle: getPageMargins(),
   });
+
   console.log("data", data);
   console.log("cateId", cateId);
   // useEffect(() => {
@@ -79,7 +86,7 @@ const DownloadPDF = ({
   useEffect(() => {
     const questions: questions[] = data;
     console.log(questions);
-    
+
     // console.log(questions?.length < total);
     if (randomG) {
       if (!!questions) {
