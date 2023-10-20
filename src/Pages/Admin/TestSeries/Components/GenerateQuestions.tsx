@@ -461,7 +461,19 @@ const GenerateQuestions = ({
           ]
   `;
         } else {
-          query = `Generate five unique and challenging multiple-choice questions (MCQs) to test knowledge on the topic "${topic}". Each question should be complex, requiring deep analysis and critical thinking. The options should be challenging, involving multiple steps or considerations. If a question involves a scenario, make it more intricate. Encourage the AI to think creatively and innovative. 
+          query = `Generate five unique and challenging multiple-choice questions (MCQs) to test knowledge for adults make it more complex and hard on the topic "${topic}". 
+          Please follow these guidelines for generating each MCQ:
+          1. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
+            ", "
+          )}, and for females, use ${femaleNames.join(", ")}.
+  
+          2. Feel free to modify question make it more complex and hard. If a question involves a scenario, make it more intricate.
+  
+          3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
+  
+          4. If there is a Paragraph ,conversation between persons, generate that as well.
+  
+          5. Provide the JSON representation of the five MCQs in the following format:
           Example Question:
          
           Question: ${item.Question}(Include more detailed information)
@@ -756,7 +768,13 @@ const GenerateQuestions = ({
                   set={false}
                   bol={false}
                   topic={topic1[1]}
-                  button={<BButton2 type="button" name="Download" disabled={!topic1[2]}/>}
+                  button={
+                    <BButton2
+                      type="button"
+                      name="Download"
+                      disabled={!topic1[2]}
+                    />
+                  }
                   total={topic1[2]}
                   cateId={topic1[0]}
                 />

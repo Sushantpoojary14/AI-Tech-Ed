@@ -52,7 +52,7 @@ const styles = {
   },
   options: {
     fontSize: 16,
-    marginTop: 2,
+    // marginTop: 2,
     marginBottom: 2,
   },
 
@@ -130,33 +130,63 @@ const ReadingPDF = ({ props }: any) => {
   let count = 1;
   return (
     <Box>
-      <Box style={styles.page} className="break-after-page">
-        <div style={styles.header}>{topic?.toUpperCase()}</div>
+      <Box className="break-after-page py-20 px-10">
+        {/* <div style={styles.header}>{topic?.toUpperCase()}</div> */}
         <div style={styles.mainContainer}>
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key: any) => {
               const index_data: any = index?.find((item: any) =>
                 item.element.includes(count)
               );
+              // console.log(item.paragraph?.split(":")[0]);
+              // console.log(item.paragraph?.split(":")[1]);
+              console.log();
+              const para = item.paragraph ?  item.paragraph?.split("::") : "";
+              const counts:any = [];
+              const new_par = para[1].split(".").filter((item, key) => {
+                const random = Math.floor(Math.random() * 3);
+                const counts = [];
+                for (let index = 0; index < random; index++) {
+                  counts.push(key + index);
+                }
+                if (!counts.includes(key) || key === 0) {
+                  const text = [];
+                  for (let index = 0; index < random; index++) {
+                    text.push(item);
+                  }
+                  return text.join('.');
+                }
+              });
+              console.log(new_par);
+              
               count++;
               return (
                 <div
                   style={styles.Container}
                   key={key}
-                  className={`break-after-page mt-4`}
+                  className={`${
+                    key + 1 == index_data.start
+                      ? "break-before-page"
+                      : "page-break-inside: avoid"
+                  } mt-4`}
                 >
-                  {index && index?.length != 0 && index_data && (
-                    <Stack spacing={2} marginBottom={3}>
-                      <ParaText4
-                        text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
-                        css={{ fontWeight: "500" }}
-                      />
-                      <ParaText3
-                        text={`Read the extracts below then answer the question`}
-                        css={{ fontWeight: "500" }}
-                      />
-                    </Stack>
-                  )}
+                  {index &&
+                    index?.length != 0 &&
+                    index_data &&
+                    key + 1 == index_data.start && (
+                      <Stack>
+                        <Typography
+                          marginBottom={1}
+                        >{`Read the extracts below then answer the question`}</Typography>
+                        <Typography
+                          textAlign={"center"}
+                          fontSize={"30px"}
+                          marginY={4}
+                        >
+                          {para[0]}
+                        </Typography>
+                      </Stack>
+                    )}
                   {item?.Options ? (
                     <>
                       {item.Paragraph && (
@@ -164,7 +194,8 @@ const ReadingPDF = ({ props }: any) => {
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
                           }: `}</Typography>
-                          <Typography>{` ${item.Paragraph}`}</Typography>
+
+                          <Typography>{` ${item.paragraph}`}</Typography>
                         </Stack>
                       )}
                       {item.paragraph && item?.question_image && (
@@ -185,23 +216,9 @@ const ReadingPDF = ({ props }: any) => {
                           )}
                         </div>
                       )}
-                      {item.Conversation && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${item.Conversation}`}
-                        </Typography>
-                      )}
-                      {item.Conversation || item.Paragraph ? (
-                        <Typography
-                          sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
-                        >{`${item.Question}`}</Typography>
-                      ) : (
-                        <Stack flexDirection={"row"} columnGap={1}>
-                          <Typography sx={styles.mainText} className="">{`${
-                            key + 1
-                          }: `}</Typography>
-                          <Typography>{` ${item.Question}`}</Typography>
-                        </Stack>
-                      )}
+
+                      <Typography>{` ${item.Question}`}</Typography>
+
                       {!item.paragraph && item?.question_image && (
                         <div>
                           {item?.question_image?.map(
@@ -259,11 +276,27 @@ const ReadingPDF = ({ props }: any) => {
                       </div>
                     </>
                   ) : (
-                    <>
-                      {item?.paragraph && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${key + 1}: ${item.paragraph}`}
-                        </Typography>
+                    <Stack
+                      spacing={1}
+                      marginBottom={3}
+                      className="page-break-before: always"
+                    >
+                      {key + 1 == index_data.start && item?.paragraph && (
+                        <Stack spacing={2}>
+                          <Box>
+                            {new_par
+                              .map((item2: string) => {
+                                return (
+                                  <Typography sx={{ mt: "2px" }}>
+                                    {`${item2}.`}
+                                  </Typography>
+                                );
+                              })}
+                          </Box>
+                          <ParaText4
+                            text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
+                          />
+                        </Stack>
                       )}
                       {item?.paragraph && item?.images && (
                         <div>
@@ -281,22 +314,18 @@ const ReadingPDF = ({ props }: any) => {
                           })}
                         </div>
                       )}
-                      {item.conversation && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${item.conversation}`}
-                        </Typography>
-                      )}
 
-                      {item.conversation || item.paragraph ? (
-                        <Typography
-                          sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
-                        >{`${item.question}`}</Typography>
-                      ) : (
-                        <Stack flexDirection={"row"} columnGap={1}>
-                          <Typography sx={styles.mainText} className="">{`${
-                            key + 1
-                          }: `}</Typography>
-                          <Typography>{` ${item.question}`}</Typography>
+                      {item.question && (
+                        <Stack
+                          paddingTop={1}
+                          marginTop={0}
+                          flexDirection={"row"}
+                          columnGap={2}
+                        >
+                          <Typography padding={0}>{key + 1}</Typography>
+                          <Typography
+                            padding={0}
+                          >{`${item.question}`}</Typography>
                         </Stack>
                       )}
 
@@ -336,92 +365,23 @@ const ReadingPDF = ({ props }: any) => {
                           )}
                         </Stack>
                       )}
-                      <div style={styles.optionContainer}>
-                        {item?.option_1?.split(".")[1] === "png" ||
-                        item?.option_1?.split(".")[1] === "jpg" ||
-                        item?.option_1?.split(".")[1] === "jpeg" ? (
-                          <>
-                            <div
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <p style={styles.options}>A.</p>
-                              <img
-                                style={styles.optionImage}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL + item.option_1
-                                }
-                              />
-                            </div>
 
-                            {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
-                            <div
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <p style={styles.options}>B.</p>
-                              <img
-                                style={styles.optionImage}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL + item.option_2
-                                }
-                              />
-                            </div>
-                            <div
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <p style={styles.options}>C.</p>
-                              <img
-                                style={styles.optionImage}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL + item.option_3
-                                }
-                              />
-                            </div>
-                            <div
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                flexDirection: "row",
-                              }}
-                            >
-                              <p style={styles.options}>D.</p>
-                              <img
-                                style={styles.optionImage}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL + item.option_4
-                                }
-                              />
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <p
-                              style={styles.options}
-                            >{`A. ${item?.option_1}`}</p>
-                            <p
-                              style={styles.options}
-                            >{`B. ${item?.option_2}`}</p>
-                            <p
-                              style={styles.options}
-                            >{`C. ${item?.option_3}`}</p>
-                            <p
-                              style={styles.options}
-                            >{`D. ${item?.option_4}`}</p>
-                          </>
-                        )}
-                      </div>
-                    </>
+                      <Stack marginY={""} paddingX={"50px"}>
+                        <Typography
+
+                        // style={styles.options}
+                        >{`A. ${item?.option_1}`}</Typography>
+                        <Typography
+                        // style={styles.options}
+                        >{`B. ${item?.option_2}`}</Typography>
+                        <Typography
+                        // style={styles.options}
+                        >{`C. ${item?.option_3}`}</Typography>
+                        <Typography
+                        // style={styles.options}
+                        >{`D. ${item?.option_4}`}</Typography>
+                      </Stack>
+                    </Stack>
                   )}
                 </div>
               );

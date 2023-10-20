@@ -184,11 +184,20 @@ const DefaultPDf = ({ props }: any) => {
                           )}
                         </div>
                       )}
-                      {item.Conversation && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${item.Conversation}`}
-                        </Typography>
-                      )}
+                      {!item.Paragraph && item.Conversation 
+                        ?  (
+                            <Stack flexDirection={"row"} columnGap={1}>
+                              <Typography sx={styles.mainText} className="">{`${
+                                key + 1
+                              }: `}</Typography>
+                              <Typography>{` ${item.Conversation}`}</Typography>
+                            </Stack>
+                          )
+                        : (
+                            <Typography sx={{ my: "10px" }}>
+                              {`${item.Conversation}`}
+                            </Typography>
+                          )}
                       {item.Conversation || item.Paragraph ? (
                         <Typography
                           sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
