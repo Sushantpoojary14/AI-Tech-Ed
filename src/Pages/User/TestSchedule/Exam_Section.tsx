@@ -12,6 +12,7 @@ import { AppContext } from "../../../Context/AppContext";
 import { useEffect, useState } from "react";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { useTimer } from "react-timer-hook";
+import ReadingTestSection from "./Components/ReadingTestSection";
 
 type mutateType = {
   id: number;
@@ -149,7 +150,7 @@ const Exam_Section = () => {
     ["question-data"],
     async () => await tokenAxios.get(`/generate-question/${params.id}`)
   );
-  console.log(data);
+  console.log("generate-question", data);
 
   const time = data?.data?.timer
     ? new Date(Date.now() + parseFloat(data?.data?.timer) * 60 * 1000)
@@ -257,7 +258,7 @@ const Exam_Section = () => {
     <Container maxWidth="xl" sx={{ height: "50px" }}>
       <Stack direction={"column"}>
         <Stack
-          sx={{ width: "100%", my: "5px" }}
+          sx={{ width: "100%", my: 1 }}
           direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
         >
           {/* <Header1 header="Section" /> */}
@@ -272,8 +273,8 @@ const Exam_Section = () => {
             <Button
               variant="outlined"
               sx={{
-                width: "45px",
-                height: "45px",
+                width: "30px",
+                height: "30px",
                 color: "#FA8128",
                 border: "1px solid #FA8128",
                 backgroundColor: "#FFFFFF",
@@ -291,22 +292,33 @@ const Exam_Section = () => {
         </Stack>
         <Stack
           direction={{ lg: "row", md: "row", sm: "row", xs: "column" }}
-          spacing={4}
+          spacing={2}
           sx={{ width: "100%", my: "15px" }}
         >
-          <ExamFirstSection
-            data={question}
-            count={count}
-            mutation={updateAStatus}
-            isLoading={isLoading}
-            index={data?.data.index}
-            preventCopyPaste={preventCopyPaste}
-          />
+          {data?.data?.category_id === 2 ? (
+            <ReadingTestSection
+              data={question}
+              count={count}
+              mutation={updateAStatus}
+              isLoading={isLoading}
+              index={data?.data.index}
+              preventCopyPaste={preventCopyPaste}
+            />
+          ) : (
+            <ExamFirstSection
+              data={question}
+              count={count}
+              mutation={updateAStatus}
+              isLoading={isLoading}
+              index={data?.data.index}
+              preventCopyPaste={preventCopyPaste}
+            />
+          )}
+
           <ExamSecondSection
             questions={questions}
             func={paginate}
             submit={SubmitTestData}
-           
           />
         </Stack>
         <Stack direction="row" spacing={2} marginTop={2}>
