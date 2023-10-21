@@ -232,7 +232,7 @@ const GenerateQuestions = ({
         }
         return false;
       });
-      console.log(filteredCsvData);
+      // console.log(filteredCsvData);
       newRes.mutate(filteredCsvData);
     } else {
       alert("upload csv in correct formast");
