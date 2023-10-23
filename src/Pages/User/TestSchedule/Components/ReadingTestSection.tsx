@@ -9,6 +9,7 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  Typography,
 } from "@mui/material";
 import {
   ConverationComp,
@@ -145,6 +146,10 @@ const ReadingTestSection = (props: props) => {
   const index_data = index?.find((item: any) =>
     item.element.includes(props.count + 1)
   );
+  const para = question?.questions.paragraph
+    ? question?.questions.paragraph?.split("::")
+    : "";
+
   return (
     <Card
       sx={{
@@ -185,6 +190,7 @@ const ReadingTestSection = (props: props) => {
               maxWidth="950px"
               maxHeight="550px"
               paddingBottom={2}
+              paddingX={5}
               sx={{
                 overflow: "auto",
                 "&::-webkit-scrollbar": {
@@ -219,14 +225,33 @@ const ReadingTestSection = (props: props) => {
               >
                 {props.index && props.index?.length != 0 && (
                   <Stack spacing={2} marginBottom={3}>
-                    <ParaText4
+                    {/* <ParaText4
                       text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
                       css={{ fontWeight: "500" }}
-                    />
+                    /> */}
+                      <ParaText4
+                            text={
+                              <span>
+                                For questions
+                                <strong>
+                                  {` ${index_data.start} - ${index_data.end} `}
+                                </strong>
+                                choose the option <strong>(A,B,C or D)</strong>{" "}
+                                which think the best answers the question
+                              </span>
+                            }
+                          />
                     <ParaText3
                       text={`Read the extracts below then answer the question`}
                       css={{ fontWeight: "500" }}
                     />
+                    <Typography
+                      textAlign={"center"}
+                      fontSize={"30px"}
+                      marginY={4}
+                    >
+                      {para[0]}
+                    </Typography>
                   </Stack>
                 )}
 
@@ -235,15 +260,16 @@ const ReadingTestSection = (props: props) => {
                     {!!question?.questions.conversation ||
                     !!question?.questions.paragraph ? (
                       <>
-                        {question?.questions.paragraph && (
+                        {para && (
                           <ParaText4
-                            text={question.questions.paragraph}
+                            text={para[1]}
                             css={{
                               fontWeight: "400",
                               marginBottom: "10px",
                               fontSize: "1.1rem",
                             }}
                           />
+
                         )}
                         {question?.questions.question_image &&
                           question?.questions.question_image.length !== 0 && (

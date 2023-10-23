@@ -461,40 +461,101 @@ const GenerateQuestions = ({
           ]
   `;
         } else {
-          query = `Generate five unique and challenging multiple-choice questions (MCQs) to test knowledge for adults make it more complex and hard on the topic "${topic}". 
-          Please follow these guidelines for generating each MCQ:
-          1. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
-            ", "
-          )}, and for females, use ${femaleNames.join(", ")}.
+          // query = `Generate two unique and challenging multiple-choice questions (MCQs) to test knowledge for adults make it more complex and hard on the topic "${topic}". 
+          // Please follow these guidelines for generating each MCQ:
+          // 1. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
+          //   ", "
+          // )}, and for females, use ${femaleNames.join(", ")}.
   
-          2. Feel free to modify question make it more complex and hard. If a question involves a scenario, make it more intricate.
+          // 2. Feel free to modify question make it more complex and hard. If a question involves a scenario, make it more intricate.
   
-          3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
+          // 3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
   
-          4. If there is a Paragraph ,conversation between persons, generate that as well.
+          // 4. If there is a Paragraph ,conversation between persons, generate that as well.
   
-          5. Provide the JSON representation of the five MCQs in the following format:
-          Example Question:
+          // 5. Provide the JSON representation of the five MCQs in the following format:
+          // Example Question:
          
-          Question: ${item.Question}(Include more detailed information)
-          Options:
-          a. ${item.Option_A} 
-          b. ${item.Option_B} 
-          c. ${item.Option_C} 
-          d. ${item.Option_D} 
-          Answer: ${
-            item.Answer
-              ? item.Answer
-              : "Generate a precise answer based on the question"
-          }
-          Explanation: ${
-            item.Explanation
-              ? item.Explanation
-              : "Create a detailed explanation based on the question and correct answer"
-          } (Include more detailed information based on the question and correct answer)
+          // Question: ${item.Question}(Include more detailed information)
+          // Options:
+          // a. ${item.Option_A} 
+          // b. ${item.Option_B} 
+          // c. ${item.Option_C} 
+          // d. ${item.Option_D} 
+          // Answer: ${
+          //   item.Answer
+          //     ? item.Answer
+          //     : "Generate a precise answer based on the question"
+          // }
+          // Explanation: ${
+          //   item.Explanation
+          //     ? item.Explanation
+          //     : "Create a detailed explanation based on the question and correct answer"
+          // } (Include more detailed information based on the question and correct answer)
           
-          .....
+          // .....
 
+          // Provide the JSON representation of the five MCQs in the following format:
+          // [
+          //   {
+          //     "Question": "Replace with a challenging question text",
+          //     "Options": {
+          //       "a": "Option A text with complexity",
+          //       "b": "Option B text with intricacy",
+          //       "c": "Option C text with nuance",
+          //       "d": "Option D text with exceptions"
+          //     },
+          //     "Answer": "Correct answer letter (a, b, c, or d)",
+          //     "Explanation": "Detailed explanation for the correct answer"
+          //   },
+          //   {
+          //     "Question": "Replace with another challenging question text",
+          //     "Options": {
+          //       "a": "Option A text with complexity",
+          //       "b": "Option B text with intricacy",
+          //       "c": "Option C text with nuance",
+          //       "d": "Option D text with exceptions"
+          //     },
+          //     "Answer": "Correct answer letter (a, b, c, or d)",
+          //     "Explanation": "Detailed explanation for the correct answer"
+          //   },
+          //   {
+          //     "Question": "Replace with another challenging question text",
+          //     "Options": {
+          //       "a": "Option A text with complexity",
+          //       "b": "Option B text with intricacy",
+          //       "c": "Option C text with nuance",
+          //       "d": "Option D text with exceptions"
+          //     },
+          //     "Answer": "Correct answer letter (a, b, c, or d)",
+          //     "Explanation": "Detailed explanation for the correct answer"
+          //   },
+          //   {
+          //     "Question": "Replace with another challenging question text",
+          //     "Options": {
+          //       "a": "Option A text with complexity",
+          //       "b": "Option B text with intricacy",
+          //       "c": "Option C text with nuance",
+          //       "d": "Option D text with exceptions"
+          //     },
+          //     "Answer": "Correct answer letter (a, b, c, or d)",
+          //     "Explanation": "Detailed explanation for the correct answer"
+          //   },
+          //   {
+          //     "Question": "Replace with another challenging question text",
+          //     "Options": {
+          //       "a": "Option A text with complexity",
+          //       "b": "Option B text with intricacy",
+          //       "c": "Option C text with nuance",
+          //       "d": "Option D text with exceptions"
+          //     },
+          //     "Answer": "Correct answer letter (a, b, c, or d)",
+          //     "Explanation": "Detailed explanation for the correct answer"
+          //   }
+          // ]
+          // `;
+          query =`Could you generate 2 advanced-level practice word questions with unique story line and extra information for a year 8 student with ${topic} preparing with arithmetic aptitude exam, provide a detailed explanation with 4 answer options
+          For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(", ")}, and for females, use ${femaleNames.join(",")}.
           Provide the JSON representation of the five MCQs in the following format:
           [
             {
@@ -553,7 +614,8 @@ const GenerateQuestions = ({
               "Explanation": "Detailed explanation for the correct answer"
             }
           ]
-          `;
+
+          `
         }
 
         const openAi = new OpenAIApi(
