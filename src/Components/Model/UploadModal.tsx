@@ -107,16 +107,20 @@ const UploadModal = ({
                 </Button>
               </Stack> */}
             <Stack spacing={1}>
-              <FormLabel
-                sx={{ fontWeight: "900", fontSize: "1.1rem" }}
-                id="upload-csv"
-              >
-                Upload CSV
-              </FormLabel>
-              <CSVParser csvData={csvData} setCsvData={setCsvData} />
+              {(topic[0] == 2 || topic[0] == 3) && (
+                <>
+                  <FormLabel
+                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                    id="upload-csv"
+                  >
+                    Upload CSV
+                  </FormLabel>
+                  <CSVParser csvData={csvData} setCsvData={setCsvData} />
+                </>
+              )}
             </Stack>
 
-            <GenerateQuestions
+            {/* <GenerateQuestions
               topicId={topicId}
               edit={true}
               topic1={topic}
@@ -126,16 +130,16 @@ const UploadModal = ({
               handleClose={handleClose}
               setTopic={setTopic}
               // reset={reset}
-            />
+            /> */}
 
-            {topic[0] === "1" && (
+            {topic[0] == 1 && (
               <MathGen
                 formData={topic}
                 // reset={reset}
                 edit={true}
               />
             )}
-            {topic[0] === "2" && (
+            {topic[0] == 2 && (
               <Reading
                 formData={topic}
                 csvData={csvData}
@@ -144,7 +148,7 @@ const UploadModal = ({
                 edit={true}
               />
             )}
-            {topic[0] === "3" && (
+            {topic[0] == 3 && (
               <Thinking
                 formData={topic}
                 csvData={csvData}

@@ -141,7 +141,7 @@ const DefaultPDf = ({ props }: any) => {
                   style={styles.Container}
                   key={key}
                   className={`${
-                    (key + 1) % 4 === 0 ? "break-after-page" : ""
+                    (key + 1) % 3 === 0 ? "break-after-page" : ""
                   }  mt-10`}
                 >
                   {index && index?.length != 0 && index_data && (
@@ -184,7 +184,7 @@ const DefaultPDf = ({ props }: any) => {
                           )}
                         </div>
                       )}
-              
+
                       {item.Conversation || item.Paragraph ? (
                         <Typography
                           sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
