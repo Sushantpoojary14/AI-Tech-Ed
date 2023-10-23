@@ -1,18 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
-
-import Test from "../../../../Test";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { Pagination, Stack } from "@mui/material";
-import { BButton2 } from "../../../../Components/Common/Button";
-import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
-import PdfMaker from "./PdfMaker";
-import AlertBox from "../../../../Components/Common/AlertBox";
-import { UserContext } from "../../../../Context/UserContext";
-import QuestionCard from "./QuestionCard";
-import { count, log } from "console";
-import DownloadPDF from "./PDF/DownloadPDF";
-
+import QuestionCard from "../../../Components/QuestionCard";
+import { BButton2 } from "../../../../../../Components/Common/Button";
+import DownloadPDF from "../../../Components/PDF/DownloadPDF";
+import AlertBox from "../../../../../../Components/Common/AlertBox";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
 type CsvItem = {
   Answer: string;
   Conversation?: string;
@@ -35,10 +29,10 @@ type mapData = {
   images?: string[];
 };
 
-interface GenerateProps {
+interface ThinkingProps {
   csvData?: any;
-  topic?: any;
-  topic1?: any;
+  formData: any;
+
   setCsvData?: any;
   reset?: any;
   edit: boolean;
@@ -47,17 +41,18 @@ interface GenerateProps {
   setTopic?: any;
 }
 
-const GenerateQuestions = ({
+const Thinking = ({
   csvData,
-  topic,
-  topic1,
+  formData,
   setCsvData,
   reset,
   edit,
   topicId,
   handleClose,
   setTopic,
-}: GenerateProps) => {
+}: ThinkingProps) => {
+  const [category, topicGen, totalQuestions, testType, topicName] = formData;
+
   const [resData, setResData] = useState([]);
   const [open, setOpen] = useState<boolean>(false);
   const [errMessage, setErrMessage] = useState<string>("");
@@ -90,12 +85,13 @@ const GenerateQuestions = ({
   const handleAlertBoxClose2 = () => {
     setOpen2(false);
   };
+
   const { data } = useQuery({
     queryKey: ["images"],
     queryFn: async () => {
-      return await adminTokenAxios.get(`/admin/get-image/${topic1[0]}`);
+      return await adminTokenAxios.get(`/admin/get-image/${category}`);
     },
-    enabled: !!topic1[0],
+    enabled: !!category,
   });
   let image_data = data?.data.images;
   // console.log(image_data);
@@ -105,11 +101,11 @@ const GenerateQuestions = ({
       console.log(data);
 
       return await adminTokenAxios.post(`/admin/add-test-series-topics`, {
-        tsc_id: topic1[0],
-        t_name: topic1[4],
+        tsc_id: category,
+        t_name: topicName,
         question: data,
-        topic: topic1[1],
-        ts_id: topic1[3],
+        topic: topicGen,
+        ts_id: testType,
       });
     },
     onError: (error: any) => {
@@ -156,8 +152,9 @@ const GenerateQuestions = ({
       }
     },
   });
+
   const handleUpload = async (data: any) => {
-    if (topic1[0] == 2) {
+    if (category == 2) {
       const header3 = [
         "Paragraph",
         "Question",
@@ -218,12 +215,12 @@ const GenerateQuestions = ({
       "Explanation",
     ];
     const array2 = Object.keys(csvData[0]);
-    console.log(topic1[0], topic1[0] == 1 || topic1[0] == 2);
+    console.log(category, category == 1 || category == 2);
 
     if (
-      (JSON.stringify(header1) === JSON.stringify(array2) && topic1[0] == 1) ||
-      (JSON.stringify(header2) === JSON.stringify(array2) && topic1[0] == 3) ||
-      (JSON.stringify(header3) === JSON.stringify(array2) && topic1[0] == 2)
+      (JSON.stringify(header1) === JSON.stringify(array2) && category == 1) ||
+      (JSON.stringify(header2) === JSON.stringify(array2) && category == 3) ||
+      (JSON.stringify(header3) === JSON.stringify(array2) && category == 2)
     ) {
       const filteredCsvData = csvData.filter((item: any) => {
         if (item.Question && item.Option_D) {
@@ -248,59 +245,7 @@ const GenerateQuestions = ({
       const responses: any[] = [];
 
       for (const [key, item] of csvData.entries()) {
-        // console.log("loop", item);
-        //     const query = `Generate five unique multiple-choice questions (MCQs) for the topic "${
-        //       topic1[1]
-        //     }". Follow the format below, maintaining the sentence structure while modifying variables like numbers. If there is a person's name in the question, use one of the specified names only for persons that is for male - Oliver,James,Jack,Thomas and for girl - Ella ,Evie,Sienna,Isla and do not use these names for any other purpose. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated. If there is conversation statement between persons generate that also.
-
-        //     Example Question:,
-        //     Question: ${item.Question}
-
-        //     Options:
-        //     a. ${item.Option_A}
-        //     b. ${item.Option_B}
-        //     c. ${item.Option_C}
-        //     d. ${item.Option_D}
-        //     Answer: ${
-        //       item.Answer ? item.Answer : "Generate an Answer based on the question"
-        //     }
-        //     Explanation: ${
-        //       item.Explanation
-        //         ? item.Explanation
-        //         : "Generate an explanation based on the question and correct answer"
-        //     }
-
-        //     ---
-        //     Provide the JSON representation of the five MCQs in the following format:
-
-        //     [
-        //       {
-        //         "Question": "Replace with question text  ",
-        //         "Options": {
-        //           "a": "Option A text",
-        //           "b": "Option B text",
-        //           "c": "Option C text",
-        //           "d": "Option D text"
-        //         },
-        //         "Answer": "Correct answer letter (a, b, c, or d)",
-        //         "Explanation": "Explanation for the correct answer"
-        //       },
-        //       {
-        //         "Question": "Replace with question text",
-        //         "Options": {
-        //           "a": "Option A text",
-        //           "b": "Option B text",
-        //           "c": "Option C text",
-        //           "d": "Option D text"
-        //         },
-        //         "Answer": "Correct answer letter (a, b, c, or d)",
-        //         "Explanation": "Explanation for the correct answer and give it all text in on one line don't go to next line"
-        //       },
-        //    ...
-        //     ]
-        // `;
-
-        const topic = topic1[1];
+        const topic = topicGen;
         const maleNames = [
           "Henry",
           "James",
@@ -353,7 +298,7 @@ const GenerateQuestions = ({
           "Kate",
         ];
         let query = "";
-        if (topic1[0] == 3) {
+        if (category == 3) {
           query = `Generate five unique multiple-choice questions (MCQs) for the topic "${topic}".
    
           Example Question:
@@ -460,231 +405,6 @@ const GenerateQuestions = ({
             }
           ]
   `;
-        } else {
-          // query = `Generate two unique and challenging multiple-choice questions (MCQs) to test knowledge for adults make it more complex and hard on the topic "${topic}".
-          // Please follow these guidelines for generating each MCQ:
-          // 1. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
-          //   ", "
-          // )}, and for females, use ${femaleNames.join(", ")}.
-
-          // 2. Feel free to modify question make it more complex and hard. If a question involves a scenario, make it more intricate.
-
-          // 3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
-
-          // 4. If there is a Paragraph ,conversation between persons, generate that as well.
-
-          // 5. Provide the JSON representation of the five MCQs in the following format:
-          // Example Question:
-
-          // Question: ${item.Question}(Include more detailed information)
-          // Options:
-          // a. ${item.Option_A}
-          // b. ${item.Option_B}
-          // c. ${item.Option_C}
-          // d. ${item.Option_D}
-          // Answer: ${
-          //   item.Answer
-          //     ? item.Answer
-          //     : "Generate a precise answer based on the question"
-          // }
-          // Explanation: ${
-          //   item.Explanation
-          //     ? item.Explanation
-          //     : "Create a detailed explanation based on the question and correct answer"
-          // } (Include more detailed information based on the question and correct answer)
-
-          // .....
-
-          // Provide the JSON representation of the five MCQs in the following format:
-          // [
-          //   {
-          //     "Question": "Replace with a challenging question text",
-          //     "Options": {
-          //       "a": "Option A text with complexity",
-          //       "b": "Option B text with intricacy",
-          //       "c": "Option C text with nuance",
-          //       "d": "Option D text with exceptions"
-          //     },
-          //     "Answer": "Correct answer letter (a, b, c, or d)",
-          //     "Explanation": "Detailed explanation for the correct answer"
-          //   },
-          //   {
-          //     "Question": "Replace with another challenging question text",
-          //     "Options": {
-          //       "a": "Option A text with complexity",
-          //       "b": "Option B text with intricacy",
-          //       "c": "Option C text with nuance",
-          //       "d": "Option D text with exceptions"
-          //     },
-          //     "Answer": "Correct answer letter (a, b, c, or d)",
-          //     "Explanation": "Detailed explanation for the correct answer"
-          //   },
-          //   {
-          //     "Question": "Replace with another challenging question text",
-          //     "Options": {
-          //       "a": "Option A text with complexity",
-          //       "b": "Option B text with intricacy",
-          //       "c": "Option C text with nuance",
-          //       "d": "Option D text with exceptions"
-          //     },
-          //     "Answer": "Correct answer letter (a, b, c, or d)",
-          //     "Explanation": "Detailed explanation for the correct answer"
-          //   },
-          //   {
-          //     "Question": "Replace with another challenging question text",
-          //     "Options": {
-          //       "a": "Option A text with complexity",
-          //       "b": "Option B text with intricacy",
-          //       "c": "Option C text with nuance",
-          //       "d": "Option D text with exceptions"
-          //     },
-          //     "Answer": "Correct answer letter (a, b, c, or d)",
-          //     "Explanation": "Detailed explanation for the correct answer"
-          //   },
-          //   {
-          //     "Question": "Replace with another challenging question text",
-          //     "Options": {
-          //       "a": "Option A text with complexity",
-          //       "b": "Option B text with intricacy",
-          //       "c": "Option C text with nuance",
-          //       "d": "Option D text with exceptions"
-          //     },
-          //     "Answer": "Correct answer letter (a, b, c, or d)",
-          //     "Explanation": "Detailed explanation for the correct answer"
-          //   }
-          // ]
-          // `;
-
-          if (topic1[3] == 1) {
-            query = `Could you generate 2 advanced-level practice word questions with unique story line and extra information for a year 8 student with ${topic} preparing with arithmetic aptitude exam, provide a detailed explanation with 4 answer options
-            For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
-              ", "
-            )}, and for females, use ${femaleNames.join(",")}.
-            Provide the JSON representation of the five MCQs in the following format:
-            [
-              {
-                "Question": "Replace with a challenging question text",
-                "Options": {
-                  "a": "Option A text with complexity",
-                  "b": "Option B text with intricacy",
-                  "c": "Option C text with nuance",
-                  "d": "Option D text with exceptions"
-                },
-                "Answer": "Correct answer letter (a, b, c, or d)",
-                "Explanation": "Detailed explanation for the correct answer"
-              },
-              {
-                "Question": "Replace with another challenging question text",
-                "Options": {
-                  "a": "Option A text with complexity",
-                  "b": "Option B text with intricacy",
-                  "c": "Option C text with nuance",
-                  "d": "Option D text with exceptions"
-                },
-                "Answer": "Correct answer letter (a, b, c, or d)",
-                "Explanation": "Detailed explanation for the correct answer"
-              },
-              {
-                "Question": "Replace with another challenging question text",
-                "Options": {
-                  "a": "Option A text with complexity",
-                  "b": "Option B text with intricacy",
-                  "c": "Option C text with nuance",
-                  "d": "Option D text with exceptions"
-                },
-                "Answer": "Correct answer letter (a, b, c, or d)",
-                "Explanation": "Detailed explanation for the correct answer"
-              },
-              {
-                "Question": "Replace with another challenging question text",
-                "Options": {
-                  "a": "Option A text with complexity",
-                  "b": "Option B text with intricacy",
-                  "c": "Option C text with nuance",
-                  "d": "Option D text with exceptions"
-                },
-                "Answer": "Correct answer letter (a, b, c, or d)",
-                "Explanation": "Detailed explanation for the correct answer"
-              },
-              {
-                "Question": "Replace with another challenging question text",
-                "Options": {
-                  "a": "Option A text with complexity",
-                  "b": "Option B text with intricacy",
-                  "c": "Option C text with nuance",
-                  "d": "Option D text with exceptions"
-                },
-                "Answer": "Correct answer letter (a, b, c, or d)",
-                "Explanation": "Detailed explanation for the correct answer"
-              }
-            ]
-  
-            `;
-          } else {
-            query = `Questions :Could you generate 2 competitive level word questions with the unique story line and extra information  with ${topic} topic preparing for an arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
-              ", "
-            )}, and for females, use ${femaleNames.join(
-              ","
-            )}.Provide the JSON representation of the five MCQs in the following format:
-[
-  {
-    "Question": "Replace with a challenging question text",
-    "Options": {
-      "a": "Option A text with complexity",
-      "b": "Option B text with intricacy",
-      "c": "Option C text with nuance",
-      "d": "Option D text with exceptions"
-    },
-    "Answer": "Correct answer letter (a, b, c, or d)",
-    "Explanation": "Detailed explanation for the correct answer"
-  },
-  {
-    "Question": "Replace with another challenging question text",
-    "Options": {
-      "a": "Option A text with complexity",
-      "b": "Option B text with intricacy",
-      "c": "Option C text with nuance",
-      "d": "Option D text with exceptions"
-    },
-    "Answer": "Correct answer letter (a, b, c, or d)",
-    "Explanation": "Detailed explanation for the correct answer"
-  },
-  {
-    "Question": "Replace with another challenging question text",
-    "Options": {
-      "a": "Option A text with complexity",
-      "b": "Option B text with intricacy",
-      "c": "Option C text with nuance",
-      "d": "Option D text with exceptions"
-    },
-    "Answer": "Correct answer letter (a, b, c, or d)",
-    "Explanation": "Detailed explanation for the correct answer"
-  },
-  {
-    "Question": "Replace with another challenging question text",
-    "Options": {
-      "a": "Option A text with complexity",
-      "b": "Option B text with intricacy",
-      "c": "Option C text with nuance",
-      "d": "Option D text with exceptions"
-    },
-    "Answer": "Correct answer letter (a, b, c, or d)",
-    "Explanation": "Detailed explanation for the correct answer"
-  },
-  {
-    "Question": "Replace with another challenging question text",
-    "Options": {
-      "a": "Option A text with complexity",
-      "b": "Option B text with intricacy",
-      "c": "Option C text with nuance",
-      "d": "Option D text with exceptions"
-    },
-    "Answer": "Correct answer letter (a, b, c, or d)",
-    "Explanation": "Detailed explanation for the correct answer"
-  }
-]
-`;
-          }
         }
 
         const openAi = new OpenAIApi(
@@ -712,7 +432,7 @@ const GenerateQuestions = ({
         // console.log(message);
         console.log(questions);
         questions?.map((item: mapData, index: any) => {
-          if (topic1[0] == 3) {
+          if (category == 3) {
             item.Paragraph = item.Paragraph
               ? item.Paragraph.replace(/Paragraph:/g, "")
               : "";
@@ -860,7 +580,7 @@ const GenerateQuestions = ({
     },
   });
 
-  // console.log(!(topic1[2]));
+  // console.log(!(totalQuestions));
 
   return (
     <>
@@ -879,10 +599,10 @@ const GenerateQuestions = ({
       />
 
       {!edit
-        ? (csvData.length > 0 || topic1[0] == "1") && (
+        ? (csvData.length > 0 || category == "1") && (
             <Stack marginY="1rem" direction="row" spacing={2}>
               {resData.length == 0 &&
-                topic1[0] != 2 &&
+                category != 2 &&
                 (newRes.isLoading ? (
                   <BButton2 type="button" name="Generating..." />
                 ) : (
@@ -898,26 +618,26 @@ const GenerateQuestions = ({
                   data={newRes.data}
                   set={false}
                   bol={false}
-                  topic={topic1[1]}
+                  topic={topicGen}
                   button={
                     <BButton2
                       type="button"
                       name="Download"
-                      disabled={!topic1[2]}
+                      disabled={!totalQuestions}
                     />
                   }
-                  total={topic1[2]}
-                  cateId={topic1[0]}
+                  total={totalQuestions}
+                  cateId={category}
                 />
               )}
-              {(resData.length != 0 || topic1[0] == 2) && (
+              {(resData.length != 0 || category == 2) && (
                 <BButton2
                   type="button"
                   func={() => handleUpload(newRes.data ? newRes.data : csvData)}
                   name={addTestCTMu.isLoading ? "Uploading..." : "Upload"}
                 />
               )}
-              {(resData.length != 0 || topic1[0] == 2) && (
+              {(resData.length != 0 || category == 2) && (
                 <BButton2
                   type="button"
                   func={() => setResData([])}
@@ -929,7 +649,7 @@ const GenerateQuestions = ({
         : csvData.length > 0 && (
             <Stack marginY="1rem" direction="row" spacing={2}>
               {resData.length == 0 &&
-                topic1[0] != 2 &&
+                category != 2 &&
                 (newRes.isLoading ? (
                   <BButton2 type="button" name="Generating..." />
                 ) : (
@@ -943,12 +663,12 @@ const GenerateQuestions = ({
                 // <DownloadPDF
                 //   data={resData}
                 //   bol={!!resData}
-                //   topic={topic1[1]}
-                //   total={topic1[2]}
+                //   topic={topicGen}
+                //   total={totalQuestions}
                 //   button={<BButton2 type="button" name="Download" />}
                 // />
               )} */}
-              {(resData.length != 0 || topic1[0] == 2) && (
+              {(resData.length != 0 || category == 2) && (
                 <BButton2
                   type="button"
                   func={() =>
@@ -967,7 +687,7 @@ const GenerateQuestions = ({
         <Test
           key={currentData.Question}
           item={currentData}
-          topic={topic1[1]}
+          topic={topicGen}
           totalQuestions={totalQuestions}
         /> */}
       {/* ) : ( */}
@@ -1014,4 +734,4 @@ const GenerateQuestions = ({
   );
 };
 
-export default GenerateQuestions;
+export default Thinking;

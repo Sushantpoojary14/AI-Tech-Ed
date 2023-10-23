@@ -15,26 +15,23 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Header1 } from "../../../../../Components/Common/HeaderText";
-import {
-  BButton2,
-  OButton,
-  OButton3,
-} from "../../../../../Components/Common/Button";
 
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import UploadIcon from "@mui/icons-material/Upload";
-import UploadModal from "../../../../../Components/Model/UploadModal";
-import QuestionCard from "../../Components/QuestionCard";
+import { useQuery } from "@tanstack/react-query";
+
 import adminTokenAxios from "../../../../../Hooks/AdminTokenAxios";
 import CSVParser from "../../Components/CSVParser";
 
 import GenerateQuestions from "../../Components/GenerateQuestions";
 import LoadingBar from "../../../../../Components/Headers/LoadingBar";
 import { useNavigate } from "react-router-dom";
+
+import Reading from "./Components/Reading";
+import Thinking from "./Components/Thinking";
+import MathGen from "./Components/MathGen";
 
 type FormValues = {
   ts_id: string;
@@ -50,7 +47,7 @@ const AddTopics = () => {
 
   // const [generate, setGenerate] = useState<boolean>(false);
   // const [currentIndex, setCurrentIndex] = useState(0);
-  const [formData, setFormData] = useState<any>(null);
+  // const [formData, setFormData] = useState<any>(null);
 
   const navigate = useNavigate();
 
@@ -79,14 +76,14 @@ const AddTopics = () => {
   //   setGenerate(true);
   // };
 
-  const topic1 = watch([
+  const formData = watch([
     "tsc_id",
     "topic",
     "total_questions",
     "ts_id",
     "topic_name",
   ]);
-  const tsc_id = watch("tsc_id")
+  const tsc_id = watch("tsc_id");
   const handleSubmitData = () => {
     // setGenerate(false);
   };
@@ -144,7 +141,6 @@ const AddTopics = () => {
           my: 1,
           // mx: "auto",
           // py: 2,
-
           // minHeight: "100vh",
           // display: "flex",
           // flexDirection: "column",
@@ -286,7 +282,7 @@ const AddTopics = () => {
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
                     id="enter-topic-name"
                   >
-                     {tsc_id == "2" ? "Enter Reading Name" : "Enter Topic Name"}
+                    {tsc_id == "2" ? "Enter Reading Name" : "Enter Topic Name"}
                   </FormLabel>
                   <Controller
                     name="topic_name"
@@ -313,7 +309,9 @@ const AddTopics = () => {
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
                     id="enter-topic"
                   >
-                    {tsc_id == "2" ? "Enter Reading Set Name" :"Enter Topic To Generate"}
+                    {tsc_id == "2"
+                      ? "Enter Reading Set Name"
+                      : "Enter Topic To Generate"}
                   </FormLabel>
                   <Controller
                     name="topic"
@@ -334,7 +332,7 @@ const AddTopics = () => {
                   />
                 </Stack>
               </Grid>
-              <Grid item xs={12} sm={4} >
+              <Grid item xs={12} sm={4}>
                 <Stack spacing={1}>
                   <FormLabel
                     sx={{ fontWeight: "900", fontSize: "1.1rem" }}
@@ -345,13 +343,11 @@ const AddTopics = () => {
                   <Controller
                     name="total_questions"
                     control={control}
-                    
                     defaultValue={""}
                     disabled={tsc_id == "2"}
                     render={({ field }) => (
                       <FormControl fullWidth>
                         <Select
-                   
                           {...field}
                           labelId="demo-controlled-open-select-label"
                           id="demo-controlled-open-select"
@@ -374,17 +370,19 @@ const AddTopics = () => {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12}>
-                <Stack spacing={1}>
-                  <FormLabel
-                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
-                    id="upload-csv"
-                  >
-                    Upload CSV
-                  </FormLabel>
-                  <CSVParser csvData={csvData} setCsvData={setCsvData} />
-                </Stack>
-              </Grid>
+              {(parseInt(formData[0]) == 2 || parseInt(formData[0]) == 3) && (
+                <Grid item xs={12}>
+                  <Stack spacing={1}>
+                    <FormLabel
+                      sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                      id="upload-csv"
+                    >
+                      Upload CSV
+                    </FormLabel>
+                    <CSVParser csvData={csvData} setCsvData={setCsvData} />
+                  </Stack>
+                </Grid>
+              )}
 
               {/* <OButton3  name="Add" css={{ marginTop: "1rem" }} /> */}
             </Grid>
@@ -417,14 +415,35 @@ const AddTopics = () => {
         </Stack> */}
 
         {/* {generate ? ( */}
-        <GenerateQuestions
-          topic1={topic1}
+        {/* <GenerateQuestions
+          topic1={formData}
           csvData={csvData}
-          // topic={topic}
           setCsvData={setCsvData}
           reset={reset}
           edit={false}
-        />
+        /> */}
+
+        {formData[0] === "1" && (
+          <MathGen formData={formData} reset={reset} edit={false} />
+        )}
+        {formData[0] === "2" && (
+          <Reading
+            formData={formData}
+            csvData={csvData}
+            setCsvData={setCsvData}
+            reset={reset}
+            edit={false}
+          />
+        )}
+        {formData[0] === "3" && (
+          <Thinking
+            formData={formData}
+            csvData={csvData}
+            setCsvData={setCsvData}
+            reset={reset}
+            edit={false}
+          />
+        )}
 
         {/* {GenerateQuestions()} */}
       </Container>

@@ -2,19 +2,19 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-import InputAdornment from "@mui/material/InputAdornment";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { FormLabel, Stack } from "@mui/material";
 
-import React, { useState, CSSProperties } from "react";
+import { useState } from "react";
 
 import CSVParser from "../../Pages/Admin/TestSeries/Components/CSVParser";
 import GenerateQuestions from "../../Pages/Admin/TestSeries/Components/GenerateQuestions";
+import MathGen from "../../Pages/Admin/TestSeries/ViewTestSeriesTopics/AddTopics/Components/MathGen";
+import Reading from "../../Pages/Admin/TestSeries/ViewTestSeriesTopics/AddTopics/Components/Reading";
+import Thinking from "../../Pages/Admin/TestSeries/ViewTestSeriesTopics/AddTopics/Components/Thinking";
 
 const style = {
   position: "absolute" as "absolute",
@@ -127,6 +127,32 @@ const UploadModal = ({
               setTopic={setTopic}
               // reset={reset}
             />
+
+            {topic[0] === "1" && (
+              <MathGen
+                formData={topic}
+                // reset={reset}
+                edit={true}
+              />
+            )}
+            {topic[0] === "2" && (
+              <Reading
+                formData={topic}
+                csvData={csvData}
+                setCsvData={setCsvData}
+                // reset={reset}
+                edit={true}
+              />
+            )}
+            {topic[0] === "3" && (
+              <Thinking
+                formData={topic}
+                csvData={csvData}
+                setCsvData={setCsvData}
+                // reset={reset}
+                edit={true}
+              />
+            )}
           </Box>
         </Fade>
       </Modal>
