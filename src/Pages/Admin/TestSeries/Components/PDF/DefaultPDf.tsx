@@ -158,38 +158,7 @@ const DefaultPDf = ({ props }: any) => {
                   )}
                   {item?.Options ? (
                     <>
-                      {item.Paragraph && (
-                        <Stack flexDirection={"row"} columnGap={1}>
-                          <Typography sx={styles.mainText} className="">{`${
-                            key + 1
-                          }: `}</Typography>
-                          <Typography>{` ${item.Paragraph}`}</Typography>
-                        </Stack>
-                      )}
-                      {item.paragraph && item?.question_image && (
-                        <div>
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-
-                      {item.Conversation || item.Paragraph ? (
-                        <Typography
-                          sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
-                        >{`${item.Question}`}</Typography>
-                      ) : (
+                      {item.Question && (
                         <Stack flexDirection={"row"} columnGap={1}>
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
@@ -197,7 +166,7 @@ const DefaultPDf = ({ props }: any) => {
                           <Typography>{` ${item.Question}`}</Typography>
                         </Stack>
                       )}
-                      {!item.paragraph && item?.question_image && (
+                      {item?.question_image && (
                         <div>
                           {item?.question_image?.map(
                             (item2: any, key: number) => {
@@ -205,17 +174,14 @@ const DefaultPDf = ({ props }: any) => {
                                 <img
                                   key={key}
                                   style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
+                                  src={import.meta.env.VITE_IMAGE_URL + item2}
                                 />
                               );
                             }
                           )}
                         </div>
                       )}
-                      {!item.paragraph && item?.images && (
+                      {item?.images && (
                         <Stack flexDirection={"row"} columnGap={16}>
                           {item?.images?.map((item2: any, key: number) => {
                             return (
@@ -228,24 +194,7 @@ const DefaultPDf = ({ props }: any) => {
                           })}
                         </Stack>
                       )}
-                      {item?.question_image && (
-                        <div>
-                          {item?.question_image.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
+
                       <div style={styles.optionContainer} className="mb-4">
                         <p style={styles.options}>{`A. ${item.Options.a}`}</p>
                         <p style={styles.options}>{`B. ${item.Options.b}`}</p>
@@ -255,38 +204,7 @@ const DefaultPDf = ({ props }: any) => {
                     </>
                   ) : (
                     <>
-                      {item?.paragraph && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${key + 1}: ${item.paragraph}`}
-                        </Typography>
-                      )}
-                      {item?.paragraph && item?.images && (
-                        <div>
-                          {item?.images?.map((item2: any, key: any) => {
-                            return (
-                              <img
-                                key={key}
-                                style={styles.image}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL +
-                                  item2?.image_url
-                                }
-                              />
-                            );
-                          })}
-                        </div>
-                      )}
                       {item.conversation && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${item.conversation}`}
-                        </Typography>
-                      )}
-
-                      {item.conversation || item.paragraph ? (
-                        <Typography
-                          sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
-                        >{`${item.question}`}</Typography>
-                      ) : (
                         <Stack flexDirection={"row"} columnGap={1}>
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
@@ -295,7 +213,7 @@ const DefaultPDf = ({ props }: any) => {
                         </Stack>
                       )}
 
-                      {!item?.paragraph && item?.question_image && (
+                      {item?.question_image && (
                         <div>
                           {item?.question_image?.map(
                             (item2: any, key: number) => {
@@ -313,98 +231,9 @@ const DefaultPDf = ({ props }: any) => {
                           )}
                         </div>
                       )}
-                      {!!item?.paragraph && item?.question_image && (
-                        <Stack flexDirection={"row"} columnGap={16}>
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </Stack>
-                      )}
-                      <div style={styles.optionContainer}>
-                        {item?.option_1?.split(".")[1] === "png" ||
-                        item?.option_1?.split(".")[1] === "jpg" ||
-                        item?.option_1?.split(".")[1] === "jpeg" ? (
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <div
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                // flexDirection: "row",
-                              }}
-                            >
-                              <p style={styles.options}>A.</p>
-                              <img
-                                style={styles.optionImage}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL + item.option_1
-                                }
-                              />
-                            </div>
 
-                            {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
-                            <div
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                // flexDirection: "row",
-                              }}
-                            >
-                              <p style={styles.options}>B.</p>
-                              <img
-                                style={styles.optionImage}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL + item.option_2
-                                }
-                              />
-                            </div>
-                            <div
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                // flexDirection: "row",
-                              }}
-                            >
-                              <p style={styles.options}>C.</p>
-                              <img
-                                style={styles.optionImage}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL + item.option_3
-                                }
-                              />
-                            </div>
-                            <div
-                              style={{
-                                ...styles.optionContainer,
-                                display: "flex",
-                                // flexDirection: "row",
-                              }}
-                            >
-                              <p style={styles.options}>D.</p>
-                              <img
-                                style={styles.optionImage}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL + item.option_4
-                                }
-                              />
-                            </div>
-                          </div>
-                        ) : (
+                      <div style={styles.optionContainer}>
+                        {item?.option_1 && (
                           <>
                             <p
                               style={styles.options}

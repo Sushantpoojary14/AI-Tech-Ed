@@ -423,7 +423,7 @@ const AddTopics = () => {
           edit={false}
         /> */}
 
-        {formData[0] === "1" && (
+        {formData[0] === "1" && formData[1] && (
           <MathGen formData={formData} reset={reset} edit={false} />
         )}
         {formData[0] === "2" && (

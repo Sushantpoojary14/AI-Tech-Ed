@@ -206,7 +206,7 @@ const MathGen = ({
       let query = "";
 
       if (testType == 1) {
-        query = `Generate 8 advanced-level practice word questions with unique story line and extra information for a year 8 student with ${topic} preparing with arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
+        query = `Generate 4 advanced-level practice word questions with unique story line and extra information for a year 8 student with ${topic} preparing with arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
           ", "
         )}, and for females, use ${femaleNames.join(",")}.
                 
@@ -271,7 +271,7 @@ const MathGen = ({
       
                 `;
       } else {
-        query = `Could you generate 8 competitive level word questions with the unique story line and extra information  with ${topic} topic preparing for an arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
+        query = `Could you generate four competitive level word questions with a unique storyline and additional information related to the arithmetic aptitude exam? Each question should be accompanied by a detailed explanation and four answer options. The questions should pertain to the ${topic} topic and test the examinee's understanding and application of arithmetic concepts. The aim is to provide challenging and thought-provoking questions that simulate the exam environment and help the examinee prepare effectively.For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
           ", "
         )}, and for females, use ${femaleNames.join(
           ","
@@ -490,7 +490,7 @@ const MathGen = ({
                     name="Generate"
                   />
                 ))}
-              {resData.length != 0 && newRes.data && (
+              {resData.length != 0 && newRes.data && totalQuestions &&(
                 <DownloadPDF
                   randomG={true}
                   data={newRes.data}
