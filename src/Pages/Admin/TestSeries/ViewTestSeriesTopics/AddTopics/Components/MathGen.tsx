@@ -151,10 +151,64 @@ const MathGen = ({
       const responses: any[] = [];
       const topic = topicGen;
 
+      const maleNames = [
+        "Henry",
+        "James",
+        "Nathan",
+        "Carl",
+        "John",
+        "Peter",
+        "Shane",
+        "Alfred",
+        "Bobby",
+        "Clive",
+        "Dennis",
+        "Lloyd",
+        "Luke",
+        "Oliver",
+        "Philip",
+        "Winston",
+        "Henry",
+        "Jackson",
+        "Charlie",
+        "Roy",
+        "Harrison",
+        "Josh",
+        "Billy",
+      ];
+      const femaleNames = [
+        "Alice",
+        "Zoya",
+        "Emma",
+        "Darcy",
+        "Ella",
+        "Mary",
+        "Freda",
+        "Janie",
+        "Katty",
+        "Myra",
+        "Nora",
+        "Martha",
+        "Veverly",
+        "Ruth",
+        "Jenifer",
+        "Jenifer",
+        "Diana",
+        "Lucy",
+        "Daisy",
+        "Georgia",
+        "Matilda",
+        "Eliza",
+        "Clara",
+        "Kate",
+      ];
+
       let query = "";
 
       if (testType == 1) {
-        query = `Could you generate 2 advanced-level practice word questions with unique story line and extra information for a year 8 student with ${topic} preparing with arithmetic aptitude exam, provide a detailed explanation with 4 answer options
+        query = `Generate 8 advanced-level practice word questions with unique story line and extra information for a year 8 student with ${topic} preparing with arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
+          ", "
+        )}, and for females, use ${femaleNames.join(",")}.
                 
                 Provide the JSON representation of the five MCQs in the following format:
                 [
@@ -217,7 +271,11 @@ const MathGen = ({
       
                 `;
       } else {
-        query = `Questions :Could you generate 8 competitive level word questions with the unique story line and extra information  with ${topic} topic preparing for an arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question. Provide the JSON representation of the five MCQs in the following format:
+        query = `Could you generate 8 competitive level word questions with the unique story line and extra information  with ${topic} topic preparing for an arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
+          ", "
+        )}, and for females, use ${femaleNames.join(
+          ","
+        )}. .Provide the JSON representation of the five MCQs in the following format:
     [
       {
         "Question": "Replace with a challenging question text",
@@ -241,39 +299,8 @@ const MathGen = ({
         "Answer": "Correct answer letter (a, b, c, or d)",
         "Explanation": "Detailed explanation for the correct answer"
       },
-      {
-        "Question": "Replace with another challenging question text",
-        "Options": {
-          "a": "Option A text with complexity",
-          "b": "Option B text with intricacy",
-          "c": "Option C text with nuance",
-          "d": "Option D text with exceptions"
-        },
-        "Answer": "Correct answer letter (a, b, c, or d)",
-        "Explanation": "Detailed explanation for the correct answer"
-      },
-      {
-        "Question": "Replace with another challenging question text",
-        "Options": {
-          "a": "Option A text with complexity",
-          "b": "Option B text with intricacy",
-          "c": "Option C text with nuance",
-          "d": "Option D text with exceptions"
-        },
-        "Answer": "Correct answer letter (a, b, c, or d)",
-        "Explanation": "Detailed explanation for the correct answer"
-      },
-      {
-        "Question": "Replace with another challenging question text",
-        "Options": {
-          "a": "Option A text with complexity",
-          "b": "Option B text with intricacy",
-          "c": "Option C text with nuance",
-          "d": "Option D text with exceptions"
-        },
-        "Answer": "Correct answer letter (a, b, c, or d)",
-        "Explanation": "Detailed explanation for the correct answer"
-      }
+    
+   
     ]
     `;
       }
@@ -301,7 +328,7 @@ const MathGen = ({
         handleAlertBoxOpen();
       }
       // console.log(message);
-      console.log(questions);
+      console.log("parsed", questions);
       questions?.map((item: mapData, index: any) => {
         item.Explanation =
           item.Explanation && item.Explanation.replace(/Explanation:/g, "");
@@ -330,6 +357,64 @@ const MathGen = ({
 
         // if (item.images?.length !== 2) {
 
+        if (exists) {
+          maleNames.forEach((search: string) => {
+            if (item.images?.length === 2) {
+              return true; // Exit the loop
+            }
+            const caps = search.toUpperCase();
+            let match = data.find(
+              (word: string) => word.toUpperCase() === caps
+            );
+            if (match) {
+              match = data.find((word: string) => word.toUpperCase() === caps);
+            }
+            if (match) {
+              switch (count) {
+                case 1:
+                  item.images?.push("/images/boy.jpg");
+                  count++;
+                  break;
+                case 2:
+                  item.images?.push("/images/left_boy.jpg");
+                  count++;
+                  break;
+                default:
+                  item.images?.push("/images/left_boy.jpg");
+                  count++;
+              }
+            }
+            return count == 3;
+          });
+          femaleNames.forEach((search: string) => {
+            if (item.images?.length === 2) {
+              return true; // Exit the loop
+            }
+            const caps = search.toUpperCase();
+            const match = data.find(
+              (word: string) => word.replace(/:/g, "").toUpperCase() === caps
+            );
+
+            if (match) {
+              switch (count) {
+                case 1:
+                  item.images?.push("/images/right_girl.jpg");
+                  count++;
+                  break;
+                case 2:
+                  item.images?.push("/images/girl.jpg");
+                  count++;
+                  break;
+                case 3:
+                default:
+                  item.images?.push("/images/girl.jpg");
+                  count++;
+              }
+            }
+            return count == 3;
+          });
+        }
+
         image_data.forEach(
           (search: { image_name: string; image_url: string }) => {
             if (item.images?.length === 1) {
@@ -357,7 +442,7 @@ const MathGen = ({
 
         responses.push(item); // Add the modified item to the responses array
       });
-      console.log(responses);
+      console.log("final", responses);
       return responses;
     },
 
@@ -411,7 +496,7 @@ const MathGen = ({
                   data={newRes.data}
                   set={false}
                   bol={false}
-                  topic={topicGen}
+                  topic={topicName}
                   button={
                     <BButton2
                       type="button"
