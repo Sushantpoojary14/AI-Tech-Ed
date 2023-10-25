@@ -335,21 +335,11 @@ const MathGen = ({
         item.Question =
           item.Question && item.Question.replace(/Question:/g, "");
         let data: string[] = [];
-        const keysToCheck = ["Paragraph", "Conversation", ""];
-        const itemKeys = Object.keys(item);
-        const exists = keysToCheck.every((key) => {
-          return itemKeys.includes(key);
-        });
+     
 
         // if (exists) {
         // if (item.Paragraph || item.Conversation) {
-        const paragraphData = item.Paragraph?.split(" ") ?? [];
-        const conversationData = item.Conversation?.split(" ") ?? [];
-        const questionData = item.Question.split(" ") ?? [];
-        data = [...paragraphData, ...conversationData, ...questionData];
-        console.log(paragraphData, conversationData, questionData);
-
-        console.log(data);
+     
 
         item.images = [];
         let count: number = 1;
@@ -357,63 +347,7 @@ const MathGen = ({
 
         // if (item.images?.length !== 2) {
 
-        if (exists) {
-          maleNames.forEach((search: string) => {
-            if (item.images?.length === 2) {
-              return true; // Exit the loop
-            }
-            const caps = search.toUpperCase();
-            let match = data.find(
-              (word: string) => word.toUpperCase() === caps
-            );
-            if (match) {
-              match = data.find((word: string) => word.toUpperCase() === caps);
-            }
-            if (match) {
-              switch (count) {
-                case 1:
-                  item.images?.push("/images/boy.jpg");
-                  count++;
-                  break;
-                case 2:
-                  item.images?.push("/images/left_boy.jpg");
-                  count++;
-                  break;
-                default:
-                  item.images?.push("/images/left_boy.jpg");
-                  count++;
-              }
-            }
-            return count == 3;
-          });
-          femaleNames.forEach((search: string) => {
-            if (item.images?.length === 2) {
-              return true; // Exit the loop
-            }
-            const caps = search.toUpperCase();
-            const match = data.find(
-              (word: string) => word.replace(/:/g, "").toUpperCase() === caps
-            );
 
-            if (match) {
-              switch (count) {
-                case 1:
-                  item.images?.push("/images/right_girl.jpg");
-                  count++;
-                  break;
-                case 2:
-                  item.images?.push("/images/girl.jpg");
-                  count++;
-                  break;
-                case 3:
-                default:
-                  item.images?.push("/images/girl.jpg");
-                  count++;
-              }
-            }
-            return count == 3;
-          });
-        }
 
         image_data.forEach(
           (search: { image_name: string; image_url: string }) => {
