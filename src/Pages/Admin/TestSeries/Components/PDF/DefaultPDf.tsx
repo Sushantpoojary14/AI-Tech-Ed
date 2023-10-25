@@ -141,8 +141,8 @@ const DefaultPDf = ({ props }: any) => {
                   style={styles.Container}
                   key={key}
                   className={`${
-                    (key + 1) % 3 === 0 ? "break-after-page" : ""
-                  }  mt-8`}
+                    (key + 1) % 4 === 0 ? "break-after-page" : ""
+                  }  mt-10`}
                 >
                   {index && index?.length != 0 && index_data && (
                     <Stack spacing={2} marginBottom={3}>
@@ -184,20 +184,7 @@ const DefaultPDf = ({ props }: any) => {
                           )}
                         </div>
                       )}
-                      {!item.Paragraph && item.Conversation 
-                        ?  (
-                            <Stack flexDirection={"row"} columnGap={1}>
-                              <Typography sx={styles.mainText} className="">{`${
-                                key + 1
-                              }: `}</Typography>
-                              <Typography>{` ${item.Conversation}`}</Typography>
-                            </Stack>
-                          )
-                        : (
-                            <Typography sx={{ my: "10px" }}>
-                              {`${item.Conversation}`}
-                            </Typography>
-                          )}
+              
                       {item.Conversation || item.Paragraph ? (
                         <Typography
                           sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}

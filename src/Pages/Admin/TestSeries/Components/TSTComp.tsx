@@ -35,7 +35,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
   const [open2, setOpen2] = useState<boolean>(false);
   const [setData, setSetData] = useState<any>(null);
   const [open3, setOpen3] = useState<boolean>(false);
-
+  const [open4, setOpen4] = useState<boolean>(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -45,7 +45,9 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
   const handleAlertBoxOpen = () => {
     setOpen1(true);
   };
-
+  const handleAlertBoxClose3 = () => {
+    setOpen4(false);
+  };
   const handleAlertBoxClose = () => {
     setOpen1(false);
   };
@@ -83,7 +85,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
       console.log("Error Deleting Set:", error);
     },
     onSuccess: (res: any) => {
-      console.log("Mutation Reponse", res?.response?.data?.Message);
+      console.log("Mutation Reponse", res);
       // setMessage(res?.response?.data?.Message);
       // handleAlertBoxOpen();
       // navigate(-1);
@@ -111,7 +113,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
       if (response.status === 200) {
         handleOpen();
       } else {
-        alert("can't edit");
+        setOpen4(true);
         setTopicIde(null);
       }
       // console.log(response.data?.topic_data?.topic);
@@ -193,14 +195,21 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
   return (
     <>
       <AlertBox
-        name="Cannot Delete The Product"
+        name="Cannot Delete The Topic"
         type="error"
         bol={open1}
         duration={6000}
         handleAlertBoxClose={handleAlertBoxClose}
       />
+       <AlertBox
+        name="Cannot Edit The Topic"
+        type="error"
+        bol={open4}
+        duration={6000}
+        handleAlertBoxClose={handleAlertBoxClose3}
+      />
       <AlertBox
-        name="Successfully Deleted The Product"
+        name="Successfully Deleted The Topic"
         type="success"
         duration={6000}
         bol={open2}

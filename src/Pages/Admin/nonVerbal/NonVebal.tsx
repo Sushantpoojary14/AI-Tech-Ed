@@ -1,5 +1,5 @@
 import { Box, Container, Stack, TextField } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Header1 } from "../../../Components/Common/HeaderText";
 import SelectBox from "../../../Components/Common/Select";
 import { BButton } from "../../../Components/Common/Button";
@@ -17,6 +17,8 @@ import AlertBox from "../../../Components/Common/AlertBox";
 import cube5 from "./Cube/Cube5";
 import Paper1 from "./PaperFold/Paper1";
 import Mirror3 from "./Mirror/Mirror3";
+import NonVerbalPDF from "../TestSeries/Components/PDF/NonVerbalPDF";
+import DownloadPDF from "../TestSeries/Components/PDF/DownloadPDF";
 
 const options = [
   {
@@ -38,9 +40,11 @@ const NonVebal = () => {
   const [selectValue1, setSelectValue1] = useState(1);
   const [inputValue, setInputValue] = useState<string>("");
   const [newData, setNewData] = useState<any>([]);
+  const [newData2, setNewData2] = useState<any>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [open1, setOpen1] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [loading2, setLoading2] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const questionRefs: any = useRef([]);
 
@@ -71,6 +75,7 @@ const NonVebal = () => {
     let newArr2: any = [];
     let count = -1;
     setNewData([]);
+    setNewData2([]);
     if (selectValue === 1) {
       for (let index = 0; index < 5; index++) {
         count++;
@@ -119,11 +124,19 @@ const NonVebal = () => {
         newArr2.push(newA2);
       }
     }
-
+    // const res = await generateQuestionObjects(newArr2);
+    // console.log(res);
     setNewData(newArr2);
-    console.log(newArr2);
-  };
 
+    // console.log(res);
+  };
+  useEffect(() => {
+    if (newData.length != 0) {
+      const res = generateQuestionObjects(newData).then((res) => {
+        setNewData2(res);
+      });
+    }
+  }, [newData]);
   const addNonVerbalMU = useMutation({
     mutationFn: async (formattedData: any) => {
       console.log(formattedData);
@@ -149,6 +162,7 @@ const NonVebal = () => {
         console.log("Success", res);
         handleAlertBoxOpen();
         setNewData([]);
+        setNewData2([]);
         setInputValue("");
       } else {
         handleAlertBoxOpen1();
@@ -176,7 +190,7 @@ const NonVebal = () => {
         ts_id: selectValue1,
         question: res,
       };
-      console.log("NVData", data);
+      // console.log("NVData", res);
       addNonVerbalMU.mutate(data);
     }
   };
@@ -202,6 +216,7 @@ const NonVebal = () => {
   if (testSeries.isLoading) {
     return <LoadingBar />;
   }
+  console.log(newData2);
 
   return (
     <>
@@ -224,7 +239,6 @@ const NonVebal = () => {
           my: 1,
           // mx: "auto",
           // py: 2,
-
           // minHeight: "100vh",
           // display: "flex",
           // flexDirection: "column",
@@ -298,7 +312,7 @@ const NonVebal = () => {
           </Box>
 
           <Box flexDirection={"row"} marginTop={2}>
-            {newData.length > 1 && (
+            {newData2.length > 1 && (
               <BButton
                 func={imageG}
                 type="button"
@@ -306,11 +320,35 @@ const NonVebal = () => {
               />
             )}
           </Box>
+          {/* {newData2.length != 0 && (
+            <NonVerbalPDF
+              props={{ selected_question: newData2, topic: "nv" }}
+            />
+          )} */}
+          {newData2.length != 0 && (
+            <Box paddingY={2}>
+              <DownloadPDF
+                data={newData2}
+                randomG={true}
+                total={newData2.length}
+                topic={selectValue === 1
+                  ? "Cubes & Dice"
+                  : selectValue === 2
+                  ? "Water & Mirror"
+                  : "Paper Folding"}
+                set={false}
+                bol={false}
+                index={[]}
+                NVId={1}
+                cateId={1}
+              />
+            </Box>
+          )}
         </Stack>
 
         <Box flexDirection={"row"} textAlign={"left"}>
           <React.Fragment>
-            {newData?.map((item2: any, key2: number) => (
+            { newData?.map((item2: any, key2: number) => (
               <Stack
                 margin={"auto"}
                 width={"90%"}
@@ -326,8 +364,8 @@ const NonVebal = () => {
                   margin={"auto"}
                   width={"100%"}
                   marginY={"15px"}
-                  flexWrap={{ md: "nowrap", sm: "wrap" }}
-                  columnGap={"20px"}
+                  flexWrap={{ sm: "nowrap", xs: "wrap" }}
+                  columnGap={{ md: "20px", sm: "10px" }}
                   rowGap={"20px"}
                 >
                   {item2?.options?.map((item3: any, key3: number) => (
