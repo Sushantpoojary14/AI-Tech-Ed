@@ -6,6 +6,7 @@ import { Icon, IconName, library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ParaText1 } from "../../../../Components/Common/ParaText";
+import randomicon from "../../../../utils/randomicon";
 library.add(fas);
 library.add(faB);
 const TBox = {
@@ -32,15 +33,15 @@ const DBox = {
   justifyContent: "center",
   alignItem: "center",
 };
-const image_style = {
-  width: "100%",
-  height: "100%",
-  margin: "auto",
-  color: "#ffffff",
-  border: 0,
-  p: 16,
-  backgroundColor: "#000000",
-};
+// const image_style = {
+//   width: "100%",
+//   height: "100%",
+//   margin: "auto",
+//   color: "#ffffff",
+//   border: 0,
+//   p: 16,
+//   backgroundColor: "#000000",
+// };
 
 // 6 - [5,7, 9,2,4,6][1,3,5,6,8,10],2-[1,2,3,9,10,11],[3,4,5,7,8,9]
 const Cube3 = (index: number, questionRefs: any): any => {
@@ -50,6 +51,16 @@ const Cube3 = (index: number, questionRefs: any): any => {
 
   const random = Math.floor(Math.random() * 4);
   const shapeRandom = Math.floor(Math.random() * 2);
+  const allColor = ["red", "blue", "green","black"]
+  const image_style = {
+  width: "100%",
+  height: "100%",
+  margin: "auto",
+  color: "#ffffff",
+  border: 0,
+  p: 16,
+  backgroundColor: allColor[random],
+};
   let row = 0;
   let col = 0;
   if (random == 1) {
@@ -105,6 +116,13 @@ const Cube3 = (index: number, questionRefs: any): any => {
     tDiceIcons[index] = temp;
   }
   // console.log(option);
+  
+  // for (let i = 5; i >= 0; i--) {
+  //   let random = Math.floor(Math.random() * (i + 1));
+  //   let imageData = randomicon();
+  
+  //   diceIcons.push(imageData.type);
+  // }
 
   let question: any = {};
   let count = 0;

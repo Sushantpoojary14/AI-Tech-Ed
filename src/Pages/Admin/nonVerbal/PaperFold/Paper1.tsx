@@ -11,9 +11,11 @@ library.add(faB);
 import RedoIcon from "@mui/icons-material/Redo";
 import randomicon from "../../../../utils/randomicon";
 import { ParaText1 } from "../../../../Components/Common/ParaText";
+
+
 const outerSquare = {
-  width: "160px", // Set the desired width of the outer square
-  height: "160px", // Set the desired height of the outer square
+  width: "140px", // Set the desired width of the outer square
+  height: "140px", // Set the desired height of the outer square
   // border: `1px solid black`, // Light color border
   // display: "flex",
   // wrap: "wrap",
@@ -28,27 +30,28 @@ const innerSquare = {
   // alignItems: "center",
 };
 const image_style = {
-  width: "50%",
-  height: "50%",
+  width: "40%",
+  height: "40%",
   margin: "auto",
   color: "#000000",
   border: 1,
-  p: 16,
-  backgroundColor: "#ffffff",
+  // p: 16,
+  backgroundColor: "white",
 };
 const innerSquare2 = {
-  width: "50%",
+  width: "60%",
   height: "100%",
 };
 const innerSquare3 = {
-  minWidth: "100%",
-  minHeight: "100%",
-  border: `1px solid #000000"`,
+  width: "100%",
+  height: "100%",
+  // border: `1px solid #000000"`,
 };
 const gridItem = {
   border: "0px solid #000000",
-  width: "100%",
-  height: "100%",
+  width: "99%",
+  height: "99%",
+  // backgroundColor: "red",
   // padding: "1rem",
   // textAlign: "center",
 };
@@ -73,13 +76,14 @@ const Paper1 = async (index: number, questionRefs: any) => {
   const options: any = [];
   const gridArr: any = [];
   let question: any = {};
+
   let random = Math.floor(Math.random() * 3) + 4;
-  console.log(random);
+  // console.log(random);
   let c = 0;
   for (let j = random; j >= 0; j--) {
     const random = Math.floor(Math.random() * (newData.length - 1 - c));
 
-    console.log(random, newData.length - 1 - c);
+    // console.log(random, newData.length - 1 - c);
 
     gridArr.push(newData[random]);
     let temp = newData[random];
@@ -89,11 +93,11 @@ const Paper1 = async (index: number, questionRefs: any) => {
   }
   let count = 0;
 
-  for (let i = 5; i >= 0; i--) {
-    //   let random = Math.floor(Math.random() * (i + 1));
-    //   // let imageData = randomicon();
-    //   newData.push(imageData);
-  }
+  // for (let i = 5; i >= 0; i--) {
+  //   let random = Math.floor(Math.random() * (i + 1));
+  //   // let imageData = randomicon();
+  //   newData.push(imageData);
+  // }
   console.log("icons", gridData, gridArr);
   let question_image = (
     // <Stack px={1} ref={questionRefs.current[index].questionRef}>
@@ -400,9 +404,9 @@ const Paper1 = async (index: number, questionRefs: any) => {
       ref={questionRefs.current[index].questionRef}
       // display={"grid"}
       flexDirection={"row"}
-      columnGap={"1px"}
+      columnGap={"5px"}
       // gridColumn={"auto auto auto"}
-      width={"50%"}
+      width={"56%"}
       maxWidth={"100%"}
     >
       <Stack width={"100%"}>
@@ -430,7 +434,7 @@ const Paper1 = async (index: number, questionRefs: any) => {
         </Box>
         <ParaText1 text="X" css={{ marginX: "auto" }} />
       </Stack>
-      
+
       <Stack width={"100%"}>
         <Stack sx={{ ...outerSquare, border: "none" }}>
           <Box
@@ -532,6 +536,13 @@ const Paper1 = async (index: number, questionRefs: any) => {
   const deg = [180, 180, 0, 0];
   const scale2 = [-1, -1, 1, 1];
   const deg2 = [270, 270, 270, 270];
+  const borderArr = [
+    [1, 0, 1, 1],
+    [0, 1, 1, 1],
+    [1, 1, 0, 1],
+    [1, 1, 1, 0],
+  ];
+  
   let temp_options = [
     <Box
       ref={questionRefs.current[index].optionRefs[0]}
@@ -542,6 +553,7 @@ const Paper1 = async (index: number, questionRefs: any) => {
       }}
     >
       {[0, 1, 2, 3].map((item: number) => {
+     
         count = 0;
         return (
           <Stack
@@ -550,7 +562,11 @@ const Paper1 = async (index: number, questionRefs: any) => {
             sx={{
               ...innerSquare3,
               transform: `scaleX(${scale[item]}) rotate(${deg[item]}deg)`,
-              border: "1px solid black",
+              // border: "1px solid black",
+              borderLeft: `${borderArr[item][0]}px solid black`,
+              borderRight: `${borderArr[item][1]}px solid black`,
+              borderTop: `${borderArr[item][2]}px solid black`,
+              borderBottom: `${borderArr[item][3]}px solid black`,
               display: "grid",
               gridTemplateColumns: "auto auto auto",
             }}
@@ -581,9 +597,10 @@ const Paper1 = async (index: number, questionRefs: any) => {
         ...outerSquare,
         display: "grid",
         gridTemplateColumns: "auto auto",
+      
       }}
     >
-      {[0, 3 ,1, 2, ].map((item: number,key) => {
+      {[0, 3, 1, 2].map((item: number, key) => {
         count = 0;
         return (
           <Stack
@@ -591,6 +608,10 @@ const Paper1 = async (index: number, questionRefs: any) => {
             // flexDirection={"row"}
             sx={{
               ...innerSquare3,
+              borderLeft: `${borderArr[key][0]}px solid black`,
+              borderRight: `${borderArr[key][1]}px solid black`,
+              borderTop: `${borderArr[key][2]}px solid black`,
+              borderBottom: `${borderArr[key][3]}px solid black`,
               transform: `scaleX(${scale[key]}) scaleY(${scale[item]}) rotate(${deg[key]}deg)`,
               border: "1px solid black",
               display: "grid",
@@ -623,6 +644,7 @@ const Paper1 = async (index: number, questionRefs: any) => {
         ...outerSquare,
         display: "grid",
         gridTemplateColumns: "auto auto",
+      
       }}
     >
       {[0, 1, 3, 2].map((item: number, key) => {
@@ -633,6 +655,10 @@ const Paper1 = async (index: number, questionRefs: any) => {
             // flexDirection={"row"}
             sx={{
               ...innerSquare3,
+              borderLeft: `${borderArr[key][0]}px solid black`,
+              borderRight: `${borderArr[key][1]}px solid black`,
+              borderTop: `${borderArr[key][2]}px solid black`,
+              borderBottom: `${borderArr[key][3]}px solid black`,
               transform: `scaleY(${scale2[key]}) scaleX(${scale[item]})rotate(${deg2[key]}deg)`,
               border: "1px solid black",
               display: "grid",
@@ -665,6 +691,7 @@ const Paper1 = async (index: number, questionRefs: any) => {
         ...outerSquare,
         display: "grid",
         gridTemplateColumns: "auto auto",
+     
       }}
     >
       {[1, 0, 2, 3].map((item: number, key) => {
@@ -675,6 +702,10 @@ const Paper1 = async (index: number, questionRefs: any) => {
             // flexDirection={"row"}
             sx={{
               ...innerSquare3,
+              borderLeft: `${borderArr[key][0]}px solid black`,
+              borderRight: `${borderArr[key][1]}px solid black`,
+              borderTop: `${borderArr[key][2]}px solid black`,
+              borderBottom: `${borderArr[key][3]}px solid black`,
               transform: `scaleY(${scale2[key]}) scaleX(${scale[item]}) rotate(${deg2[key]}deg)`,
               border: "1px solid black",
               display: "grid",

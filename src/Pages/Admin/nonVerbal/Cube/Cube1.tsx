@@ -43,6 +43,7 @@ const cube1 = async (index: number, questionRefs: any) => {
     let imageData = randomicon();
     newData.push(imageData);
   }
+  
   const Option_random = Math.floor(Math.random() * 5);
   let option_arr = [
     { arr: [0, 1, 2], rotation: [0, 0, 0] },

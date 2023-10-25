@@ -33,22 +33,13 @@ const styles = {
     fontSize: 16,
     margin: 0,
   },
-  conversation: {
-    fontSize: 12,
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  paragraph: {
-    // fontSize: 12,
-    // marginTop: 5,
-    // marginBottom: 5,
-  },
+ 
   optionContainer: {
     padding: 2,
     marginTop: 20,
     marginBottom: 10,
 
-    // border: "1pt solid #000",
+   
   },
   options: {
     fontSize: 16,
@@ -82,12 +73,13 @@ const styles = {
     textAlign: "center" as const,
   },
   image: {
-    maxWidth: "150px",
-    height: "110px",
+    maxWidth: "550px",
+    height: "180px",
+    // border: "1pt solid #000",
   },
   optionImage: {
-    width: "100px",
-    height: "100px",
+    width: "150px",
+    height: "160px",
     marginBottom: 5,
     marginLeft: 5,
   },
@@ -100,7 +92,7 @@ const styles = {
 type questions = {
   Question?: string;
   question?: string;
-  Options?: {
+  options?: {
     a: string;
     b: string;
     c: string;
@@ -110,7 +102,7 @@ type questions = {
   option_2?: any;
   option_3?: any;
   option_4?: any;
-  Answer?: string;
+  correct_ans?: number;
   Explanation?: string;
   Conversation?: string;
   Paragraph?: string;
@@ -126,7 +118,7 @@ type questions = {
 };
 
 const NonVerbalPDF = ({ props }: any) => {
-  const { selected_question, topic, index } = props;
+  const { selected_question, topic } = props;
   let count = 1;
   return (
     <Box>
@@ -135,10 +127,6 @@ const NonVerbalPDF = ({ props }: any) => {
         <div style={styles.mainContainer}>
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key: any) => {
-              const index_data: any = index?.find((item: any) =>
-                item.element.includes(count)
-              );
-              count++;
               return (
                 <div
                   style={styles.Container}
@@ -147,95 +135,27 @@ const NonVerbalPDF = ({ props }: any) => {
                     (key + 1) % 2 === 0 ? "break-after-page" : ""
                   }  mt-4`}
                 >
-                  {index && index?.length != 0 && index_data && (
-                    <Stack spacing={2} marginBottom={3}>
-                      <ParaText4
-                        text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
-                        css={{ fontWeight: "500" }}
-                      />
-                      <ParaText3
-                        text={`Read the extracts below then answer the question`}
-                        css={{ fontWeight: "500" }}
-                      />
-                    </Stack>
-                  )}
-                  {item?.Options ? (
+                  {item?.options?.a ? (
                     <>
-                      {item.Paragraph && (
+                      {
                         <Stack flexDirection={"row"} columnGap={1}>
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
                           }: `}</Typography>
-                          <Typography>{` ${item.Paragraph}`}</Typography>
+                          <Typography>{` ${item.question}`}</Typography>
                         </Stack>
-                      )}
-                      {item.paragraph && item?.question_image && (
-                        <div>
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-                      {item.Conversation && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${item.Conversation}`}
-                        </Typography>
-                      )}
-                      {item.Conversation || item.Paragraph ? (
-                        <Typography
-                          sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
-                        >{`${item.Question}`}</Typography>
-                      ) : (
-                        <Stack flexDirection={"row"} columnGap={1}>
-                          <Typography sx={styles.mainText} className="">{`${
-                            key + 1
-                          }: `}</Typography>
-                          <Typography>{` ${item.Question}`}</Typography>
-                        </Stack>
-                      )}
-                      {!item.paragraph && item?.question_image && (
-                        <div>
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-                      {!item.paragraph && item?.images && (
-                        <Stack flexDirection={"row"} columnGap={16}>
-                          {item?.images?.map((item2: any, key: number) => {
-                            return (
-                              <img
-                                key={key}
-                                style={styles.image}
-                                src={import.meta.env.VITE_IMAGE_URL + item2}
-                              />
-                            );
-                          })}
-                        </Stack>
-                      )}
+                      }
                       {item?.question_image && (
+                        // <div style={{ width:"100%",padding:"4px" }}>
+                          <img
+                            key={key}
+                            style={styles.image}
+                            src={item?.question_image}
+                          />
+                        // {/* </div> */}
+                      )}
+
+                      {/* {item?.question_image && (
                         <div>
                           {item?.question_image.map(
                             (item2: any, key: number) => {
@@ -251,13 +171,87 @@ const NonVerbalPDF = ({ props }: any) => {
                               );
                             }
                           )}
-                        </div>
-                      )}
-                      <div style={styles.optionContainer} className="mb-4">
-                        <p style={styles.options}>{`A. ${item.Options.a}`}</p>
-                        <p style={styles.options}>{`B. ${item.Options.b}`}</p>
-                        <p style={styles.options}>{`C. ${item.Options.c}`}</p>
-                        <p style={styles.options}>{`D. ${item.Options.d}`}</p>
+                        </div> */}
+                      {/* )} */}
+                      <div style={styles.optionContainer}>
+                        {item?.options?.a.split(":")[0] === "data" ? (
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <div
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                // flexDirection: "row",
+                              }}
+                            >
+                              <p style={styles.options}>A.</p>
+                              <img
+                                style={styles.optionImage}
+                                src={item?.options?.a}
+                              />
+                            </div>
+
+                            {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
+                            <div
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                // flexDirection: "row",
+                              }}
+                            >
+                              <p style={styles.options}>B.</p>
+                              <img
+                                style={styles.optionImage}
+                                src={item?.options?.b}
+                              />
+                            </div>
+                            <div
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                // flexDirection: "row",
+                              }}
+                            >
+                              <p style={styles.options}>C.</p>
+                              <img
+                                style={styles.optionImage}
+                                src={item.options?.c}
+                              />
+                            </div>
+                            <div
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                // flexDirection: "row",
+                              }}
+                            >
+                              <p style={styles.options}>D.</p>
+                              <img
+                                style={styles.optionImage}
+                                src={item.options?.d}
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div style={styles.optionContainer} className="mb-4">
+                            <p
+                              style={styles.options}
+                            >{`A. ${item.options?.a}`}</p>
+                            <p
+                              style={styles.options}
+                            >{`B. ${item.options?.b}`}</p>
+                            <p
+                              style={styles.options}
+                            >{`C. ${item.options?.c}`}</p>
+                            <p
+                              style={styles.options}
+                            >{`D. ${item.options?.d}`}</p>
+                          </div>
+                        )}
                       </div>
                     </>
                   ) : (
@@ -283,26 +277,17 @@ const NonVerbalPDF = ({ props }: any) => {
                           })}
                         </div>
                       )}
-                      {item.conversation && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${item.conversation}`}
-                        </Typography>
-                      )}
 
-                      {item.conversation || item.paragraph ? (
-                        <Typography
-                          sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
-                        >{`${item.question}`}</Typography>
-                      ) : (
+                      {
                         <Stack flexDirection={"row"} columnGap={1}>
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
                           }: `}</Typography>
                           <Typography>{` ${item.question}`}</Typography>
                         </Stack>
-                      )}
+                      }
 
-                      {!item?.paragraph && item?.question_image && (
+                      {item?.question_image && (
                         <div
                           style={{
                             marginTop: 20,
@@ -325,28 +310,7 @@ const NonVerbalPDF = ({ props }: any) => {
                           )}
                         </div>
                       )}
-                      {!!item?.paragraph && item?.question_image && (
-                        <Stack
-                          flexDirection={"row"}
-                          columnGap={16}
-                          // marginTop={4}
-                        >
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </Stack>
-                      )}
+
                       <div style={styles.optionContainer}>
                         {item?.option_1?.split(".")[1] === "png" ||
                         item?.option_1?.split(".")[1] === "jpg" ||
@@ -451,9 +415,12 @@ const NonVerbalPDF = ({ props }: any) => {
             {selected_question?.length != 0 &&
               selected_question?.map((item: questions, key: any) => (
                 <p style={styles.answer} key={key}>
-                  {item?.Answer
-                    ? `${key + 1}.  ${item?.Answer?.toUpperCase()}`
-                    : `${key + 1}.  ${item?.correct_option}`}
+                  {item?.correct_option &&
+                    `${key + 1}.  ${item?.correct_option}`}
+                  {item?.correct_ans &&
+                    `${key + 1} ${String.fromCharCode(
+                      "A".charCodeAt(0) + (item?.correct_ans - 1)
+                    )}`}
                 </p>
               ))}
           </div>
@@ -463,22 +430,7 @@ const NonVerbalPDF = ({ props }: any) => {
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key: any) => (
               <div style={styles.Container} key={key}>
-                {item?.Answer ? (
-                  <>
-                    <p style={styles.answer2}>{`${key + 1}.`}</p>
-                    {!!item?.Explanation ? (
-                      <p
-                      //   style={styles.explanation}
-                      >{`${item?.Explanation} `}</p>
-                    ) : (
-                      <p
-                      // style={styles.explanation}
-                      >
-                        No Explanation
-                      </p>
-                    )}
-                  </>
-                ) : (
+                {
                   <>
                     <p style={styles.answer2}>{`${key + 1}.`}</p>
                     {!!item?.explanation ? (
@@ -493,7 +445,7 @@ const NonVerbalPDF = ({ props }: any) => {
                       </p>
                     )}
                   </>
-                )}
+                }
               </div>
             ))}
         </div>

@@ -21,9 +21,9 @@ const DBox = {
 const mirror1 = async (index: number, questionRefs: any) => {
   // console.log(index);
   const image_style = {
-    width: "30px",
-    height: "30px",
-    margin: "10",
+    width: "40px",
+    height: "40px",
+    margin: "6",
   };
   let newData: any = [];
   const options: any = [];
@@ -103,72 +103,18 @@ const mirror1 = async (index: number, questionRefs: any) => {
           }}
         />
         <Stack direction={"row"} spacing={"9px"}>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
-
-          <Box
-            borderLeft={"1px solid black"}
-            height={"10px"}
-            sx={{ transform: `rotate(155deg)` }}
-          ></Box>
+          {
+            [0,1,2,3,4,5,6,7,8,9,10,11,12].map((index)=>(
+              <Box
+              key={index}
+              borderLeft={"1px solid black"}
+              height={"10px"}
+              sx={{ transform: `rotate(155deg)` }}
+            ></Box>
+            ))
+          }
+     
+        
         </Stack>
       </Box>
     </Stack>
@@ -185,9 +131,11 @@ const mirror1 = async (index: number, questionRefs: any) => {
   console.log(degree[ans], degree[rd]);
   let temp_options = [
     <Box
-      sx={{ transform: `rotate(${degree[ans]}deg)`, backgroundColor: "white" }}
+      sx={{ transform: `rotate(${degree[ans]}deg)`,  }}
       ref={questionRefs.current[index].optionRefs[0]}
       maxWidth={"150px"}
+      maxHeight={"150px"}
+      padding={"10px"}
     >
       <Grid
         sx={{
@@ -197,6 +145,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
           rowGap: "2px",
           border: "1px solid black",
           // padding: "10px",
+          backgroundColor: "white" ,
           justifyItems: "center",
           height: "130px",
           width: "130px",
@@ -232,9 +181,11 @@ const mirror1 = async (index: number, questionRefs: any) => {
       </Grid>
     </Box>,
     <Box
-      sx={{ transform: `rotate(${newDegree[2]}deg)`, backgroundColor: "white" }}
+      sx={{ transform: `rotate(${newDegree[2]}deg)`,  }}
       ref={questionRefs.current[index].optionRefs[1]}
       maxWidth={"150px"}
+      maxHeight={"150px"}
+      padding={"10px"}
     >
       <Grid
         sx={{
@@ -244,6 +195,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
           rowGap: "2px",
           border: "1px solid black",
           // padding: "10px",
+          backgroundColor: "white" ,
           justifyItems: "center",
           height: "130px",
           width: "130px",
@@ -278,9 +230,11 @@ const mirror1 = async (index: number, questionRefs: any) => {
       </Grid>
     </Box>,
     <Box
-      sx={{ transform: `rotate(${newDegree[0]}deg)`, backgroundColor: "white" }}
+      sx={{ transform: `rotate(${newDegree[0]}deg)`, }}
       ref={questionRefs.current[index].optionRefs[2]}
       maxWidth={"150px"}
+      maxHeight={"150px"}
+      padding={"10px"}
     >
       <Grid
         sx={{
@@ -290,6 +244,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
           rowGap: "2px",
           border: "1px solid black",
           // padding: "10px",
+          backgroundColor: "white" ,
           justifyItems: "center",
           height: "130px",
           width: "130px",
@@ -324,9 +279,11 @@ const mirror1 = async (index: number, questionRefs: any) => {
       </Grid>
     </Box>,
     <Box
-      sx={{ transform: `rotate(${newDegree[1]}deg)`, backgroundColor: "white" }}
+      sx={{ transform: `rotate(${newDegree[1]}deg)`, }}
       ref={questionRefs.current[index].optionRefs[3]}
       maxWidth={"150px"}
+      maxHeight={"150px"}
+      padding={"10px"}
     >
       <Grid
         sx={{
@@ -336,6 +293,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
           rowGap: "2px",
           border: "1px solid black",
           // padding: "10px",
+          backgroundColor: "white" ,
           justifyItems: "center",
           height: "130px",
           width: "130px",
