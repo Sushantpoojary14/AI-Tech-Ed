@@ -138,6 +138,7 @@ const MathGen = ({
   };
 
   const handleGenerate = async () => {
+
     newRes.mutate();
   };
 
@@ -216,7 +217,7 @@ const MathGen = ({
       
                 `;
       } else {
-        query = `Questions :Could you generate 2 competitive level word questions with the unique story line and extra information  with ${topic} topic preparing for an arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question. Provide the JSON representation of the five MCQs in the following format:
+        query = `Questions :Could you generate 8 competitive level word questions with the unique story line and extra information  with ${topic} topic preparing for an arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question. Provide the JSON representation of the five MCQs in the following format:
     [
       {
         "Question": "Replace with a challenging question text",

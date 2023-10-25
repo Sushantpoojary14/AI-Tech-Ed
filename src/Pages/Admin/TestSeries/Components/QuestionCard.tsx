@@ -69,7 +69,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
               <ImageListItem key={key} sx={{ width: "200px" }}>
                 <img
                   src={import.meta.env.VITE_IMAGE_URL + item}
-                  alt={`Image ${key}`}
+                  alt={`Image ${import.meta.env.VITE_IMAGE_URL + item}`}
                 />
               </ImageListItem>
             ))}
