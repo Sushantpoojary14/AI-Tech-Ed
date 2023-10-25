@@ -11,11 +11,10 @@ library.add(faB);
 import RedoIcon from "@mui/icons-material/Redo";
 import randomicon from "../../../../utils/randomicon";
 import { ParaText1 } from "../../../../Components/Common/ParaText";
-
-
+import redo from "../../../../Assets/images/Icon/redo.png";
 const outerSquare = {
-  width: "140px", // Set the desired width of the outer square
-  height: "140px", // Set the desired height of the outer square
+  width: "160px", // Set the desired width of the outer square
+  height: "160px", // Set the desired height of the outer square
   // border: `1px solid black`, // Light color border
   // display: "flex",
   // wrap: "wrap",
@@ -30,28 +29,27 @@ const innerSquare = {
   // alignItems: "center",
 };
 const image_style = {
-  width: "40%",
-  height: "40%",
+  width: "50%",
+  height: "50%",
   margin: "auto",
   color: "#000000",
   border: 1,
-  // p: 16,
-  backgroundColor: "white",
+  p: 16,
+  backgroundColor: "#ffffff",
 };
 const innerSquare2 = {
-  width: "60%",
+  width: "50%",
   height: "100%",
 };
 const innerSquare3 = {
-  width: "100%",
-  height: "100%",
-  // border: `1px solid #000000"`,
+  minWidth: "100%",
+  minHeight: "100%",
+  border: `1px solid #000000"`,
 };
 const gridItem = {
   border: "0px solid #000000",
-  width: "99%",
-  height: "99%",
-  // backgroundColor: "red",
+  width: "100%",
+  height: "100%",
   // padding: "1rem",
   // textAlign: "center",
 };
@@ -76,14 +74,13 @@ const Paper1 = async (index: number, questionRefs: any) => {
   const options: any = [];
   const gridArr: any = [];
   let question: any = {};
-
   let random = Math.floor(Math.random() * 3) + 4;
-  // console.log(random);
+  console.log(random);
   let c = 0;
   for (let j = random; j >= 0; j--) {
     const random = Math.floor(Math.random() * (newData.length - 1 - c));
 
-    // console.log(random, newData.length - 1 - c);
+    console.log(random, newData.length - 1 - c);
 
     gridArr.push(newData[random]);
     let temp = newData[random];
@@ -100,318 +97,33 @@ const Paper1 = async (index: number, questionRefs: any) => {
   // }
   console.log("icons", gridData, gridArr);
   let question_image = (
-    // <Stack px={1} ref={questionRefs.current[index].questionRef}>
-    //   <Stack direction={"row"} spacing={1}>
-    //     {/* Box 1 */}
-    //     <Canvas1 />
-    //     <Box
-    //       sx={{
-    //         width: 100,
-    //         height: 100,
-    //         border: 1,
-    //         borderColor: "black",
-    //         backgroundColor: "yellow",
-    //       }}
-    //     />
-
-    //     {/* Box 2 */}
-    //     <Box
-    //       sx={{
-    //         width: 100,
-    //         height: 100,
-    //         border: 1,
-    //         borderStyle: "dashed",
-    //         borderColor: "black",
-    //         backgroundColor: "yellow",
-    //       }}
-    //     />
-    //     {/* Box 3 */}
-    //     <Box
-    //       sx={{
-    //         width: 100,
-    //         height: 100,
-    //       }}
-    //     >
-    //       <Grid container>
-    //         {/* Box 3.1 */}
-    //         <Grid item xs={6}>
-    //           <Box
-    //             sx={{
-    //               width: 50,
-    //               height: 50,
-    //               border: 1,
-    //               borderStyle: "dashed dashed none dashed",
-    //               borderColor: "black",
-    //             }}
-    //           >
-    //             <Grid
-    //               container
-    //               sx={{
-    //                 width: 50,
-    //                 height: 50,
-    //                 display: "grid",
-    //                 gridTemplateColumns: "repeat(3, 1fr)",
-    //                 gridTemplateRows: "repeat(3, 1fr)",
-    //               }}
-    //             >
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               ></Grid>
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //             </Grid>
-    //           </Box>
-    //         </Grid>
-    //         {/* Box 3.2 */}
-    //         <Grid item xs={6}>
-    //           <Box
-    //             sx={{
-    //               width: 50,
-    //               height: 50,
-    //               border: 1,
-    //               borderStyle: "dashed dashed dashed none",
-    //               borderColor: "black",
-    //             }}
-    //           >
-    //             <Grid
-    //               container
-    //               sx={{
-    //                 width: 50,
-    //                 height: 50,
-    //                 display: "grid",
-    //                 gridTemplateColumns: "repeat(3, 1fr)",
-    //                 gridTemplateRows: "repeat(3, 1fr)",
-    //               }}
-    //             >
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               ></Grid>
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //             </Grid>
-    //           </Box>
-    //         </Grid>
-    //         {/* Box 3.3 */}
-    //         <Grid item xs={6}>
-    //           <Box
-    //             sx={{
-    //               width: 50,
-    //               height: 50,
-    //               border: 2,
-    //               borderColor: "black",
-    //               borderStyle: "solid",
-    //             }}
-    //           >
-    //             <Grid
-    //               container
-    //               sx={{
-    //                 width: 50,
-    //                 height: 50,
-    //                 display: "grid",
-    //                 gridTemplateColumns: "repeat(3, 1fr)",
-    //                 gridTemplateRows: "repeat(3, 1fr)",
-    //               }}
-    //             >
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               ></Grid>
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //             </Grid>
-    //           </Box>
-    //         </Grid>
-    //         {/* Box 3.4 */}
-    //         <Grid item xs={6}>
-    //           <Box
-    //             sx={{
-    //               width: 50,
-    //               height: 50,
-
-    //               border: 1,
-    //               borderStyle: "none dashed dashed none",
-    //               borderColor: "black",
-    //             }}
-    //           >
-    //             <Grid
-    //               container
-    //               sx={{
-    //                 width: 50,
-    //                 height: 50,
-    //                 display: "grid",
-    //                 gridTemplateColumns: "repeat(3, 1fr)",
-    //                 gridTemplateRows: "repeat(3, 1fr)",
-    //               }}
-    //             >
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               ></Grid>
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //               <Grid
-    //                 item
-    //                 sx={{
-    //                   width: "100%",
-    //                   height: "100%",
-    //                 }}
-    //               />
-    //               <Grid item sx={{ width: "100%", height: "100%" }} />
-    //             </Grid>
-    //           </Box>
-    //         </Grid>
-    //       </Grid>
-    //     </Box>
-    //   </Stack>
-    //   {/* <Box>
-    //     {shapes.map((item: string, index: number) => (
-    //       <Box>
-    //         <FontAwesomeIcon
-    //           icon={shapes[index]}
-    //         />
-    //       </Box>
-    //     ))}
-    //   </Box> */}
-    // </Stack>
     <Stack
-      px={1}
+      p={1}
       ref={questionRefs.current[index].questionRef}
       // display={"grid"}
       flexDirection={"row"}
-      columnGap={"5px"}
+      columnGap={"3px"}
       // gridColumn={"auto auto auto"}
-      width={"56%"}
-      maxWidth={"100%"}
+      width={"70%"}
+      // maxWidth={"100%"}
     >
       <Stack width={"100%"}>
         <Box border={"1px solid #000000"} sx={{ ...outerSquare }}>
-          <Divider
+          <Box borderBottom={"1px dotted #000000"} sx={{ ...innerSquare }}>
+            <UndoOutlinedIcon
+              sx={{
+                width: "20px",
+                height: "20px",
+                // position: "absolute",
+                marginLeft: "70px",
+                marginTop: "70px",
+                zIndex: "2",
+                transform: "rotate(270deg)",
+              }}
+            />
+          </Box>
+
+          {/* <Divider
             sx={{
               width: "100%",
               mt: "78px",
@@ -419,18 +131,7 @@ const Paper1 = async (index: number, questionRefs: any) => {
               // borderColor: "#000000",
               borderBottom: "1px dotted #000000",
             }}
-          />
-          <UndoOutlinedIcon
-            sx={{
-              width: "20px",
-              height: "20px",
-              position: "absolute",
-              marginX: "60px",
-              marginTop: "-11px",
-              zIndex: "2",
-              transform: "rotate(270deg)",
-            }}
-          />
+          /> */}
         </Box>
         <ParaText1 text="X" css={{ marginX: "auto" }} />
       </Stack>
@@ -443,10 +144,45 @@ const Paper1 = async (index: number, questionRefs: any) => {
             sx={{ ...innerSquare }}
           ></Box>
           <Box border={"1px solid #000000"} sx={{ ...innerSquare }}>
-            <Divider
+            <Box
+              borderRight={"1px dotted #000000"}
+              // borderBottom={"0"}
+              sx={{
+                ...innerSquare2,
+              }}
+            >
+              {/* <img
+                src={redo}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  // position: "absolute",
+                  marginLeft: "70px",
+                  // marginRight: "60px",
+                  // marginTop: "40px",
+                  zIndex: "2",
+                  // backgroundColor: "red",
+                  transform: "rotate(180deg)",
+                }}
+              /> */}
+              <RedoIcon
+                sx={{
+                  width: "20px",
+                  height: "20px",
+                  // position: "absolute",
+                  marginLeft: "68px",
+                  // marginRight: "60px",
+                  marginTop: "30px",
+                  zIndex: "2",
+                  // backgroundColor: "red",
+                  transform: "rotate(180deg)",
+                }}
+              />
+            </Box>
+            {/* <Divider
               sx={{
                 height: "100%",
-                width: "0",
+            
                 // my: "auto",
                 // borderColor: "#000000",
                 mx: "auto",
@@ -454,19 +190,8 @@ const Paper1 = async (index: number, questionRefs: any) => {
               }}
 
               // orientation="vertical"
-            />
+            /> */}
           </Box>
-          <RedoIcon
-            sx={{
-              width: "20px",
-              height: "20px",
-              position: "absolute",
-              marginX: "60px",
-              marginTop: "110px",
-              zIndex: "1",
-              transform: "rotate(180deg)",
-            }}
-          />
         </Stack>
         <ParaText1 text="Y" css={{ marginX: "auto" }} />
       </Stack>
@@ -536,13 +261,6 @@ const Paper1 = async (index: number, questionRefs: any) => {
   const deg = [180, 180, 0, 0];
   const scale2 = [-1, -1, 1, 1];
   const deg2 = [270, 270, 270, 270];
-  const borderArr = [
-    [1, 0, 1, 1],
-    [0, 1, 1, 1],
-    [1, 1, 0, 1],
-    [1, 1, 1, 0],
-  ];
-  
   let temp_options = [
     <Box
       ref={questionRefs.current[index].optionRefs[0]}
@@ -553,7 +271,6 @@ const Paper1 = async (index: number, questionRefs: any) => {
       }}
     >
       {[0, 1, 2, 3].map((item: number) => {
-     
         count = 0;
         return (
           <Stack
@@ -562,11 +279,7 @@ const Paper1 = async (index: number, questionRefs: any) => {
             sx={{
               ...innerSquare3,
               transform: `scaleX(${scale[item]}) rotate(${deg[item]}deg)`,
-              // border: "1px solid black",
-              borderLeft: `${borderArr[item][0]}px solid black`,
-              borderRight: `${borderArr[item][1]}px solid black`,
-              borderTop: `${borderArr[item][2]}px solid black`,
-              borderBottom: `${borderArr[item][3]}px solid black`,
+              border: "1px solid black",
               display: "grid",
               gridTemplateColumns: "auto auto auto",
             }}
@@ -597,7 +310,6 @@ const Paper1 = async (index: number, questionRefs: any) => {
         ...outerSquare,
         display: "grid",
         gridTemplateColumns: "auto auto",
-      
       }}
     >
       {[0, 3, 1, 2].map((item: number, key) => {
@@ -608,10 +320,6 @@ const Paper1 = async (index: number, questionRefs: any) => {
             // flexDirection={"row"}
             sx={{
               ...innerSquare3,
-              borderLeft: `${borderArr[key][0]}px solid black`,
-              borderRight: `${borderArr[key][1]}px solid black`,
-              borderTop: `${borderArr[key][2]}px solid black`,
-              borderBottom: `${borderArr[key][3]}px solid black`,
               transform: `scaleX(${scale[key]}) scaleY(${scale[item]}) rotate(${deg[key]}deg)`,
               border: "1px solid black",
               display: "grid",
@@ -644,7 +352,6 @@ const Paper1 = async (index: number, questionRefs: any) => {
         ...outerSquare,
         display: "grid",
         gridTemplateColumns: "auto auto",
-      
       }}
     >
       {[0, 1, 3, 2].map((item: number, key) => {
@@ -655,10 +362,6 @@ const Paper1 = async (index: number, questionRefs: any) => {
             // flexDirection={"row"}
             sx={{
               ...innerSquare3,
-              borderLeft: `${borderArr[key][0]}px solid black`,
-              borderRight: `${borderArr[key][1]}px solid black`,
-              borderTop: `${borderArr[key][2]}px solid black`,
-              borderBottom: `${borderArr[key][3]}px solid black`,
               transform: `scaleY(${scale2[key]}) scaleX(${scale[item]})rotate(${deg2[key]}deg)`,
               border: "1px solid black",
               display: "grid",
@@ -691,7 +394,6 @@ const Paper1 = async (index: number, questionRefs: any) => {
         ...outerSquare,
         display: "grid",
         gridTemplateColumns: "auto auto",
-     
       }}
     >
       {[1, 0, 2, 3].map((item: number, key) => {
@@ -702,10 +404,6 @@ const Paper1 = async (index: number, questionRefs: any) => {
             // flexDirection={"row"}
             sx={{
               ...innerSquare3,
-              borderLeft: `${borderArr[key][0]}px solid black`,
-              borderRight: `${borderArr[key][1]}px solid black`,
-              borderTop: `${borderArr[key][2]}px solid black`,
-              borderBottom: `${borderArr[key][3]}px solid black`,
               transform: `scaleY(${scale2[key]}) scaleX(${scale[item]}) rotate(${deg2[key]}deg)`,
               border: "1px solid black",
               display: "grid",
