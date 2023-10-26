@@ -335,19 +335,9 @@ const MathGen = ({
         item.Question =
           item.Question && item.Question.replace(/Question:/g, "");
         let data: string[] = [];
-     
-
-        // if (exists) {
-        // if (item.Paragraph || item.Conversation) {
-     
-
         item.images = [];
         let count: number = 1;
         console.log(item.images?.length);
-
-        // if (item.images?.length !== 2) {
-
-
 
         image_data.forEach(
           (search: { image_name: string; image_url: string }) => {
