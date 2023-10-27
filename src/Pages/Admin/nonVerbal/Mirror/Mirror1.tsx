@@ -343,7 +343,7 @@ const mirror1 = async (index: number, questionRefs: any) => {
   question.question_image = question_image;
   question.options = options;
   question.question = `Choose the alternative which is closely resembles the ${
-    rd == 1 || rd == 3 ? "mirror" : "water"
+    rd == 1 || rd == 3 ? "mirror - image" : "water - image"
   } of the given combination:`;
   question.correct_ans = correct_ans;
   // return question;

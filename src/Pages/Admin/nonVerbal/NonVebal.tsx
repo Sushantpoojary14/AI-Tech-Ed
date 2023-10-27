@@ -69,7 +69,10 @@ const NonVebal = () => {
 
     questionRefs.current.push({ questionRef, optionRefs });
   }
-
+  // useEffect(()=>{
+  //   setNewData([]);
+  //   setNewData2([]);
+  // },[setSelectValue])
   const generateQuestions = async () => {
     // console.log("selectd Value", selectValue);
     let newArr2: any = [];
@@ -139,7 +142,7 @@ const NonVebal = () => {
   }, [newData]);
   const addNonVerbalMU = useMutation({
     mutationFn: async (formattedData: any) => {
-      console.log(formattedData);
+      // console.log(formattedData);
 
       return await adminTokenAxios.post(
         `/admin/add-nv-question`,
@@ -159,7 +162,7 @@ const NonVebal = () => {
     onSuccess: (res) => {
       setLoading(false);
       if (res.status == 200) {
-        console.log("Success", res);
+        // console.log("Success", res);
         handleAlertBoxOpen();
         setNewData([]);
         setNewData2([]);
@@ -216,7 +219,7 @@ const NonVebal = () => {
   if (testSeries.isLoading) {
     return <LoadingBar />;
   }
-  console.log(newData2);
+  // console.log(newData2);
 
   return (
     <>

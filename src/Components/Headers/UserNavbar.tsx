@@ -17,18 +17,17 @@ import { UserContext } from "../../Context/UserContext";
 import img from "../../Assets/images/logo/logo2.png";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 
-type userData= {
-  id: number,
-  name: string,
-  email: string,
-}
+type userData = {
+  id: number;
+  name: string;
+  email: string;
+};
 
 interface Type {
   name: string;
   url: string;
   icon: ReactElement;
 }
-
 
 const pCss = {
   height: "38px",
@@ -39,7 +38,6 @@ const pCss = {
 };
 
 const pages: Type[] = [
-
   { name: "Home", url: "/#home", icon: <HomeOutlinedIcon sx={pCss} /> },
   {
     name: "Dashboard",
@@ -64,7 +62,6 @@ const UserNavbar = () => {
   const { handleOpenUserMenu } = UserContext();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
-
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -73,7 +70,6 @@ const UserNavbar = () => {
     setAnchorElNav(null);
   };
 
- 
   return (
     <AppBar
       position="sticky"
@@ -112,10 +108,11 @@ const UserNavbar = () => {
           boxStyle={{ display: "flex" }}
         />
 
-        
-
         <Link to="/user/">
-        <img src={img} style={{width:'200px',height:'100px',paddingBottom:'5px'}} />
+          <img
+            src={img}
+            style={{ width: "300px", height: "170px", paddingBottom: "2px" }}
+          />
           {/* <Header4 header="AI Tech Ed" /> */}
         </Link>
       </Box>
@@ -143,7 +140,7 @@ const UserNavbar = () => {
             func={handleOpenUserMenu}
           />
         </Stack>
-        <MenuModel/>
+        <MenuModel />
       </Box>
     </AppBar>
   );

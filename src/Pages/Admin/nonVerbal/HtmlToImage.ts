@@ -24,7 +24,7 @@ const generateQuestionObjects = async (paraData: any): Promise<any[]> => {
       const questionImageDataUrl = await convertElementToImage(
         item2.question_image.ref
       );
-      console.log(item2.question_image);
+      // console.log(item2.question_image);
 
       questionObj.question_image = questionImageDataUrl;
 

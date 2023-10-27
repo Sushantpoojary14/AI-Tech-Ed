@@ -138,7 +138,6 @@ const MathGen = ({
   };
 
   const handleGenerate = async () => {
-
     newRes.mutate();
   };
 
@@ -206,11 +205,20 @@ const MathGen = ({
       let query = "";
 
       if (testType == 1) {
-        query = `Generate 4 advanced-level practice word questions with unique story line and extra information for a year 8 student with ${topic} preparing with arithmetic aptitude exam, provide a detailed explanation with 4 answer options For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
-          ", "
-        )}, and for females, use ${femaleNames.join(",")}.
-                
-                Provide the JSON representation of the five MCQs in the following format:
+        query = `Generate 15 unique and challenging advanced-level practice word questions designed for 15 year students who are preparing for an arithmetic aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and they should be at least 300 words long. 
+        Ensure the following criteria for each question:
+
+        1. Scenario: Incorporate a real-life scenario that relates to the topic and makes the question contextually rich.
+        2. Clarity: Craft questions that are clear, concise, and easily understandable for 15 year students.
+        3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
+        4. Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question.
+        5. Complexity: Ensure that answer choices are complex and require critical thinking.
+        6. Explanation: Provide a detailed explanation for the correct answer to help students understand the concepts.
+
+        Names:
+        For male characters, use names like ${maleNames.join(", ")}.
+        For female characters, use names like ${femaleNames.join(", ")}. 
+        Provide JSON representation for the multiple-choice questions (MCQs) in the following format:
                 [
                   {
                     "Question": "Replace with a challenging question text",
@@ -234,48 +242,26 @@ const MathGen = ({
                     "Answer": "Correct answer letter (a, b, c, or d)",
                     "Explanation": "Detailed explanation for the correct answer"
                   },
-                  {
-                    "Question": "Replace with another challenging question text",
-                    "Options": {
-                      "a": "Option A text with complexity",
-                      "b": "Option B text with intricacy",
-                      "c": "Option C text with nuance",
-                      "d": "Option D text with exceptions"
-                    },
-                    "Answer": "Correct answer letter (a, b, c, or d)",
-                    "Explanation": "Detailed explanation for the correct answer"
-                  },
-                  {
-                    "Question": "Replace with another challenging question text",
-                    "Options": {
-                      "a": "Option A text with complexity",
-                      "b": "Option B text with intricacy",
-                      "c": "Option C text with nuance",
-                      "d": "Option D text with exceptions"
-                    },
-                    "Answer": "Correct answer letter (a, b, c, or d)",
-                    "Explanation": "Detailed explanation for the correct answer"
-                  },
-                  {
-                    "Question": "Replace with another challenging question text",
-                    "Options": {
-                      "a": "Option A text with complexity",
-                      "b": "Option B text with intricacy",
-                      "c": "Option C text with nuance",
-                      "d": "Option D text with exceptions"
-                    },
-                    "Answer": "Correct answer letter (a, b, c, or d)",
-                    "Explanation": "Detailed explanation for the correct answer"
-                  }
+                  generate 13 more like this
+                 
                 ]
       
                 `;
       } else {
-        query = `Generate four competitive level word questions with a unique storyline and additional information related to the arithmetic aptitude exam on the topic of algebra, where the questions involve real-world scenarios and test the examinee's ability to apply algebraic concepts to solve problems.Each question should be accompanied by a detailed explanation and four answer options.The questions should pertain to the ${topic} topic and test the examinee's understanding and application of arithmetic concepts. The aim is to provide challenging and thought-provoking questions that simulate the exam environment and help the examinee prepare effectively. For each question, use one of the specified names in order for persons. For males, use ${maleNames.join(
-          ", "
-        )}, and for females, use ${femaleNames.join(
-          ","
-        )}. .Provide the JSON representation of the five MCQs in the following format:
+        query = `Generate 15 unique and challenging beginner-level practice word questions designed for 8 year students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and they should be at least 300 words long. 
+        Ensure the following criteria for each question:
+
+        1. Scenario: Incorporate a real-life scenario that relates to the topic and makes the question contextually rich.
+        2. Clarity: Craft questions that are clear, concise, and easily understandable for 8 year students.
+        3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
+        4. Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question.
+        5. Complexity: Ensure that answer choices are complex and require critical thinking.
+        6. Explanation: Provide a detailed explanation for the correct answer to help students understand the concepts.
+
+        Names:
+        For male characters, use names like ${maleNames.join(", ")}.
+        For female characters, use names like ${femaleNames.join(", ")}. 
+        Provide JSON representation for the multiple-choice questions (MCQs) in the following format:
     [
       {
         "Question": "Replace with a challenging question text",
@@ -288,17 +274,7 @@ const MathGen = ({
         "Answer": "Correct answer letter (a, b, c, or d)",
         "Explanation": "Detailed explanation for the correct answer"
       },
-      {
-        "Question": "Replace with another challenging question text",
-        "Options": {
-          "a": "Option A text with complexity",
-          "b": "Option B text with intricacy",
-          "c": "Option C text with nuance",
-          "d": "Option D text with exceptions"
-        },
-        "Answer": "Correct answer letter (a, b, c, or d)",
-        "Explanation": "Detailed explanation for the correct answer"
-      },
+      generate 13 more like this
     
    
     ]
@@ -414,7 +390,7 @@ const MathGen = ({
                     name="Generate"
                   />
                 ))}
-              {resData.length != 0 && newRes.data && totalQuestions &&(
+              {resData.length != 0 && newRes.data && totalQuestions && (
                 <DownloadPDF
                   randomG={true}
                   data={newRes.data}

@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Grid, Paper, Stack } from "@mui/material";
 import randomicon from "../../../../utils/randomicon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -45,6 +45,7 @@ const cube2 = async (index: number, questionRefs: any) => {
     newData.push(imageData);
   }
   let random = Math.floor(Math.random() * 6);
+  let random2 = Math.floor(Math.random() * 6);
   let option_arr = [
     { arr: [0, 1, 2], rotation: [0, 0, 0] },
     { arr: [2, 4, 3], rotation: [90, 0, 90] },
@@ -54,17 +55,26 @@ const cube2 = async (index: number, questionRefs: any) => {
     { arr: [4, 2, 1], rotation: [180, 180, 180] },
   ];
   let ans: any = [];
+  let ans2: any = [];
   ans = option_arr[random];
+  ans2 =
+    option_arr[
+      random2 != random ? random2 : random2 < 3 ? random2 + 1 : random2 - 1
+    ];
+    console.log(ans,ans2);
+    
   // if (random < 3) {
   //   ans.push(newData[random], newData[random + 1], newData[random + 2]);
   // } else {
   //   ans.push(newData[random], newData[random - 1], newData[random - 2]);
   // }
-  console.log(ans);
+  // console.log(ans);
 
   let question_image = (
-    <Box
-      sx={{ maxWidth: "160px" }}
+    <Stack
+      flexDirection={"row"}
+      columnGap={2}
+      sx={{ maxWidth: "260px" }}
       ref={questionRefs.current[index].questionRef}
     >
       <div className="cube" key={index} style={{ margin: "auto" }}>
@@ -101,7 +111,41 @@ const cube2 = async (index: number, questionRefs: any) => {
           />
         </div>
       </div>
-    </Box>
+      <div className="cube" key={index} style={{ margin: "auto" }}>
+        <div className="face top" style={Line}>
+          {/* <div style={{transform: `rotate(${ans.rotation[0]}deg)`,backgroundColor:"blue"}}> */}
+          <FontAwesomeIcon
+            style={{
+              ...image_style,
+              transform: `rotate(${ans2.rotation[0]}deg)`,
+            }}
+            icon={newData[ans2.arr[0]].type.iconName}
+            color={newData[ans2.arr[0]].color}
+          />
+          {/* </div> */}
+        </div>
+        <div className="face left" style={Line}>
+          <FontAwesomeIcon
+            style={{
+              ...image_style,
+              transform: `rotate(${ans2.rotation[1]}deg)`,
+            }}
+            icon={newData[ans2.arr[1]].type.iconName}
+            color={newData[ans2.arr[1]].color}
+          />
+        </div>
+        <div className="face front" style={Line}>
+          <FontAwesomeIcon
+            style={{
+              ...image_style,
+              transform: `rotate(${ans2.rotation[2]}deg)`,
+            }}
+            icon={newData[ans2.arr[2]].type.iconName}
+            color={newData[ans2.arr[2]].color}
+          />
+        </div>
+      </div>
+    </Stack>
   );
 
   // console.log(ans);
@@ -452,7 +496,7 @@ const cube2 = async (index: number, questionRefs: any) => {
   question.question_image = question_image;
   question.options = options;
   question.question =
-    "You are required to determine which of the cubes could be formed by folding the following figure:";
+    "You are required to determine which of the figures could be folded to make the following 3D cube:";
   question.correct_ans = correct_ans;
   // return question;
   return Promise.resolve(question);

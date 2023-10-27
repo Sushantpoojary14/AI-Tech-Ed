@@ -5,10 +5,9 @@ const UserFooter = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        position: "fixed",
-        bottom: 0,
+        // position: "",
+        mt:'auto',
+        marginBottom:"3px",
         width: "100%",
       }}
       bgcolor={"#3A9BDC"}

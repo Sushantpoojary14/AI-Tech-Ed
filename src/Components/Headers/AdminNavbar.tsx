@@ -16,7 +16,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import MenuModel from "../Model/MenuModel";
 import { UserContext } from "../../Context/UserContext";
-
+import img from "../../Assets/images/logo/logo2.png";
 interface Type {
   name: string;
   url: string;
@@ -118,7 +118,17 @@ const AdminNavbar = () => {
         {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
 
         <Link to="/admin/">
-          <Header4 header="AI Tech Ed" />
+          {/* <Header4 header="AI Tech Ed" />
+           */}
+             <img
+                  src={img}
+                  style={{
+                    width: "220px",
+                    height: "180px",
+                    paddingBottom: "5px",
+                    paddingTop:"5px"
+                  }}
+                />
         </Link>
       </Box>
       <Box>

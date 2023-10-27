@@ -164,7 +164,7 @@ const cube5 = async (index: number, questionRefs: any) => {
     const itemNameParts = iconRandom ? item : item.split("-")[1];
     return answer !== itemNameParts && q_number !== itemNameParts;
   });
-  console.log(diceIcons, ans, q_number, answer, new_option);
+  // console.log(diceIcons, ans, q_number, answer, new_option);
   let question_image = (
     <Stack
       ref={questionRefs.current[index].questionRef}

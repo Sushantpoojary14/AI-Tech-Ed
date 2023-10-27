@@ -239,13 +239,13 @@ const Cube3 = (index: number, questionRefs: any): any => {
     }
   }
 
-  console.log(diceArray, diceArray[randomQ], t);
+  // console.log(diceArray, diceArray[randomQ], t);
   const option = tDiceIcons.filter(
     (item: string) =>
       item.split("-")[1] != ans &&
       item.split("-")[1] != diceIcons[randomQ].split("-")[1]
   );
-  console.log(option);
+  // console.log(option);
   let temp_options = [
     ans,
     option[0].split("-")[1],

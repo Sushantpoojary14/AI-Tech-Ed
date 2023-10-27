@@ -139,6 +139,7 @@ const UserIndex = () => {
               width: "100%",
               m: 0,
               p: 0,
+              rowGap:"26px",
               minHeight: "100vh",
               display: "flex",
               flexDirection: "column",
@@ -154,7 +155,7 @@ const UserIndex = () => {
               <Route path="/Test-schedule/*" element={<TestScheduleIndex />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
-            {/* <UserFooter /> */}
+            <UserFooter />
           </Container>
          
         </>

@@ -27,19 +27,18 @@ const styles = {
     padding: 2,
     paddingLeft: 20,
     paddingRight: 20,
+    // marginTop:5
     // border: "1pt solid #000",
   },
   question: {
     fontSize: 16,
     margin: 0,
   },
- 
+
   optionContainer: {
     padding: 2,
     marginTop: 20,
     marginBottom: 10,
-
-   
   },
   options: {
     fontSize: 16,
@@ -48,12 +47,13 @@ const styles = {
   },
 
   answer: {
-    fontSize: 12,
+    marginBottom: 2,
+    fontSize: 24,
     color: "green",
   },
 
   answer2: {
-    fontSize: 12,
+    fontSize: 16,
     margin: 7,
     // marginBottom:7
   },
@@ -73,13 +73,13 @@ const styles = {
     textAlign: "center" as const,
   },
   image: {
-    maxWidth: "550px",
-    height: "180px",
+    maxWidth: "500px",
+    maxHeight: "250px",
     // border: "1pt solid #000",
   },
   optionImage: {
-    width: "150px",
-    height: "160px",
+    maxWidth: "140px",
+    maxHeight: "140px",
     marginBottom: 5,
     marginLeft: 5,
   },
@@ -133,12 +133,12 @@ const NonVerbalPDF = ({ props }: any) => {
                   key={key}
                   className={`${
                     (key + 1) % 2 === 0 ? "break-after-page" : ""
-                  }  mt-4`}
+                  }  mt-8`}
                 >
                   {item?.options?.a ? (
                     <>
                       {
-                        <Stack flexDirection={"row"} columnGap={1}>
+                        <Stack flexDirection={"row"} columnGap={1} marginY={1}>
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
                           }: `}</Typography>
@@ -147,11 +147,11 @@ const NonVerbalPDF = ({ props }: any) => {
                       }
                       {item?.question_image && (
                         // <div style={{ width:"100%",padding:"4px" }}>
-                          <img
-                            key={key}
-                            style={styles.image}
-                            src={item?.question_image}
-                          />
+                        <img
+                          key={key}
+                          style={styles.image}
+                          src={item?.question_image}
+                        />
                         // {/* </div> */}
                       )}
 
@@ -178,6 +178,8 @@ const NonVerbalPDF = ({ props }: any) => {
                           <div
                             style={{
                               display: "flex",
+                              flexDirection:"column",
+                              // rowGap:1
                               justifyContent: "space-between",
                             }}
                           >
@@ -318,6 +320,7 @@ const NonVerbalPDF = ({ props }: any) => {
                           <div
                             style={{
                               display: "flex",
+                              flexDirection:"row",
                               justifyContent: "space-between",
                             }}
                           >
@@ -413,16 +416,79 @@ const NonVerbalPDF = ({ props }: any) => {
           <div style={styles.header2}>Answers:</div>
           <div style={styles.Container}>
             {selected_question?.length != 0 &&
-              selected_question?.map((item: questions, key: any) => (
-                <p style={styles.answer} key={key}>
-                  {item?.correct_option &&
-                    `${key + 1}.  ${item?.correct_option}`}
-                  {item?.correct_ans &&
-                    `${key + 1} ${String.fromCharCode(
-                      "A".charCodeAt(0) + (item?.correct_ans - 1)
-                    )}`}
-                </p>
-              ))}
+              selected_question?.map((item: questions, key: any) => {
+                let ans;
+                if (item?.correct_ans && item?.options) {
+                  switch (item?.correct_ans) {
+                    case 1:
+                      ans = item?.options.a;
+                      break;
+                    case 2:
+                      ans = item?.options.b;
+                      break;
+                    case 3:
+                      ans = item?.options.c;
+                      break;
+                    case 4:
+                      ans = item?.options.d;
+                      break;
+                  }
+                } else {
+                  switch (item?.correct_option) {
+                    case "A":
+                      ans = item.option_1;
+                      break;
+                    case "B":
+                      ans = item.option_2;
+                      break;
+                    case "C":
+                      ans = item.option_3;
+                      break;
+                    case "D":
+                      ans = item.option_4;
+                      break;
+                  }
+                }
+                return (
+                  <Stack
+                    marginY={3}
+                    rowGap={1}
+                    className={`${
+                      (key + 1) % 5 === 0 ? "break-after-page" : ""
+                    }  mt-4`}
+                  >
+                    <p style={styles.answer} key={key}>
+                      {item?.correct_option &&
+                        `${key + 1}.  ${item?.correct_option}`}
+                    </p>
+                    {(item?.correct_option && ans?.split(".")[1] === "png") ||
+                    ans?.split(".")[1] === "jpg" ||
+                    ans?.split(".")[1] === "jpeg" ? (
+                      <img
+                        style={styles.optionImage}
+                        src={import.meta.env.VITE_IMAGE_URL + ans}
+                      />
+                    ) : (
+                      item?.correct_option &&  <p
+                        style={{ ...styles.answer, color: "black" }}
+                      >{`${ans}`}</p>
+                    )}
+                    <p style={styles.answer} key={key}>
+                      {item?.correct_ans &&
+                        `${key + 1} ${String.fromCharCode(
+                          "A".charCodeAt(0) + (item?.correct_ans - 1)
+                        )}`}
+                    </p>
+                    {item?.correct_ans && ans?.split(":")[0] === "data" ? (
+                      <img style={styles.optionImage} src={ans} />
+                    ) : (
+                      item?.correct_ans && <p
+                        style={{ ...styles.answer, color: "black" }}
+                      >{` ${ans}`}</p>
+                    )}
+                  </Stack>
+                );
+              })}
           </div>
         </div>
         <div style={styles.mainContainer} className="mt-4">

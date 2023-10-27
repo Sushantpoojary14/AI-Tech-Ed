@@ -8,6 +8,7 @@ import tokenAxios from "../../../Hooks/TokenAxios";
 import ExamResultTable from "./Components/ExamResultTable";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import { Header1 } from "../../../Components/Common/HeaderText";
+import { OButton2 } from "../../../Components/Common/Button";
 
 const header = [
   "Total Questions",
@@ -81,6 +82,12 @@ const TestResult = () => {
           </Table>
         </TableContainer>
       </Card>
+
+      <OButton2
+        func={()=>window.close()}
+        name="Back To Dashboard"
+        css={{ width: "360px", mx: "auto", my: "15px" }}
+      />
     </Container>
   );
 };
