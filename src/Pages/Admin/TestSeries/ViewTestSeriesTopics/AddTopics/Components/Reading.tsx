@@ -45,13 +45,11 @@ type mapData = {
   images?: string[];
 };
 interface ReadingProps {
-  csvData?: any;
-
   formData?: any;
-  setCsvData?: any;
+
   reset?: any;
   edit?: boolean;
-  topicId?: number | string;
+  topicId?: any;
   handleClose?: () => void;
   setTopic?: any;
 }
@@ -64,9 +62,8 @@ const style: any = {
 };
 
 const Reading = ({
-  csvData,
   formData,
-  setCsvData,
+
   reset,
   edit,
   topicId,
@@ -81,6 +78,7 @@ const Reading = ({
   const [value, setValue] = useState("");
   const [questions, setQuestions] = useState<any>([]); // State to store questions
   const [currentQuestion, setCurrentQuestion] = useState(""); // State to store the current question
+  const [selectValue, setSelectValue] = useState(0);
 
   const [formData1, setFormData1] = useState<any>(null);
   // console.log("Data", selectValue);
@@ -194,11 +192,7 @@ const Reading = ({
     queryKey: ["readingSetNames"],
     queryFn: getReadingSetNames,
   });
-  console.log("iggggggggg", readingSetNameQuery?.data?.reading_topics[0]?.id);
-
-  const [selectValue, setSelectValue] = useState(
-    readingSetNameQuery?.data?.reading_topics[0]?.id
-  );
+  // console.log("iggggggggg", selectValue);
 
   const handleAddNewPassage = () => {
     setValue("");
@@ -210,7 +204,7 @@ const Reading = ({
       sx={{
         width: "96%",
         my: 1,
-        backgroundColor: "#F5F5F5",
+        // backgroundColor: "#F5F5F5",
       }}
       disableGutters
     >
@@ -229,62 +223,68 @@ const Reading = ({
       />
 
       <>
-        <Stack direction="row">
-          <Button
-            onClick={() => navigate(-1)}
-            size="small"
-            variant="contained"
-            color="primary"
-            sx={{ paddingRight: "1rem" }}
-          >
-            <ArrowBackIosNewRoundedIcon />
-            Back
-          </Button>
+        {!edit && (
+          <Stack direction="row">
+            {/* <Button
+              onClick={() => navigate(-1)}
+              size="small"
+              variant="contained"
+              color="primary"
+              sx={{ paddingRight: "1rem" }}
+            >
+              <ArrowBackIosNewRoundedIcon />
+              Back
+            </Button> */}
 
-          <Stack
-            direction="row"
-            sx={{
-              // my: "18px",
-              justifyContent: "center",
-              mx: "auto",
-              pr: { lg: "100px", xs: "0px", sm: "100px", md: "100px" },
-            }}
-          >
-            <AddBoxOutlinedIcon
+            <Stack
+              direction="row"
               sx={{
-                height: "28px",
-                width: "28px",
-                color: "#FA8128",
-                mx: "8px",
-                my: "auto",
+                // my: "18px",
+                justifyContent: "center",
+                mx: "auto",
+                pr: { lg: "100px", xs: "0px", sm: "100px", md: "100px" },
               }}
-            />
-            <Header1 header="Add Topics" />
+            >
+              <AddBoxOutlinedIcon
+                sx={{
+                  height: "28px",
+                  width: "28px",
+                  color: "#FA8128",
+                  mx: "8px",
+                  my: "auto",
+                }}
+              />
+              <Header1 header="Add Topics" />
+            </Stack>
           </Stack>
-        </Stack>
+        )}
         {/* <Grid item xs={12}> */}
         <Stack spacing={1} mt={2}>
           {formData1 ? (
             <AddReadingQuestion
-              tst_id={selectValue}
+              tst_id={selectValue || topicId}
               passage={value}
               handleAddNewPassage={handleAddNewPassage}
             />
           ) : (
             <>
-              <FormLabel
-                sx={{ fontWeight: "900", fontSize: "1.1rem" }}
-                id="upload-csv"
-              >
-                Select Reading Set
-              </FormLabel>
-              <SelectBox
-                name="select-test-type"
-                defaultValue="1"
-                selectName="set-name"
-                options={readingSetNameQuery?.data?.reading_topics}
-                func={setSelectValue}
-              />
+              {!edit && (
+                <>
+                  <FormLabel
+                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                    id="upload-csv"
+                  >
+                    Select Reading Set
+                  </FormLabel>
+                  <SelectBox
+                    name="select-test-type"
+                    defaultValue="1"
+                    selectName="set-name"
+                    options={readingSetNameQuery?.data?.reading_topics}
+                    func={setSelectValue}
+                  />
+                </>
+              )}
 
               <FormLabel
                 sx={{ fontWeight: "900", fontSize: "1.1rem" }}

@@ -4,6 +4,8 @@ import {
   ParaText3,
   ParaText4,
 } from "../../../../../Components/Common/ParaText";
+// import ReactHtmlParser from 'react-html-parser';
+import parse from "html-react-parser";
 
 const styles = {
   //     pageBreak: {
@@ -127,6 +129,8 @@ type questions = {
 
 const ReadingPDF = ({ props }: any) => {
   const { selected_question, topic, index } = props;
+  console.log("ReadingPDF", selected_question);
+
   let count = 1;
   return (
     <Box>
@@ -144,31 +148,34 @@ const ReadingPDF = ({ props }: any) => {
               // console.log(item.paragraph?.split(":")[0]);
               // console.log(item.paragraph?.split(":")[1]);
               // console.log();
-              const para = item.paragraph ? item.paragraph?.split("::") : "";
-              const counts: any = [];
-              const new_par = para[1]
-                .split(".")
-                .filter((item2) => {
-                  return item2 != "";
-                })
-                .map((item, key) => {
-                  const random = Math.round(Math.random() * 3) + 1;
 
-                  if (!counts.includes(key)) {
-                    const text = [];
-                    for (let index = 0; index < random; index++) {
-                      text.push(para[1].split(".")[key + index]);
-                      counts.push(key++);
-                    }
-                    //  console.log(text.join('.'));
-                    return text.join(".");
-                  }
-                  return null;
-                })
-                .filter((item2) => {
-                  return item2 != null && item2 != "";
-                });
-              console.log(new_par);
+              // const para = item.paragraph ? item.paragraph?.split("::") : "";
+              // console.log("para", para);
+
+              // const counts: any = [];
+              // const new_par = para[1]
+              //   .split(".")
+              //   .filter((item2) => {
+              //     return item2 != "";
+              //   })
+              //   .map((item, key) => {
+              //     const random = Math.round(Math.random() * 3) + 1;
+
+              //     if (!counts.includes(key)) {
+              //       const text = [];
+              //       for (let index = 0; index < random; index++) {
+              //         text.push(para[1].split(".")[key + index]);
+              //         counts.push(key++);
+              //       }
+              //       //  console.log(text.join('.'));
+              //       return text.join(".");
+              //     }
+              //     return null;
+              //   })
+              //   .filter((item2) => {
+              //     return item2 != null && item2 != "";
+              //   });
+              // console.log(item?.paragraph);
 
               count++;
               return (
@@ -189,13 +196,13 @@ const ReadingPDF = ({ props }: any) => {
                         <Typography
                           marginBottom={1}
                         >{`Read the extracts below then answer the question`}</Typography>
-                        <Typography
+                        {/* <Typography
                           textAlign={"center"}
                           fontSize={"30px"}
                           marginY={4}
                         >
                           {para[0]}
-                        </Typography>
+                        </Typography> */}
                       </Stack>
                     )}
                   {item?.Options ? (
@@ -206,7 +213,7 @@ const ReadingPDF = ({ props }: any) => {
                             key + 1
                           }: `}</Typography>
 
-                          <Typography>{` ${item.paragraph}`}</Typography>
+                          <div>{parse(item?.Paragraph)}</div>
                         </Stack>
                       )}
                       {item.paragraph && item?.question_image && (
@@ -296,17 +303,9 @@ const ReadingPDF = ({ props }: any) => {
                           : "page-break-inside: avoid"
                       }`}
                     >
-                      {key + 1 == index_data.start && new_par && (
+                      {key + 1 == index_data.start && item?.paragraph && (
                         <Stack spacing={2}>
-                          <Box>
-                            {new_par.map((item2: string | null) => {
-                              return (
-                                <Typography sx={{ mt: "10px" }}>
-                                  {`${item2}.`}
-                                </Typography>
-                              );
-                            })}
-                          </Box>
+                          <Box> {parse(item?.paragraph)}</Box>
                           <ParaText4
                             text={
                               <span>
@@ -344,7 +343,6 @@ const ReadingPDF = ({ props }: any) => {
                           marginTop={0}
                           flexDirection={"row"}
                           columnGap={2}
-                          
                         >
                           <Typography padding={0}>{key + 1}</Typography>
                           <Typography
@@ -392,18 +390,29 @@ const ReadingPDF = ({ props }: any) => {
 
                       <Stack marginY={""} paddingX={"50px"}>
                         <Typography>
-                          <span><strong>A </strong>{`${item?.option_1}`}</span>
+                          <span>
+                            <strong>A </strong>
+                            {`${item?.option_1}`}
+                          </span>
                         </Typography>
                         <Typography>
-                          <span><strong>B </strong>{`${item?.option_2}`}</span>
+                          <span>
+                            <strong>B </strong>
+                            {`${item?.option_2}`}
+                          </span>
                         </Typography>
                         <Typography>
-                          <span><strong>C </strong>{`${item?.option_3}`}</span>
+                          <span>
+                            <strong>C </strong>
+                            {`${item?.option_3}`}
+                          </span>
                         </Typography>
                         <Typography>
-                          <span><strong>D </strong>{`${item?.option_4}`}</span>
+                          <span>
+                            <strong>D </strong>
+                            {`${item?.option_4}`}
+                          </span>
                         </Typography>
-                      
                       </Stack>
                     </Stack>
                   )}

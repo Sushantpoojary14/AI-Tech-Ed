@@ -23,7 +23,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "80%",
 
-  height: "full",
+  height: "100%",
   minHeight: "300px",
   maxHeight: "calc(100vh - 200px)",
   bgcolor: "background.paper",
@@ -55,6 +55,7 @@ const UploadModal = ({
 }: ModalProps) => {
   // const [result, setResult] = useState<any>(null);
   const [csvData, setCsvData] = useState<any>([]);
+  // console.log("topicId", topicId);
 
   return (
     <div>
@@ -106,19 +107,17 @@ const UploadModal = ({
                   Upload
                 </Button>
               </Stack> */}
-            <Stack spacing={1}>
-              {(topic[0] == 2 || topic[0] == 3) && (
-                <>
-                  <FormLabel
-                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
-                    id="upload-csv"
-                  >
-                    Upload CSV
-                  </FormLabel>
-                  <CSVParser csvData={csvData} setCsvData={setCsvData} />
-                </>
-              )}
-            </Stack>
+            {topic[0] == 3 && (
+              <Stack spacing={1}>
+                <FormLabel
+                  sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                  id="upload-csv"
+                >
+                  Upload CSV
+                </FormLabel>
+                <CSVParser csvData={csvData} setCsvData={setCsvData} />
+              </Stack>
+            )}
 
             {/* <GenerateQuestions
               topicId={topicId}
@@ -142,9 +141,8 @@ const UploadModal = ({
             {topic[0] == 2 && (
               <Reading
                 formData={topic}
-                csvData={csvData}
-                setCsvData={setCsvData}
                 // reset={reset}
+                topicId={topicId}
                 edit={true}
               />
             )}
