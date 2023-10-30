@@ -208,7 +208,7 @@ const MathGen = ({
         query = `Generate 15 unique and challenging advanced-level practice word questions designed for 15 year students who are preparing for an arithmetic aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and they should be at least 300 words long. 
         Ensure the following criteria for each question:
 
-        1. Scenario: Incorporate a real-life scenario that relates to the topic and makes the question contextually rich.
+        1. Scenario: Incorporate a real-life story that relates to the topic and makes the question contextually rich.
         2. Clarity: Craft questions that are clear, concise, and easily understandable for 15 year students.
         3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
         4. Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question.
