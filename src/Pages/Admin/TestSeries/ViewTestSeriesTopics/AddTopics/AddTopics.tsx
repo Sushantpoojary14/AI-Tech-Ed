@@ -12,6 +12,7 @@ import {
   Select,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Header1 } from "../../../../../Components/Common/HeaderText";
@@ -20,18 +21,22 @@ import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRound
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 import adminTokenAxios from "../../../../../Hooks/AdminTokenAxios";
 import CSVParser from "../../Components/CSVParser";
 
 import GenerateQuestions from "../../Components/GenerateQuestions";
 import LoadingBar from "../../../../../Components/Headers/LoadingBar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Reading from "./Components/Reading";
 import Thinking from "./Components/Thinking";
 import MathGen from "./Components/MathGen";
+import { BButton2 } from "../../../../../Components/Common/Button";
 
 type FormValues = {
   ts_id: string;
@@ -44,6 +49,8 @@ type FormValues = {
 const AddTopics = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [csvData, setCsvData] = useState<any>([]);
+  const [newReadingSet, setNewReadingSet] = useState(false);
+  const [addQuestionToReadingSet, setAddQuestionToReadingSet] = useState(false);
 
   // const [generate, setGenerate] = useState<boolean>(false);
   // const [currentIndex, setCurrentIndex] = useState(0);
@@ -86,6 +93,25 @@ const AddTopics = () => {
   const tsc_id = watch("tsc_id");
   const handleSubmitData = () => {
     // setGenerate(false);
+  };
+
+  const ReadingTopicmutation = useMutation({
+    mutationFn: () => {
+      return adminTokenAxios.post(`admin/add-reading-topic`, {
+        t_name: formData[4],
+        tsc_id: formData[0],
+        ts_id: formData[3],
+        // topic: formData[4]
+      });
+    },
+    onSuccess: (data) => {
+      navigate("add-question-to-reading-set");
+    },
+  });
+
+  const handleSubmitReading = () => {
+    ReadingTopicmutation.mutate();
+    // navigate("add-question-to-reading-set");
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -145,7 +171,7 @@ const AddTopics = () => {
           // display: "flex",
           // flexDirection: "column",
           // border: 1,
-          // height: "85vh",
+          // height: "auto",
           backgroundColor: "#F5F5F5",
         }}
         disableGutters
@@ -276,101 +302,131 @@ const AddTopics = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12} sm={4}>
-                <Stack spacing={1}>
-                  <FormLabel
-                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
-                    id="enter-topic-name"
-                  >
-                    {tsc_id == "2" ? "Enter Reading Name" : "Enter Topic Name"}
-                  </FormLabel>
-                  <Controller
-                    name="topic_name"
-                    control={control}
-                    defaultValue=""
-                    rules={{ required: "This field is required" }} // Add any other validation rules here
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        // label="Enter Topic
-                        placeholder="Enter Topic Name"
-                        variant="outlined"
-                        // sx={{ width: "50%" }}
-                        // error={!!errors.inputField}
-                        // helperText={errors.inputField ? errors.inputField.message : ''}
-                      />
-                    )}
-                  />
-                </Stack>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Stack spacing={1}>
-                  <FormLabel
-                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
-                    id="enter-topic"
-                  >
-                    {tsc_id == "2"
-                      ? "Enter Reading Set Name"
-                      : "Enter Topic To Generate"}
-                  </FormLabel>
-                  <Controller
-                    name="topic"
-                    control={control}
-                    defaultValue=""
-                    rules={{ required: "This field is required" }} // Add any other validation rules here
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        // label="Enter Topic
-                        placeholder="Enter Topic"
-                        variant="outlined"
-                        // sx={{ width: "50%" }}
-                        // error={!!errors.inputField}
-                        // helperText={errors.inputField ? errors.inputField.message : ''}
-                      />
-                    )}
-                  />
-                </Stack>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Stack spacing={1}>
-                  <FormLabel
-                    sx={{ fontWeight: "900", fontSize: "1.1rem" }}
-                    id="demo-controlled-open-select-label"
-                  >
-                    Total Questions
-                  </FormLabel>
-                  <Controller
-                    name="total_questions"
-                    control={control}
-                    defaultValue={""}
-                    disabled={tsc_id == "2"}
-                    render={({ field }) => (
-                      <FormControl fullWidth>
-                        <Select
-                          {...field}
-                          labelId="demo-controlled-open-select-label"
-                          id="demo-controlled-open-select"
-                          placeholder="Enter Total Questions"
-                          // sx={{ width: "50%" }}
+              {formData[0] === "2" &&
+                (!newReadingSet ? (
+                  <Grid item xs={12}>
+                    <Stack spacing={2} direction={"row"}>
+                      <Button
+                        variant="contained"
+                        onClick={() => setNewReadingSet(true)}
+                      >
+                        Add New Reading Set
+                      </Button>
+                      <Link to={"add-question-to-reading-set"}>
+                        <Button
+                          variant="contained"
+                          onClick={() => setAddQuestionToReadingSet(true)}
                         >
-                          <MenuItem value="">
-                            <em>None</em>
-                          </MenuItem>
-                          {/* <MenuItem value={5}>5</MenuItem> */}
-                          <MenuItem value={15}>15</MenuItem>
-                          <MenuItem value={20}>20</MenuItem>
-                          <MenuItem value={25}>25</MenuItem>
-                          <MenuItem value={30}>30</MenuItem>
-                          <MenuItem value={50}>50</MenuItem>
-                        </Select>
-                      </FormControl>
-                    )}
-                  />
-                </Stack>
-              </Grid>
+                          Add Questions To Set
+                        </Button>
+                      </Link>
+                    </Stack>
+                  </Grid>
+                ) : (
+                  <></>
+                ))}
 
-              {(parseInt(formData[0]) == 2 || parseInt(formData[0]) == 3) && (
+              {(!(tsc_id == "2") || newReadingSet) && (
+                <>
+                  <Grid item xs={12} sm={4}>
+                    <Stack spacing={1}>
+                      <FormLabel
+                        sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                        id="enter-topic-name"
+                      >
+                        {tsc_id == "2"
+                          ? "Enter Reading Name"
+                          : "Enter Topic Name"}
+                      </FormLabel>
+                      <Controller
+                        name="topic_name"
+                        control={control}
+                        defaultValue=""
+                        rules={{ required: "This field is required" }} // Add any other validation rules here
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            // label="Enter Topic
+                            placeholder="Enter Topic Name"
+                            variant="outlined"
+                            // sx={{ width: "50%" }}
+                            // error={!!errors.inputField}
+                            // helperText={errors.inputField ? errors.inputField.message : ''}
+                          />
+                        )}
+                      />
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <Stack spacing={1}>
+                      <FormLabel
+                        sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                        id="enter-topic"
+                      >
+                        {tsc_id == "2"
+                          ? "Enter Reading Set Name"
+                          : "Enter Topic To Generate"}
+                      </FormLabel>
+                      <Controller
+                        name="topic"
+                        control={control}
+                        defaultValue=""
+                        rules={{ required: "This field is required" }} // Add any other validation rules here
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            // label="Enter Topic
+                            placeholder="Enter Topic"
+                            variant="outlined"
+                            // sx={{ width: "50%" }}
+                            // error={!!errors.inputField}
+                            // helperText={errors.inputField ? errors.inputField.message : ''}
+                          />
+                        )}
+                      />
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <Stack spacing={1}>
+                      <FormLabel
+                        sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                        id="demo-controlled-open-select-label"
+                      >
+                        Total Questions
+                      </FormLabel>
+                      <Controller
+                        name="total_questions"
+                        control={control}
+                        defaultValue={""}
+                        disabled={tsc_id == "2"}
+                        render={({ field }) => (
+                          <FormControl fullWidth>
+                            <Select
+                              {...field}
+                              labelId="demo-controlled-open-select-label"
+                              id="demo-controlled-open-select"
+                              placeholder="Enter Total Questions"
+                              // sx={{ width: "50%" }}
+                            >
+                              <MenuItem value="">
+                                <em>None</em>
+                              </MenuItem>
+                              {/* <MenuItem value={5}>5</MenuItem> */}
+                              <MenuItem value={15}>15</MenuItem>
+                              <MenuItem value={20}>20</MenuItem>
+                              <MenuItem value={25}>25</MenuItem>
+                              <MenuItem value={30}>30</MenuItem>
+                              <MenuItem value={50}>50</MenuItem>
+                            </Select>
+                          </FormControl>
+                        )}
+                      />
+                    </Stack>
+                  </Grid>
+                </>
+              )}
+
+              {parseInt(formData[0]) == 3 && (
                 <Grid item xs={12}>
                   <Stack spacing={1}>
                     <FormLabel
@@ -383,8 +439,44 @@ const AddTopics = () => {
                   </Stack>
                 </Grid>
               )}
+              {/* {parseInt(formData[0]) == 2 && (
+                <>
+                  <Grid item xs={12}>
+                    <Stack spacing={1}>
+                      <FormLabel
+                        sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                        id="upload-csv"
+                      >
+                        Add Passage
+                      </FormLabel>
+
+                      <ReactQuill
+                        // className="h-52"
+                        theme="snow"
+                        value={value}
+                        onChange={setValue}
+                        modules={modules}
+                        formats={formats}
+                      />
+                    </Stack>
+                  </Grid>
+
+                </>
+              )} */}
 
               {/* <OButton3  name="Add" css={{ marginTop: "1rem" }} /> */}
+              {newReadingSet && (
+                // <Reading
+                //   formData={formData}
+                //   csvData={csvData}
+                //   setCsvData={setCsvData}
+                //   reset={reset}
+                //   edit={false}
+                // />
+                <Grid item xs={12} justifyContent="center" alignItems="center ">
+                  <BButton2 name={"Submit"} func={handleSubmitReading} />
+                </Grid>
+              )}
             </Grid>
 
             {/* {csvData.length > 0 ? (
@@ -426,15 +518,7 @@ const AddTopics = () => {
         {formData[0] === "1" && formData[1] && (
           <MathGen formData={formData} reset={reset} edit={false} />
         )}
-        {formData[0] === "2" && (
-          <Reading
-            formData={formData}
-            csvData={csvData}
-            setCsvData={setCsvData}
-            reset={reset}
-            edit={false}
-          />
-        )}
+
         {formData[0] === "3" && (
           <Thinking
             formData={formData}
