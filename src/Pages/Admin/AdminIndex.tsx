@@ -33,6 +33,7 @@ import ViewTopicDetail from "./TestSeries/ViewTestSeriesTopics/TopicView/ViewPro
 import AlertBox from "../../Components/Common/AlertBox";
 import EditProduct from "../../Components/Model/EditProduct";
 import NonVebal from "./nonVerbal/NonVebal";
+import Reading from "./TestSeries/ViewTestSeriesTopics/AddTopics/Components/Reading";
 
 const AdminIndex = () => {
   const { admin, adminLogout } = AppContext();
@@ -200,6 +201,10 @@ const AdminIndex = () => {
               {/* view topic routes */}
               <Route path="/view-topics" element={<ViewTestSeriesTopics />} />
               <Route path="/view-topics/add-topics" element={<AddTopics />} />
+              <Route
+                path="/view-topics/add-topics/add-question-to-reading-set"
+                element={<Reading />}
+              />
               <Route
                 path="/view-topics/view-topic-questions/:topicId"
                 element={<ViewTopicDetail />}

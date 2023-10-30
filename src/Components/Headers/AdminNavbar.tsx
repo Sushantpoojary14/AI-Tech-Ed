@@ -58,6 +58,11 @@ const pages: Type[] = [
     icon: <EventRepeatOutlinedIcon sx={pCss} />,
   },
   {
+    name: "Add-Reading-Question",
+    url: "/admin/view-topics/add-topics/add-question-to-reading-set",
+    icon: <EventRepeatOutlinedIcon sx={pCss} />,
+  },
+  {
     name: "Profile",
     url: "/admin/profile",
     icon: <AccountBoxOutlinedIcon sx={pCss} />,
