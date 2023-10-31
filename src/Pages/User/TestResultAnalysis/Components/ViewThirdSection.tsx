@@ -9,12 +9,14 @@ const ViewThirdSection = ({ data }: any) => {
   if (data.isLoading) {
     return <LoadingBar />;
   }
-
+  const question_number:number[] = [];
+  for (let index = 1; index <= data.data?.question_time.length; index++) {
+    question_number.push(index);
+  }
+  // console.log(question_number);
+  
   const [lineData, setLineData] = useState({
-    labels: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-      22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
-    ],
+    labels: question_number,
     datasets: [
       {
         label: "Seconds",

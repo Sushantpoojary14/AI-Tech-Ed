@@ -205,14 +205,14 @@ const MathGen = ({
       let query = "";
 
       if (testType == 1) {
-        query = `Generate 15 unique and challenging advanced-level practice word questions designed for 15 year students who are preparing for an arithmetic aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and they should be at least 300 words long. 
+        query = `Generate 10 unique and challenging advanced-level practice questions designed for college students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and no limit in how long the question is. 
         Ensure the following criteria for each question:
 
         1. Scenario: Incorporate a real-life story that relates to the topic and makes the question contextually rich.
-        2. Clarity: Craft questions that are clear, concise, and easily understandable for 15 year students.
+        2. Clarity: Craft questions that are clear, concise, and easily understandable for college year students.
         3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
         4. Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question.
-        5. Complexity: Ensure that answer choices are complex and require critical thinking.
+        5. Complexity: Ensure that question and answer should be difficult that hard to solve and require critical thinking.
         6. Explanation: Provide a detailed explanation for the correct answer to help students understand the concepts.
 
         Names:
@@ -223,10 +223,10 @@ const MathGen = ({
                   {
                     "Question": "Replace with a challenging question text",
                     "Options": {
-                      "a": "Option A text with complexity",
-                      "b": "Option B text with intricacy",
-                      "c": "Option C text with nuance",
-                      "d": "Option D text with exceptions"
+                      "a": "Option A text",
+                      "b": "Option B text",
+                      "c": "Option C text",
+                      "d": "Option D text"
                     },
                     "Answer": "Correct answer letter (a, b, c, or d)",
                     "Explanation": "Detailed explanation for the correct answer"
@@ -234,25 +234,25 @@ const MathGen = ({
                   {
                     "Question": "Replace with another challenging question text",
                     "Options": {
-                      "a": "Option A text with complexity",
-                      "b": "Option B text with intricacy",
-                      "c": "Option C text with nuance",
-                      "d": "Option D text with exceptions"
+                      "a": "Option A text",
+                      "b": "Option B text",
+                      "c": "Option C text",
+                      "d": "Option D text"
                     },
                     "Answer": "Correct answer letter (a, b, c, or d)",
                     "Explanation": "Detailed explanation for the correct answer"
                   },
-                  generate 13 more like this
+                  generate 10 more like this
                  
                 ]
       
                 `;
       } else {
-        query = `Generate 15 unique and challenging beginner-level practice word questions designed for 8 year students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and they should be at least 300 words long. 
+        query = `Generate 10 unique and challenging beginner-level practice word questions designed for 12 year students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and no limit in how long the question is. 
         Ensure the following criteria for each question:
 
         1. Scenario: Incorporate a real-life scenario that relates to the topic and makes the question contextually rich.
-        2. Clarity: Craft questions that are clear, concise, and easily understandable for 8 year students.
+        2. Clarity: Craft questions that are clear, concise, and easily understandable for 12 year students.
         3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
         4. Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question.
         5. Complexity: Ensure that answer choices are complex and require critical thinking.
@@ -315,7 +315,7 @@ const MathGen = ({
         let count: number = 1;
         console.log(item.images?.length);
 
-        image_data.forEach(
+        image_data?.forEach(
           (search: { image_name: string; image_url: string }) => {
             if (item.images?.length === 1) {
               return true; // Exit the loop
