@@ -204,7 +204,7 @@ const DefaultPDf = ({ props }: any) => {
                     </>
                   ) : (
                     <>
-                      {item.conversation && (
+                      {item.question && (
                         <Stack flexDirection={"row"} columnGap={1}>
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1

@@ -297,7 +297,7 @@ const SectionTwo = ({
                             total={set?.questions?.length}
                             topic={setData?.t_name}
                             set={true}
-                            index={set?.id == 2 ? set?.index : []}
+                            index={set?.index}
                             cateId={tsc} //need to set this properly
                           />
                           {/* <DownloadIconButton

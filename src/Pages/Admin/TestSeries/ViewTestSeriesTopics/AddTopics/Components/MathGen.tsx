@@ -204,7 +204,7 @@ const MathGen = ({
 
       let query = "";
 
-      if (testType == 1) {
+      if (testType == 2) {
         query = `Generate 10 unique and challenging advanced-level practice questions designed for college students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and no limit in how long the question is. 
         Ensure the following criteria for each question:
 

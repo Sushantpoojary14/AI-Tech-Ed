@@ -201,12 +201,13 @@ const ViewProductDetail = () => {
         <Stack marginTop={2} direction="row">
           <Button
             onClick={() => navigate(-1)}
-            size="small"
+            // size="small"
+            type="button"
             variant="contained"
             color="primary"
             sx={{ paddingRight: "1rem" }}
           >
-            <ArrowBackIosNewRoundedIcon />
+            {/* <ArrowBackIosNewRoundedIcon /> */}
             Back
           </Button>
 

@@ -130,6 +130,7 @@ type questions = {
 const ReadingPDF = ({ props }: any) => {
   const { selected_question, topic, index } = props;
   console.log("ReadingPDF", selected_question);
+console.log(index);
 
   let count = 1;
   return (
@@ -142,40 +143,7 @@ const ReadingPDF = ({ props }: any) => {
               const index_data: any = index?.find((item: any) =>
                 item.element.includes(count)
               );
-              // if(){
 
-              // }
-              // console.log(item.paragraph?.split(":")[0]);
-              // console.log(item.paragraph?.split(":")[1]);
-              // console.log();
-
-              // const para = item.paragraph ? item.paragraph?.split("::") : "";
-              // console.log("para", para);
-
-              // const counts: any = [];
-              // const new_par = para[1]
-              //   .split(".")
-              //   .filter((item2) => {
-              //     return item2 != "";
-              //   })
-              //   .map((item, key) => {
-              //     const random = Math.round(Math.random() * 3) + 1;
-
-              //     if (!counts.includes(key)) {
-              //       const text = [];
-              //       for (let index = 0; index < random; index++) {
-              //         text.push(para[1].split(".")[key + index]);
-              //         counts.push(key++);
-              //       }
-              //       //  console.log(text.join('.'));
-              //       return text.join(".");
-              //     }
-              //     return null;
-              //   })
-              //   .filter((item2) => {
-              //     return item2 != null && item2 != "";
-              //   });
-              // console.log(item?.paragraph);
 
               count++;
               return (
@@ -183,7 +151,7 @@ const ReadingPDF = ({ props }: any) => {
                   style={styles.Container}
                   key={key}
                   className={`${
-                    key + 1 == index_data.start
+                    key + 1 == index_data?.start
                       ? "break-before-page"
                       : "page-break-inside: avoid"
                   } mt-4`}
@@ -191,18 +159,13 @@ const ReadingPDF = ({ props }: any) => {
                   {index &&
                     index?.length != 0 &&
                     index_data &&
+                    index_data.start &&
                     key + 1 == index_data.start && (
                       <Stack>
                         <Typography
                           marginBottom={1}
                         >{`Read the extracts below then answer the question`}</Typography>
-                        {/* <Typography
-                          textAlign={"center"}
-                          fontSize={"30px"}
-                          marginY={4}
-                        >
-                          {para[0]}
-                        </Typography> */}
+              
                       </Stack>
                     )}
                   {item?.Options ? (
@@ -237,55 +200,6 @@ const ReadingPDF = ({ props }: any) => {
 
                       <Typography>{` ${item.Question}`}</Typography>
 
-                      {!item.paragraph && item?.question_image && (
-                        <div>
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-                      {!item.paragraph && item?.images && (
-                        <Stack flexDirection={"row"} columnGap={16}>
-                          {item?.images?.map((item2: any, key: number) => {
-                            return (
-                              <img
-                                key={key}
-                                style={styles.image}
-                                src={import.meta.env.VITE_IMAGE_URL + item2}
-                              />
-                            );
-                          })}
-                        </Stack>
-                      )}
-                      {item?.question_image && (
-                        <div>
-                          {item?.question_image.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
                       <div style={styles.optionContainer} className="mb-4">
                         <p style={styles.options}>{`A. ${item.Options.a}`}</p>
                         <p style={styles.options}>{`B. ${item.Options.b}`}</p>
@@ -298,45 +212,35 @@ const ReadingPDF = ({ props }: any) => {
                       spacing={1}
                       marginBottom={3}
                       className={`${
-                        key + 1 == index_data.start
+                        key + 1 == index_data?.start
                           ? "break-after-page"
                           : "page-break-inside: avoid"
                       }`}
                     >
-                      {key + 1 == index_data.start && item?.paragraph && (
-                        <Stack spacing={2}>
-                          <Box> {parse(item?.paragraph)}</Box>
-                          <ParaText4
-                            text={
-                              <span>
-                                For questions
-                                <strong>
-                                  {` ${index_data.start} - ${index_data.end} `}
-                                </strong>
-                                choose the option <strong>(A,B,C or D)</strong>{" "}
-                                which think the best answers the question
-                              </span>
-                            }
-                          />
-                        </Stack>
-                      )}
-                      {item?.paragraph && item?.images && (
-                        <div>
-                          {item?.images?.map((item2: any, key: any) => {
-                            return (
-                              <img
-                                key={key}
-                                style={styles.image}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL +
-                                  item2?.image_url
-                                }
-                              />
-                            );
-                          })}
-                        </div>
-                      )}
+                      {
+                        index?.length != 0 &&
+                        index_data &&
+                        key + 1 == index_data?.start &&
+                        item?.paragraph && (
+                          <Stack spacing={2}>
+                            <Box> {parse(item?.paragraph)}</Box>
+                            <ParaText4
+                              text={
+                                <span>
+                                  For questions
+                                  <strong>
+                                    {` ${index_data.start} - ${index_data.end} `}
+                                  </strong>
+                                  choose the option{" "}
+                                  <strong>(A,B,C or D)</strong> which think the
+                                  best answers the question
+                                </span>
+                              }
+                            />
+                          </Stack>
+                        )}
 
+                 
                       {item.question && (
                         <Stack
                           paddingTop={1}
@@ -368,24 +272,6 @@ const ReadingPDF = ({ props }: any) => {
                             }
                           )}
                         </div>
-                      )}
-                      {!!item?.paragraph && item?.question_image && (
-                        <Stack flexDirection={"row"} columnGap={16}>
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </Stack>
                       )}
 
                       <Stack marginY={""} paddingX={"50px"}>
