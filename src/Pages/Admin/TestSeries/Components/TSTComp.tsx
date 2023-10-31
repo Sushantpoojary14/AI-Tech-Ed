@@ -135,10 +135,11 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
   };
   const getTopicQuestion = useMutation({
     mutationFn: async (id: number) => {
+      console.log(id);
+
       return await adminTokenAxios.get(`admin/get-topic-question/${id}`);
     },
     onSuccess: (res) => {
-     
       setSetData(res?.data.topic_questions);
       setOpen3(true);
       // console.log("muta", res?.data.topic_questions);
@@ -201,7 +202,7 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
         duration={6000}
         handleAlertBoxClose={handleAlertBoxClose}
       />
-       <AlertBox
+      <AlertBox
         name="Cannot Edit The Topic"
         type="error"
         bol={open4}

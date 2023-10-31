@@ -78,7 +78,7 @@ const AddReadingQuestion = ({
         Paragraph: passage,
       },
     };
-    console.log("addQuestion", formattedData);
+    // console.log("addQuestion", formattedData);
     try {
       addReadingQuestionMU.mutate(formattedData);
     } catch (error) {}
