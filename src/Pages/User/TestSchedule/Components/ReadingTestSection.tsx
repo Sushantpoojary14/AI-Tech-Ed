@@ -26,6 +26,7 @@ import {
 } from "@tanstack/react-query";
 import tokenAxios from "../../../../Hooks/TokenAxios";
 import { AxiosResponse } from "axios";
+import parse from "html-react-parser";
 
 type Inputs = {
   A?: string;
@@ -229,47 +230,47 @@ const ReadingTestSection = (props: props) => {
                       text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
                       css={{ fontWeight: "500" }}
                     /> */}
-                      <ParaText4
-                            text={
-                              <span>
-                                For questions
-                                <strong>
-                                  {` ${index_data.start} - ${index_data.end} `}
-                                </strong>
-                                choose the option <strong>(A,B,C or D)</strong>{" "}
-                                which think the best answers the question
-                              </span>
-                            }
-                          />
+                    <ParaText4
+                      text={
+                        <span>
+                          For questions
+                          <strong>
+                            {` ${index_data.start} - ${index_data.end} `}
+                          </strong>
+                          choose the option <strong>(A,B,C or D)</strong> which
+                          think the best answers the question
+                        </span>
+                      }
+                    />
                     <ParaText3
                       text={`Read the extracts below then answer the question`}
                       css={{ fontWeight: "500" }}
                     />
-                    <Typography
+                    {/* <Typography
                       textAlign={"center"}
                       fontSize={"30px"}
                       marginY={4}
                     >
                       {para[0]}
-                    </Typography>
+                    </Typography> */}
                   </Stack>
                 )}
 
                 {question && (
                   <>
                     {!!question?.questions.conversation ||
-                    !!question?.questions.paragraph ? (
+                    !!question?.questions?.paragraph ? (
                       <>
-                        {para && (
-                          <ParaText4
-                            text={para[1]}
-                            css={{
-                              fontWeight: "400",
-                              marginBottom: "10px",
-                              fontSize: "1.1rem",
-                            }}
-                          />
-
+                        {question?.questions?.paragraph && (
+                          // <ParaText4
+                          //   text={para[1]}
+                          //   css={{
+                          //     fontWeight: "400",
+                          //     marginBottom: "10px",
+                          //     fontSize: "1.1rem",
+                          //   }}
+                          // />
+                          <div>{parse(question?.questions?.paragraph)}</div>
                         )}
                         {question?.questions.question_image &&
                           question?.questions.question_image.length !== 0 && (
