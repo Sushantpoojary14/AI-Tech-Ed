@@ -7,14 +7,13 @@ import {
   Pagination,
   Stack,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { BButton2 } from "../../../../../../Components/Common/Button";
 import DownloadPDF from "../../../Components/PDF/DownloadPDF";
 import AlertBox from "../../../../../../Components/Common/AlertBox";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
 import QuestionCard from "../../../Components/QuestionCard";
-import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
@@ -22,6 +21,10 @@ import { useNavigate } from "react-router-dom";
 import { Header1 } from "../../../../../../Components/Common/HeaderText";
 import SelectBox from "../../../../../../Components/Common/Select";
 import AddReadingQuestion from "./AddReadingQuestion";
+
+import ReactQuill, { Quill } from "react-quill";
+import JoditReact from "jodit-react-ts";
+import "jodit/build/jodit.min.css";
 
 type CsvItem = {
   Answer: string;
@@ -81,7 +84,7 @@ const Reading = ({
   const [selectValue, setSelectValue] = useState(0);
 
   const [formData1, setFormData1] = useState<any>(null);
-  // console.log("Data", selectValue);
+  console.log("EDITOR TEXT", value);
 
   const navigate = useNavigate();
 
@@ -296,8 +299,8 @@ const Reading = ({
               </FormLabel>
 
               <Stack spacing={4}>
-                <div className="h-50">
-                  <ReactQuill
+                <div className="">
+                  {/* <ReactQuill
                     // className="h-40"
                     theme="snow"
                     value={value}
@@ -306,7 +309,9 @@ const Reading = ({
                     formats={formats}
                     style={style}
                     placeholder="Add Your Passage Here..."
-                  />
+                  /> */}
+
+                  <JoditReact onChange={(content: any) => setValue(content)} />
                 </div>
 
                 <BButton2 name="next" func={handleNextPassage} />

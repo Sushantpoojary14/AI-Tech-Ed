@@ -2007,6 +2007,11 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
 
+autobind-decorator@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/autobind-decorator/-/autobind-decorator-2.4.0.tgz#ea9e1c98708cf3b5b356f7cf9f10f265ff18239c"
+  integrity sha512-OGYhWUO72V6DafbF8PM8rm3EPbfuyMZcJhtm5/n26IDwO18pohE4eNazLoCGhPiXOCD0gEGmrbU3849QvM8bbw==
+
 autoprefixer@^10.4.15:
   version "10.4.15"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.15.tgz#a1230f4aeb3636b89120b34a1f513e2f6834d530"
@@ -2305,6 +2310,11 @@ copy-anything@^3.0.2:
   integrity sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==
   dependencies:
     is-what "^4.1.8"
+
+core-js@^3.28.0:
+  version "3.33.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.33.2.tgz#312bbf6996a3a517c04c99b9909cdd27138d1ceb"
+  integrity sha512-XeBzWI6QL3nJQiHmdzbAOiMYqjrb7hwU7A39Qhvd/POSa/t9E1AeZyEZx3fNvp/vtM8zXwhoL0FsiS0hD0pruQ==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -3386,6 +3396,21 @@ jiti@^1.18.2:
   version "1.20.0"
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.20.0.tgz#2d823b5852ee8963585c8dd8b7992ffc1ae83b42"
   integrity sha512-3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==
+
+jodit-react-ts@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/jodit-react-ts/-/jodit-react-ts-0.9.0.tgz#2f988c7203ffe48b2b95a3cc7516247f9e195814"
+  integrity sha512-DBLYcbRYo+zwwgA0Dc9BGsESr3lz1f3mXGsN2g8X1jdiE89PZ1SChH5V+EHSCu+n04rpUWUZTXPrbH0uPj/7zg==
+  dependencies:
+    jodit "^3.7.2"
+
+jodit@^3.7.2:
+  version "3.24.9"
+  resolved "https://registry.yarnpkg.com/jodit/-/jodit-3.24.9.tgz#575a0218996f31003c230f81db0f056132dea9b5"
+  integrity sha512-t2d73v7GFbGI08ZzdCTwrzi8ZtoOG4icGzD6IIN2e+ghlpUKYxcHZ/Rmy6/mc6055172z+tv7QSr9BcOz6IOFQ==
+  dependencies:
+    autobind-decorator "^2.4.0"
+    core-js "^3.28.0"
 
 jpeg-js@^0.4.0, jpeg-js@^0.4.2:
   version "0.4.4"

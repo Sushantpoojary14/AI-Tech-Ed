@@ -3,6 +3,8 @@ import {
   FormControl,
   Grid,
   InputBase,
+  MenuItem,
+  Select,
   Stack,
   TextField,
   Typography,
@@ -206,13 +208,18 @@ const AddReadingQuestion = ({
               defaultValue=""
               control={control}
               render={({ field }) => (
-                <TextField
+                <Select
                   {...field}
                   fullWidth
                   variant="outlined"
                   placeholder="Answer"
                   sx={{ backgroundColor: "white" }}
-                />
+                >
+                  <MenuItem value="1">Option A</MenuItem>
+                  <MenuItem value="2">Option B</MenuItem>
+                  <MenuItem value="3">Option C</MenuItem>
+                  <MenuItem value="4">Option D</MenuItem>
+                </Select>
               )}
             />
           </Grid>
