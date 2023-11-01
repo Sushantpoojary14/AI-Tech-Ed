@@ -178,7 +178,7 @@ const NonVerbalPDF = ({ props }: any) => {
                           <div
                             style={{
                               display: "flex",
-                              flexDirection:"column",
+                              flexDirection:"row",
                               // rowGap:1
                               justifyContent: "space-between",
                             }}
