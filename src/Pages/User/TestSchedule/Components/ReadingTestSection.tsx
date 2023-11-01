@@ -241,7 +241,9 @@ const ReadingTestSection = (props: props) => {
                       text={`Read the extracts below then answer the question`}
                       css={{ fontWeight: "500" }}
                     />
-                    {/* <Typography
+                  </Stack>
+                )}
+                {/* <Typography
                       textAlign={"center"}
                       fontSize={"30px"}
                       marginY={4}
