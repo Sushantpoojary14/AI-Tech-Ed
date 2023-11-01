@@ -168,7 +168,7 @@ const ReadingTestSection = (props: props) => {
               <Stack flexDirection={"row"}>
                 <ParaText4
                   text={`Question No ${props.count + 1} `}
-                  css={{ fontWeight: "600" }}
+                  css={{ fontWeight: "600",paddingLeft:"10px" }}
                 />
                 {/* <ParaText4
                   text={`Question ${props.count + 1} `}
@@ -205,7 +205,8 @@ const ReadingTestSection = (props: props) => {
               <Stack
                 sx={{
                   paddingRight: 1,
-                  flex: "0.7",
+                  // flex: "0.7",
+                  width:"80%",
                   overflow: "auto",
                   "&::-webkit-scrollbar": {
                     width: 2,
@@ -241,17 +242,18 @@ const ReadingTestSection = (props: props) => {
                       text={`Read the extracts below then answer the question`}
                       css={{ fontWeight: "500" }}
                     />
-                  </Stack>
-                )}
-                {/* <Typography
+                    {/* <Typography
                       textAlign={"center"}
                       fontSize={"30px"}
                       marginY={4}
-                    >
-                      {question?.questions.paragraph && (
-                        <div>{parse(question?.questions.paragraph)}</div>
-                      )}
-                    </Typography>
+                    > */}
+                    {question?.questions.paragraph && (
+                      <Box >{parse(question?.questions.paragraph)}</Box>
+                    )}
+                    {/* </Typography> */}
+                  </Stack>
+                )}
+                {/* 
                   </Stack>
                 )}
 
@@ -294,7 +296,13 @@ const ReadingTestSection = (props: props) => {
                   px: 0,
                 }}
               >
-                <ParaText4
+             
+                {/* <ParaText4 text="Option" css={{ fontWeight: "600" }} /> */}
+               
+              </Stack>
+              <Stack>
+
+              <ParaText4
                   text={question?.questions.question}
                   css={{
                     fontWeight: "300",
@@ -302,8 +310,7 @@ const ReadingTestSection = (props: props) => {
                     fontSize: "1.2rem",
                   }}
                 />
-                {/* <ParaText4 text="Option" css={{ fontWeight: "600" }} /> */}
-                <form onChange={handleSubmit(onSubmit)}>
+              <form onChange={handleSubmit(onSubmit)}>
                   <Controller
                     name="Answer"
                     defaultValue=""
