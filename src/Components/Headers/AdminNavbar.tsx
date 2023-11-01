@@ -125,15 +125,15 @@ const AdminNavbar = () => {
         <Link to="/admin/">
           {/* <Header4 header="AI Tech Ed" />
            */}
-             <img
-                  src={img}
-                  style={{
-                    width: "220px",
-                    height: "180px",
-                    paddingBottom: "5px",
-                    paddingTop:"5px"
-                  }}
-                />
+          <img
+            src={img}
+            style={{
+              width: "140px",
+              height: "80px",
+              // paddingBottom: "5px",
+              // paddingTop:"5px"
+            }}
+          />
         </Link>
       </Box>
       <Box>

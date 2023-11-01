@@ -129,7 +129,7 @@ const ThinkingPDF = ({ props }: any) => {
   let count = 1;
   return (
     <Box>
-      <Box style={styles.page} className="break-after-page">
+      <Box style={styles.page} sx={{ breakAfter: "page" }}>
         <div style={styles.header}>{topic?.toUpperCase()}</div>
         <div style={styles.mainContainer}>
           {selected_question?.length != 0 &&
@@ -139,10 +139,14 @@ const ThinkingPDF = ({ props }: any) => {
               );
               count++;
               return (
-                <div
+                <Box
                   style={styles.Container}
                   key={key}
-                  className={`${key % 2 === 0 ? "" : "break-after-page"} mt-8`}
+                  // className={`${} mt-8`}
+                  sx={{
+                    breakAfter: key % 2 === 0 ? "" : "page",
+                    mt: 8,
+                  }}
                 >
                   {index && index?.length != 0 && index_data && (
                     <Stack spacing={2} marginBottom={3}>
@@ -250,12 +254,12 @@ const ThinkingPDF = ({ props }: any) => {
                           )}
                         </div>
                       )}
-                      <div style={styles.optionContainer} className="mb-4">
+                      <Box style={styles.optionContainer} mb={4}>
                         <p style={styles.options}>{`A. ${item.Options.a}`}</p>
                         <p style={styles.options}>{`B. ${item.Options.b}`}</p>
                         <p style={styles.options}>{`C. ${item.Options.c}`}</p>
                         <p style={styles.options}>{`D. ${item.Options.d}`}</p>
-                      </div>
+                      </Box>
                     </>
                   ) : (
                     <>
@@ -422,13 +426,18 @@ const ThinkingPDF = ({ props }: any) => {
                       </div>
                     </>
                   )}
-                </div>
+                </Box>
               );
             })}
         </div>
       </Box>
       <Box style={styles.page}>
-        <div style={styles.mainContainer} className="break-after-page">
+        <Box
+          style={styles.mainContainer}
+          sx={{
+            breakAfter: "page",
+          }}
+        >
           <div style={styles.header2}>Answers:</div>
           <div style={styles.Container}>
             {selected_question?.length != 0 &&
@@ -440,8 +449,8 @@ const ThinkingPDF = ({ props }: any) => {
                 </p>
               ))}
           </div>
-        </div>
-        <div style={styles.mainContainer} className="mt-4">
+        </Box>
+        <Box style={styles.mainContainer} mt={4}>
           <p style={styles.header2}>Explanation:</p>
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key: any) => (
@@ -479,7 +488,7 @@ const ThinkingPDF = ({ props }: any) => {
                 )}
               </div>
             ))}
-        </div>
+        </Box>
       </Box>
     </Box>
   );

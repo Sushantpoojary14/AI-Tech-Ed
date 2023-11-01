@@ -14,7 +14,7 @@ import AlertBox from "../../../../../../Components/Common/AlertBox";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
 import QuestionCard from "../../../Components/QuestionCard";
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
@@ -55,8 +55,8 @@ interface ReadingProps {
 }
 
 const style: any = {
-  "ql-toolbar ql-snow ": { height: "200px" },
-  "ql-editor": {
+  "qlToolbar qlSnow ": { height: "200px" },
+  qlEditor: {
     backgroundColor: "white",
   },
 };
@@ -114,26 +114,21 @@ const Reading = ({
     // Do something with the questions array (e.g., send to a server)
   };
 
-  const modules = {
-    toolbar: [
-      ["bold", "italic", "underline", "strike"], // toggled buttons
-      ["blockquote", "code-block"],
-
-      [{ header: 1 }, { header: 2 }], // custom button values
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }], // superscript/subscript
-      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-      [{ direction: "rtl" }], // text direction
-
-      // [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-      [{ font: [] }],
-      [{ align: [] }],
-
-      ["clean"],
+  let toolbarOptions = [
+    [{ header: [1, 2, false] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
     ],
+    ["link", "image"],
+    ["clean"],
+  ];
+
+  const modules = {
+    toolbar: toolbarOptions,
   };
 
   const formats = [

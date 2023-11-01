@@ -122,18 +122,27 @@ const NonVerbalPDF = ({ props }: any) => {
   let count = 1;
   return (
     <Box>
-      <Box style={styles.page} className="break-after-page">
+      <Box
+        style={styles.page}
+        sx={{
+          breakAfter: "page",
+        }}
+      >
         <div style={styles.header}>{topic?.toUpperCase()}</div>
         <div style={styles.mainContainer}>
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key: any) => {
               return (
-                <div
+                <Box
                   style={styles.Container}
                   key={key}
-                  className={`${
-                    (key + 1) % 2 === 0 ? "break-after-page" : ""
-                  }  mt-8`}
+                  // className={`${
+                  //   (key + 1) % 2 === 0 ? "break-after-page" : ""
+                  // }  mt-8`}
+                  sx={{
+                    breakAfter: (key + 1) % 2 === 0 ? "page" : "",
+                    mt: 8,
+                  }}
                 >
                   {item?.options?.a ? (
                     <>
@@ -178,7 +187,7 @@ const NonVerbalPDF = ({ props }: any) => {
                           <div
                             style={{
                               display: "flex",
-                              flexDirection:"row",
+                              flexDirection: "row",
                               // rowGap:1
                               justifyContent: "space-between",
                             }}
@@ -239,7 +248,7 @@ const NonVerbalPDF = ({ props }: any) => {
                             </div>
                           </div>
                         ) : (
-                          <div style={styles.optionContainer} className="mb-4">
+                          <Box style={styles.optionContainer} mb={4}>
                             <p
                               style={styles.options}
                             >{`A. ${item.options?.a}`}</p>
@@ -252,7 +261,7 @@ const NonVerbalPDF = ({ props }: any) => {
                             <p
                               style={styles.options}
                             >{`D. ${item.options?.d}`}</p>
-                          </div>
+                          </Box>
                         )}
                       </div>
                     </>
@@ -320,7 +329,7 @@ const NonVerbalPDF = ({ props }: any) => {
                           <div
                             style={{
                               display: "flex",
-                              flexDirection:"row",
+                              flexDirection: "row",
                               justifyContent: "space-between",
                             }}
                           >
@@ -406,13 +415,13 @@ const NonVerbalPDF = ({ props }: any) => {
                       </div>
                     </>
                   )}
-                </div>
+                </Box>
               );
             })}
         </div>
       </Box>
       <Box style={styles.page}>
-        <div style={styles.mainContainer} className="break-after-page">
+        <Box style={styles.mainContainer} sx={{ breakAfter: "page" }}>
           <div style={styles.header2}>Answers:</div>
           <div style={styles.Container}>
             {selected_question?.length != 0 &&
@@ -453,9 +462,13 @@ const NonVerbalPDF = ({ props }: any) => {
                   <Stack
                     marginY={3}
                     rowGap={1}
-                    className={`${
-                      (key + 1) % 5 === 0 ? "break-after-page" : ""
-                    }  mt-4`}
+                    // className={`${
+                    //   (key + 1) % 5 === 0 ? "break-after-page" : ""
+                    // }  mt-4`}
+                    sx={{
+                      breakAfter: (key + 1) % 5 === 0 ? "page" : "",
+                      mt: 4,
+                    }}
                   >
                     <p style={styles.answer} key={key}>
                       {item?.correct_option &&
@@ -469,9 +482,11 @@ const NonVerbalPDF = ({ props }: any) => {
                         src={import.meta.env.VITE_IMAGE_URL + ans}
                       />
                     ) : (
-                      item?.correct_option &&  <p
-                        style={{ ...styles.answer, color: "black" }}
-                      >{`${ans}`}</p>
+                      item?.correct_option && (
+                        <p
+                          style={{ ...styles.answer, color: "black" }}
+                        >{`${ans}`}</p>
+                      )
                     )}
                     <p style={styles.answer} key={key}>
                       {item?.correct_ans &&
@@ -482,16 +497,18 @@ const NonVerbalPDF = ({ props }: any) => {
                     {item?.correct_ans && ans?.split(":")[0] === "data" ? (
                       <img style={styles.optionImage} src={ans} />
                     ) : (
-                      item?.correct_ans && <p
-                        style={{ ...styles.answer, color: "black" }}
-                      >{` ${ans}`}</p>
+                      item?.correct_ans && (
+                        <p
+                          style={{ ...styles.answer, color: "black" }}
+                        >{` ${ans}`}</p>
+                      )
                     )}
                   </Stack>
                 );
               })}
           </div>
-        </div>
-        <div style={styles.mainContainer} className="mt-4">
+        </Box>
+        <Box style={styles.mainContainer} mt={4}>
           <p style={styles.header2}>Explanation:</p>
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key: any) => (
@@ -514,7 +531,7 @@ const NonVerbalPDF = ({ props }: any) => {
                 }
               </div>
             ))}
-        </div>
+        </Box>
       </Box>
     </Box>
   );
