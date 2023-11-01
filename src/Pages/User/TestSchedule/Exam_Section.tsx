@@ -128,13 +128,13 @@ const Exam_Section = () => {
       });
     },
     onSuccess: (res) => {
-      console.log(`/user/Test-result/${res.data.uts_id}`);
+      // console.log(`/user/Test-result/${res.data.uts_id}`);
       navigate(`/user/Test-result/${res.data.uts_id}`);
     },
   });
   const updateAStatus = useMutation({
     mutationFn: async (data: { id: number; answer: string }) => {
-      console.log(data);
+      // console.log(data);
       return await tokenAxios.post(`/update-test-status/${data.id}`, {
         status_id: 1,
         test_answer: data.answer,
@@ -142,7 +142,7 @@ const Exam_Section = () => {
       });
     },
     onSuccess: (res) => {
-      console.log(res);
+      // console.log(res);
       queryClient.setQueryData(["question-data"], res);
     },
   });
@@ -150,7 +150,7 @@ const Exam_Section = () => {
     ["question-data"],
     async () => await tokenAxios.get(`/generate-question/${params.id}`)
   );
-  console.log("generate-question", data);
+  // console.log("generate-question", data);
 
   const time = data?.data?.timer
     ? new Date(Date.now() + parseFloat(data?.data?.timer) * 60 * 1000)
@@ -251,6 +251,8 @@ const Exam_Section = () => {
     if (count + 1 < questions.length)
       questions && paginate(questions[count + 1]?.id, count + 1);
   };
+  console.log(data?.data?.category_id );
+  
   if (isLoading) {
     return <LoadingBar />;
   }
@@ -301,7 +303,7 @@ const Exam_Section = () => {
               count={count}
               mutation={updateAStatus}
               isLoading={isLoading}
-              index={data?.data.index}
+              index={data?.data.index }
               preventCopyPaste={preventCopyPaste}
             />
           ) : (
@@ -310,7 +312,7 @@ const Exam_Section = () => {
               count={count}
               mutation={updateAStatus}
               isLoading={isLoading}
-              index={data?.data.category_id == 2 ? data?.data.index : [] }
+              index={[]}
               preventCopyPaste={preventCopyPaste}
             />
           )}

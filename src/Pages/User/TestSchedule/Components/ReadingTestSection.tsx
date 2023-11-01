@@ -27,7 +27,6 @@ import {
 import tokenAxios from "../../../../Hooks/TokenAxios";
 import { AxiosResponse } from "axios";
 import parse from "html-react-parser";
-
 type Inputs = {
   A?: string;
   B?: string;
@@ -141,15 +140,11 @@ const ReadingTestSection = (props: props) => {
       };
     });
   }
-  console.log(
-    index?.find((item: any) => item.element.includes(props.count + 1))
-  );
+
   const index_data = index?.find((item: any) =>
     item.element.includes(props.count + 1)
   );
-  const para = question?.questions.paragraph
-    ? question?.questions.paragraph?.split("::")
-    : "";
+  console.log(index_data);
 
   return (
     <Card
@@ -251,125 +246,45 @@ const ReadingTestSection = (props: props) => {
                       fontSize={"30px"}
                       marginY={4}
                     >
-                      {para[0]}
-                    </Typography> */}
+                      {question?.questions.paragraph && (
+                        <div>{parse(question?.questions.paragraph)}</div>
+                      )}
+                    </Typography>
                   </Stack>
                 )}
 
-                {question && (
-                  <>
-                    {!!question?.questions.conversation ||
-                    !!question?.questions?.paragraph ? (
-                      <>
-                        {question?.questions?.paragraph && (
-                          // <ParaText4
-                          //   text={para[1]}
-                          //   css={{
-                          //     fontWeight: "400",
-                          //     marginBottom: "10px",
-                          //     fontSize: "1.1rem",
-                          //   }}
-                          // />
-                          <div>{parse(question?.questions?.paragraph)}</div>
-                        )}
-                        {question?.questions.question_image &&
-                          question?.questions.question_image.length !== 0 && (
-                            <ImageList
-                              sx={{
-                                width: "100%",
-                                // maxHeight: "340px",
-                                maxWidth: "hidden",
-                                display: "flex",
-                                flexDirection: "row", // Horizontal layout
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                mb: "1rem",
+                {question?.questions.question_image &&
+                  question?.questions.question_image.length !== 0 && (
+                    <ImageList
+                      sx={{
+                        width: "100%",
+                        // maxHeight: "340px",
+                        maxWidth: "hidden",
+                        flex: "column",
+                        justifyContent: "space-between",
+                      }}
+                      cols={3}
+                      gap={7}
+                      // rowHeight={164}
+                    >
+                      {question?.questions.question_image.map(
+                        (item: image, key: number) => (
+                          <ImageListItem key={key} sx={{ minWidth: "200px" }}>
+                            <img
+                              src={
+                                import.meta.env.VITE_IMAGE_URL + item.image_url
+                              }
+                              style={{
+                                // minWidth: "150px",
+                                objectFit: "cover",
                               }}
-                              cols={3}
-                              gap={7}
-                              // rowHeight={164}
-                            >
-                              {question?.questions.question_image.map(
-                                (item: image, key: number) => (
-                                  <ImageListItem
-                                    key={key}
-                                    // sx={{ width: "200px" }}
-                                  >
-                                    <img
-                                      src={
-                                        import.meta.env.VITE_IMAGE_URL +
-                                        item.image_url
-                                      }
-                                      alt={`Image ${key}`}
-                                      // style={{ maxWidth: "200px" }}
-                                    />
-                                  </ImageListItem>
-                                )
-                              )}
-                            </ImageList>
-                          )}
-                        {question.questions.conversation && (
-                          <ConverationComp
-                            text={question.questions.conversation}
-                          />
-
-                          // <ParaText4
-                          //   text={question.questions.conversation}
-                          //   css={{ fontWeight: "400", marginBottom: "10px" }}
-                          // />
-                        )}
-                        {/* <ParaText4
-                          text={question.questions.question}
-                          css={{ fontWeight: "400", marginBottom: "10px" }}
-                        /> */}
-                      </>
-                    ) : (
-                      <>
-                        {/* <ParaText4
-                          text={question.questions.question}
-                          css={{ fontWeight: "400", marginBottom: "10px" }}
-                        /> */}
-
-                        {question?.questions.question_image &&
-                          question?.questions.question_image.length !== 0 && (
-                            <ImageList
-                              sx={{
-                                width: "100%",
-                                // maxHeight: "340px",
-                                maxWidth: "hidden",
-                                flex: "column",
-                                justifyContent: "space-between",
-                              }}
-                              cols={3}
-                              gap={7}
-                              // rowHeight={164}
-                            >
-                              {question?.questions.question_image.map(
-                                (item: image, key: number) => (
-                                  <ImageListItem
-                                    key={key}
-                                    sx={{ minWidth: "200px" }}
-                                  >
-                                    <img
-                                      src={
-                                        import.meta.env.VITE_IMAGE_URL +
-                                        item.image_url
-                                      }
-                                      style={{
-                                        // minWidth: "150px",
-                                        objectFit: "cover",
-                                      }}
-                                      alt={`Image ${key}`}
-                                    />
-                                  </ImageListItem>
-                                )
-                              )}
-                            </ImageList>
-                          )}
-                      </>
-                    )}
-                  </>
-                )}
+                              alt={`Image ${key}`}
+                            />
+                          </ImageListItem>
+                        )
+                      )}
+                    </ImageList>
+                  )}
               </Stack>
               <Stack
                 sx={{

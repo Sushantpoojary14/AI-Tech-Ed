@@ -147,41 +147,6 @@ const ReadingPDF = ({ props }: any) => {
               const index_data: any = index?.find((item: any) =>
                 item.element.includes(count)
               );
-              // if(){
-
-              // }
-              // console.log(item.paragraph?.split(":")[0]);
-              // console.log(item.paragraph?.split(":")[1]);
-              // console.log();
-
-              // const para = item.paragraph ? item.paragraph?.split("::") : "";
-              // console.log("para", para);
-
-              // const counts: any = [];
-              // const new_par = para[1]
-              //   .split(".")
-              //   .filter((item2) => {
-              //     return item2 != "";
-              //   })
-              //   .map((item, key) => {
-              //     const random = Math.round(Math.random() * 3) + 1;
-
-              //     if (!counts.includes(key)) {
-              //       const text = [];
-              //       for (let index = 0; index < random; index++) {
-              //         text.push(para[1].split(".")[key + index]);
-              //         counts.push(key++);
-              //       }
-              //       //  console.log(text.join('.'));
-              //       return text.join(".");
-              //     }
-              //     return null;
-              //   })
-              //   .filter((item2) => {
-              //     return item2 != null && item2 != "";
-              //   });
-              // console.log(item?.paragraph);
-
               count++;
               return (
                 <div
