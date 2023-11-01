@@ -137,7 +137,8 @@ const ReadingPDF = ({ props }: any) => {
       <Box
         sx={{
           breakAfter: "page",
-          // px: 10,
+          px: 8,
+          py: 5
         }}
       >
         {/* <div style={styles.header}>{topic?.toUpperCase()}</div> */}
@@ -186,9 +187,9 @@ const ReadingPDF = ({ props }: any) => {
                           <div>{parse(item?.Paragraph)}</div>
                         </Stack>
                       )}
-                      {item.paragraph && item?.question_image && (
+                       {item?.question_image && (
                         <div>
-                          {item?.question_image?.map(
+                          {item?.question_image.map(
                             (item2: any, key: number) => {
                               return (
                                 <img
@@ -207,55 +208,9 @@ const ReadingPDF = ({ props }: any) => {
 
                       <Typography>{` ${item.Question}`}</Typography>
 
-                      {!item.paragraph && item?.question_image && (
-                        <div>
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-                      {!item.paragraph && item?.images && (
-                        <Stack flexDirection={"row"} columnGap={16}>
-                          {item?.images?.map((item2: any, key: number) => {
-                            return (
-                              <img
-                                key={key}
-                                style={styles.image}
-                                src={import.meta.env.VITE_IMAGE_URL + item2}
-                              />
-                            );
-                          })}
-                        </Stack>
-                      )}
-                      {item?.question_image && (
-                        <div>
-                          {item?.question_image.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
+                 
+          
+                     
                       <div style={styles.optionContainer} className="mb-4">
                         <p style={styles.options}>{`A. ${item.Options.a}`}</p>
                         <p style={styles.options}>{`B. ${item.Options.b}`}</p>

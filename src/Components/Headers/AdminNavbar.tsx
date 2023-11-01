@@ -57,11 +57,11 @@ const pages: Type[] = [
     url: "/admin/non-verbal",
     icon: <EventRepeatOutlinedIcon sx={pCss} />,
   },
-  {
-    name: "Add-Reading-Question",
-    url: "/admin/view-topics/add-topics/add-question-to-reading-set",
-    icon: <EventRepeatOutlinedIcon sx={pCss} />,
-  },
+  // {
+  //   name: "Add-Reading-Question",
+  //   url: "/admin/view-topics/add-topics/add-question-to-reading-set",
+  //   icon: <EventRepeatOutlinedIcon sx={pCss} />,
+  // },
   {
     name: "Profile",
     url: "/admin/profile",
@@ -122,19 +122,15 @@ const AdminNavbar = () => {
 
         {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
 
-        <Link to="/admin/">
-          {/* <Header4 header="AI Tech Ed" />
-           */}
+        <Box sx={{width: {xs:"220px",sm:"240px",md:"300px"},  height:{xs:"100px",sm:"120px",md:"160px"},}}>
+        <Link to="/user/">
           <img
             src={img}
-            style={{
-              width: "140px",
-              height: "80px",
-              // paddingBottom: "5px",
-              // paddingTop:"5px"
-            }}
+            style={{ width: "100%",  height: "100%", paddingBottom: "2px" }}
           />
+          {/* <Header4 header="AI Tech Ed" /> */}
         </Link>
+        </Box>
       </Box>
       <Box>
         <Stack

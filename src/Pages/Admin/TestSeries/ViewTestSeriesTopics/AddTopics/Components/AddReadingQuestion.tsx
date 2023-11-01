@@ -104,9 +104,9 @@ const AddReadingQuestion = ({
       />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={1}>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Question</Typography>
-          </Grid>
+          </Grid> */}
           <Grid item xs={8}>
             <Controller
               name="Question"
@@ -123,9 +123,9 @@ const AddReadingQuestion = ({
               )}
             />
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Option A</Typography>
-          </Grid>
+          </Grid> */}
           <Grid item xs={8}>
             <Controller
               name="OPTION_A"
@@ -142,9 +142,9 @@ const AddReadingQuestion = ({
               )}
             />
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Option B</Typography>
-          </Grid>
+          </Grid> */}
           <Grid item xs={8}>
             <Controller
               name="OPTION_B"
@@ -161,9 +161,9 @@ const AddReadingQuestion = ({
               )}
             />
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Option C</Typography>
-          </Grid>
+          </Grid> */}
           <Grid item xs={8}>
             <Controller
               name="OPTION_C"
@@ -180,9 +180,9 @@ const AddReadingQuestion = ({
               )}
             />
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Option D</Typography>
-          </Grid>
+          </Grid> */}
           <Grid item xs={8}>
             <Controller
               name="OPTION_D"
@@ -199,9 +199,9 @@ const AddReadingQuestion = ({
               )}
             />
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Correct Option</Typography>
-          </Grid>
+          </Grid> */}
           <Grid item xs={8}>
             <Controller
               name="Answer"
@@ -223,9 +223,9 @@ const AddReadingQuestion = ({
               )}
             />
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Explanation</Typography>
-          </Grid>
+          </Grid> */}
           <Grid item xs={8}>
             <Controller
               name="Explanation"

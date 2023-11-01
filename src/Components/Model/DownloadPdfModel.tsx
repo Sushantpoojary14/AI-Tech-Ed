@@ -48,7 +48,7 @@ ModalProps) => {
   const { register, control, watch, reset } = useForm<FormValues>();
   const [setData, setSetData] = useState<any>(null);
   // console.log(watch("total_questions"));
-  // console.log("muta", data);
+  console.log("muta", data);
   useEffect(() => {
     setSetData(null);
     reset({
@@ -99,46 +99,48 @@ ModalProps) => {
                 Total Questions
               </FormLabel>
 
-              <Controller
-                name="total_questions"
-                control={control}
-                defaultValue={0} // Set a default value here
-                render={({ field }) => (
-                  <FormControl fullWidth>
-                    <Select
-                      {...field}
-                      placeholder="Enter Total Questions"
-                      // sx={{ width: "50%" }}
-                    >
-                      <MenuItem value={0} disabled>
-                        <em>None</em>
-                      </MenuItem>
-                      {/* <MenuItem value={5}>5</MenuItem> */}
-                      <MenuItem value={10}>10</MenuItem>
-                      <MenuItem value={15} disabled={count?.length < 15}>
-                        15
-                      </MenuItem>
-                      <MenuItem value={20} disabled={count?.length < 20}>
-                        20
-                      </MenuItem>
-                      <MenuItem value={25} disabled={count?.length < 25}>
-                        25
-                      </MenuItem>
-                      <MenuItem value={30} disabled={count?.length < 30}>
-                        30
-                      </MenuItem>
-                      <MenuItem value={30} disabled={count?.length < 35}>
-                        35
-                      </MenuItem>
-                      <MenuItem value={50} disabled={count?.length < 50}>
-                        50
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                )}
-              />
+              {data?.topic_questions?.tsc_id != 2 && (
+                <Controller
+                  name="total_questions"
+                  control={control}
+                  defaultValue={0} // Set a default value here
+                  render={({ field }) => (
+                    <FormControl fullWidth>
+                      <Select
+                        {...field}
+                        placeholder="Enter Total Questions"
+                        // sx={{ width: "50%" }}
+                      >
+                        <MenuItem value={0} disabled>
+                          <em>None</em>
+                        </MenuItem>
+                        {/* <MenuItem value={5}>5</MenuItem> */}
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={15} disabled={count?.length < 15}>
+                          15
+                        </MenuItem>
+                        <MenuItem value={20} disabled={count?.length < 20}>
+                          20
+                        </MenuItem>
+                        <MenuItem value={25} disabled={count?.length < 25}>
+                          25
+                        </MenuItem>
+                        <MenuItem value={30} disabled={count?.length < 30}>
+                          30
+                        </MenuItem>
+                        <MenuItem value={30} disabled={count?.length < 35}>
+                          35
+                        </MenuItem>
+                        <MenuItem value={50} disabled={count?.length < 50}>
+                          50
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                  )}
+                />
+              )}
             </Stack>
-            {watch("total_questions") != 0 ? (
+            {watch("total_questions") != 0 || data?.topic_questions?.tsc_id == 2 ? (
               <Stack direction={"row"} justifyContent={"space-between"}>
                 {/* <PdfMaker
                   bol={!!setData}
@@ -157,7 +159,7 @@ ModalProps) => {
                 <DownloadPDF
                   data={data?.topic_questions?.get_question}
                   randomG={true}
-                  total={watch("total_questions")}
+                  total={data?.topic_questions?.tsc_id == 2 ?data?.topic_questions?.get_question.length :watch("total_questions")}
                   topic={data?.topic_questions?.topic}
                   set={false}
                   bol={false}
