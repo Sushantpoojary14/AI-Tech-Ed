@@ -3,16 +3,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import SectionOne from "./TSectionOne";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import TSectionOne from "./TSectionOne";
-import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
+import adminTokenAxios from "../../../../../Hooks/AdminTokenAxios";
 
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 
-import { Header1 } from "../../../../../../Components/Common/HeaderText";
-import AlertBox from "../../../../../../Components/Common/AlertBox";
+import { Header1 } from "../../../../../Components/Common/HeaderText";
+import AlertBox from "../../../../../Components/Common/AlertBox";
 import { useState } from "react";
-import LoadingBar from "../../../../../../Components/Headers/LoadingBar";
-import DownloadPdfModel from "../../../../../../Components/Model/DownloadPdfModel";
+import LoadingBar from "../../../../../Components/Headers/LoadingBar";
+import DownloadPdfModel from "../../../../../Components/Model/DownloadPdfModel";
 
 const ViewTopicDetail = () => {
   const { topicId } = useParams();
@@ -39,7 +39,6 @@ const ViewTopicDetail = () => {
     setOpen2(false);
   };
 
- 
   const testSeries = useQuery({
     queryKey: ["TestSeriesTopics", topicId],
     queryFn: async () => {
@@ -79,7 +78,7 @@ const ViewTopicDetail = () => {
       }
     },
   });
- 
+
   const handleDeleteTopic = (topicId: any) => {
     console.log("delete", topicId);
     deleteTopicMutation.mutate(topicId);
@@ -158,7 +157,6 @@ const ViewTopicDetail = () => {
           {/* </Stack> */}
         </Stack>
       </Container>
-    
     </>
   );
 };

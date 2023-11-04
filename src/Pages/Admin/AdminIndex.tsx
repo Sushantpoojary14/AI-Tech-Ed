@@ -29,11 +29,12 @@ import AddTestSeries from "./TestSeries/AddTestSeries/AddTestSeries";
 import ViewTestSeriesTopics from "./TestSeries/ViewTestSeriesTopics/ViewTestSeriesTopics";
 import AddTopics from "./TestSeries/ViewTestSeriesTopics/AddTopics/AddTopics";
 import ViewProductDetail from "./TestSeries/ViewProductDetail/ViewProductDetail";
-import ViewTopicDetail from "./TestSeries/ViewTestSeriesTopics/TopicView/ViewProductDetail/ViewTopicDetail";
+import ViewTopicDetail from "./TestSeries/ViewTestSeriesTopics/TopicView/ViewTopicDetail";
 import AlertBox from "../../Components/Common/AlertBox";
 import EditProduct from "../../Components/Model/EditProduct";
 import NonVebal from "./nonVerbal/NonVebal";
 import Reading from "./TestSeries/ViewTestSeriesTopics/AddTopics/Components/Reading";
+import ReadingTopicDetails from "./TestSeries/ViewTestSeriesTopics/TopicView/ReadingTopic/ReadingTopicDetails";
 
 const AdminIndex = () => {
   const { admin, adminLogout } = AppContext();
@@ -201,6 +202,10 @@ const AdminIndex = () => {
               {/* view topic routes */}
               <Route path="/view-topics" element={<ViewTestSeriesTopics />} />
               <Route path="/view-topics/add-topics" element={<AddTopics />} />
+              <Route
+                path="/view-topics/topic-details/:topicId"
+                element={<ReadingTopicDetails />}
+              />
               <Route
                 path="/view-topics/add-topics/add-question-to-reading-set"
                 element={<Reading />}

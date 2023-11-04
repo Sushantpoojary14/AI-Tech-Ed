@@ -15,19 +15,19 @@ import Grid from "@mui/material/Unstable_Grid2";
 import {
   ParaText1,
   ParaText3,
-} from "../../../../../../Components/Common/ParaText";
-import { UserContext } from "../../../../../../Context/UserContext";
+} from "../../../../../Components/Common/ParaText";
+import { UserContext } from "../../../../../Context/UserContext";
 import { MRT_ColumnDef } from "material-react-table";
-import SimpleTable from "../../../../../../Components/Common/SimpleTable";
+import SimpleTable from "../../../../../Components/Common/SimpleTable";
 import {
   DeleteIconButton,
   DownloadIconButton,
   EditIconButton,
-} from "../../../../../../Components/Common/Button";
+} from "../../../../../Components/Common/Button";
 
-import UploadModal from "../../../../../../Components/Model/UploadModal";
-import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
-import PdfMaker from "../../../Components/PdfMaker";
+import UploadModal from "../../../../../Components/Model/UploadModal";
+import adminTokenAxios from "../../../../../Hooks/AdminTokenAxios";
+import PdfMaker from "../../Components/PdfMaker";
 
 interface Detail {
   title: string;
