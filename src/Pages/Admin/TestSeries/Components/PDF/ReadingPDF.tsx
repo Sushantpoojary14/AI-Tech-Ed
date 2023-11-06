@@ -129,7 +129,7 @@ type questions = {
 
 const ReadingPDF = ({ props }: any) => {
   const { selected_question, topic, index } = props;
-  console.log("ReadingPDF", selected_question);
+
 
   let count = 1;
   return (
@@ -145,25 +145,23 @@ const ReadingPDF = ({ props }: any) => {
         <div style={styles.mainContainer}>
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key: any) => {
+              
               const index_data: any = index?.find((item: any) =>
                 item.element.includes(count)
               );
               count++;
               return (
-                <div
-                  style={styles.Container}
-                  key={key}
-                  className={`${
-                    key + 1 == index_data?.start
-                      ? "break-before-page"
-                      : "page-break-inside: avoid"
-                  } mt-4`}
+                <Box
+               marginTop={6}
                 >
                   {index &&
                     index?.length != 0 &&
                     index_data &&
-                    key + 1 == index_data?.start && (
-                      <Stack>
+                    key + 1 == index_data?.start && item?.paragraph && (
+                      <Stack  sx={{
+                        breakBefore:
+                          key + 1 == index_data.start ? "page" : "avoid",
+                      }}>
                         <Typography
                           marginBottom={1}
                         >{`Read the extracts below then answer the question`}</Typography>
@@ -174,6 +172,7 @@ const ReadingPDF = ({ props }: any) => {
                         >
                           {para[0]}
                         </Typography> */}
+                         <Box className=""> {parse(item?.paragraph)}</Box>
                       </Stack>
                     )}
                   {item?.Options ? (
@@ -221,9 +220,10 @@ const ReadingPDF = ({ props }: any) => {
                   ) : (
                     <Stack
                       spacing={1}
+                     
                       marginBottom={3}
                       sx={{
-                        breakAfter:
+                        breakBefore:
                           key + 1 == index_data.start ? "page" : "avoid",
                       }}
                       // className={`${
@@ -233,8 +233,8 @@ const ReadingPDF = ({ props }: any) => {
                       // }`}
                     >
                       {key + 1 == index_data.start && item?.paragraph && (
-                        <Stack spacing={2}>
-                          <Box className=""> {parse(item?.paragraph)}</Box>
+                        <Stack spacing={2}  marginTop={16}>
+                         
 
                           <ParaText4
                             text={
@@ -250,22 +250,7 @@ const ReadingPDF = ({ props }: any) => {
                           />
                         </Stack>
                       )}
-                      {item?.paragraph && item?.images && (
-                        <div>
-                          {item?.images?.map((item2: any, key: any) => {
-                            return (
-                              <img
-                                key={key}
-                                style={styles.image}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL +
-                                  item2?.image_url
-                                }
-                              />
-                            );
-                          })}
-                        </div>
-                      )}
+                
 
                       {item.question && (
                         <Stack
@@ -273,6 +258,10 @@ const ReadingPDF = ({ props }: any) => {
                           marginTop={0}
                           flexDirection={"row"}
                           columnGap={2}
+                          sx={{
+                            breakBefore:
+                              key + 1 % 5 == 0 ? "page" : "avoid",
+                          }}
                         >
                           <Typography padding={0}>{key + 1}</Typography>
                           <Typography
@@ -280,44 +269,6 @@ const ReadingPDF = ({ props }: any) => {
                           >{`${item.question}`}</Typography>
                         </Stack>
                       )}
-
-                      {!item?.paragraph && item?.question_image && (
-                        <div>
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-                      {!!item?.paragraph && item?.question_image && (
-                        <Stack flexDirection={"row"} columnGap={16}>
-                          {item?.question_image?.map(
-                            (item2: any, key: number) => {
-                              return (
-                                <img
-                                  key={key}
-                                  style={styles.image}
-                                  src={
-                                    import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
-                                  }
-                                />
-                              );
-                            }
-                          )}
-                        </Stack>
-                      )}
-
                       <Stack marginY={""} paddingX={"50px"}>
                         <Typography>
                           <span>
@@ -346,7 +297,7 @@ const ReadingPDF = ({ props }: any) => {
                       </Stack>
                     </Stack>
                   )}
-                </div>
+                </Box>
               );
             })}
         </div>

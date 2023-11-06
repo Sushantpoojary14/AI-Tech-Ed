@@ -228,7 +228,7 @@ const MathGen = ({
                       "c": "Option C text",
                       "d": "Option D text"
                     },
-                    "Answer": "Correct answer letter (a, b, c, or d)",
+                    "Answer": "Formulate four multiple-choice answer options (A, B, C, and D) for each question",
                     "Explanation": "Detailed explanation for the correct answer"
                   },
                   {
@@ -239,7 +239,7 @@ const MathGen = ({
                       "c": "Option C text",
                       "d": "Option D text"
                     },
-                    "Answer": "Correct answer letter (a, b, c, or d)",
+                    "Answer": "Formulate four multiple-choice answer options (A, B, C, and D) for each question",
                     "Explanation": "Detailed explanation for the correct answer"
                   },
                   generate 10 more like this
@@ -396,7 +396,7 @@ const MathGen = ({
                   data={newRes.data}
                   set={false}
                   bol={false}
-                  topic={topicName}
+                  topic={`${testType==1 ? "OC" : "Selective"} - ${topicName}`}
                   button={
                     <BButton2
                       type="button"

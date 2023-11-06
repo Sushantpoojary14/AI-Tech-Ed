@@ -42,10 +42,14 @@ const styles = {
   },
   options: {
     fontSize: 16,
-    marginTop: 2,
-    marginBottom: 2,
+    marginTop: 3,
+    marginBottom: 3,
   },
-
+  optionsImage2: {
+    fontSize: 16,
+    // marginTop: 2,
+    // marginBottom: 2,
+  },
   answer: {
     marginBottom: 2,
     fontSize: 24,
@@ -140,29 +144,38 @@ const NonVerbalPDF = ({ props }: any) => {
                   //   (key + 1) % 2 === 0 ? "break-after-page" : ""
                   // }  mt-8`}
                   sx={{
-                    breakAfter: (key + 1) % 2 === 0 ? "page" : "",
+                    // breakAfter: (key + 1) % 2 === 0 ? "page" : "",
                     mt: 8,
                   }}
                 >
                   {item?.options?.a ? (
                     <>
                       {
-                        <Stack flexDirection={"row"} columnGap={1} marginY={1}>
-                          <Typography sx={styles.mainText} className="">{`${
-                            key + 1
-                          }: `}</Typography>
-                          <Typography>{` ${item.question}`}</Typography>
+                        <Stack flexDirection={"row"} flexWrap={"wrap"}>
+                          <Stack
+                            flexDirection={"row"}
+                            columnGap={1}
+                            marginY={1}
+                            width={"100%"}
+                          >
+                            <Typography sx={styles.mainText} className="">{`${
+                              key + 1
+                            }: `}</Typography>
+                            <Typography>{` ${item.question}`}</Typography>
+                          </Stack>
+                          <Box>
+                            {item?.question_image && (
+                              // <div style={{ width:"100%",padding:"4px" }}>
+                              <img
+                                key={key}
+                                style={styles.image}
+                                src={item?.question_image}
+                              />
+                              // {/* </div> */}
+                            )}
+                          </Box>
                         </Stack>
                       }
-                      {item?.question_image && (
-                        // <div style={{ width:"100%",padding:"4px" }}>
-                        <img
-                          key={key}
-                          style={styles.image}
-                          src={item?.question_image}
-                        />
-                        // {/* </div> */}
-                      )}
 
                       {/* {item?.question_image && (
                         <div>
@@ -187,9 +200,9 @@ const NonVerbalPDF = ({ props }: any) => {
                           <div
                             style={{
                               display: "flex",
-                              flexDirection: "row",
+                              flexDirection: "column",
                               // rowGap:1
-                              justifyContent: "space-between",
+                              // justifyContent: "space-between",
                             }}
                           >
                             <div
@@ -199,7 +212,7 @@ const NonVerbalPDF = ({ props }: any) => {
                                 // flexDirection: "row",
                               }}
                             >
-                              <p style={styles.options}>A.</p>
+                              <p style={styles.optionsImage2}>A.</p>
                               <img
                                 style={styles.optionImage}
                                 src={item?.options?.a}
@@ -214,7 +227,7 @@ const NonVerbalPDF = ({ props }: any) => {
                                 // flexDirection: "row",
                               }}
                             >
-                              <p style={styles.options}>B.</p>
+                              <p style={styles.optionsImage2}>B.</p>
                               <img
                                 style={styles.optionImage}
                                 src={item?.options?.b}
@@ -227,7 +240,7 @@ const NonVerbalPDF = ({ props }: any) => {
                                 // flexDirection: "row",
                               }}
                             >
-                              <p style={styles.options}>C.</p>
+                              <p style={styles.optionsImage2}>C.</p>
                               <img
                                 style={styles.optionImage}
                                 src={item.options?.c}
@@ -240,7 +253,7 @@ const NonVerbalPDF = ({ props }: any) => {
                                 // flexDirection: "row",
                               }}
                             >
-                              <p style={styles.options}>D.</p>
+                              <p style={styles.optionsImage2}>D.</p>
                               <img
                                 style={styles.optionImage}
                                 src={item.options?.d}
@@ -329,7 +342,7 @@ const NonVerbalPDF = ({ props }: any) => {
                           <div
                             style={{
                               display: "flex",
-                              flexDirection: "row",
+                              flexDirection: "column",
                               justifyContent: "space-between",
                             }}
                           >
@@ -342,7 +355,7 @@ const NonVerbalPDF = ({ props }: any) => {
                             >
                               <p style={styles.options}>A.</p>
                               <img
-                                style={styles.optionImage}
+                                style={styles.optionsImage2}
                                 src={
                                   import.meta.env.VITE_IMAGE_URL + item.option_1
                                 }
@@ -359,7 +372,7 @@ const NonVerbalPDF = ({ props }: any) => {
                             >
                               <p style={styles.options}>B.</p>
                               <img
-                                style={styles.optionImage}
+                                style={styles.optionsImage2}
                                 src={
                                   import.meta.env.VITE_IMAGE_URL + item.option_2
                                 }
@@ -374,7 +387,7 @@ const NonVerbalPDF = ({ props }: any) => {
                             >
                               <p style={styles.options}>C.</p>
                               <img
-                                style={styles.optionImage}
+                                style={styles.optionsImage2}
                                 src={
                                   import.meta.env.VITE_IMAGE_URL + item.option_3
                                 }
@@ -389,7 +402,7 @@ const NonVerbalPDF = ({ props }: any) => {
                             >
                               <p style={styles.options}>D.</p>
                               <img
-                                style={styles.optionImage}
+                                style={styles.optionsImage2}
                                 src={
                                   import.meta.env.VITE_IMAGE_URL + item.option_4
                                 }

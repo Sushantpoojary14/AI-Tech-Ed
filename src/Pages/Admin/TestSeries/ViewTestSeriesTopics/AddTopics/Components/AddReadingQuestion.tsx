@@ -95,7 +95,7 @@ const AddReadingQuestion = ({
   };
 
   return (
-    <Box px={20}>
+    <Box px={20} paddingBottom={7} >
       <AlertBox
         name="Successfully added Question"
         type="success"
@@ -103,11 +103,11 @@ const AddReadingQuestion = ({
         handleAlertBoxClose={handleAlertBoxClose}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={1}>
+        <Grid container spacing={1} >
           {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Question</Typography>
           </Grid> */}
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <Controller
               name="Question"
               defaultValue=""
@@ -126,7 +126,7 @@ const AddReadingQuestion = ({
           {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Option A</Typography>
           </Grid> */}
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <Controller
               name="OPTION_A"
               defaultValue=""
@@ -145,7 +145,7 @@ const AddReadingQuestion = ({
           {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Option B</Typography>
           </Grid> */}
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <Controller
               name="OPTION_B"
               defaultValue=""
@@ -164,7 +164,7 @@ const AddReadingQuestion = ({
           {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Option C</Typography>
           </Grid> */}
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <Controller
               name="OPTION_C"
               defaultValue=""
@@ -183,7 +183,7 @@ const AddReadingQuestion = ({
           {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Option D</Typography>
           </Grid> */}
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <Controller
               name="OPTION_D"
               defaultValue=""
@@ -202,7 +202,7 @@ const AddReadingQuestion = ({
           {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Correct Option</Typography>
           </Grid> */}
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <Controller
               name="Answer"
               defaultValue=""
@@ -226,7 +226,7 @@ const AddReadingQuestion = ({
           {/* <Grid item xs={3}>
             <Typography variant="subtitle1">Explanation</Typography>
           </Grid> */}
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <Controller
               name="Explanation"
               defaultValue=""
@@ -244,17 +244,20 @@ const AddReadingQuestion = ({
           </Grid>
           <Grid item xs={12}>
             <Stack direction={"row"} spacing={2}>
-              {/* <BButton2 name="Next" type="submit" /> */}
+
               <BButton2
-                name="Add New"
+            css={{width:"50%"}}
+                name="Add New Passage"
                 type="button"
                 func={handleAddNewPassage}
               />
               <BButton2
                 name={addReadingQuestionMU.isLoading ? "Submiting" : "Submit"}
                 type="submit"
+                css={{width:"50%"}}
               />
             </Stack>
+            
           </Grid>
         </Grid>
       </form>

@@ -298,9 +298,8 @@ const Thinking = ({
           "Kate",
         ];
         let query = "";
-        if (category == 3) {
+        if (testType == 2) {
           query = `Generate five unique multiple-choice questions (MCQs) for the topic "${topic}".
-   
           Example Question:
           Paragraph:${item.Paragraph}
           ${item.Conversation ? "Conversation: " + item.Conversation : ""} 
@@ -364,45 +363,7 @@ const Thinking = ({
               "Answer": "Correct answer letter (a, b, c, or d)",
               "Explanation": "Explanation for the correct answer"
             },
-            {
-              "Paragraph": "Replace with paragraph text"
-              "Conversation": "Replace with conversation text"
-              "Question": "Replace with question text",
-              "Options": {
-                "a": "Option A text",
-                "b": "Option B text",
-                "c": "Option C text",
-                "d": "Option D text"
-              },
-              "Answer": "Correct answer letter (a, b, c, or d)",
-              "Explanation": "Explanation for the correct answer"
-            },
-            {
-              "Paragraph": "Replace with paragraph text"
-              "Conversation": "Replace with conversation text"
-              "Question": "Replace with question text",
-              "Options": {
-                "a": "Option A text",
-                "b": "Option B text",
-                "c": "Option C text",
-                "d": "Option D text"
-              },
-              "Answer": "Correct answer letter (a, b, c, or d)",
-              "Explanation": "Explanation for the correct answer"
-            },
-            {
-              "Paragraph": "Replace with paragraph text"
-              "Conversation": "Replace with conversation text"
-              "Question": "Replace with question text",
-              "Options": {
-                "a": "Option A text",
-                "b": "Option B text",
-                "c": "Option C text",
-                "d": "Option D text"
-              },
-              "Answer": "Correct answer letter (a, b, c, or d)",
-              "Explanation": "Explanation for the correct answer"
-            }
+          
           ]
   `;
         }
