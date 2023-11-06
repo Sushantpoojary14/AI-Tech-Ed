@@ -108,7 +108,7 @@ import { BButton2 } from "./Components/Common/Button";
 //     : "Generate an explanation based questions and correct answer"
 // }
 // `;
-let data: any = [
+let ArrayData: any = [
   {
     Question:
       "The ratio of men to women in a conference is 5:7. If there are 80 men, how many women are there?",
@@ -402,10 +402,11 @@ import Cube4 from "./Pages/Admin/nonVerbal/Cube/Cube4";
 import Cube5 from "./Pages/Admin/nonVerbal/Cube/Cube5";
 import Mirror2 from "./Pages/Admin/nonVerbal/Mirror/Mirror2";
 import Mirror3 from "./Pages/Admin/nonVerbal/Mirror/Mirror3";
+import QuestionCard from "./Pages/Admin/TestSeries/Components/QuestionCard";
 // import potrace from "potrace-js";
 const MyComponent = () => {
   const [newData, setNewData] = useState<any>([]);
-
+  const [newData2, setNewData2] = useState<any>(ArrayData);
   const questionRefs: any = useRef([]);
 
   const [is, setIs] = useState("");
@@ -509,61 +510,80 @@ const MyComponent = () => {
     console.log("imageG", res);
   };
   // const questionObjects: any = generateQuestionObjects(newData);
-
+  
   return (
-    <>
-      <Box flexDirection={"row"}>
-        <BButton2 func={generateQuestions} type="button" name="Generate" />
-      </Box>
-      <Box flexDirection={"row"}>
-        <BButton2 func={imageG} type="button" name="Upload" />
-      </Box>
+    // <>
+    //   <Box flexDirection={"row"}>
+    //     <BButton2 func={generateQuestions} type="button" name="Generate" />
+    //   </Box>
+    //   <Box flexDirection={"row"}>
+    //     <BButton2 func={imageG} type="button" name="Upload" />
+    //   </Box>
 
-      <Box flexDirection={"row"}>
-        <React.Fragment>
-          {newData?.map((item2: any, key2: number) => (
-            <Stack
-              margin={"auto"}
-              width={"90%"}
-              height={"auto"}
-              spacing={2}
-              key={key2}
-              marginY={"15px"}
-            >
-              <ParaText1 text={"Q) " + item2?.question} />
-              <Box>{item2?.question_image}</Box>
-              <Stack
-                direction={"row"}
-                margin={"auto"}
-                width={"90%"}
-                marginY={"15px"}
-                sx={{
-                  gridColumn: "auto auto auto auto",
-                  columnGap: "30px",
-                }}
-              >
-                {item2?.options?.map((item3: any, key3: number) => (
-                  <>
-                    <Box key={key3}>
-                      {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
-                      {item3}
-                    </Box>
-                  </>
-                ))}
-              </Stack>
-               <ParaText1
-                  text={`Answer: ${String.fromCharCode(
-                    "A".charCodeAt(0) + (item2.correct_ans-1)
-                  )}`}
-                />
-            </Stack>
-          ))}
-        </React.Fragment>
+    //   <Box flexDirection={"row"}>
+    //     <React.Fragment>
+    //       {newData?.map((item2: any, key2: number) => (
+    //         <Stack
+    //           margin={"auto"}
+    //           width={"90%"}
+    //           height={"auto"}
+    //           spacing={2}
+    //           key={key2}
+    //           marginY={"15px"}
+    //         >
+    //           <ParaText1 text={"Q) " + item2?.question} />
+    //           <Box>{item2?.question_image}</Box>
+    //           <Stack
+    //             direction={"row"}
+    //             margin={"auto"}
+    //             width={"90%"}
+    //             marginY={"15px"}
+    //             sx={{
+    //               gridColumn: "auto auto auto auto",
+    //               columnGap: "30px",
+    //             }}
+    //           >
+    //             {item2?.options?.map((item3: any, key3: number) => (
+    //               <>
+    //                 <Box key={key3}>
+    //                   {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
+    //                   {item3}
+    //                 </Box>
+    //               </>
+    //             ))}
+    //           </Stack>
+    //            <ParaText1
+    //               text={`Answer: ${String.fromCharCode(
+    //                 "A".charCodeAt(0) + (item2.correct_ans-1)
+    //               )}`}
+    //             />
+    //         </Stack>
+    //       ))}
+    //     </React.Fragment>
 
-        {/* <img src={svgImage} /> */}
-        {/* <ImageToSvgConverter url={"http://localhost:8000/images/car.jpg"} /> */}
-      </Box>
-    </>
+    //     {/* <img src={svgImage} /> */}
+    //     {/* <ImageToSvgConverter url={"http://localhost:8000/images/car.jpg"} /> */}
+    //   </Box>
+    // </>
+
+    newData2?.map((item,key) => {
+      return (
+        <QuestionCard
+          data={newData2}
+          updateData={setNewData2}
+          // questionNo={index + 1}
+          key={key}
+          index={key}
+          paragraph={item?.Paragraph}
+          conversation={item?.Conversation}
+          images={item?.images}
+          question={item?.Question}
+          options={item?.Options}
+          answer={item?.Answer}
+          explanation={item?.Explanation}
+        />
+      );
+    })
   );
 };
 
