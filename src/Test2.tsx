@@ -308,38 +308,38 @@ let ArrayData: any = [
 // export default function Test2() {
 // const { handleAlertBoxOpen, alertBox } = UserContext();
 
-const click = () => {
-  // handleAlertBoxOpen();
-  data?.map((item: any, key: number) => {
-    let data = item.question.split(" ").sort();
-    item.images = [];
+// const click = () => {
+//   // handleAlertBoxOpen();
+//   data?.map((item: any, key: number) => {
+//     let data = item.question.split(" ").sort();
+//     item.images = [];
 
-    ["boys", "girls", "Two"].sort().forEach((search: string) => {
-      let s = 0;
-      let e = data.length - 1;
-      let caps = search.toUpperCase();
-      while (s <= e) {
-        let mid = Math.floor((s + e) / 2);
+//     ["boys", "girls", "Two"].sort().forEach((search: string) => {
+//       let s = 0;
+//       let e = data.length - 1;
+//       let caps = search.toUpperCase();
+//       while (s <= e) {
+//         let mid = Math.floor((s + e) / 2);
 
-        if (data[mid].toUpperCase() === caps) {
-          // console.log(item);
-          item.images.push(caps);
-          break;
-        }
+//         if (data[mid].toUpperCase() === caps) {
+//           // console.log(item);
+//           item.images.push(caps);
+//           break;
+//         }
 
-        if (data[mid].toUpperCase() < caps) {
-          s = mid + 1;
-        } else {
-          e = mid - 1;
-        }
-      }
-    });
-    if (item.images.length == 0) {
-      delete item.images;
-    }
-  });
-  // console.log(data);
-};
+//         if (data[mid].toUpperCase() < caps) {
+//           s = mid + 1;
+//         } else {
+//           e = mid - 1;
+//         }
+//       }
+//     });
+//     if (item.images.length == 0) {
+//       delete item.images;
+//     }
+//   });
+//   // console.log(data);
+// };
 
 // return (
 // <>
