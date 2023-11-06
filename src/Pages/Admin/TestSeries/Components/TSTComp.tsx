@@ -147,7 +147,6 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
   });
   console.log(getTopicQuestion.data);
 
-  
   const columns = useMemo<MRT_ColumnDef<topicList>[]>(
     //column definitions...
     () => [
@@ -161,11 +160,19 @@ const TSTComp = ({ tabId, selectValue }: TableCompProps) => {
         header: "",
         Cell: ({ cell, row }) => (
           <Stack direction={"row"} spacing={1}>
-            <EditIconButton
-              type="button"
-              disabled={cell.row.original.nv_topic === 1}
-              func={() => handleEdit(cell.getValue<string>())}
-            />
+            {tabId === 2 ? (
+              <Link to={`topic-details/${cell.getValue<string>()}`}>
+                <Button type="button" variant="outlined">
+                  View
+                </Button>
+              </Link>
+            ) : (
+              <EditIconButton
+                type="button"
+                disabled={cell.row.original.nv_topic === 1}
+                func={() => handleEdit(cell.getValue<string>())}
+              />
+            )}
 
             {/* <PdfMaker
               bol={true}
