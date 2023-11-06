@@ -566,7 +566,7 @@ const MyComponent = () => {
     //   </Box>
     // </>
 
-    newData2?.map((item,key) => {
+    newData2?.map((item:any,key:any) => {
       return (
         <QuestionCard
           data={newData2}
