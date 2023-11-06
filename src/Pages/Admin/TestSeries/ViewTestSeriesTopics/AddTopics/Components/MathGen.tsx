@@ -205,16 +205,21 @@ const MathGen = ({
       let query = "";
 
       if (testType == 2) {
-        query = `Generate 10 unique and challenging advanced-level practice questions designed for college students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and no limit in how long the question is. 
-        Ensure the following criteria for each question:
+        query = `Generate 10 unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
 
-        1. Scenario: Incorporate a real-life story that relates to the topic and makes the question contextually rich.
-        2. Clarity: Craft questions that are clear, concise, and easily understandable for college year students.
-        3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
-        4. Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question.
-        5. Complexity: Ensure that question and answer should be difficult that hard to solve and require critical thinking.
-        6. Explanation: Provide a detailed explanation for the correct answer to help students understand the concepts.
-
+        Scenario: Each question should incorporate a real-life story or scenario that relates to the topic, making it contextually rich and engaging.
+        
+        Clarity: Craft questions that are clear, concise, and easily understandable for college students.
+        
+        Diversity: Create a diverse set of questions that cover various aspects of the topic to ensure comprehensive preparation.
+        
+        Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question to challenge students' knowledge and problem-solving skills.
+        
+        Complexity: Ensure that the questions are challenging and require critical thinking to solve, reflecting advanced-level aptitude exam standards.
+        
+        Answer: Provide the correct answer options (A, B, C, and D) for each question based on the scenario and calculations.
+        
+        Explanation: Provide a detailed explanation for the correct answer to help students understand the underlying concepts and reasoning.
         Names:
         For male characters, use names like ${maleNames.join(", ")}.
         For female characters, use names like ${femaleNames.join(", ")}. 
@@ -256,7 +261,8 @@ const MathGen = ({
         3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
         4. Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question.
         5. Complexity: Ensure that answer choices are complex and require critical thinking.
-        6. Explanation: Provide a detailed explanation for the correct answer to help students understand the concepts.
+        6. Answer: Provide a correct answer options (A, B, C, and D) based on the question.
+        7. Explanation: Provide a detailed explanation for the correct answer to help students understand the concepts.
 
         Names:
         For male characters, use names like ${maleNames.join(", ")}.
@@ -396,7 +402,7 @@ const MathGen = ({
                   data={newRes.data}
                   set={false}
                   bol={false}
-                  topic={`${testType==1 ? "OC" : "Selective"} - ${topicName}`}
+                  topic={`${testType == 1 ? "OC" : "Selective"} - ${topicName}`}
                   button={
                     <BButton2
                       type="button"
@@ -484,8 +490,11 @@ const MathGen = ({
           <Stack spacing={2}>
             {currentData?.map((questionData: any, index: any) => (
               <QuestionCard
+                data={resData}
+                updateData={setResData}
                 key={index}
                 // questionNo={index + 1}
+                index={index}
                 paragraph={questionData?.Paragraph}
                 conversation={questionData?.Conversation}
                 images={questionData?.images}

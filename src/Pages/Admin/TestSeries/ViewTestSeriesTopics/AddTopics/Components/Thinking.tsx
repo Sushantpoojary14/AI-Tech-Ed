@@ -669,6 +669,9 @@ const Thinking = ({
             {currentData?.map((questionData: any, index: any) => (
               <QuestionCard
                 key={index}
+                data={resData}
+                updateData={setResData}
+                index={index}
                 // questionNo={index + 1}
                 paragraph={questionData?.Paragraph}
                 conversation={questionData?.Conversation}
