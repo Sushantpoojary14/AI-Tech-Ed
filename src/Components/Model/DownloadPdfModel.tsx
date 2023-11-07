@@ -158,7 +158,7 @@ ModalProps) => {
                 /> */}
                 <DownloadPDF
                   data={data?.topic_questions?.get_question}
-                  randomG={true}
+                  randomG={data?.topic_questions?.tsc_id == 2 ?false : true}
                   total={data?.topic_questions?.tsc_id == 2 ?data?.topic_questions?.get_question.length :watch("total_questions")}
                   topic={data?.topic_questions?.topic}
                   set={false}

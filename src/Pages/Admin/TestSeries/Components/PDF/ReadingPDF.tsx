@@ -209,7 +209,7 @@ const ReadingPDF = ({ props }: any) => {
 
                  
           
-                     
+      
                       <div style={styles.optionContainer} className="mb-4">
                         <p style={styles.options}>{`A. ${item?.Options?.a}`}</p>
                         <p style={styles.options}>{`B. ${item?.Options?.b}`}</p>
