@@ -147,7 +147,7 @@ const ReadingPDF = ({ props }: any) => {
             selected_question?.map((item: questions, key: any) => {
               
               const index_data: any = index?.find((item: any) =>
-                item.element.includes(count)
+                item?.element?.includes(count)
               );
               count++;
               return (
@@ -177,7 +177,7 @@ const ReadingPDF = ({ props }: any) => {
                     )}
                   {item?.Options ? (
                     <>
-                      {item.Paragraph && (
+                      {item?.Paragraph && (
                         <Stack flexDirection={"row"} columnGap={1}>
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
@@ -186,9 +186,9 @@ const ReadingPDF = ({ props }: any) => {
                           <div>{parse(item?.Paragraph)}</div>
                         </Stack>
                       )}
-                       {item?.question_image && (
+                       {/* {item?.question_image && (
                         <div>
-                          {item?.question_image.map(
+                          {item?.question_image?.map(
                             (item2: any, key: number) => {
                               return (
                                 <img
@@ -203,7 +203,7 @@ const ReadingPDF = ({ props }: any) => {
                             }
                           )}
                         </div>
-                      )}
+                      )} */}
 
                       <Typography>{` ${item?.Question}`}</Typography>
 
