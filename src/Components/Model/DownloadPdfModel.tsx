@@ -99,7 +99,7 @@ ModalProps) => {
                 Total Questions
               </FormLabel>
 
-              {data?.topic_questions?.tsc_id != 2 && (
+              {data?.topic_questions?.tsc_id != 4 && (
                 <Controller
                   name="total_questions"
                   control={control}
