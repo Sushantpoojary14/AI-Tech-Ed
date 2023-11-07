@@ -205,16 +205,16 @@ const ReadingPDF = ({ props }: any) => {
                         </div>
                       )}
 
-                      <Typography>{` ${item.Question}`}</Typography>
+                      <Typography>{` ${item?.Question}`}</Typography>
 
                  
           
                      
                       <div style={styles.optionContainer} className="mb-4">
-                        <p style={styles.options}>{`A. ${item.Options.a}`}</p>
-                        <p style={styles.options}>{`B. ${item.Options.b}`}</p>
-                        <p style={styles.options}>{`C. ${item.Options.c}`}</p>
-                        <p style={styles.options}>{`D. ${item.Options.d}`}</p>
+                        <p style={styles.options}>{`A. ${item?.Options?.a}`}</p>
+                        <p style={styles.options}>{`B. ${item?.Options?.b}`}</p>
+                        <p style={styles.options}>{`C. ${item?.Options?.c}`}</p>
+                        <p style={styles.options}>{`D. ${item?.Options?.d}`}</p>
                       </div>
                     </>
                   ) : (
@@ -224,7 +224,7 @@ const ReadingPDF = ({ props }: any) => {
                       marginBottom={3}
                       sx={{
                         breakBefore:
-                          key + 1 == index_data.start ? "page" : "avoid",
+                          key + 1 == index_data?.start ? "page" : "avoid",
                       }}
                       // className={`${
                       //   key + 1 == index_data.start
@@ -232,7 +232,7 @@ const ReadingPDF = ({ props }: any) => {
                       //     : "page-break-inside: avoid"
                       // }`}
                     >
-                      {key + 1 == index_data.start && item?.paragraph && (
+                      {key + 1 == index_data?.start && item?.paragraph && (
                         <Stack spacing={2}  marginTop={16}>
                          
 
@@ -266,7 +266,7 @@ const ReadingPDF = ({ props }: any) => {
                           <Typography padding={0}>{key + 1}</Typography>
                           <Typography
                             padding={0}
-                          >{`${item.question}`}</Typography>
+                          >{`${item?.question}`}</Typography>
                         </Stack>
                       )}
                       <Stack marginY={""} paddingX={"50px"}>
@@ -348,7 +348,7 @@ const ReadingPDF = ({ props }: any) => {
                     {!!item?.explanation ? (
                       <p
                       //   style={styles.explanation}
-                      >{`${item.explanation}`}</p>
+                      >{`${item?.explanation}`}</p>
                     ) : (
                       <p
                       // style={styles.explanation}
