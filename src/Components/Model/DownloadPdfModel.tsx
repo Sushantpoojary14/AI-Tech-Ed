@@ -99,7 +99,7 @@ ModalProps) => {
                 Total Questions
               </FormLabel>
 
-              {data?.topic_questions?.tsc_id != 4 && (
+              {data?.topic_questions?.tsc_id != 2 && (
                 <Controller
                   name="total_questions"
                   control={control}
@@ -140,7 +140,8 @@ ModalProps) => {
                 />
               )}
             </Stack>
-            {watch("total_questions") != 0 || data?.topic_questions?.tsc_id == 4 ? (
+            {watch("total_questions") != 0 ||
+            data?.topic_questions?.tsc_id == 2 ? (
               <Stack direction={"row"} justifyContent={"space-between"}>
                 {/* <PdfMaker
                   bol={!!setData}
@@ -158,8 +159,12 @@ ModalProps) => {
                 /> */}
                 <DownloadPDF
                   data={data?.topic_questions?.get_question}
-                  randomG={data?.topic_questions?.tsc_id == 2 ?false : true}
-                  total={data?.topic_questions?.tsc_id == 2 ?data?.topic_questions?.get_question.length :watch("total_questions")}
+                  randomG={data?.topic_questions?.tsc_id == 2 ? false : true}
+                  total={
+                    data?.topic_questions?.tsc_id == 2
+                      ? data?.topic_questions?.get_question.length
+                      : watch("total_questions")
+                  }
                   topic={data?.topic_questions?.topic}
                   set={false}
                   bol={false}
