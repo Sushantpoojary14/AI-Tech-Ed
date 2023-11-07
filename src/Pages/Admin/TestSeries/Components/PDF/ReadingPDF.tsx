@@ -171,6 +171,9 @@ const ReadingPDF = ({ props }: any) => {
                         >
                           {para[0]}
                         </Typography> */}
+                        <Box
+                          dangerouslySetInnerHTML={{ __html: item?.paragraph }}
+                        />
 
                         {/* <Box> {parse(item?.paragraph)}</Box> */}
                       </Stack>
@@ -183,7 +186,12 @@ const ReadingPDF = ({ props }: any) => {
                             key + 1
                           }: `}</Typography>
 
-                          <div>{parse(item?.Paragraph)}</div>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: item?.Paragraph,
+                            }}
+                          />
+                          {/* <div>{parse(item?.Paragraph)}</div> */}
                         </Stack>
                       )}
                       {/* {item?.question_image && (
