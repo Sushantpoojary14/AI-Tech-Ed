@@ -519,7 +519,7 @@ const AddTopics = () => {
           <MathGen formData={formData} reset={reset} edit={false} />
         )}
 
-        {formData[0] === "3" && (
+        {formData[0] === "3" && formData[1] && (
           <Thinking
             formData={formData}
             csvData={csvData}
