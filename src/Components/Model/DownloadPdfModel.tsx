@@ -91,15 +91,15 @@ ModalProps) => {
             <CloseIcon />
           </IconButton>
           <Stack spacing={2}>
-            <Stack spacing={1}>
-              <FormLabel
-                sx={{ fontWeight: "900", fontSize: "1.1rem" }}
-                id="demo-controlled-open-select-label"
-              >
-                Total Questions
-              </FormLabel>
+            {data?.topic_questions?.tsc_id != 2 && (
+              <Stack spacing={1}>
+                <FormLabel
+                  sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                  id="demo-controlled-open-select-label"
+                >
+                  Total Questions
+                </FormLabel>
 
-              {data?.topic_questions?.tsc_id != 2 && (
                 <Controller
                   name="total_questions"
                   control={control}
@@ -138,8 +138,8 @@ ModalProps) => {
                     </FormControl>
                   )}
                 />
-              )}
-            </Stack>
+              </Stack>
+            )}
             {watch("total_questions") != 0 ||
             data?.topic_questions?.tsc_id == 2 ? (
               <Stack direction={"row"} justifyContent={"space-between"}>
