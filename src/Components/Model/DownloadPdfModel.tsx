@@ -140,7 +140,7 @@ ModalProps) => {
                 />
               )}
             </Stack>
-            {watch("total_questions") != 0 || data?.topic_questions?.tsc_id == 2 ? (
+            {watch("total_questions") != 0 || data?.topic_questions?.tsc_id == 4 ? (
               <Stack direction={"row"} justifyContent={"space-between"}>
                 {/* <PdfMaker
                   bol={!!setData}
