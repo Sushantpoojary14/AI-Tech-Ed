@@ -984,7 +984,7 @@ const GenerateQuestions = ({
               onChange={handlePageChange}
             />
           </Stack>
-          <Stack spacing={2}>
+          {/* <Stack spacing={2}>
             {currentData?.map((questionData: any, index: any) => (
               <QuestionCard
                 key={index}
@@ -998,7 +998,7 @@ const GenerateQuestions = ({
                 explanation={questionData?.Explanation}
               />
             ))}
-          </Stack>
+          </Stack> */}
           <Stack alignItems={"center"} mt={2} mb={1}>
             <Pagination
               color="secondary"
