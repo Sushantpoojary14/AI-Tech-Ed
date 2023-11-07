@@ -122,7 +122,7 @@ const AdminNavbar = () => {
 
         {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
 
-        <Box sx={{width: {xs:"220px",sm:"240px",md:"300px"},  height:{xs:"100px",sm:"120px",md:"160px"},}}>
+        <Box sx={{width: {xs:"220px",sm:"240px",md:"300px"},  height:{xs:"100px",sm:"120px",md:"150px"},}}>
         <Link to="/user/">
           <img
             src={img}
