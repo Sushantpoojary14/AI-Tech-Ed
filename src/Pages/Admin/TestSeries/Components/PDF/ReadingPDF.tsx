@@ -171,9 +171,8 @@ const ReadingPDF = ({ props }: any) => {
                         >
                           {para[0]}
                         </Typography> */}
-                        {item?.paragraph && (
-                          <Box> {parse(item?.paragraph)}</Box>
-                        )}
+
+                        {/* <Box> {parse(item?.paragraph)}</Box> */}
                       </Stack>
                     )}
                   {item?.Options ? (
