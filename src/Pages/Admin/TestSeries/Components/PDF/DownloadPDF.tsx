@@ -118,7 +118,7 @@ const DownloadPDF = ({
 
   // let selected_question: questions[] = [];
   let t_index: any;
-  if (index && index?.length != 0) {
+  if (index && index?.length != 0 && cateId==2) {
     let count = 1;
     t_index = index.map((item: number) => {
       const start = count;

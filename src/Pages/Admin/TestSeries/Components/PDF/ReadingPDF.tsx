@@ -160,7 +160,7 @@ const ReadingPDF = ({ props }: any) => {
                     key + 1 == index_data?.start && item?.paragraph && (
                       <Stack  sx={{
                         breakBefore:
-                          key + 1 == index_data.start ? "page" : "avoid",
+                          key + 1 == index_data?.start ? "page" : "avoid",
                       }}>
                         <Typography
                           marginBottom={1}
@@ -241,7 +241,7 @@ const ReadingPDF = ({ props }: any) => {
                               <span>
                                 For questions
                                 <strong>
-                                  {` ${index_data.start} - ${index_data.end} `}
+                                  {` ${index_data?.start} - ${index_data?.end} `}
                                 </strong>
                                 choose the option <strong>(A,B,C or D)</strong>{" "}
                                 which think the best answers the question
