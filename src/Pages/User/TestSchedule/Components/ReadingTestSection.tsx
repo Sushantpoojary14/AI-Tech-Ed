@@ -248,7 +248,10 @@ const ReadingTestSection = (props: props) => {
                       marginY={4}
                     > */}
                     {question?.questions.paragraph && (
-                      <Box >{parse(question?.questions.paragraph)}</Box>
+                       <Box
+                       dangerouslySetInnerHTML={{ __html:question?.questions.paragraph }}
+                     />
+                      // <Box >{parse(question?.questions.paragraph)}</Box>
                     )}
                     {/* </Typography> */}
                   </Stack>
