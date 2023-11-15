@@ -289,7 +289,7 @@ const ReadingQuestionEditModal = ({
                   <Grid item xs={8}>
                     <Controller
                       name="OPTION_E"
-                      defaultValue={getReadingQuestion.data?.option_1}
+                      defaultValue={getReadingQuestion.data?.option_5}
                       control={control}
                       render={({ field }) => (
                         <TextField
@@ -308,7 +308,7 @@ const ReadingQuestionEditModal = ({
                   <Grid item xs={8}>
                     <Controller
                       name="OPTION_F"
-                      defaultValue={getReadingQuestion.data?.option_2}
+                      defaultValue={getReadingQuestion.data?.option_6}
                       control={control}
                       render={({ field }) => (
                         <TextField
@@ -327,7 +327,7 @@ const ReadingQuestionEditModal = ({
                   <Grid item xs={8}>
                     <Controller
                       name="OPTION_G"
-                      defaultValue={getReadingQuestion.data?.option_3}
+                      defaultValue={getReadingQuestion.data?.option_7}
                       control={control}
                       render={({ field }) => (
                         <TextField
@@ -346,7 +346,7 @@ const ReadingQuestionEditModal = ({
                   <Grid item xs={8}>
                     <Controller
                       name="OPTION_H"
-                      defaultValue={getReadingQuestion.data?.option_4}
+                      defaultValue={getReadingQuestion.data?.option_8}
                       control={control}
                       render={({ field }) => (
                         <TextField

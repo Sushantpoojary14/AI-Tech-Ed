@@ -202,26 +202,34 @@ const ReadingTopicDetails = () => {
                               primary={`D: ${question?.option_4}`}
                             />
                           </ListItem>
-                          <ListItem disablePadding>
-                            <ListItemText
-                              primary={`E: ${question?.option_5}`}
-                            />
-                          </ListItem>
-                          <ListItem disablePadding>
-                            <ListItemText
-                              primary={`F: ${question?.option_6}`}
-                            />
-                          </ListItem>
-                          <ListItem disablePadding>
-                            <ListItemText
-                              primary={`G: ${question?.option_7}`}
-                            />
-                          </ListItem>
-                          <ListItem disablePadding>
-                            <ListItemText
-                              primary={`H: ${question?.option_8}`}
-                            />
-                          </ListItem>
+                          {question?.option_5 && (
+                            <ListItem disablePadding>
+                              <ListItemText
+                                primary={`E: ${question?.option_5}`}
+                              />
+                            </ListItem>
+                          )}
+                          {question?.option_6 && (
+                            <ListItem disablePadding>
+                              <ListItemText
+                                primary={`F: ${question?.option_6}`}
+                              />
+                            </ListItem>
+                          )}
+                          {question?.option_7 && (
+                            <ListItem disablePadding>
+                              <ListItemText
+                                primary={`G: ${question?.option_7}`}
+                              />
+                            </ListItem>
+                          )}
+                          {question?.option_8 && (
+                            <ListItem disablePadding>
+                              <ListItemText
+                                primary={`H: ${question?.option_8}`}
+                              />
+                            </ListItem>
+                          )}
                         </List>
 
                         <Typography variant="body1">
