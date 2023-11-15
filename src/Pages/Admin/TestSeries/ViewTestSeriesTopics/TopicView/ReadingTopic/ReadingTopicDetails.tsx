@@ -158,7 +158,7 @@ const ReadingTopicDetails = () => {
                 <div dangerouslySetInnerHTML={{ __html: item?.paragraph }} />
               </Box>
               <Divider />
-              <Box mt={2} mx={4}>
+              <Box mt={2} mx={4} display={"flex"} rowGap={6}>
                 {item?.question?.map((question: any, qIndex: any) => (
                   <Stack key={qIndex} sx={{ width: "100%" }}>
                     <div
