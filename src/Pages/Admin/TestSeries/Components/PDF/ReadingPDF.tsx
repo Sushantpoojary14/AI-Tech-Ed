@@ -329,12 +329,12 @@ const ReadingPDF = ({ props }: any) => {
               <div style={styles.Container} key={key}>
                 {item?.Answer ? (
                   <>
-                    <Typography style={styles.answer2}    sx={{
-                          breakBefore:
-                            key + 1 % 12 == 0? "page" : "avoid",
-                        }}>{`${
-                      key + 1
-                    }.`}</Typography>
+                    <Typography
+                      style={styles.answer2}
+                      sx={{
+                        breakBefore: key + (1 % 12) == 0 ? "page" : "avoid",
+                      }}
+                    >{`${key + 1}.`}</Typography>
                     {!!item?.Explanation ? (
                       <Typography
                       //   style={styles.explanation}
@@ -349,11 +349,16 @@ const ReadingPDF = ({ props }: any) => {
                   </>
                 ) : (
                   <>
-                    <p style={styles.answer2}>{`${key + 1}.`}</p>
+                    <Typography
+                      style={styles.answer2}
+                      sx={{
+                        breakBefore: key + (1 % 12) == 0 ? "page" : "avoid",
+                      }}
+                    >{`${key + 1}.`}</Typography>
                     {!!item?.explanation ? (
-                      <p
+                      <Typography
                       //   style={styles.explanation}
-                      >{`${item?.explanation}`}</p>
+                      >{`${item?.explanation}`}</Typography>
                     ) : (
                       <p
                       // style={styles.explanation}
