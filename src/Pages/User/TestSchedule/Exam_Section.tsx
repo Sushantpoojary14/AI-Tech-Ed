@@ -42,6 +42,9 @@ type questionType = {
     option_3: string;
     option_4: string;
     option_5: string | null;
+    option_6: string | null;
+    option_7: string | null;
+    option_8: string | null;
     correct_option: string;
     explanation: string;
     tst_id: number;
