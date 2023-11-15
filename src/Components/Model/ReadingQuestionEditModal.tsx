@@ -49,6 +49,10 @@ type FormValues = {
   OPTION_B: string;
   OPTION_C: string;
   OPTION_D: string;
+  OPTION_E: string;
+  OPTION_F: string;
+  OPTION_G: string;
+  OPTION_H: string;
   Answer: string;
   Explanation: string;
 };
@@ -132,6 +136,10 @@ const ReadingQuestionEditModal = ({
         option_2: data.OPTION_B,
         option_3: data.OPTION_C,
         option_4: data.OPTION_D,
+        option_5: data.OPTION_E,
+        option_6: data.OPTION_F,
+        option_7: data.OPTION_G,
+        option_8: data.OPTION_H,
         correct_option: data.Answer,
         explanation: data.Explanation,
       },
@@ -276,6 +284,82 @@ const ReadingQuestionEditModal = ({
                     />
                   </Grid>
                   <Grid item xs={3}>
+                    <Typography variant="subtitle1">Option E</Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Controller
+                      name="OPTION_E"
+                      defaultValue={getReadingQuestion.data?.option_1}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          variant="outlined"
+                          placeholder="Option E"
+                          sx={{ backgroundColor: "white" }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography variant="subtitle1">Option F</Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Controller
+                      name="OPTION_F"
+                      defaultValue={getReadingQuestion.data?.option_2}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          variant="outlined"
+                          placeholder="Option F"
+                          sx={{ backgroundColor: "white" }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography variant="subtitle1">Option G</Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Controller
+                      name="OPTION_G"
+                      defaultValue={getReadingQuestion.data?.option_3}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          variant="outlined"
+                          sx={{ backgroundColor: "white" }}
+                          placeholder="Option G"
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography variant="subtitle1">Option H</Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Controller
+                      name="OPTION_H"
+                      defaultValue={getReadingQuestion.data?.option_4}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          fullWidth
+                          variant="outlined"
+                          placeholder="Option H"
+                          sx={{ backgroundColor: "white" }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
                     <Typography variant="subtitle1">Correct Option</Typography>
                   </Grid>
                   <Grid item xs={8}>
@@ -303,6 +387,10 @@ const ReadingQuestionEditModal = ({
                           <MenuItem value="2">Option B</MenuItem>
                           <MenuItem value="3">Option C</MenuItem>
                           <MenuItem value="4">Option D</MenuItem>
+                          <MenuItem value="5">Option E</MenuItem>
+                          <MenuItem value="6">Option F</MenuItem>
+                          <MenuItem value="7">Option G</MenuItem>
+                          <MenuItem value="8">Option H</MenuItem>
                         </Select>
                       )}
                     />

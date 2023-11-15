@@ -22,6 +22,10 @@ type FormValues = {
   OPTION_B: string;
   OPTION_C: string;
   OPTION_D: string;
+  OPTION_E: string;
+  OPTION_F: string;
+  OPTION_G: string;
+  OPTION_H: string;
   Answer: string;
   Explanation: string;
 };
@@ -75,12 +79,16 @@ const AddReadingQuestion = ({
         OPTION_B: data.OPTION_B,
         OPTION_C: data.OPTION_C,
         OPTION_D: data.OPTION_D,
+        OPTION_E: data.OPTION_E,
+        OPTION_F: data.OPTION_F,
+        OPTION_G: data.OPTION_G,
+        OPTION_H: data.OPTION_H,
         Answer: data.Answer,
         Explanation: data.Explanation,
         Paragraph: passage,
       },
     };
-    // console.log("addQuestion", formattedData);
+    console.log("addQuestion", formattedData);
     try {
       addReadingQuestionMU.mutate(formattedData);
     } catch (error) {}
@@ -112,10 +120,12 @@ const AddReadingQuestion = ({
               name="Question"
               defaultValue=""
               control={control}
+              
               render={({ field }) => (
                 <TextField
                   {...field}
                   fullWidth
+                  required={true}
                   variant="outlined"
                   placeholder="Question"
                   sx={{ backgroundColor: "white" }}
@@ -180,9 +190,6 @@ const AddReadingQuestion = ({
               )}
             />
           </Grid>
-          {/* <Grid item xs={3}>
-            <Typography variant="subtitle1">Option D</Typography>
-          </Grid> */}
           <Grid item xs={6}>
             <Controller
               name="OPTION_D"
@@ -193,7 +200,74 @@ const AddReadingQuestion = ({
                   {...field}
                   fullWidth
                   variant="outlined"
+                  sx={{ backgroundColor: "white" }}
                   placeholder="Option D"
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Controller
+              name="OPTION_E"
+              defaultValue=""
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  variant="outlined"
+                  sx={{ backgroundColor: "white" }}
+                  placeholder="Option E"
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Controller
+              name="OPTION_F"
+              defaultValue=""
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  variant="outlined"
+                  sx={{ backgroundColor: "white" }}
+                  placeholder="Option F"
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Controller
+              name="OPTION_G"
+              defaultValue=""
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  variant="outlined"
+                  sx={{ backgroundColor: "white" }}
+                  placeholder="Option G"
+                />
+              )}
+            />
+          </Grid>
+          {/* <Grid item xs={3}>
+            <Typography variant="subtitle1">Option D</Typography>
+          </Grid> */}
+          <Grid item xs={6}>
+            <Controller
+              name="OPTION_H"
+              defaultValue=""
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  variant="outlined"
+                  placeholder="Option H"
                   sx={{ backgroundColor: "white" }}
                 />
               )}
@@ -211,6 +285,7 @@ const AddReadingQuestion = ({
                 <Select
                   {...field}
                   fullWidth
+                  required={true} 
                   variant="outlined"
                   placeholder="Answer"
                   sx={{ backgroundColor: "white" }}
@@ -219,6 +294,10 @@ const AddReadingQuestion = ({
                   <MenuItem value="2">Option B</MenuItem>
                   <MenuItem value="3">Option C</MenuItem>
                   <MenuItem value="4">Option D</MenuItem>
+                  <MenuItem value="5">Option E</MenuItem>
+                  <MenuItem value="6">Option F</MenuItem>
+                  <MenuItem value="7">Option G</MenuItem>
+                  <MenuItem value="8">Option H</MenuItem>
                 </Select>
               )}
             />
