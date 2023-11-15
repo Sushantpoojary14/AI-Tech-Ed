@@ -58,6 +58,9 @@ type questionType = {
     option_3: string;
     option_4: string;
     option_5: string | null;
+    option_6: string | null;
+    option_7: string | null;
+    option_8: string | null;
     correct_option: string;
     explanation: string;
     tst_id: number;
@@ -168,7 +171,7 @@ const ReadingTestSection = (props: props) => {
               <Stack flexDirection={"row"}>
                 <ParaText4
                   text={`Question No ${props.count + 1} `}
-                  css={{ fontWeight: "600",paddingLeft:"10px" }}
+                  css={{ fontWeight: "600", paddingLeft: "10px" }}
                 />
                 {/* <ParaText4
                   text={`Question ${props.count + 1} `}
@@ -206,7 +209,7 @@ const ReadingTestSection = (props: props) => {
                 sx={{
                   paddingRight: 1,
                   // flex: "0.7",
-                  width:"80%",
+                  width: "80%",
                   overflow: "auto",
                   "&::-webkit-scrollbar": {
                     width: 2,
@@ -248,9 +251,11 @@ const ReadingTestSection = (props: props) => {
                       marginY={4}
                     > */}
                     {question?.questions.paragraph && (
-                       <Box
-                       dangerouslySetInnerHTML={{ __html:question?.questions.paragraph }}
-                     />
+                      <Box
+                        dangerouslySetInnerHTML={{
+                          __html: question?.questions.paragraph,
+                        }}
+                      />
                       // <Box >{parse(question?.questions.paragraph)}</Box>
                     )}
                     {/* </Typography> */}
@@ -301,11 +306,9 @@ const ReadingTestSection = (props: props) => {
               >
              
                 {/* <ParaText4 text="Option" css={{ fontWeight: "600" }} /> */}
-               
               </Stack>
               <Stack>
-
-              <ParaText4
+                <ParaText4
                   text={question?.questions.question}
                   css={{
                     fontWeight: "300",
@@ -313,7 +316,7 @@ const ReadingTestSection = (props: props) => {
                     fontSize: "1.2rem",
                   }}
                 />
-              <form onChange={handleSubmit(onSubmit)}>
+                <form onChange={handleSubmit(onSubmit)}>
                   <Controller
                     name="Answer"
                     defaultValue=""
@@ -327,26 +330,9 @@ const ReadingTestSection = (props: props) => {
                             }
                             value="A"
                             control={<Radio />}
-                            label={`${
-                              question?.questions.option_1.endsWith(
-                                ".png" || ".jpeg" || ".jpg"
-                              )
-                                ? ""
-                                : question?.questions.option_1
-                            }`}
+                            label={`${question?.questions.option_1}`}
                             // sx={{ fontSize: "16px", fontWeight: "400" }}
                           />
-                          {question?.questions.option_1.endsWith(
-                            ".png" || ".jpeg" || ".jpg"
-                          ) && (
-                            <img
-                              src={
-                                import.meta.env.VITE_IMAGE_URL +
-                                question?.questions.option_1
-                              }
-                              style={{ maxWidth: "200px" }}
-                            />
-                          )}
                         </Stack>
 
                         <Stack direction={"row"} mb={1}>
@@ -356,25 +342,8 @@ const ReadingTestSection = (props: props) => {
                               props.data ? question?.test_answer == "B" : false
                             }
                             control={<Radio />}
-                            label={`${
-                              question?.questions.option_1.endsWith(
-                                ".png" || ".jpeg" || ".jpg"
-                              )
-                                ? ""
-                                : question?.questions.option_2
-                            }`}
+                            label={`${question?.questions.option_2}`}
                           />
-                          {question?.questions.option_1.endsWith(
-                            ".png" || ".jpeg" || ".jpg"
-                          ) && (
-                            <img
-                              src={
-                                import.meta.env.VITE_IMAGE_URL +
-                                question?.questions.option_2
-                              }
-                              style={{ maxWidth: "200px" }}
-                            />
-                          )}
                         </Stack>
                         <Stack direction={"row"} mb={1}>
                           <FormControlLabel
@@ -383,25 +352,8 @@ const ReadingTestSection = (props: props) => {
                               props.data ? question?.test_answer == "C" : false
                             }
                             control={<Radio />}
-                            label={`${
-                              question?.questions.option_1.endsWith(
-                                ".png" || ".jpeg" || ".jpg"
-                              )
-                                ? ""
-                                : question?.questions.option_3
-                            }`}
+                            label={`${question?.questions.option_3}`}
                           />
-                          {question?.questions.option_1.endsWith(
-                            ".png" || ".jpeg" || ".jpg"
-                          ) && (
-                            <img
-                              src={
-                                import.meta.env.VITE_IMAGE_URL +
-                                question?.questions.option_3
-                              }
-                              style={{ maxWidth: "200px" }}
-                            />
-                          )}
                         </Stack>
                         <Stack direction={"row"} mb={1}>
                           <FormControlLabel
@@ -410,26 +362,67 @@ const ReadingTestSection = (props: props) => {
                               props.data ? question?.test_answer == "D" : false
                             }
                             control={<Radio />}
-                            label={`${
-                              question?.questions.option_1.endsWith(
-                                ".png" || ".jpeg" || ".jpg"
-                              )
-                                ? ""
-                                : question?.questions.option_4
-                            }`}
+                            label={`${question?.questions.option_4}`}
                           />
-                          {question?.questions.option_1.endsWith(
-                            ".png" || ".jpeg" || ".jpg"
-                          ) && (
-                            <img
-                              src={
-                                import.meta.env.VITE_IMAGE_URL +
-                                question?.questions.option_4
-                              }
-                              style={{ maxWidth: "200px" }}
-                            />
-                          )}
                         </Stack>
+                        {question?.questions.option_5 && (
+                          <Stack direction={"row"} mb={1}>
+                            <FormControlLabel
+                              checked={
+                                props.data
+                                  ? question?.test_answer == "E"
+                                  : false
+                              }
+                              value="E"
+                              control={<Radio />}
+                              label={`${question?.questions.option_5}`}
+                              // sx={{ fontSize: "16px", fontWeight: "400" }}
+                            />
+                          </Stack>
+                        )}
+
+                        {question?.questions.option_6 && (
+                          <Stack direction={"row"} mb={1}>
+                            <FormControlLabel
+                              value="F"
+                              checked={
+                                props.data
+                                  ? question?.test_answer == "F"
+                                  : false
+                              }
+                              control={<Radio />}
+                              label={`${question?.questions.option_6}`}
+                            />
+                          </Stack>
+                        )}
+                        {question?.questions.option_7 && (
+                          <Stack direction={"row"} mb={1}>
+                            <FormControlLabel
+                              value="G"
+                              checked={
+                                props.data
+                                  ? question?.test_answer == "G"
+                                  : false
+                              }
+                              control={<Radio />}
+                              label={`${question?.questions.option_7}`}
+                            />
+                          </Stack>
+                        )}
+                        {question?.questions.option_8 && (
+                          <Stack direction={"row"} mb={1}>
+                            <FormControlLabel
+                              value="H"
+                              checked={
+                                props.data
+                                  ? question?.test_answer == "H"
+                                  : false
+                              }
+                              control={<Radio />}
+                              label={`${question?.questions.option_8}`}
+                            />
+                          </Stack>
+                        )}
                       </RadioGroup>
                     )}
                   />
