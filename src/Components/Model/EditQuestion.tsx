@@ -185,7 +185,7 @@ const EditQuestion = ({
                 color: "black",
               }}
               {...register("answer")}
-              defaultValue={data?.answer?.toLowerCase}
+              defaultValue={data?.answer?.toLowerCase()}
               // label={props.label}
             >
               <MenuItem value="a" >Option_A</MenuItem>
