@@ -33,7 +33,7 @@ const EditQuestion = ({
   updateData: any;
 }) => {
   const { register, handleSubmit, control } = useForm<Inputs>();
-  console.log(data.options_1);
+  console.log(data);
   const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
     console.log(para_data);
     const newData = allData?.map((item: any, key: number) => {
@@ -185,10 +185,10 @@ const EditQuestion = ({
                 color: "black",
               }}
               {...register("answer")}
-              defaultValue={data.answer}
+              defaultValue={data?.answer?.toLowerCase}
               // label={props.label}
             >
-              <MenuItem value="a">Option_A</MenuItem>
+              <MenuItem value="a" >Option_A</MenuItem>
               <MenuItem value="b">Option_B</MenuItem>
               <MenuItem value="c">Option_C</MenuItem>
               <MenuItem value="d">Option_D</MenuItem>

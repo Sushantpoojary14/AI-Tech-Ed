@@ -109,7 +109,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
           </Typography>
           
         </CardContent>
-        <BButton name="edit" func={() => handleOpen(index)} />
+        <BButton name="edit" func={() => handleOpen(index)} css={{margin:"10px"}}/>
       </Card>
       <EditQuestion
       updateData={updateData}

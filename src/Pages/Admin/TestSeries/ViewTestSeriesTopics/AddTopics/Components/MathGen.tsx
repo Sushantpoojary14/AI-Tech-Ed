@@ -339,7 +339,7 @@ const MathGen = ({
             return item.images?.length === 3;
           }
         );
-        // }
+       // }
         // console.log(male,female);
 
         if (item.images?.length === 0) {
