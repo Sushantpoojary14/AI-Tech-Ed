@@ -64,6 +64,10 @@ const style: any = {
   },
 };
 
+const config = {
+  minHeight: 500,
+};
+
 const Reading = ({
   formData,
 
@@ -311,7 +315,10 @@ const Reading = ({
                     placeholder="Add Your Passage Here..."
                   /> */}
 
-                  <JoditReact onChange={(content: any) => setValue(content)} />
+                  <JoditReact
+                    onChange={(content: any) => setValue(content)}
+                    config={config}
+                  />
                 </div>
 
                 <BButton2 name="next" func={handleNextPassage} />
