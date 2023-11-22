@@ -426,7 +426,7 @@ const AddTopics = () => {
                   </Grid> */}
                 </>
               )}
-              { formData[0] === "1" || formData[0] === "3" &&
+              { (formData[0] == "1" || formData[0] == "3") &&
                 <Grid item xs={12} sm={4}>
                   <Stack spacing={1}>
                     <FormLabel
