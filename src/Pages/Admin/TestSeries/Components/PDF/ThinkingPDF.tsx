@@ -127,6 +127,8 @@ type questions = {
 const ThinkingPDF = ({ props }: any) => {
   const { selected_question, topic, index } = props;
   let count = 1;
+  console.log(selected_question,"s");
+  
   return (
     <Box>
       <Box style={styles.page} sx={{ breakAfter: "page" }}>
@@ -134,9 +136,6 @@ const ThinkingPDF = ({ props }: any) => {
         <div style={styles.mainContainer}>
           {selected_question?.length != 0 &&
             selected_question?.map((item: questions, key: any) => {
-              const index_data: any = index?.find((item: any) =>
-                item.element.includes(count)
-              );
               count++;
               return (
                 <Box
@@ -148,18 +147,6 @@ const ThinkingPDF = ({ props }: any) => {
                     mt: 8,
                   }}
                 >
-                  {index && index?.length != 0 && index_data && (
-                    <Stack spacing={2} marginBottom={3}>
-                      <ParaText4
-                        text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
-                        css={{ fontWeight: "500" }}
-                      />
-                      <ParaText3
-                        text={`Read the extracts below then answer the question`}
-                        css={{ fontWeight: "500" }}
-                      />
-                    </Stack>
-                  )}
                   {item?.Options ? (
                     <>
                       {item.Paragraph && (
@@ -170,7 +157,7 @@ const ThinkingPDF = ({ props }: any) => {
                           <Typography>{` ${item.Paragraph}`}</Typography>
                         </Stack>
                       )}
-                      {item?.paragraph && item?.question_image && (
+                      {item?.Paragraph && item?.question_image && (
                         <div>
                           {item?.question_image?.map(
                             (item2: any, key: number) => {

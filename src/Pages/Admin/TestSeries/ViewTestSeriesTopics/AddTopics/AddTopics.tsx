@@ -101,7 +101,7 @@ const AddTopics = () => {
         t_name: formData[4],
         tsc_id: formData[0],
         ts_id: formData[3],
-        topic: formData[4]
+        topic: formData[4],
       });
     },
     onSuccess: (data) => {
@@ -178,11 +178,11 @@ const AddTopics = () => {
       >
         <Stack direction="row">
           <Button
-            onClick={() => navigate(-1)}
             size="small"
             variant="contained"
             color="primary"
             sx={{ paddingRight: "1rem" }}
+            type={"button"}
           >
             <ArrowBackIosNewRoundedIcon />
             Back
@@ -365,7 +365,7 @@ const AddTopics = () => {
                       >
                         {tsc_id == "2"
                           ? "Enter Reading Set Name"
-                          : "Enter Topic To Generate"}
+                          : "Enter Topic Name For AI To Generate"}
                       </FormLabel>
                       <Controller
                         name="topic"
@@ -425,7 +425,45 @@ const AddTopics = () => {
                   </Grid> */}
                 </>
               )}
-
+              { formData[0] === "1" || formData[0] === "3" &&
+                <Grid item xs={12} sm={4}>
+                  <Stack spacing={1}>
+                    <FormLabel
+                      sx={{ fontWeight: "900", fontSize: "1.1rem" }}
+                      id="demo-controlled-open-select-label"
+                    >
+                      Total Questions
+                    </FormLabel>
+                    <Controller
+                      name="total_questions"
+                      control={control}
+                      defaultValue={""}
+                      disabled={tsc_id == "2"}
+                      render={({ field }) => (
+                        <FormControl fullWidth>
+                          <Select
+                            {...field}
+                            placeholder="Enter Total Questions"
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            {
+                              
+                            }
+                            <MenuItem value={10}>10</MenuItem>
+                            <MenuItem value={15}>15</MenuItem>
+                            <MenuItem value={20}>20</MenuItem>
+                            <MenuItem value={25}>25</MenuItem>
+                            <MenuItem value={30}>30</MenuItem>
+                            <MenuItem value={50}>50</MenuItem>
+                          </Select>
+                        </FormControl>
+                      )}
+                    />
+                  </Stack>
+                </Grid>
+              }
               {parseInt(formData[0]) == 3 && (
                 <Grid item xs={12}>
                   <Stack spacing={1}>

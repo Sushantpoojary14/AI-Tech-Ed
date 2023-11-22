@@ -53,7 +53,7 @@ const Thinking = ({
 }: ThinkingProps) => {
   const [category, topicGen, totalQuestions, testType, topicName] = formData;
 
-  const [resData, setResData] = useState([]);
+  const [resData, setResData] = useState<any>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [errMessage, setErrMessage] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -184,15 +184,15 @@ const Thinking = ({
     }
   };
   const handleGenerate = async () => {
-    // const header1 = [
-    //   "Question",
-    //   "Option_A",
-    //   "Option_B",
-    //   "Option_C",
-    //   "Option_D",
-    //   "Answer",
-    //   "Explanation",
-    // ];
+    const header1 = [
+      "Question",
+      "Option_A",
+      "Option_B",
+      "Option_C",
+      "Option_D",
+      "Answer",
+      "Explanation",
+    ];
     const header2 = [
       "Paragraph",
       "Conversation",
@@ -204,19 +204,23 @@ const Thinking = ({
       "Answer",
       "Explanation",
     ];
-    // const header3 = [
-    //   "Paragraph",
-    //   "Question",
-    //   "Option_A",
-    //   "Option_B",
-    //   "Option_C",
-    //   "Option_D",
-    //   "Answer",
-    //   "Explanation",
-    // ];
+    const header3 = [
+      "Paragraph",
+      "Question",
+      "Option_A",
+      "Option_B",
+      "Option_C",
+      "Option_D",
+      "Answer",
+      "Explanation",
+    ];
     const array2 = Object.keys(csvData[0]);
+    console.log(category, category == 1 || category == 2);
 
-    if (JSON.stringify(header2) === JSON.stringify(array2)) {
+    if (
+      (JSON.stringify(header1) === JSON.stringify(array2)) ||
+      (JSON.stringify(header2) === JSON.stringify(array2))
+    ) {
       const filteredCsvData = csvData.filter((item: any) => {
         if (item.Question && item.Option_D) {
           // console.log(!!item.Question);
@@ -225,106 +229,96 @@ const Thinking = ({
         return false;
       });
       console.log(filteredCsvData);
-      const questionss = [];
-      for (const [key, item] of filteredCsvData.entries()) {
-        const question = {
-          Paragraph: item.Paragraph,
-          Conversation: item.Conversation ? item.Conversation : "",
-          Question: item.Question,
-          Options: {
-            a: item.Option_A,
-            b: item.Option_B,
-            c: item.Option_C,
-            d: item.Option_D,
-          },
-          Answer: item.Answer
-            ? item.Answer
-            : "Generate an Answer based on the question",
-          Explanation: item.Explanation
-            ? item.Explanation
-            : "Generate an explanation based on the question and correct answer",
-        };
-
-        questionss.push(question);
-      }
-      const jsonQuestions = JSON.stringify(questionss, null, 2);
-
-      // console.log(jsonQuestions);
-      newRes.mutate(jsonQuestions);
+      newRes.mutate(filteredCsvData);
     } else {
-      setErrMessage(`Upload csv in Correct format for Thinking  `);
-      handleAlertBoxOpen();
-      // alert("upload csv in correct formast");
+      alert("upload csv in correct formast");
     }
   };
 
   const newRes = useMutation({
-    mutationFn: async (csvData: CsvItem[] | string) => {
+    mutationFn: async (csvData: CsvItem[]) => {
       // console.log("object 2", input);
-      // const exception = new Error();
-      // exception.name = "CustomError";
+      const exception = new Error();
+      exception.name = "CustomError";
       // throw exception;
       const responses: any[] = [];
 
-      // for (const [key, item] of csvData.entries()) {
-      const topic = topicGen;
-      const maleNames = [
-        "Henry",
-        "James",
-        "Nathan",
-        "Carl",
-        "John",
-        "Peter",
-        "Shane",
-        "Alfred",
-        "Bobby",
-        "Clive",
-        "Dennis",
-        "Lloyd",
-        "Luke",
-        "Oliver",
-        "Philip",
-        "Winston",
-        "Henry",
-        "Jackson",
-        "Charlie",
-        "Roy",
-        "Harrison",
-        "Josh",
-        "Billy",
-      ];
-      const femaleNames = [
-        "Alice",
-        "Zoya",
-        "Emma",
-        "Darcy",
-        "Ella",
-        "Mary",
-        "Freda",
-        "Janie",
-        "Katty",
-        "Myra",
-        "Nora",
-        "Martha",
-        "Veverly",
-        "Ruth",
-        "Jenifer",
-        "Jenifer",
-        "Diana",
-        "Lucy",
-        "Daisy",
-        "Georgia",
-        "Matilda",
-        "Eliza",
-        "Clara",
-        "Kate",
-      ];
-      let query = "";
-
-      // if (testType == 3) {
-        query = `Generate 20 unique multiple-choice questions (MCQs) for the topic "${topic}".
+      for (const [key, item] of csvData.entries()) {
+        const topic = topicGen;
+        const maleNames = [
+          "Henry",
+          "James",
+          "Nathan",
+          "Carl",
+          "John",
+          "Peter",
+          "Shane",
+          "Alfred",
+          "Bobby",
+          "Clive",
+          "Dennis",
+          "Lloyd",
+          "Luke",
+          "Oliver",
+          "Philip",
+          "Winston",
+          "Henry",
+          "Jackson",
+          "Charlie",
+          "Roy",
+          "Harrison",
+          "Josh",
+          "Billy",
+        ];
+        const femaleNames = [
+          "Alice",
+          "Zoya",
+          "Emma",
+          "Darcy",
+          "Ella",
+          "Mary",
+          "Freda",
+          "Janie",
+          "Katty",
+          "Myra",
+          "Nora",
+          "Martha",
+          "Veverly",
+          "Ruth",
+          "Jenifer",
+          "Jenifer",
+          "Diana",
+          "Lucy",
+          "Daisy",
+          "Georgia",
+          "Matilda",
+          "Eliza",
+          "Clara",
+          "Kate",
+        ];
+        let query = "";
+        // if (category == 3) {
+          query = `Generate 3 unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
+   
           Example Question:
-         ${csvData}
+          Paragraph:${item.Paragraph}
+          ${item.Conversation ? "Conversation: " + item.Conversation : ""} 
+          Question: ${item.Question}
+          Options:
+              a. ${item.Option_A}
+              b. ${item.Option_B}
+              c. ${item.Option_C}
+              d. ${item.Option_D}
+               Answer: ${
+                 item.Answer
+                   ? item.Answer
+                   : "Generate an Answer based on the question"
+               }
+              Explanation: ${
+                item.Explanation
+                  ? item.Explanation
+                  : "Generate an explanation based on the question and correct answer"
+              }
   
           ---
   
@@ -356,183 +350,172 @@ const Thinking = ({
               "Answer": "Correct answer letter (a, b, c, or d)",
               "Explanation": "Explanation for the correct answer"
             },
-            {
-              "Paragraph": "Replace with paragraph text"
-              "Conversation": "Replace with conversation text"
-              "Question": "Replace with question text",
-              "Options": {
-                "a": "Option A text",
-                "b": "Option B text",
-                "c": "Option C text",
-                "d": "Option D text"
-              },
-              "Answer": "Correct answer letter (a, b, c, or d)",
-              "Explanation": "Explanation for the correct answer"
-            },
-          
+           ....
           ]
   `;
-      // }
-      console.log("QUERY", query);
-      const openAi = new OpenAIApi(
-        new Configuration({
-          apiKey: import.meta.env.VITE_OPENAI_KEY,
-        })
-      );
-      
-      const response = await openAi.createChatCompletion({
-        model: "gpt-4",
-        // model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: query }],
-      });
+        // }
 
-      const message = response?.data?.choices[0]?.message?.content;
-      // const questions = message?.split("Question:");
-      let questions;
-      try {
-        questions = message && JSON.parse(message);
-        // throw "error"
-      } catch (e) {
-        setErrMessage(`Csv is not proper `);
-        handleAlertBoxOpen();
-      }
-      // console.log(message);
-      console.log(questions);
-      questions?.map((item: mapData, index: any) => {
-        if (category == 3) {
-          item.Paragraph = item.Paragraph
-            ? item.Paragraph.replace(/Paragraph:/g, "")
-            : "";
-          item.Conversation = item.Conversation
-            ? item.Conversation.replace(/Conversation:/g, "")
-            : "";
-        }
-        item.Explanation =
-          item.Explanation && item.Explanation.replace(/Explanation:/g, "");
-        item.Question =
-          item.Question && item.Question.replace(/Question:/g, "");
-        let data: string[] = [];
-        const keysToCheck = ["Paragraph", "Conversation", ""];
-        const itemKeys = Object.keys(item);
-        const exists = keysToCheck.every((key) => {
-          return itemKeys.includes(key);
+        const openAi = new OpenAIApi(
+          new Configuration({
+            apiKey: import.meta.env.VITE_OPENAI_KEY,
+          })
+        );
+        console.log("QUERY", query);
+        const response = await openAi.createChatCompletion({
+          model: "gpt-4",
+          // model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: query }],
         });
 
-        // if (exists) {
-        // if (item.Paragraph || item.Conversation) {
-        const paragraphData = item.Paragraph?.split(" ") ?? [];
-        const conversationData = item.Conversation?.split(" ") ?? [];
-        const questionData = item.Question.split(" ") ?? [];
-        data = [...paragraphData, ...conversationData, ...questionData];
-        console.log(paragraphData, conversationData, questionData);
-        // console.log(data,paragraphData,conversationData,questionData);
-        // }
-
-        // data = [
-        //   ...item.Paragraph?.split(" "),
-        //   ...item.Conversation?.split(" "),
-        // // ];
-        // else {
-        //   data = item.Question.split(" ");
-        // }
-        console.log(data);
-
-        item.images = [];
-        let count: number = 1;
-        console.log(item.images?.length);
-
-        // if (item.images?.length !== 2) {
-        if (exists) {
-          maleNames.forEach((search: string) => {
-            if (item.images?.length === 2) {
-              return true; // Exit the loop
-            }
-            const caps = search.toUpperCase();
-            let match = data.find(
-              (word: string) => word.toUpperCase() === caps
-            );
-            if (match) {
-              match = data.find((word: string) => word.toUpperCase() === caps);
-            }
-            if (match) {
-              switch (count) {
-                case 1:
-                  item.images?.push("/images/boy.jpg");
-                  count++;
-                  break;
-                case 2:
-                  item.images?.push("/images/left_boy.jpg");
-                  count++;
-                  break;
-                default:
-                  item.images?.push("/images/left_boy.jpg");
-                  count++;
-              }
-            }
-            return count == 3;
-          });
-          femaleNames.forEach((search: string) => {
-            if (item.images?.length === 2) {
-              return true; // Exit the loop
-            }
-            const caps = search.toUpperCase();
-            const match = data.find(
-              (word: string) => word.replace(/:/g, "").toUpperCase() === caps
-            );
-
-            if (match) {
-              switch (count) {
-                case 1:
-                  item.images?.push("/images/right_girl.jpg");
-                  count++;
-                  break;
-                case 2:
-                  item.images?.push("/images/girl.jpg");
-                  count++;
-                  break;
-                case 3:
-                default:
-                  item.images?.push("/images/girl.jpg");
-                  count++;
-              }
-            }
-            return count == 3;
-          });
+        const message = response?.data?.choices[0]?.message?.content;
+        // const questions = message?.split("Question:");
+        let questions;
+        try {
+          questions = message && JSON.parse(message);
+          // throw "error"
+        } catch (e) {
+          setErrMessage(`Question No.- ${key + 1} is proper in Csv`);
+          handleAlertBoxOpen();
         }
-        image_data.forEach(
-          (search: { image_name: string; image_url: string }) => {
-            if (item.images?.length === 1) {
-              return true; // Exit the loop
-            }
-            const caps = search.image_name.toUpperCase();
-
-            const match = data.find(
-              (word: string) => word.toUpperCase() === caps
-            );
-
-            if (match) {
-              item.images?.push(search.image_url); // Add the image URL to the question
-            }
-
-            return item.images?.length === 3;
+        // console.log(message);
+        console.log(questions);
+        questions?.map((item: mapData, index: any) => {
+          if (category == 3) {
+            item.Paragraph = item.Paragraph
+              ? item.Paragraph.replace(/Paragraph:/g, "")
+              : "";
+            item.Conversation = item.Conversation
+              ? item.Conversation.replace(/Conversation:/g, "")
+              : "";
           }
-        );
-        // }
-        // console.log(male,female);
+          item.Explanation =
+            item.Explanation && item.Explanation.replace(/Explanation:/g, "");
+          item.Question =
+            item.Question && item.Question.replace(/Question:/g, "");
+          let data: string[] = [];
+          const keysToCheck = ["Paragraph", "Conversation", ""];
+          const itemKeys = Object.keys(item);
+          const exists = keysToCheck.every((key) => {
+            return itemKeys.includes(key);
+          });
 
-        if (item.images?.length === 0) {
-          delete item.images;
-        }
+          // if (exists) {
+          // if (item.Paragraph || item.Conversation) {
+          const paragraphData = item.Paragraph?.split(" ") ?? [];
+          const conversationData = item.Conversation?.split(" ") ?? [];
+          const questionData = item.Question.split(" ") ?? [];
+          data = [...paragraphData, ...conversationData, ...questionData];
+          console.log(paragraphData, conversationData, questionData);
+          // console.log(data,paragraphData,conversationData,questionData);
+          // }
 
-        responses.push(item); // Add the modified item to the responses array
-      });
-      console.log(responses);
-      // }
+          // data = [
+          //   ...item.Paragraph?.split(" "),
+          //   ...item.Conversation?.split(" "),
+          // // ];
+          // else {
+          //   data = item.Question.split(" ");
+          // }
+          console.log(data);
 
+          item.images = [];
+          let count: number = 1;
+          console.log(item.images?.length);
+
+          // if (item.images?.length !== 2) {
+          if (exists) {
+            maleNames.forEach((search: string) => {
+              if (item.images?.length === 2) {
+                return true; // Exit the loop
+              }
+              const caps = search.toUpperCase();
+              let match = data.find(
+                (word: string) => word.toUpperCase() === caps
+              );
+              if (match) {
+                match = data.find(
+                  (word: string) => word.toUpperCase() === caps
+                );
+              }
+              if (match) {
+                switch (count) {
+                  case 1:
+                    item.images?.push("/images/boy.jpg");
+                    count++;
+                    break;
+                  case 2:
+                    item.images?.push("/images/left_boy.jpg");
+                    count++;
+                    break;
+                  default:
+                    item.images?.push("/images/left_boy.jpg");
+                    count++;
+                }
+              }
+              return count == 3;
+            });
+            femaleNames.forEach((search: string) => {
+              if (item.images?.length === 2) {
+                return true; // Exit the loop
+              }
+              const caps = search.toUpperCase();
+              const match = data.find(
+                (word: string) => word.replace(/:/g, "").toUpperCase() === caps
+              );
+
+              if (match) {
+                switch (count) {
+                  case 1:
+                    item.images?.push("/images/right_girl.jpg");
+                    count++;
+                    break;
+                  case 2:
+                    item.images?.push("/images/girl.jpg");
+                    count++;
+                    break;
+                  case 3:
+                  default:
+                    item.images?.push("/images/girl.jpg");
+                    count++;
+                }
+              }
+              return count == 3;
+            });
+          }
+          image_data.forEach(
+            (search: { image_name: string; image_url: string }) => {
+              if (item.images?.length === 1) {
+                return true; // Exit the loop
+              }
+              const caps = search.image_name.toUpperCase();
+
+              const match = data.find(
+                (word: string) => word.toUpperCase() === caps
+              );
+
+              if (match) {
+                item.images?.push(search.image_url); // Add the image URL to the question
+              }
+
+              return item.images?.length === 3;
+            }
+          );
+          // }
+          // console.log(male,female);
+
+          if (item.images?.length === 0) {
+            delete item.images;
+          }
+
+          responses.push(item); // Add the modified item to the responses array
+        });
+        console.log(responses);
+      }
+      setResData(responses);
       return responses;
     },
     onSuccess: (data: any) => {
-      setResData(data);
+     
       console.log("Success Data", data);
     },
     onError: (error) => {
@@ -674,17 +657,16 @@ const Thinking = ({
               <QuestionCard
                 key={index}
                 // questionNo={index + 1}
-                index={index}
-                data={resData}
-                updateData={setResData}
                 paragraph={questionData?.Paragraph}
                 conversation={questionData?.Conversation}
                 images={questionData?.images}
                 question={questionData?.Question}
                 options={questionData?.Options}
                 answer={questionData?.Answer}
-                explanation={questionData?.Explanation}
-              />
+                explanation={questionData?.Explanation} 
+                index={index} 
+                data={resData} 
+                updateData={setResData}              />
             ))}
           </Stack>
           <Stack alignItems={"center"} mt={2} mb={1}>

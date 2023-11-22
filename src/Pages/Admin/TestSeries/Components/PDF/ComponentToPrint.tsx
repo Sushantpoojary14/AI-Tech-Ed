@@ -9,9 +9,9 @@ import ThinkingPDF from "./ThinkingPDF";
 import NonVerbalPDF from "./NonVerbalPDF";
 
 const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
-  const { cateId, NVId } = props;
+  const { cateId, NVId,selected_question } = props;
   // console.log("DATA", selected_question);
-  console.log(cateId, NVId );
+  console.log(cateId,selected_question );
 
   return (
     <div ref={ref}>
@@ -24,8 +24,9 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
           <NonVerbalPDF props={props} />
         ) : cateId === 2 ? (
           <ReadingPDF props={props} />
-        ) : cateId === 3 ? (
+        ) : cateId == 3 ? (
           <ThinkingPDF props={props} />
+          // <DefaultPDf props={props} />
         ) : (
           <DefaultPDf props={props} />
         )}

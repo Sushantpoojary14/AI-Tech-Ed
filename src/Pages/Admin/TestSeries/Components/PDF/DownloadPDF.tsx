@@ -77,8 +77,8 @@ const DownloadPDF = ({
     pageStyle: getPageMargins(),
   });
 
-  console.log("data", data);
-  console.log("cateId", cateId);
+  // console.log("data", data);
+  // console.log("cateId", cateId);
   // useEffect(() => {
   //   setSelected_question(data);
   // }, []);

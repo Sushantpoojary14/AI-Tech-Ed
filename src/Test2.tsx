@@ -110,199 +110,122 @@ import { BButton2 } from "./Components/Common/Button";
 // `;
 let ArrayData: any = [
   {
-    Question:
-      "The ratio of men to women in a conference is 5:7. If there are 80 men, how many women are there?",
-    Options: {
-      a: "56",
-      b: "64",
-      c: "80",
-      d: "112",
-    },
-    Answer: "d",
-    Explanation:
-      "If the ratio of men to women is 5:7 and there are 80 men, then there are 7/5 x 80 = 112 women in the conference.",
+      "Paragraph": "All employees in Alfred's office were given an envelope containing money for a holiday party. However, their supervisor didn't have enough envelopes for every employee. Each envelope contained five tickets. Alfred saw that one of his co-workers hadn't received an envelope, so he gave two of his tickets to his co-worker. The co-worker was very touched by his actions. Therefore, all members of a working community should strive to ensure fairness where feasible.",
+      "Question": "Which of the following, if true, would strengthen the above argument?",
+      "Options": {
+          "a": "In the office environment, ensuring fairness is not as simple as sharing holiday party tickets.",
+          "b": "If every member of the working community prioritised fairness, unhealthy competition and workplace inequality would decrease, improving job satisfaction and productivity.",
+          "c": "It is the responsibility of Human Resources rather than individual employees to ensure fairness at work.",
+          "d": "Sharing with others creates a positive work environment."
+      },
+      "Answer": "b",
+      "Explanation": "This option supports the idea that striving to ensure fairness has broader and more significant implications beyond the simple act of sharing party tickets. It suggests that if everyone in the working community prioritized fairness, it could lead to a reduction in unhealthy competition and workplace inequality, ultimately resulting in improved job satisfaction and productivity.",
+      "Conversation": ""
   },
   {
-    Question:
-      "A recipe requires a ratio of 2:3 for flour to sugar. If there are 6 cups of flour, how many cups of sugar are needed?",
-    Options: {
-      a: "4",
-      b: "6",
-      c: "9",
-      d: "12",
-    },
-    Answer: "d",
-    Explanation:
-      "If the ratio of flour to sugar is 2:3 and there are 6 cups of flour, then there are 3/2 x 6 = 9 cups of sugar needed.",
+      "Paragraph": "Henry, a university professor, believes that students who refrain from using electronic devices in class tend to perform better academically. Henry suggests that all professors should enforce a strict no-electronics policy in their classrooms in order to improve student performance.",
+      "Conversation": "",
+      "Question": "Which of the following, if true, would strengthen Henry's argument?",
+      "Options": {
+          "a": "Students who use electronic devices in class are mostly just taking notes or looking up relevant information.",
+          "b": "A recent empirical study shows that students who do not use electronic devices in class scored 25% higher on exams than those who do.",
+          "c": "Many professors already enforce a no-electronics policy in their classrooms, but it has not been proven to impact academic performance.",
+          "d": "Most students find it easier to take notes using electronic devices rather than writing by hand."
+      },
+      "Answer": "b",
+      "Explanation": "This answer is correct because it strengthens Henry's argument by providing empirical evidence to support his claim. If a study shows that students who do not use electronic devices in class scored significantly higher on exams than those who do, it supports the idea that a no-electronics policy could indeed improve student performance."
   },
   {
-    Question: "If a:b = 3:4 and b:c = 5:6, what is the value of a:c?",
-    Options: {
-      a: "15:8",
-      b: "12:7",
-      c: "8:15",
-      d: "7:12",
-    },
-    Answer: "C",
-    Explanation:
-      "Given a:b = 3:4 and b:c = 5:6. Cross multiplying, we have ac = 3 × 5 = 15 and bc = 4 × 6 = 24. Therefore, a:c = 15:24 = 5:8.",
+      "Paragraph": "Recent studies indicate that 90% of people in the UK feel fatigued. Symptoms of fatigue include lack of energy, feeling constantly tired, prolonged mental tasks becoming difficult and concentration requiring more effort. Alfred always feels tired and finds it challenging to concentrate; therefore, he is fatigued.",
+      "Question": "Which of the following statements, if true, would most weaken the above argument?",
+      "Options": {
+          "a": "In the UK, fatigue is more common in individuals with high-stress jobs than those with less stressful jobs.",
+          "b": "Alfred consumes a lot of caffeine and has reduced sleep patterns.",
+          "c": "Alfred prioritizes work over self-care and seldom eats a proper meal or exercises.",
+          "d": "Certain sleep disorders which cause inadequate or poor-quality sleep have been associated with feelings of being constantly tired and trouble concentrating."
+      },
+      "Answer": "D",
+      "Explanation": "This answer is correct as it weakens the argument by providing an alternative explanation for the symptoms Alfred is exhibiting - sleep disorders.",
+      "Conversation": ""
   },
   {
-    Question:
-      "Tom has 4 times as many apples as Sarah. If Sarah has 9 apples, how many apples does Tom have?",
-    Options: {
-      a: "18",
-      b: "24",
-      c: "36",
-      d: "45",
-    },
-    Answer: "c",
-    Explanation: "If Sarah has 9 apples, Tom has 4 x 9 = 36 apples.",
+      "Paragraph": "Luke, a professional basketball player, proposed a change to the coach, stating that most professional games that are won by the team are mostly played on Tuesdays. Thus, to maximise the winning chances of their team, Luke suggested that the basketball club should schedule the maximum number of their games on a Tuesday.",
+      "Conversation": "",
+      "Question": "Which of the following, if true, would most likely weaken the argument made by Luke?",
+      "Options": {
+          "a": "Luke scores the maximum points in games that occur on Tuesday.",
+          "b": "The team has won all their games played on Tuesday so far in the current season.",
+          "c": "The opposing teams often have their weakest players play games on Tuesday due to schedule conflicts.",
+          "d": "Most teams play on Saturdays leading to higher competition among the well-prepared teams."
+      },
+      "Answer": "c",
+      "Explanation": "Option C weakens Luke's argument because if the opposing teams are sending their weakest players on Tuesdays, this might be the reason the team is winning, not because Tuesday games in general enhance their performance."
   },
   {
-    Question:
-      "The ages of Mary and Jane are in the ratio 2:5. If the sum of their ages is 49, how old is Jane?",
-    Options: {
-      a: "20",
-      b: "25",
-      c: "29",
-      d: "35",
-    },
-    Answer: "D",
-    Explanation:
-      "Let the ages of Mary and Jane be 2x and 5x respectively.\nThe sum of their ages is 2x + 5x = 7x\n7x = 49\nx = 7\nJane's age = 5x = 5(7) = 35\n\nTherefore, Jane is 35 years old.",
+      "Paragraph": "Henry  tends to be very reserved and keeps to himself in social situations, often avoiding conversation and sticking to himself. This reserved behavior represents Henry's desire for peace, tranquility and a solitary life. Consequently, Henry will do anything to maintain this solitude, even if it means missing out on social interactions.",
+      "Question": "Which of the following, if true, would strengthen the above argument?",
+      "Options": {
+          "a": "In a survey, extroverts valued solitude at the same level as introverts like Henry.",
+          "b": "Henry is more likely to decline social invites when it encroaches upon his solitude.",
+          "c": "Introvert individuals like Henry are statistically more peaceful than extroverts.",
+          "d": "In a survey with a random group of people, those who claimed to be introverts, like Henry, also confirmed they prefer solitude to social interactions."
+      },
+      "Answer": "d",
+      "Explanation": "This answer is CORRECT because it strengthens the argument that Henry, being an introvert, prefers solitude over social interaction. This is validated by a survey that found similar preferences among a group of self-proclaimed introverts.",
+      "Conversation": ""
   },
   {
-    Question:
-      "In a basketball team, the ratio of boys to girls is 3:5. If there are 45 girls in the team, how many boys are there?",
-    Options: {
-      a: "27",
-      b: "15",
-      c: "9",
-      d: "25",
-    },
-    Answer: "a",
-    Explanation:
-      "If the ratio of boys to girls is 3:5, then there are 3/5 x 45 = 27 boys in the team.",
-    images: ["/images/product-3.jpg", "/images/product-3.jpg"],
+      "Paragraph": "The efficiency of wind turbines in generating enough power is subject to certain conditions like wind speed and turbine height. Some analysts have expressed concern over the fact that turbines are often situated in regions with inadequate airflow. Based on this, Philip believes the government should impose stricter guidelines on where turbines are to be located. Which of the following, if true, would most effectively strengthen Philip's argument?",
+      "Question": "Which of the following, if true, most effectively strengthens Philip's argument on imposing stricter guidelines on wind turbine locations?",
+      "Options": {
+          "a": "In certain regions, wind turbines have been found to generate surplus power which is not utilised.",
+          "b": "Citizens rely on the government to ensure a sustainable and efficient power generation.",
+          "c": "The visual aesthetics of wind turbines are often criticized by the public.",
+          "d": "There is scientific evidence showing that high wind speed areas can significantly improve the efficiency of wind turbines."
+      },
+      "Answer": "d",
+      "Explanation": "Option D provides specific scientific evidence that supports Philip's argument. It points out the correlation between wind speed, turbine location and efficiency, thus justifying the need for stricter guidelines.",
+      "Conversation": ""
   },
   {
-    Question:
-      "The length and the width of a rectangle are in the ratio 5:8. If the length is increased by 4 and the width is increased by 3, the ratio of the new length to the new width becomes 11:16. What is the length of the original rectangle?",
-    Options: {
-      a: "20",
-      b: "25",
-      c: "30",
-      d: "35",
-    },
-    Answer: "B",
-    Explanation:
-      "Let the length and width of the original rectangle be 5x and 8x respectively.\nNew length = 5x + 4\nNew width = 8x + 3\n\n(5x + 4)/(8x + 3) = 11/16\n16(5x + 4) = 11(8x + 3)\n80x + 64 = 88x + 33\n8x = 31\nx = 31/8 = 3.875\n\nLength of the original rectangle = 5x = 5(3.875) = 19.375\n\nThe length of the original rectangle is approximately 19.375.",
+      "Paragraph": "At the city library, reading rooms are always occupied and difficult to get a seat during peak hours. However, there is a special provision: 'If you are a member of the library's board and the book you want to read is a new addition to the library, you will have direct access to a reading room.'",
+      "Question": "If the above is correct, which of the following must be true?",
+      "Options": {
+          "a": "Zoya did not reserve a spot, but she was able to secure a reading room spot during peak hours.",
+          "b": "Zoya is a member of the library board and wanted to revisit one of her favourite old novels. Hence, Zoya was provided a spot even during peak hours.",
+          "c": "Zoya is not acquainted with any board member. Therefore, she couldn't get a seat in the reading room during peak hours without prior reservation.",
+          "d": "Zoya wants to read a new addition book but has not reserved a spot. It is assured that she will be able to access the reading room without a prior reservation."
+      },
+      "Answer": "c",
+      "Explanation": "The answer is CORRECT C as if Zoya did not know any board member, she couldn't have been a member. Therefore, the special provision for direct access to a reading room wouldn't apply during peak hours without a prior reservation.",
+      "Conversation": ""
   },
   {
-    Question:
-      "A jar contains a mixture of milk and water in the ratio 7:3. If 9 liters of the mixture is taken out and replaced with 9 liters of water, the ratio becomes 7:4. How many liters of milk was in the original mixture?",
-    Options: {
-      a: "18",
-      b: "21",
-      c: "24",
-      d: "27",
-    },
-    Answer: "D",
-    Explanation:
-      "Let the original mixture contain 7x liters of milk and 3x liters of water.\nAfter taking out 9 liters and adding 9 liters of water, the total mixture becomes (7x - 9) + 9 = 7x liters.\nSo, 4/11(7x) = 4/11(7x - 9)\n28x = 28x - 36\n36 = 0\n\nThe equation is inconsistent which means there is no solution. Therefore, there was no milk in the original mixture.",
+      "Paragraph": "In a recent survey about a redevelopment plan for a downtown district, more negative opinions were gathered from the residents than positive ones. David asserts that the pollsters are biased against the project because they have gathered more negative opinions.",
+      "Conversation": "",
+      "Question": "Which one of the following, if true, most seriously weakens David's argument?",
+      "Options": {
+          "a": "The redevelopment project will significantly increase the traffic in the downtown area.",
+          "b": "Majority of the residents were unacquainted with the specifics of the redevelopment plan prior to the survey.",
+          "c": "The pollsters were former residents of the same downtown district.",
+          "d": "Before the survey was conducted, a considerable majority of the residents were already against the redevelopment plan."
+      },
+      "Answer": "d",
+      "Explanation": "This information weakens David's argument by suggesting that the greater number of negative opinions gathered might just be reflecting the existing sentiment of the residents, rather than it being an indication of the pollsters' personal bias against the project. If the majority of the residents were already against the redevelopment plan even before the survey, then it would naturally lead to more negative responses, regardless of the pollsters' personal views about the project."
   },
   {
-    Question: "If x:y = 3:2 and y:z = 4:5, what is the value of x:z?",
-    Options: {
-      a: "3:4",
-      b: "2:5",
-      c: "6:5",
-      d: "5:6",
-    },
-    Answer: "A",
-    Explanation:
-      "Given x:y = 3:2 and y:z = 4:5. Cross multiplying, we have xz = 3 × 4 = 12 and yz = 2 × 5 = 10. Therefore, x:z = 12:10 = 6:5.",
-  },
-  {
-    Question:
-      "The ratio of incomes of A and B is 5:9. If the income of B is $360, what is the income of A?",
-    Options: {
-      a: "$200",
-      b: "$180",
-      c: "$150",
-      d: "$120",
-    },
-    Answer: "C",
-    Explanation:
-      "Given the ratio of incomes of A and B is 5:9. Let the income of A be 5x and the income of B be 9x. 9x = $360. Solving for x, we get x = $40. Therefore, the income of A is 5 × $40 = $200.",
-  },
-  {
-    Question:
-      "A mixture of water and alcohol contains the liquids in the ratio of 2:3. If there are 40 liters of water in the mixture, how many liters of alcohol are there?",
-    Options: {
-      a: "20",
-      b: "30",
-      c: "40",
-      d: "50",
-    },
-    Answer: "b",
-    Explanation:
-      "If the ratio of water to alcohol is 2:3 and there are 40 liters of water, then there are 3/2 x 40 = 60 liters of alcohol in the mixture.",
-  },
-  {
-    Question:
-      "A triangle's angles are in the ratio 1:2:3. What is the measure of the largest angle?",
-    Options: {
-      a: "30 degrees",
-      b: "60 degrees",
-      c: "90 degrees",
-      d: "120 degrees",
-    },
-    Answer: "D",
-    Explanation:
-      "Let the measures of the angles be x, 2x, and 3x.\nThe sum of the angles in a triangle is 180 degrees.\nx + 2x + 3x = 180\n6x = 180\nx = 30 degrees\n\nTherefore, the largest angle is 3x = 3(30) = 90 degrees.",
-  },
-  {
-    Question:
-      "The price of oranges and apples in a fruit shop are in the ratio 5:3. If the price of an apple increased by 20% and the price of an orange increased by 10%, what is the new ratio of the prices?",
-    Options: {
-      a: "6:4",
-      b: "7:5",
-      c: "5:3",
-      d: "4:5",
-    },
-    Answer: "C",
-    Explanation:
-      "Let the price of oranges be 5x and the price of apples be 3x.\nAfter the increase, the new price of an apple = 3x + 20%(3x) = 3x + 0.6x = 3.6x\nThe new price of an orange = 5x + 10%(5x) = 5x + 0.5x = 5.5x\n\nTherefore, the new ratio of the prices is 3.6x:5.5x which simplifies to 36:55.\n\nThe new ratio of the prices is 36:55.",
-  },
-  {
-    Question:
-      "If 20% of a number is equal to three-fourth of another number, what is the ratio of first number to the second number?",
-    Options: {
-      a: "12:5",
-      b: "15:6",
-      c: "5:12",
-      d: "6:15",
-    },
-    Answer: "A",
-    Explanation:
-      "Let 20% of A = 3B 4. Then, 20A = 3B 100 4. 3A = 3B 5 4. A = 5 × 4 = 12. B   4   3   4. A : B = 12 : 3.",
-  },
-  {
-    Question:
-      "If the ratio of boys to girls in a class is 4:5, and there are 36 girls, how many boys are there?",
-    Options: {
-      a: "27",
-      b: "32",
-      c: "40",
-      d: "45",
-    },
-    Answer: "B",
-    Explanation:
-      "Given the ratio of boys to girls is 4:5. Let the number of boys be 4x and the number of girls be 5x. 5x = 36. Solving for x, we get x = 7. Therefore, the number of boys is 4 × 7 = 28.",
-    images: ["/images/product-3.jpg", "/images/product-3.jpg"],
-  },
+      "Paragraph": "Alfred is holding a birthday party. In his party invitation, Alfred mentioned that 'every type of cake in the party will be multi-layered and every chocolate cake will have cherries on top. None of the multi-layered cakes have cherries.'",
+      "Conversation": "undefined",
+      "Question": "Which of the following must be true according to Alfred's invitation?",
+      "Options": {
+          "a": "Some chocolate cakes are multi-layered.",
+          "b": "Multi-layered cakes only contain flour, eggs, sugar, and cherries.",
+          "c": "No multi-layered cakes are chocolate cakes.",
+          "d": "All cakes in the party are chocolate cakes."
+      },
+      "Answer": "c",
+      "Explanation": "This answer is CORRECT because if all chocolate cakes have cherries on top but none of the multi-layered cakes have cherries on top, there must be no overlap between chocolate cakes and multi-layered cakes. Therefore, no multi-layered cakes can be chocolate cakes."
+  }
 ];
 
 // export default function Test2() {
@@ -403,6 +326,7 @@ import Cube5 from "./Pages/Admin/nonVerbal/Cube/Cube5";
 import Mirror2 from "./Pages/Admin/nonVerbal/Mirror/Mirror2";
 import Mirror3 from "./Pages/Admin/nonVerbal/Mirror/Mirror3";
 import QuestionCard from "./Pages/Admin/TestSeries/Components/QuestionCard";
+import DownloadPDF from "./Pages/Admin/TestSeries/Components/PDF/DownloadPDF";
 // import potrace from "potrace-js";
 const MyComponent = () => {
   const [newData, setNewData] = useState<any>([]);
@@ -510,81 +434,30 @@ const MyComponent = () => {
     console.log("imageG", res);
   };
   // const questionObjects: any = generateQuestionObjects(newData);
+  console.log(ArrayData);
   
   return (
-    // <>
-    //   <Box flexDirection={"row"}>
-    //     <BButton2 func={generateQuestions} type="button" name="Generate" />
-    //   </Box>
-    //   <Box flexDirection={"row"}>
-    //     <BButton2 func={imageG} type="button" name="Upload" />
-    //   </Box>
-
-    //   <Box flexDirection={"row"}>
-    //     <React.Fragment>
-    //       {newData?.map((item2: any, key2: number) => (
-    //         <Stack
-    //           margin={"auto"}
-    //           width={"90%"}
-    //           height={"auto"}
-    //           spacing={2}
-    //           key={key2}
-    //           marginY={"15px"}
-    //         >
-    //           <ParaText1 text={"Q) " + item2?.question} />
-    //           <Box>{item2?.question_image}</Box>
-    //           <Stack
-    //             direction={"row"}
-    //             margin={"auto"}
-    //             width={"90%"}
-    //             marginY={"15px"}
-    //             sx={{
-    //               gridColumn: "auto auto auto auto",
-    //               columnGap: "30px",
-    //             }}
-    //           >
-    //             {item2?.options?.map((item3: any, key3: number) => (
-    //               <>
-    //                 <Box key={key3}>
-    //                   {String.fromCharCode("A".charCodeAt(0) + key3) + ")"}{" "}
-    //                   {item3}
-    //                 </Box>
-    //               </>
-    //             ))}
-    //           </Stack>
-    //            <ParaText1
-    //               text={`Answer: ${String.fromCharCode(
-    //                 "A".charCodeAt(0) + (item2.correct_ans-1)
-    //               )}`}
-    //             />
-    //         </Stack>
-    //       ))}
-    //     </React.Fragment>
-
-    //     {/* <img src={svgImage} /> */}
-    //     {/* <ImageToSvgConverter url={"http://localhost:8000/images/car.jpg"} /> */}
-    //   </Box>
-    // </>
-
-    newData2?.map((item:any,key:any) => {
-      return (
-        <QuestionCard
-          data={newData2}
-          updateData={setNewData2}
-          // questionNo={index + 1}
-          key={key}
-          index={key}
-          paragraph={item?.Paragraph}
-          conversation={item?.Conversation}
-          images={item?.images}
-          question={item?.Question}
-          options={item?.Options}
-          answer={item?.Answer}
-          explanation={item?.Explanation}
-        />
-      );
-    })
+  
+   
+        <DownloadPDF
+        randomG={true}
+        data={ArrayData}
+        set={false}
+        bol={false}
+        topic={"ff"}
+        button={
+          <BButton2
+            type="button"
+            name="Download"
+            disabled={false}
+          />
+        }
+        total={ArrayData.length}
+        cateId={3}
+      />
+  
   );
+ 
 };
 
 export default MyComponent;

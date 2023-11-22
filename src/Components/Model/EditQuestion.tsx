@@ -33,12 +33,12 @@ const EditQuestion = ({
   updateData: any;
 }) => {
   const { register, handleSubmit, control } = useForm<Inputs>();
-  console.log(data);
+  // console.log(data);
   const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
-    console.log(para_data);
+    // console.log(para_data);
     const newData = allData?.map((item: any, key: number) => {
       if (key == index) {
-        console.log(key == index);
+        // console.log(key == index);
         item.Question = para_data.question;
         item.Explanation = para_data.explanation;
         item.Answer = para_data.answer;
