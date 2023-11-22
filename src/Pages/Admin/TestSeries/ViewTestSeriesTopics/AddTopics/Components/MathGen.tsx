@@ -205,7 +205,7 @@ const MathGen = ({
       let query = "";
 
       if (testType == 2) {
-        query = `Generate 10 unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
+        query = `Generate ${totalQuestions} unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
 
         Scenario: Each question should incorporate a real-life story or scenario that relates to the topic, making it contextually rich and engaging.
         

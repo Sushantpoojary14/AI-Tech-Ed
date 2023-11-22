@@ -183,6 +183,7 @@ const AddTopics = () => {
             color="primary"
             sx={{ paddingRight: "1rem" }}
             type={"button"}
+            onClick={()=>navigate(-1)}
           >
             <ArrowBackIosNewRoundedIcon />
             Back

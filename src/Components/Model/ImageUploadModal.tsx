@@ -198,17 +198,22 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
                           {...field}
                           // onChange={handleRadioChange}
                         >
-                          {subject.map((item: any) => (
-                            <FormControlLabel
-                              // onClick={(e: any) =>
-                              //   mutation.mutate(e.target.value)
-                              // }
-                              key={item.tsc_type}
-                              value={item.id}
-                              control={<Radio />}
-                              label={item.tsc_type}
-                            />
-                          ))}
+                          {subject.map((item: any) => {
+                            console.log(item.id);
+                            
+                            if(item.id != 2){
+                              return (<FormControlLabel
+                                // onClick={(e: any) =>
+                                //   mutation.mutate(e.target.value)
+                                // }
+                                key={item.tsc_type}
+                                value={item.id}
+                                control={<Radio />}
+                                label={item.tsc_type}
+                              />)
+                            }
+                          
+                          })}
                         </RadioGroup>
                       )}
                     />
