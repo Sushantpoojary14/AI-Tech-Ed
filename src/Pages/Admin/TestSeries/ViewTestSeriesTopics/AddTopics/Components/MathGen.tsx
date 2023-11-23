@@ -205,59 +205,44 @@ const MathGen = ({
       let query = "";
 
       if (testType == 2) {
-        query = `Generate ${totalQuestions} unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
+        query = `Generate ${totalQuestions} unique and exceptionally challenging advanced-level practice questions designed for 25-year-old college students preparing for an aptitude exam on the topic of ${topic} that should be extremely difficult, requiring a high IQ of 140 and above.
 
-        Scenario: Each question should incorporate a real-life story or scenario that relates to the topic, making it contextually rich and engaging.
+        Criteria:
+        - Scenario: Each question should intricately incorporate a real-life story or scenario related to the topic, making it profoundly contextually rich and engaging.no limit in how long the question is
+        - Clarity: Craft questions that are not only clear and concise but also feature intricate details that demand careful consideration from the students.
+        - Diversity: Create a diverse set of questions covering various nuanced aspects of the topic to ensure a comprehensive and thorough preparation experience.
+        - Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question, challenging students' knowledge and pushing their problem-solving skills to the limit.
+        - Complexity: Ensure that the questions are not just challenging, but they should demand an exceptional level of critical thinking and intellectual prowess, reflecting the highest standards of advanced-level aptitude exams.
+        - Answer: Provide the correct answer options (A, B, C, and D) for each question based on the intricacies of the scenario and sophisticated calculations.
+        - Explanation: Furnish a detailed and elaborate explanation for the correct answer to help students comprehend the underlying concepts, encouraging a deep understanding of the subject matter.
         
-        Clarity: Craft questions that are clear, concise, and easily understandable for college students.
-        
-        Diversity: Create a diverse set of questions that cover various aspects of the topic to ensure comprehensive preparation.
-        
-        Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question to challenge students' knowledge and problem-solving skills.
-        
-        Complexity: Ensure that the questions are challenging and require critical thinking to solve, reflecting advanced-level aptitude exam standards.
-        
-        Answer: Provide the correct answer options (A, B, C, and D) for each question based on the scenario and calculations.
-        
-        Explanation: Provide a detailed explanation for the correct answer to help students understand the underlying concepts and reasoning.
         Names:
-        For male characters, use names like ${maleNames.join(", ")}.
-        For female characters, use names like ${femaleNames.join(", ")}. 
+        For male characters, incorporate names such as ${maleNames.join(", ")}.
+        For female characters, utilize names like ${femaleNames.join(", ")}.
+        
         Provide JSON representation for the multiple-choice questions (MCQs) in the following format:
-                [
-                  {
-                    "Question": "Replace with a challenging question text",
-                    "Options": {
-                      "a": "Option A text",
-                      "b": "Option B text",
-                      "c": "Option C text",
-                      "d": "Option D text"
-                    },
-                    "Answer": "Formulate four multiple-choice answer options (A, B, C, and D) for each question",
-                    "Explanation": "Detailed explanation for the correct answer"
-                  },
-                  {
-                    "Question": "Replace with another challenging question text",
-                    "Options": {
-                      "a": "Option A text",
-                      "b": "Option B text",
-                      "c": "Option C text",
-                      "d": "Option D text"
-                    },
-                    "Answer": "Formulate four multiple-choice answer options (A, B, C, and D) for each question",
-                    "Explanation": "Detailed explanation for the correct answer"
-                  },
-                  generate 10 more like this
-                 
-                ]
-      
-                `;
+        [
+          {
+            "Question": "Replace with an exceptionally challenging and lengthy question text that demands critical thinking and analysis from the students.",
+            "Options": {
+              "a": "Option A text",
+              "b": "Option B text",
+              "c": "Option C text",
+              "d": "Option D text"
+            },
+            "Answer": "Specify the correct option (A, B, C, or D) based on the scenario and calculations.",
+            "Explanation": "Provide an in-depth and comprehensive explanation for the correct answer, unraveling the intricate details of the scenario and solution."
+          },
+           generate ${totalQuestions-2}  more like this 
+        ]
+        `;
+        
       } else {
-        query = `Generate 10 unique and challenging beginner-level practice word questions designed for 12 year students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and no limit in how long the question is. 
+        query = `Generate ${totalQuestions} unique and challenging beginner-level practice word questions designed for 20 year students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and no limit in how long the question is. 
         Ensure the following criteria for each question:
 
         1. Scenario: Incorporate a real-life scenario that relates to the topic and makes the question contextually rich.
-        2. Clarity: Craft questions that are clear, concise, and easily understandable for 12 year students.
+        2. Clarity: Craft questions that are clear, concise, and easily understandable for 20 year students.
         3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
         4. Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question.
         5. Complexity: Ensure that answer choices are complex and require critical thinking.
@@ -280,7 +265,7 @@ const MathGen = ({
         "Answer": "Correct answer letter (a, b, c, or d)",
         "Explanation": "Detailed explanation for the correct answer"
       },
-      generate 13 more like this
+      generate ${totalQuestions-2}  more like this 
     
    
     ]
