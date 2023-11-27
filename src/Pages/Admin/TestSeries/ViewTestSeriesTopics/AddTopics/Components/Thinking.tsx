@@ -61,6 +61,7 @@ const Thinking = ({
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentData = resData.slice(startIndex, endIndex);
+console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuestions);
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -215,7 +216,7 @@ const Thinking = ({
       "Explanation",
     ];
     const array2 = Object.keys(csvData[0]);
-    console.log(category, category == 1 || category == 2);
+ 
 
     if (
       (JSON.stringify(header1) === JSON.stringify(array2)) ||
@@ -298,7 +299,7 @@ const Thinking = ({
         ];
         let query = "";
         // if (category == 3) {
-          query = `Generate 3 unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
+          query = `Generate ${Math.round(totalQuestions/csvData.length)} unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
    
           Example Question:
           Paragraph:${item.Paragraph}
@@ -380,14 +381,16 @@ const Thinking = ({
         // console.log(message);
         console.log(questions);
         questions?.map((item: mapData, index: any) => {
-          if (category == 3) {
-            item.Paragraph = item.Paragraph
+          // if (category == 3) {
+            item.Paragraph = item.Paragraph && item.Paragraph != "undefined"
               ? item.Paragraph.replace(/Paragraph:/g, "")
               : "";
-            item.Conversation = item.Conversation
+              
+            item.Conversation = item.Conversation && item.Conversation != "undefined"
               ? item.Conversation.replace(/Conversation:/g, "")
               : "";
-          }
+           
+          // }
           item.Explanation =
             item.Explanation && item.Explanation.replace(/Explanation:/g, "");
           item.Question =
@@ -397,7 +400,7 @@ const Thinking = ({
           const itemKeys = Object.keys(item);
           const exists = keysToCheck.every((key) => {
             return itemKeys.includes(key);
-          });
+          }); 
 
           // if (exists) {
           // if (item.Paragraph || item.Conversation) {
@@ -423,7 +426,7 @@ const Thinking = ({
           console.log(item.images?.length);
 
           // if (item.images?.length !== 2) {
-          if (exists) {
+          // if (exists) {
             maleNames.forEach((search: string) => {
               if (item.images?.length === 2) {
                 return true; // Exit the loop
@@ -481,7 +484,7 @@ const Thinking = ({
               }
               return count == 3;
             });
-          }
+          // }
           image_data.forEach(
             (search: { image_name: string; image_url: string }) => {
               if (item.images?.length === 1) {

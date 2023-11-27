@@ -297,145 +297,202 @@ let ArrayData: any = [
 //   </>
 // );
 
-import * as htmlToImage from "html-to-image";
-import { useMutation } from "@tanstack/react-query";
-import adminTokenAxios from "./Hooks/AdminTokenAxios";
-import {
-  Box,
-  Button,
-  Grid,
-  Input,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
-import "./Assets/Css/cube.css";
-import potrace from "potrace";
-import { ParaText1 } from "./Components/Common/ParaText";
-import axios from "axios";
-import imagetosvg from "./utils/imagetosvg";
-import { log } from "console";
-import cube1 from "./Pages/Admin/nonVerbal/Cube/Cube1";
-import { generateQuestionObjects } from "./Pages/Admin/nonVerbal/HtmlToImage";
-import cube2 from "./Pages/Admin/nonVerbal/Cube/Cube2";
-import mirror1 from "./Pages/Admin/nonVerbal/Mirror/Mirror1";
-import Cube3 from "./Pages/Admin/nonVerbal/Cube/Cube3";
-import Paper1 from "./Pages/Admin/nonVerbal/PaperFold/Paper1";
-import Cube4 from "./Pages/Admin/nonVerbal/Cube/Cube4";
-import Cube5 from "./Pages/Admin/nonVerbal/Cube/Cube5";
-import Mirror2 from "./Pages/Admin/nonVerbal/Mirror/Mirror2";
-import Mirror3 from "./Pages/Admin/nonVerbal/Mirror/Mirror3";
-import QuestionCard from "./Pages/Admin/TestSeries/Components/QuestionCard";
 import DownloadPDF from "./Pages/Admin/TestSeries/Components/PDF/DownloadPDF";
+import adminTokenAxios from "./Hooks/AdminTokenAxios";
+import { useQuery } from "@tanstack/react-query";
 // import potrace from "potrace-js";
 const MyComponent = () => {
-  const [newData, setNewData] = useState<any>([]);
-  const [newData2, setNewData2] = useState<any>(ArrayData);
-  const questionRefs: any = useRef([]);
-
-  const [is, setIs] = useState("");
-  const uploadImage = useMutation({
-    mutationFn: async (data) => {
-      let img = [];
-      return await adminTokenAxios.post("/admin/test-image-upload", {
-        images: data,
-      });
-    },
-    onSuccess: (res) => {
-      console.log(res);
-    },
-  });
-
-  let data = [
-    [
-      `/images/boy.jpg`,
-      `/images/girl.jpg`,
-      `/images/car.jpg`,
-      `/images/bag.jpg`,
-      `/images/train.jpg`,
-      `/images/motor.jpg`,
-    ],
-    [
-      `/images/boy.jpg`,
-      `/images/girl.jpg`,
-      `/images/car.jpg`,
-      `/images/bag.jpg`,
-      `/images/train.jpg`,
-      `/images/motor.jpg`,
-    ],
+  const maleNames = [
+    "Henry",
+    "James",
+    "Nathan",
+    "Carl",
+    "John",
+    "Peter",
+    "Shane",
+    "Alfred",
+    "Bobby",
+    "Clive",
+    "Dennis",
+    "Lloyd",
+    "Luke",
+    "Oliver",
+    "Philip",
+    "Winston",
+    "Henry",
+    "Jackson",
+    "Charlie",
+    "Roy",
+    "Harrison",
+    "Josh",
+    "Billy",
   ];
+  const femaleNames = [
+    "Alice",
+    "Zoya",
+    "Emma",
+    "Darcy",
+    "Ella",
+    "Mary",
+    "Freda",
+    "Janie",
+    "Katty",
+    "Myra",
+    "Nora",
+    "Martha",
+    "Veverly",
+    "Ruth",
+    "Jenifer",
+    "Jenifer",
+    "Diana",
+    "Lucy",
+    "Daisy",
+    "Georgia",
+    "Matilda",
+    "Eliza",
+    "Clara",
+    "Kate",
+  ];
+  const { data } = useQuery({
+    queryKey: ["images"],
+    queryFn: async () => {
+      return await adminTokenAxios.get(`/admin/get-image/3`);
+    },
+   
+  });
+  const responses: any[] = [];
+  let image_data = data?.data.images;
+  ArrayData?.map((item: any, index: any) => {
 
-  for (let index = 0; index < 15; index++) {
-    const questionRef = useRef(null);
-    const optionRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+      item.Paragraph = item.Paragraph
+        ? item.Paragraph.replace(/Paragraph:/g, "")
+        : "";
+      item.Conversation = item.Conversation
+        ? item.Conversation.replace(/Conversation:/g, "")
+        : "";
+ 
+    item.Explanation =
+      item.Explanation && item.Explanation.replace(/Explanation:/g, "");
+    item.Question =
+      item.Question && item.Question.replace(/Question:/g, "");
+    let data: string[] = [];
+    const keysToCheck = ["Paragraph", "Conversation", ""];
+    const itemKeys = Object.keys(item);
+    const exists = keysToCheck.every((key) => {
+      return itemKeys.includes(key);
+    }); 
 
-    questionRefs.current.push({ questionRef, optionRefs });
-  }
+    // if (exists) {
+    // if (item.Paragraph || item.Conversation) {
+    const paragraphData = item.Paragraph?.split(" ") ?? [];
+    const conversationData = item.Conversation?.split(" ") ?? [];
+    const questionData = item.Question.split(" ") ?? [];
+    data = [...paragraphData, ...conversationData, ...questionData];
+    // console.log(paragraphData, conversationData, questionData);
+    // console.log(data,paragraphData,conversationData,questionData);
+    // }
 
-  const generateQuestions = async () => {
-    // console.log("newArr2");
-    let newArr2: any = [];
-    let count = -1;
-    setNewData([]);
-    // data.map(async (item) => {
+    // data = [
+    //   ...item.Paragraph?.split(" "),
+    //   ...item.Conversation?.split(" "),
+    // // ];
+    // else {
+    //   data = item.Question.split(" ");
+    // }
+    // console.log(data);
 
-    // for (let index = 0; index < 2; index++) {
-    //   count++;
-    //   let newA = await cube3(count, questionRefs);
-    //   newArr2.push(newA);
+    item.images = [];
+    let count: number = 1;
+    // console.log(item.images?.length);
+
+    // if (item.images?.length !== 2) {
+    // if (exists) {
+      maleNames.forEach((search: string) => {
+        if (item.images?.length === 2) {
+          return true; // Exit the loop
+        }
+        const caps = search.toUpperCase();
+        let match = data.find(
+          (word: string) => word.toUpperCase() === caps
+        );
+        if (match) {
+          match = data.find(
+            (word: string) => word.toUpperCase() === caps
+          );
+        }
+        if (match) {
+          switch (count) {
+            case 1:
+              item.images?.push("/images/boy.jpg");
+              count++;
+              break;
+            case 2:
+              item.images?.push("/images/left_boy.jpg");
+              count++;
+              break;
+            default:
+              item.images?.push("/images/left_boy.jpg");
+              count++;
+          }
+        }
+        return count == 3;
+      });
+      femaleNames.forEach((search: string) => {
+        if (item.images?.length === 2) {
+          return true; // Exit the loop
+        }
+        const caps = search.toUpperCase();
+        const match = data.find(
+          (word: string) => word.replace(/:/g, "").toUpperCase() === caps
+        );
+       
+          
+        if (match) {
+          switch (count) {
+            case 1:
+              item.images?.push("/images/right_girl.jpg");
+              count++;
+              break;
+            case 2:
+              item.images?.push("/images/girl.jpg");
+              count++;
+              break;
+            case 3:
+            default:
+              item.images?.push("/images/girl.jpg");
+              count++;
+          }
+        }
+        return count == 3;
+      });
     // }
-    // for (let index = 0; index < 2; index++) {
-    //   count++;
-    //   let newA = await cube2(count, questionRefs);
-    //   newArr2.push(newA);
+    image_data?.forEach(
+      (search: { image_name: string; image_url: string }) => {
+        if (item.images?.length === 1) {
+          return true; // Exit the loop
+        }
+        const caps = search.image_name.toUpperCase();
+
+        const match = data.find(
+          (word: string) => word.toUpperCase() === caps
+        );
+
+        if (match) {
+          item.images?.push(search.image_url); // Add the image URL to the question
+        }
+
+        return item.images?.length === 3;
+      }
+    );
     // }
-    // for (let index = 0; index < 2; index++) {
-    //   count++;
-    //   let newA = await cube1(count, questionRefs);
-    //   newArr2.push(newA);
-    // }
-    // for (let index = 0; index < 1; index++) {
-    //   count++;
-    //   let newA = await Paper1(count, questionRefs);
-    //   newArr2.push(newA);
-    // }
-    // for (let index = 0; index < 2; index++) {
-    //   count++;
-    //   let newA2 = await Mirror2(count, questionRefs);
-    //   newArr2.push(newA2);
-    // }
-    for (let index = 0; index < 2; index++) {
-      count++;
-      let newA2 = await Mirror3(count, questionRefs);
-      newArr2.push(newA2);
+    // console.log(male,female);
+    
+    if (item.images?.length === 0) {
+      delete item.images;
     }
-    // for (let index = 0; index < 2; index++) {
-    //   count++;
-    //   let newA2 = await Cube3(count, questionRefs);
-    //   newArr2.push(newA2);
-    // }
-    // for (let index = 0; index < 2; index++) {
-    //   count++;
-    //   let newA2 = await Cube4(count, questionRefs);
-    //   newArr2.push(newA2);
-    // }
-    // for (let index = 0; index < 2; index++) {
-    //   count++;
-    //   let newA2 = await Cube5(count, questionRefs);
-    //   newArr2.push(newA2);
-    // }
-
-    setNewData(newArr2);
-    console.log(newArr2);
-  };
-
-  const imageG = async () => {
-    const res = await generateQuestionObjects(newData);
-    console.log("imageG", res);
-  };
-  // const questionObjects: any = generateQuestionObjects(newData);
-  console.log(ArrayData);
-  
+    console.log(item);
+    responses.push(item); // Add the modified item to the responses array
+  });
   return (
   
    
