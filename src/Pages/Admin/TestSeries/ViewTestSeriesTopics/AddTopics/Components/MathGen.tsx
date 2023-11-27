@@ -291,7 +291,7 @@ const MathGen = ({
         questions = message && JSON.parse(message);
         // throw "error"
       } catch (e) {
-        setErrMessage(`Question No.-  is proper in Csv`);
+        setErrMessage(`something went wrong`);
         handleAlertBoxOpen();
       }
       // console.log(message);
@@ -309,7 +309,7 @@ const MathGen = ({
         image_data?.forEach(
           (search: { image_name: string; image_url: string }) => {
             if (item.images?.length === 1) {
-              return true; // Exit the loop
+              return true; 
             }
             const caps = search.image_name.toUpperCase();
 
@@ -320,8 +320,7 @@ const MathGen = ({
             if (match) {
               item.images?.push(search.image_url); // Add the image URL to the question
             }
-
-            return item.images?.length === 3;
+           
           }
         );
        // }
