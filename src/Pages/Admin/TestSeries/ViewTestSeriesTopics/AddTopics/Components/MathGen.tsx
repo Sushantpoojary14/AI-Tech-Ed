@@ -238,11 +238,11 @@ const MathGen = ({
         `;
         
       } else {
-        query = `Generate ${totalQuestions} unique and challenging beginner-level practice word questions designed for 20 year students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and no limit in how long the question is. 
+        query = `Generate ${totalQuestions} unique and challenging beginner-level practice word questions designed for 25 college year students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and no limit in how long the question is. 
         Ensure the following criteria for each question:
 
         1. Scenario: Incorporate a real-life scenario that relates to the topic and makes the question contextually rich.
-        2. Clarity: Craft questions that are clear, concise, and easily understandable for 20 year students.
+        2. Clarity: Craft questions that are clear, concise, and easily understandable for 25 college year students.
         3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
         4. Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question.
         5. Complexity: Ensure that answer choices are complex and require critical thinking.

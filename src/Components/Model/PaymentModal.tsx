@@ -129,6 +129,7 @@ const Checkout = ({
             style={{ layout: "vertical" }}
             createOrder={createOrder}
             onApprove={onApprove}
+            
           />
         </Box>
       </DialogContent>
