@@ -19,7 +19,7 @@ import Paper1 from "./PaperFold/Paper1";
 import Mirror3 from "./Mirror/Mirror3";
 import NonVerbalPDF from "../TestSeries/Components/PDF/NonVerbalPDF";
 import DownloadPDF from "../TestSeries/Components/PDF/DownloadPDF";
-
+import "../../../Assets/Css/cube.css"
 const options = [
   {
     test_type: "Cube & Dice",
