@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { OButton3 } from "../../../../Components/Common/Button";
 
+import emailjs from "@emailjs/browser";
+
 type Inputs = {
   name: string;
   email: string;
@@ -19,7 +21,7 @@ interface formInput {
 const formData: formInput[] = [
   { type: "text", label: "Name", name: "name" },
   { type: "email", label: "Email", name: "email" },
-  { type: "text", label: "Phone Number", name: "number" },
+  // { type: "text", label: "Phone Number", name: "number" },
   { type: "text", label: "Message", area: true, name: "message" },
 ];
 const ContactForm = () => {
@@ -32,8 +34,25 @@ const ContactForm = () => {
     reset,
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (para_data: Object) => {
-    console.log(para_data);
+  const onSubmit: SubmitHandler<Inputs> = async (para_data: any) => {
+    // console.log("contact form", para_data);
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICEID,
+        import.meta.env.VITE_MAILJS_TEMPLATEID,
+        para_data,
+        import.meta.env.VITE_MAILJS_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          reset();
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   return (
@@ -74,7 +93,7 @@ const ContactForm = () => {
             />
           );
         })}
-        <OButton3 name="Submit" />
+        <OButton3 name="Submit" type="submit" />
       </form>
     </Stack>
   );
