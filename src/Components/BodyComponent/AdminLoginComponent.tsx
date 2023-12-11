@@ -81,9 +81,9 @@ const LoginComponent = () => {
             reg={register("password")}
             css={{ my: "20px" }}
           />
-          <Typography sx={{ color: "#FA8128", textAlign: "right" }}>
+          {/* <Typography sx={{ color: "#FA8128", textAlign: "right" }}>
             Forgot Password?
-          </Typography>
+          </Typography> */}
           <OButton2
             name="Login"
             css={{ my: "30px", width: "100%" }}
