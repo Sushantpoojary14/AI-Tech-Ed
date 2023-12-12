@@ -96,10 +96,17 @@ const Navbar = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ mt: { sm: 0, lg: 5 } }}>
+          <Toolbar disableGutters sx={{ mt: { sm: 0 } }}>
             {/* PC View Header and header*/}
             {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-            <Box sx={{ pb: "10px", display: { xs: "none", lg: "flex" } }}>
+            <Box
+              sx={{
+                // pb: "10px",
+                display: { xs: "none", lg: "flex" },
+                width: "200px",
+                height: "120px",
+              }}
+            >
               <Link to="/">
                 {/* <Header4
                   header="AI Tech Ed"
@@ -110,9 +117,9 @@ const Navbar = () => {
                 <img
                   src={img}
                   style={{
-                    width: "240px",
-                    height: "200px",
-                    paddingBottom: "25px",
+                    width: "100%",
+                    height: "100%",
+                    paddingBottom: "2px",
                   }}
                 />
               </Link>
@@ -149,9 +156,22 @@ const Navbar = () => {
                   display: { xs: "flex", lg: "none" },
                 }}
               >
-                <Link to="/">
-                  <img src={img} style={{ width: "200px", height: "100px" }} />
-                </Link>
+                <Box
+                  sx={{
+                    // pb: "10px",
+                    display: { xs: "flex", lg: "none" },
+                    width: "100px",
+                    height: "66px",
+                  }}
+                >
+                  <Link to="/">
+                    <img
+                      src={img}
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  </Link>
+                </Box>
+
                 {user && (
                   <SIButton
                     css={{ p: "2px", height: "30px", width: "30px" }}

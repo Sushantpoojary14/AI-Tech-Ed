@@ -122,14 +122,16 @@ const AdminNavbar = () => {
 
         {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
 
-        <Box sx={{width: {xs:"220px",sm:"240px",md:"300px"},  height:{xs:"100px",sm:"120px",md:"100px"},}}>
-        <Link to="/user/">
-          <img
-            src={img}
-            style={{ width: "100%",  height: "100%" }}
-          />
-          {/* <Header4 header="AI Tech Ed" /> */}
-        </Link>
+        <Box
+          sx={{
+            width: { xs: "120px", sm: "120px", md: "200px" },
+            height: { xs: "66px", sm: "66px", md: "100px" },
+          }}
+        >
+          <Link to="/user/">
+            <img src={img} style={{ width: "100%", height: "100%" }} />
+            {/* <Header4 header="AI Tech Ed" /> */}
+          </Link>
         </Box>
       </Box>
       <Box>
