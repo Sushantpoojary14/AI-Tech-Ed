@@ -6,6 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import { UserContext } from "../../Context/UserContext";
+import { AppContext } from "../../Context/AppContext";
 const pCss = {
   height: "38px",
   width: "38px",
@@ -27,7 +28,9 @@ const sCss = {
 // }
 
 const MenuModel = () => {
-  const { handleMenuOpen, handlePCOpen,handleCloseUserMenu,anchorElUser } = UserContext();
+  const { admin } = AppContext();
+  const { handleMenuOpen, handlePCOpen, handleCloseUserMenu, anchorElUser } =
+    UserContext();
   return (
     <Menu
       sx={{
@@ -57,12 +60,14 @@ const MenuModel = () => {
           </Stack>
         </Link>
       </MenuItem> */}
-      <MenuItem onClick={handlePCOpen}>
-        <Stack spacing={1} direction="row">
-          <LockOutlinedIcon sx={sCss} />
-          <ParaText1 text="Change Password" />
-        </Stack>
-      </MenuItem>
+      {!admin && (
+        <MenuItem onClick={handlePCOpen}>
+          <Stack spacing={1} direction="row">
+            <LockOutlinedIcon sx={sCss} />
+            <ParaText1 text="Change Password" />
+          </Stack>
+        </MenuItem>
+      )}
       <MenuItem onClick={handleMenuOpen}>
         <Stack spacing={1} direction="row">
           <ExitToAppOutlinedIcon sx={sCss} />
