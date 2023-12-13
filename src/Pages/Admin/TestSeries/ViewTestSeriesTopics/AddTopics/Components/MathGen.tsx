@@ -209,11 +209,7 @@ const MathGen = ({
 
         Criteria:
         - Scenario: Each question should intricately incorporate a real-life story or scenario related to the topic, making it profoundly contextually rich and engaging.No limit in how long the question is.
-        - Clarity: Craft questions that are not only clear and concise but also feature intricate details that demand careful consideration from the students.
-        - Diversity: Create a diverse set of questions covering various nuanced aspects of the topic to ensure a comprehensive and thorough preparation experience.
-        - Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question, challenging students' knowledge and pushing their problem-solving skills to the limit.
         - Complexity: Ensure that the questions are not just challenging, but they should demand an exceptional level of critical thinking and intellectual prowess, reflecting the highest standards of advanced-level aptitude exams.
-        - Answer: Provide the correct answer options (A, B, C, and D) for each question based on the intricacies of the scenario and sophisticated calculations.
         - Explanation: Furnish a detailed and elaborate explanation for the correct answer to help students comprehend the underlying concepts, encouraging a deep understanding of the subject matter.
         
         Names:
