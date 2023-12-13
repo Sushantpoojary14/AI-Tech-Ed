@@ -205,10 +205,10 @@ const MathGen = ({
       let query = "";
 
       if (testType == 2) {
-        query = `Generate ${totalQuestions} unique and exceptionally challenging advanced-level practice questions designed for 25-year-old college students preparing for an aptitude exam on the topic of ${topic} that should be extremely difficult, requiring a high IQ of 140 and above.
+        query = `Generate total ${totalQuestions} unique and exceptionally challenging advanced-level practice questions designed for 25-year-old college students preparing for an aptitude exam on the topic of ${topic} that should be extremely difficult, requiring a high IQ of 140 and above.
 
         Criteria:
-        - Scenario: Each question should intricately incorporate a real-life story or scenario related to the topic, making it profoundly contextually rich and engaging.no limit in how long the question is
+        - Scenario: Each question should intricately incorporate a real-life story or scenario related to the topic, making it profoundly contextually rich and engaging.No limit in how long the question is.
         - Clarity: Craft questions that are not only clear and concise but also feature intricate details that demand careful consideration from the students.
         - Diversity: Create a diverse set of questions covering various nuanced aspects of the topic to ensure a comprehensive and thorough preparation experience.
         - Options: Formulate four multiple-choice answer options (A, B, C, and D) for each question, challenging students' knowledge and pushing their problem-solving skills to the limit.
@@ -234,7 +234,7 @@ const MathGen = ({
             "Explanation": "Provide an in-depth and comprehensive explanation for the correct answer, unraveling the intricate details of the scenario and solution."
           },
           ......
-           generate ${totalQuestions-1}  more like this 
+           generate ${totalQuestions-1}  more like this and in total ${totalQuestions}
            
         ]
         `;
