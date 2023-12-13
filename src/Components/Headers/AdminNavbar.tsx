@@ -125,7 +125,7 @@ const AdminNavbar = () => {
         <Box
           sx={{
             width: { xs: "120px", sm: "120px", md: "200px" },
-            height: { xs: "66px", sm: "66px", md: "100px" },
+            height: { xs: "66px", sm: "66px", md: "60px" },
           }}
         >
           <Link to="/user/">
