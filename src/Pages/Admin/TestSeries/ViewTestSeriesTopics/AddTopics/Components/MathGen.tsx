@@ -233,7 +233,9 @@ const MathGen = ({
             "Answer": "Specify the correct option (A, B, C, or D) based on the scenario and calculations.",
             "Explanation": "Provide an in-depth and comprehensive explanation for the correct answer, unraveling the intricate details of the scenario and solution."
           },
-           generate ${totalQuestions-2}  more like this 
+          ......
+           generate ${totalQuestions-1}  more like this 
+           
         ]
         `;
         
@@ -265,8 +267,9 @@ const MathGen = ({
         "Answer": "Correct answer letter (a, b, c, or d)",
         "Explanation": "Detailed explanation for the correct answer"
       },
-      generate ${totalQuestions-2}  more like this 
-    
+      ......
+      generate ${totalQuestions-1} more like this 
+      
    
     ]
     `;
