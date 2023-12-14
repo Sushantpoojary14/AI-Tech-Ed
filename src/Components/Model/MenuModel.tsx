@@ -1,6 +1,6 @@
 import { Menu, MenuItem, Stack } from "@mui/material";
 import { ReactElement } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useParams,Path} from "react-router-dom";
 import { ParaText1 } from "../Common/ParaText";
 import PersonIcon from "@mui/icons-material/Person";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -28,9 +28,12 @@ const sCss = {
 // }
 
 const MenuModel = () => {
-  const { admin } = AppContext();
+  // const { user } = AppContext();
   const { handleMenuOpen, handlePCOpen, handleCloseUserMenu, anchorElUser } =
     UserContext();
+    const url = window.location.href;
+    let user = url?.split("#")[1]?.split("/")[1];
+   
   return (
     <Menu
       sx={{
@@ -60,7 +63,7 @@ const MenuModel = () => {
           </Stack>
         </Link>
       </MenuItem> */}
-      {!admin && (
+      {user  == "user" && (
         <MenuItem onClick={handlePCOpen}>
           <Stack spacing={1} direction="row">
             <LockOutlinedIcon sx={sCss} />
