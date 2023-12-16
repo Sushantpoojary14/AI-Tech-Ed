@@ -43,7 +43,7 @@ interface ModalProps {
   open: boolean;
   categoryObj: any;
   data: any;
-  ts_id: any;
+  ts_id?: any;
 }
 
 const AddTestSetModal = ({
