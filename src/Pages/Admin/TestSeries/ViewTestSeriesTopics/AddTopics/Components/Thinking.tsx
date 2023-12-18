@@ -428,7 +428,7 @@ console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuesti
           // if (item.images?.length !== 2) {
           // if (exists) {
             maleNames.forEach((search: string) => {
-              if (item.images?.length === 2) {
+              if (item.images?.length <= 2) {
                 return true; // Exit the loop
               }
               const caps = search.toUpperCase();
@@ -458,8 +458,8 @@ console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuesti
               return count == 3;
             });
             femaleNames.forEach((search: string) => {
-              if (item.images?.length === 2) {
-                return true; // Exit the loop
+              if (item.images?.length <= 2) {
+                return true; 
               }
               const caps = search.toUpperCase();
               const match = data.find(
