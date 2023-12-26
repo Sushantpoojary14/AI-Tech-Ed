@@ -92,7 +92,7 @@ ModalProps) => {
       console.log(updatedData?.categories);
       updatedData &&
         updatedData.categories?.map((item: any, key: number) => {
-          data.map((item2: any) => {
+          data?.map((item2: any) => {
             if (item.id == item2.id) {
               updatedData.categories[key] = item2;
             }
