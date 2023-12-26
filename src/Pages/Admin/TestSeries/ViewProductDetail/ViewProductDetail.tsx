@@ -261,6 +261,7 @@ const ViewProductDetail = () => {
           // handleSubmit={handleSubmit}
           // setCsvData={setCsvData}
           // restAddProduct={reset}
+          ts_id={testSeries?.data?.ts_id}
           data={data}
           categoryObj={category}
         />
