@@ -99,7 +99,7 @@ const SectionOne = ({ product }: any) => {
     { title: "Price", data: product?.p_price },
     // { title: "Duration", data: product.duration },
     { title: "Test Month Limit", data: product?.test_month_limit },
-    { title: "Total Question", data: product?.total_question },
+    // { title: "Total Question", data: product?.total_question },
     { title: "Release Date", data: product?.release_date },
   ];
 
