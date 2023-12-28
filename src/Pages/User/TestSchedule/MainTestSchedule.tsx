@@ -20,7 +20,7 @@ import axiosBaseURL from "../../../Hooks/BaseUrl";
 import { MRT_ColumnDef } from "material-react-table";
 import AdvanceTable from "../../Admin/components/AdvanceTable";
 import { useNavigate } from "react-router-dom";
-
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 const header = [
   "#",
   "Test Name",
@@ -140,11 +140,11 @@ const MainTestSchedule = () => {
         size: 50,
         Cell: ({ cell, row }: any) => (
           // <Link to={`${cell.getValue()}`}>
-          <EventAvailableIcon
+          data?.data?.tsp?.complete_status ? <CalendarTodayIcon
             sx={{
               width: "25px",
               height: "25px",
-              color: "#3A9BDC",
+              color:  "green",
               cursor: "pointer",
             }}
             onClick={() =>
@@ -153,7 +153,20 @@ const MainTestSchedule = () => {
                 set_id: cell.getValue(),
               })
             }
-          />
+          />: <EventAvailableIcon
+          sx={{
+            width: "25px",
+            height: "25px",
+            color: "#3A9BDC" ,
+            cursor: "pointer",
+          }}
+          onClick={() =>
+            TestMU.mutate({
+              ps_id: row.original.purchase_id,
+              set_id: cell.getValue(),
+            })
+          }
+        />
           // </Link>
         ),
         enableSorting: false,
