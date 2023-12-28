@@ -130,7 +130,7 @@ export default function SolutionsModal({
   console.log(index);
 
   return (
-    <div  onCopy={(e) => preventCopyPaste(e)}>
+    <div  >
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -143,6 +143,7 @@ export default function SolutionsModal({
             timeout: 500,
           },
         }}
+        onCopy={(e) => preventCopyPaste(e)}
       >
         <Fade in={open}>
           <Box sx={style}>
