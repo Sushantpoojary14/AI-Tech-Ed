@@ -61,7 +61,11 @@ const Thinking = ({
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentData = resData.slice(startIndex, endIndex);
-console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuestions);
+  console.log(
+    Math.round(totalQuestions / csvData.length),
+    csvData.length,
+    totalQuestions
+  );
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -216,11 +220,10 @@ console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuesti
       "Explanation",
     ];
     const array2 = Object.keys(csvData[0]);
- 
 
     if (
-      (JSON.stringify(header1) === JSON.stringify(array2)) ||
-      (JSON.stringify(header2) === JSON.stringify(array2))
+      JSON.stringify(header1) === JSON.stringify(array2) ||
+      JSON.stringify(header2) === JSON.stringify(array2)
     ) {
       const filteredCsvData = csvData.filter((item: any) => {
         if (item.Question && item.Option_D) {
@@ -299,7 +302,9 @@ console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuesti
         ];
         let query = "";
         // if (category == 3) {
-          query = `Generate ${Math.round(totalQuestions/csvData.length)} unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
+        query = `Generate ${Math.round(
+          totalQuestions / csvData.length
+        )} unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
    
           Example Question:
           Paragraph:${item.Paragraph}
@@ -382,14 +387,16 @@ console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuesti
         // console.log(questions);
         questions?.map((item: mapData, index: any) => {
           // if (category == 3) {
-            item.Paragraph = item.Paragraph && item.Paragraph != "undefined"
+          item.Paragraph =
+            item.Paragraph && item.Paragraph != "undefined"
               ? item.Paragraph.replace(/Paragraph:/g, "")
               : "";
-              
-            item.Conversation = item.Conversation && item.Conversation != "undefined"
+
+          item.Conversation =
+            item.Conversation && item.Conversation != "undefined"
               ? item.Conversation.replace(/Conversation:/g, "")
               : "";
-           
+
           // }
           item.Explanation =
             item.Explanation && item.Explanation.replace(/Explanation:/g, "");
@@ -400,7 +407,7 @@ console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuesti
           // const itemKeys = Object.keys(item);
           // const exists = keysToCheck.every((key) => {
           //   return itemKeys.includes(key);
-          // }); 
+          // });
 
           // if (exists) {
           // if (item.Paragraph || item.Conversation) {
@@ -427,63 +434,83 @@ console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuesti
 
           // if (item.images?.length !== 2) {
           // if (exists) {
-            maleNames.forEach((search: string) => {
-              if (item.images.length >= 2) {
-                return true; // Exit the loop
+          const m_random = Math.floor(Math.random() * 3) + 1;
+          const m_image_urls = [
+            "/images/boy.jpg",
+            "/images/boy2.jpg",
+            "/images/boy2.jpg",
+          ];
+          const m_image_urls2 = [
+            "/images/left_boy.jpg",
+            "/images/left_boy2.jpg",
+            "/images/left_boy2.jpg",
+          ];
+          maleNames.forEach((search: string) => {
+            if (item.images.length >= 2) {
+              return true; // Exit the loop
+            }
+            const caps = search.toUpperCase();
+            let match = data.find(
+              (word: string) => word.toUpperCase() === caps
+            );
+            if (match) {
+              match = data.find((word: string) => word.toUpperCase() === caps);
+            }
+            if (match) {
+              switch (count) {
+                case 1:
+                  item.images?.push(m_image_urls[m_random]);
+                  count++;
+                  break;
+                case 2:
+                  item.images?.push(m_image_urls2[m_random]);
+                  count++;
+                  break;
+                default:
+                  item.images?.push(m_image_urls2[m_random]);
+                  count++;
               }
-              const caps = search.toUpperCase();
-              let match = data.find(
-                (word: string) => word.toUpperCase() === caps
-              );
-              if (match) {
-                match = data.find(
-                  (word: string) => word.toUpperCase() === caps
-                );
-              }
-              if (match) {
-                switch (count) {
-                  case 1:
-                    item.images?.push("/images/boy.jpg");
-                    count++;
-                    break;
-                  case 2:
-                    item.images?.push("/images/left_boy.jpg");
-                    count++;
-                    break;
-                  default:
-                    item.images?.push("/images/left_boy.jpg");
-                    count++;
-                }
-              }
-              return count == 3;
-            });
-            femaleNames.forEach((search: string) => {
-              if (item.images.length >= 2 ) {
-                return true; 
-              }
-              const caps = search.toUpperCase();
-              const match = data.find(
-                (word: string) => word.replace(/:/g, "").toUpperCase() === caps
-              );
+            }
+            return count == 3;
+          });
+          const g_random = Math.floor(Math.random() * 3) + 1;
+          const g_image_urls = [
+            "/images/girl.jpg",
+            "/images/girl2.jpg",
+            "/images/girl2.jpg",
+          ];
+          const g_image_urls2 = [
+            "/images/right_girl.jpg",
+            "/images/right_girl2.jpg",
+            "/images/right_girl.jpg",
+          ];
+          femaleNames.forEach((search: string) => {
+            if (item.images.length >= 2) {
+              return true;
+            }
+            const caps = search.toUpperCase();
+            const match = data.find(
+              (word: string) => word.replace(/:/g, "").toUpperCase() === caps
+            );
 
-              if (match) {
-                switch (count) {
-                  case 1:
-                    item.images?.push("/images/right_girl.jpg");
-                    count++;
-                    break;
-                  case 2:
-                    item.images?.push("/images/girl.jpg");
-                    count++;
-                    break;
-                  case 3:
-                  default:
-                    item.images?.push("/images/girl.jpg");
-                    count++;
-                }
+            if (match) {
+              switch (count) {
+                case 1:
+                  item.images?.push(g_image_urls2[g_random]);
+                  count++;
+                  break;
+                case 2:
+                  item.images?.push(g_image_urls[g_random]);
+                  count++;
+                  break;
+                case 3:
+                default:
+                  item.images?.push(g_image_urls[g_random]);
+                  count++;
               }
-              return count == 3;
-            });
+            }
+            return count == 3;
+          });
           // }
           image_data.forEach(
             (search: { image_name: string; image_url: string }) => {
@@ -518,7 +545,6 @@ console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuesti
       return responses;
     },
     onSuccess: (data: any) => {
-     
       // console.log("Success Data", data);
     },
     onError: (error) => {
@@ -666,10 +692,11 @@ console.log(Math.round(totalQuestions/csvData.length),csvData.length,totalQuesti
                 question={questionData?.Question}
                 options={questionData?.Options}
                 answer={questionData?.Answer}
-                explanation={questionData?.Explanation} 
-                index={index} 
-                data={resData} 
-                updateData={setResData}              />
+                explanation={questionData?.Explanation}
+                index={index}
+                data={resData}
+                updateData={setResData}
+              />
             ))}
           </Stack>
           <Stack alignItems={"center"} mt={2} mb={1}>

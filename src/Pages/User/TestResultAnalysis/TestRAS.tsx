@@ -117,7 +117,7 @@ const TestRAS = () => {
       },
       {
         accessorKey: "topic",
-        header: "Subject",
+        header: "Topic Name",
         size: 150,
       },
 
