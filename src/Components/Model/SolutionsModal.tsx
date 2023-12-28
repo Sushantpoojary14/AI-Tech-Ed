@@ -62,6 +62,22 @@ export default function SolutionsModal({
   index,
   indexID,
 }: ModalProps) {
+  document.addEventListener('contextmenu', (e:any) => e.preventDefault());
+
+  function ctrlShiftKey(e:any, keyCode:any) {
+    return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
+  }
+
+  document.onkeydown = (e:any) => {
+    if (
+
+      ctrlShiftKey(e, 'I') ||
+      ctrlShiftKey(e, 'J') ||
+      ctrlShiftKey(e, 'C') ||
+      (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
+    )
+      return false;
+  };
   const { control } = useForm<Inputs>();
 
   const handleClose = () => {

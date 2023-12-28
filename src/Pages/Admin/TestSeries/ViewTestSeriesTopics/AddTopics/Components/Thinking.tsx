@@ -434,17 +434,19 @@ const Thinking = ({
 
           // if (item.images?.length !== 2) {
           // if (exists) {
-          const m_random = Math.floor(Math.random() * 3) + 1;
+          const m_random = Math.floor(Math.random() * 3);
           const m_image_urls = [
             "/images/boy.jpg",
-            "/images/boy2.jpg",
-            "/images/boy2.jpg",
+            "/images/boy2.jpeg",
+            "/images/boy3.jpeg",
           ];
           const m_image_urls2 = [
             "/images/left_boy.jpg",
-            "/images/left_boy2.jpg",
-            "/images/left_boy2.jpg",
+            "/images/left_boy2.jpeg",
+            "/images/left_boy3.jpeg",
           ];
+          console.log(" girl " + m_random);
+
           maleNames.forEach((search: string) => {
             if (item.images.length >= 2) {
               return true; // Exit the loop
@@ -473,17 +475,14 @@ const Thinking = ({
             }
             return count == 3;
           });
-          const g_random = Math.floor(Math.random() * 3) + 1;
-          const g_image_urls = [
-            "/images/girl.jpg",
-            "/images/girl2.jpg",
-            "/images/girl2.jpg",
-          ];
+          const g_random = Math.floor(Math.random() * 1);
+          const g_image_urls = ["/images/girl.jpg", "/images/girl.jpg"];
           const g_image_urls2 = [
             "/images/right_girl.jpg",
-            "/images/right_girl2.jpg",
-            "/images/right_girl.jpg",
+            "/images/right_girl2.jpeg",
           ];
+          console.log(" girl " + g_random);
+
           femaleNames.forEach((search: string) => {
             if (item.images.length >= 2) {
               return true;
@@ -514,8 +513,8 @@ const Thinking = ({
           // }
           image_data.forEach(
             (search: { image_name: string; image_url: string }) => {
-              if (item.images?.length === 1) {
-                return true; // Exit the loop
+              if (item.images?.length >= 2) {
+                return true;
               }
               const caps = search.image_name.toUpperCase();
 
@@ -527,7 +526,7 @@ const Thinking = ({
                 item.images?.push(search.image_url); // Add the image URL to the question
               }
 
-              return item.images?.length === 3;
+         
             }
           );
           // }
