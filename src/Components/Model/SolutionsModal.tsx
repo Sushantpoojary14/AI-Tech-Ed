@@ -78,6 +78,11 @@ export default function SolutionsModal({
     )
       return false;
   };
+  const preventCopyPaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    alert("Copying and pasting is not allowed!");
+  };
+ 
   const { control } = useForm<Inputs>();
 
   const handleClose = () => {
@@ -125,7 +130,7 @@ export default function SolutionsModal({
   console.log(index);
 
   return (
-    <div>
+    <div  onCopy={(e) => preventCopyPaste(e)}>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
