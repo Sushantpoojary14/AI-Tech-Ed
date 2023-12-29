@@ -143,6 +143,7 @@ export default function SolutionsModal({
             timeout: 500,
           },
         }}
+        className="prevent-select"
         onCopy={(e) => preventCopyPaste(e)}
       >
         <Fade in={open}>

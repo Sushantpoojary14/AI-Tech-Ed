@@ -155,6 +155,8 @@ const ExamFirstSection = (props: props) => {
         paddingX: "10px",
         maxHeight: "88vh",
       }}
+      className="prevent-select "
+      onSelect={(e)=>e.preventDefault()}
     >
       {props.isLoading ? (
         <LoadingBar />
