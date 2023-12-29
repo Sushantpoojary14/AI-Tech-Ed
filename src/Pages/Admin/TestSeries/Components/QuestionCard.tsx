@@ -46,7 +46,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   const handleOpen = (index: number) => {
     setOpen(true);
   };
-
+  const handleDelete =(index:number)=>{
+      const newArray = data.filter((item:any,key:number)=>  key!=index);
+      updateData(newArray);
+  }
   const handleClose = () => {
     setOpen(false);
   };
@@ -110,7 +113,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
           
         </CardContent>
         <BButton name="edit" func={() => handleOpen(index)} css={{margin:"10px"}}/>
+        <BButton name="Delete" func={() => handleDelete(index)} css={{margin:"10px"}}/>
       </Card>
+      
       <EditQuestion
       updateData={updateData}
         open={open}
