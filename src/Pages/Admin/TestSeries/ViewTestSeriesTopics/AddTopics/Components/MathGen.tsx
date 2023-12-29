@@ -299,9 +299,9 @@ const MathGen = ({
       console.log("parsed", questions);
       questions?.map((item: mapData, index: any) => {
         item.Explanation =
-          item.Explanation && item.Explanation.replace(/Explanation:/g, "");
+          item.Explanation && item.Explanation.replace(/Explanation:/g, "").replace(/\/n/g, "");
         item.Question =
-          item.Question && item.Question.replace(/Question:/g, "");
+          item.Question && item.Question.replace(/Question:/g, "").replace(/\/n/g, "");
           const questionData = item.Question.split(" ") ?? [];
         let data: string[] = questionData;
         item.images = [];

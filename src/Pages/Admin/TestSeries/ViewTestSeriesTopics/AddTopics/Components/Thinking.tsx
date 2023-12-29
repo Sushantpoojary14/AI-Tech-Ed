@@ -389,19 +389,24 @@ const Thinking = ({
           // if (category == 3) {
           item.Paragraph =
             item.Paragraph && item.Paragraph != "undefined"
-              ? item.Paragraph.replace(/Paragraph:/g, "")
+              ? item.Paragraph.replace(/Paragraph:/g, "").replace(/\/n/g, "")
               : "";
 
           item.Conversation =
             item.Conversation && item.Conversation != "undefined"
-              ? item.Conversation.replace(/Conversation:/g, "")
+              ? item.Conversation.replace(/Conversation:/g, "").replace(
+                  /\/n/g,
+                  ""
+                )
               : "";
 
           // }
           item.Explanation =
-            item.Explanation && item.Explanation.replace(/Explanation:/g, "");
+            item.Explanation &&
+            item.Explanation.replace(/Explanation:/g, "").replace(/\/n/g, "");
           item.Question =
-            item.Question && item.Question.replace(/Question:/g, "");
+            item.Question &&
+            item.Question.replace(/Question:/g, "").replace(/\/n/g, "");
           let data: string[] = [];
           // const keysToCheck = ["Paragraph", "Conversation", ""];
           // const itemKeys = Object.keys(item);
@@ -525,8 +530,6 @@ const Thinking = ({
               if (match) {
                 item.images?.push(search.image_url); // Add the image URL to the question
               }
-
-         
             }
           );
           // }
