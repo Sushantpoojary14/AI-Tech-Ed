@@ -241,8 +241,8 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Button type="submit" variant="contained" color="primary">
-                    Upload Images
+                  <Button type="submit" variant="contained" color="primary" disabled={uploadImagesMutation.isLoading}>
+                  Upload Images
                   </Button>
                 </Grid>
               </Grid>
