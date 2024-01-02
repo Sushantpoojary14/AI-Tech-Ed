@@ -169,9 +169,9 @@ const ReadingPDF = ({ props }: any) => {
                             key + 1 == index_data?.start ? "page" : "avoid",
                         }}
                       >
-                        <Typography
+                        {/* <Typography
                           marginBottom={1}
-                        >{`Read the extracts below then answer the question`}</Typography>
+                        >{`Read the extracts below then answer the question`}</Typography> */}
                         {/* <Typography
                           textAlign={"center"}
                           fontSize={"30px"}
