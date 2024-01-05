@@ -46,6 +46,7 @@ type Purchases = {
   valid_till: string;
   tsc_type: string;
   duration: number;
+  complete_status:number;
   package_name:string;
 };
 
@@ -140,7 +141,7 @@ const MainTestSchedule = () => {
         size: 50,
         Cell: ({ cell, row }: any) => (
           // <Link to={`${cell.getValue()}`}>
-          data?.data?.tsp?.complete_status ? <CalendarTodayIcon
+          row.original.complete_status ? <EventAvailableIcon 
             sx={{
               width: "25px",
               height: "25px",
@@ -153,7 +154,7 @@ const MainTestSchedule = () => {
                 set_id: cell.getValue(),
               })
             }
-          />: <EventAvailableIcon
+          />: <CalendarTodayIcon
           sx={{
             width: "25px",
             height: "25px",
