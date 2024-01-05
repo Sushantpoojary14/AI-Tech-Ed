@@ -110,227 +110,148 @@ import { BButton2 } from "./Components/Common/Button";
 // `;
 let ArrayData: any = [
   {
-      "Paragraph": "Evidence indicates that the people of Springfield have significantly low voter turnout. Bill suggested that mobile voting booths should be introduced in Springfield in order to encourage more residents to vote.",
-      "Conversation": "",
-      "Question": "Which of the following, if true, would most likely weaken the suggestion made by Bill?",
-      "Options": {
-          "a": "The prospect of casting a vote is considered a civic duty by the majority of those residents who do vote.",
-          "b": "Mobile voting booths have been effective in improving voter turnout in another town named Greenfield.",
-          "c": "The low turnout was not due to accessibility, but due to political disengagement among the Springfield residents.",
-          "d": "It is often suggested that an increase in the number of polling stations can boost participation rates."
-      },
-      "Answer": "c",
-      "Explanation": "This option weakens the argument by suggesting that even if mobile voting booths were to be introduced, it wouldn't necessarily solve the main problem which is political disengagement.",
-      "images": [
-          "/images/bill.jpg"
-      ]
+    Paragraph:
+      "All /n employees in Alfred's office were given an envelope containing money for a holiday party. However, their supervisor didn't have enough envelopes for every employee. Each envelope contained five tickets. Alfred saw that one of his co-workers hadn't received an envelope, so he gave two of his tickets to his co-worker. The co-worker was very touched by his actions. Therefore, all members of a working community should strive to ensure fairness where feasible.",
+    Question:
+      "Which of the /n following, /nif true,/nwould strengthen the above argument?",
+    Options: {
+      a: "In the office environment, ensuring fairness is not as simple as sharing holiday party tickets.",
+      b: "If every member of the working community prioritised fairness, unhealthy competition and workplace inequality would decrease, improving job satisfaction and productivity.",
+      c: "It is the responsibility of Human Resources rather than individual employees to ensure fairness at work.",
+      d: "Sharing with others creates a positive work environment.",
+    },
+    Answer: "b",
+    Explanation:
+      "This option supports the idea that striving to ensure fairness has broader and more significant implications beyond the simple act of sharing party tickets. It suggests that if everyone in the working community prioritized fairness, it could lead to a reduction in unhealthy competition and workplace inequality, ultimately resulting in improved job satisfaction and productivity.",
+    Conversation: "",
   },
   {
-      "Paragraph": "Nora, who loves to cook, believes that fresh ingredients are the key to a great meal. She argues that dishes prepared with processed or canned ingredients are not as tasty or healthy as those made with fresh produce.",
-      "Question": "Which of the following, if true, would strengthen the above argument?",
-      "Options": {
-          "a": "Fresh ingredients are generally more expensive than processed or canned ingredients.",
-          "b": "In a blind taste test, people preferred the flavour of dishes made with fresh ingredients over those made with canned or processed ingredients.",
-          "c": "Nora’s friends and family love her cooking and say she makes the best meals they have ever tasted.",
-          "d": "Many professional chefs also claim to use fresh ingredients wherever possible in their cooking."
-      },
-      "Answer": "b",
-      "Explanation": "This answer is CORRECT as it provides additional evidence to bolster Nora's belief that fresh ingredients make for tastier meals. The results of a blind taste test suggest that people do notice and prefer the taste of fresh ingredients.",
-      "Conversation": "",
-      "images": []
+    Paragraph:
+      "Henry, a /nuniversity professor, believes that students who refrain from using electronic devices in class tend to perform better academically. Henry suggests that all professors should enforce a strict no-electronics policy in their classrooms in order to improve student performance.",
+    Conversation: "",
+    Question:
+      "Which of the /nfollowing, if true, would strengthen Henry's argument?",
+    Options: {
+      a: "Students who use electronic devices in class are mostly just taking notes or looking up relevant information.",
+      b: "A recent empirical study shows that students who do not use electronic devices in class scored 25% higher on exams than those who do.",
+      c: "Many professors already enforce a no-electronics policy in their classrooms, but it has not been proven to impact academic performance.",
+      d: "Most students find it easier to take notes using electronic devices rather than writing by hand.",
+    },
+    Answer: "b",
+    Explanation:
+      "This answer is correct because it strengthens Henry's argument by providing empirical evidence to support his claim. If a study shows that students who do not use electronic devices in class scored significantly higher on exams than those who do, it supports the idea that a no-electronics policy could indeed improve student performance.",
   },
   {
-      "Paragraph": "A study conducted amongst students of a reputable university revealed that the majority of students have a high level of stress. The primary stressor identified was the pressure to maintain a high grade point average (GPA). Thus, the university should introduce mandatory mental health workshops to help curb this issue.",
-      "Conversation": "",
-      "Question": "Which of the following, if true, would most likely weaken the above argument?",
-      "Options": {
-          "a": "Mental health workshops have shown to alleviate stress levels in other university environments.",
-          "b": "The data for the study was gathered from only a single university, so it may not accurately represent all student populations.",
-          "c": "Mental heath is considered an important issue by many educational institutions.",
-          "d": "Engineering students are reportedly more stressed than Art students."
-      },
-      "Answer": "b",
-      "Explanation": "The argument weakens because it assumes that the experience at this one university applies to all universities. If the data is only from one university, it may not be a representative sample and thus, its use in a general argument about all universities becomes questionable.",
-      "images": []
+    Paragraph:
+      "Recent studies indicate that 90% of people in the UK feel fatigued. Symptoms of fatigue include lack of energy, feeling constantly tired, prolonged mental tasks becoming difficult and concentration requiring more effort. Alfred always feels tired and finds it challenging to concentrate; therefore, he is fatigued.",
+    Question:
+      "Which of the following statements, if true, would most weaken the above argument?",
+    Options: {
+      a: "In the UK, fatigue is more common in individuals with high-stress jobs than those with less stressful jobs.",
+      b: "Alfred consumes a lot of caffeine and has reduced sleep patterns.",
+      c: "Alfred prioritizes work over self-care and seldom eats a proper meal or exercises.",
+      d: "Certain sleep disorders which cause inadequate or poor-quality sleep have been associated with feelings of being constantly tired and trouble concentrating.",
+    },
+    Answer: "D",
+    Explanation:
+      "This answer is correct as it weakens the argument by providing an alternative explanation for the symptoms Alfred is exhibiting - sleep disorders.",
+    Conversation: "",
   },
   {
-      "Paragraph": "John often spends more time on tasks he finds enjoyable. He tends to postpone or avoid tasks that are difficult or he perceives as boring. As a result, John often struggles to complete those tasks within the required timeline.",
-      "Question": "Which of the following, if true, would strengthen the above argument?",
-      "Options": {
-          "a": "In a survey, people like John who procrastinate were found to handle enjoyable tasks more efficiently.",
-          "b": "John once failed to submit a project on time as he was preoccupied with more enjoyable activities.",
-          "c": "John is known to desire immediate gratification and tend to ignore potential future outcomes.",
-          "d": "In an interview, John admitted to enjoying tasks that are easy and fun, and struggling with tasks he finds difficult or tedious."
-      },
-      "Answer": "d",
-      "Explanation": "This answer is CORRECT as it strengthens the argument that John struggles with tasks he finds difficult or boring. He himself confirms this by admitting his preference for enjoyable tasks and difficulty with less exciting ones.",
-      "Conversation": "",
-      "images": [
-          "/images/john.jpg"
-      ]
+    Paragraph:
+      "Luke, a professional basketball player, proposed a change to the coach, stating that most professional games that are won by the team are mostly played on Tuesdays. Thus, to maximise the winning chances of their team, Luke suggested that the basketball club should schedule the maximum number of their games on a Tuesday.",
+    Conversation: "",
+    Question:
+      "Which of the following, if true, would most likely weaken the argument made by Luke?",
+    Options: {
+      a: "Luke scores the maximum points in games that occur on Tuesday.",
+      b: "The team has won all their games played on Tuesday so far in the current season.",
+      c: "The opposing teams often have their weakest players play games on Tuesday due to schedule conflicts.",
+      d: "Most teams play on Saturdays leading to higher competition among the well-prepared teams.",
+    },
+    Answer: "c",
+    Explanation:
+      "Option C weakens Luke's argument because if the opposing teams are sending their weakest players on Tuesdays, this might be the reason the team is winning, not because Tuesday games in general enhance their performance.",
   },
   {
-      "Paragraph": "In a town meeting discussing a proposed increase in property tax, a local news team conducted interviews with the residents. It was observed that those interviewed who were against the proposed tax hike far outnumbered those who were in favor of it. The residents assert that the news team showed a bias against the tax hike proposal.",
-      "Question": "Which one of the following, if true, would most seriously weaken the residents' argument?",
-      "Options": {
-          "a": "The news team has a reputation for fair and balanced reporting.",
-          "b": "The majority of viewers do not believe that news media are completely unbiased.",
-          "c": "Before the town meeting, a citizens' survey showed a significantly higher number of residents against the proposed tax hike than those in favor of it.",
-          "d": "The lead reporter of the news team owns several properties in the town that would be affected by the tax hike."
-      },
-      "Answer": "c",
-      "Explanation": "This information weakens the argument by indicating that the observed bias in the interviews likely resulted from the existing public sentiment, rather than a bias on the part of the news team. If, before the town meeting, a significant number of residents were already against the proposed tax hike, it would naturally lead to more interviews with individuals who oppose it, even without any intentional bias from the news team.",
-      "Conversation": "",
-      "images": []
+    Paragraph:
+      "Henry  tends to be very reserved and keeps to himself in social situations, often avoiding conversation and sticking to himself. This reserved behavior represents Henry's desire for peace, tranquility and a solitary life. Consequently, Henry will do anything to maintain this solitude, even if it means missing out on social interactions.",
+    Question:
+      "Which of the following, if true, would strengthen the above argument?",
+    Options: {
+      a: "In a survey, extroverts valued solitude at the same level as introverts like Henry.",
+      b: "Henry is more likely to decline social invites when it encroaches upon his solitude.",
+      c: "Introvert individuals like Henry are statistically more peaceful than extroverts.",
+      d: "In a survey with a random group of people, those who claimed to be introverts, like Henry, also confirmed they prefer solitude to social interactions.",
+    },
+    Answer: "d",
+    Explanation:
+      "This answer is CORRECT because it strengthens the argument that Henry, being an introvert, prefers solitude over social interaction. This is validated by a survey that found similar preferences among a group of self-proclaimed introverts.",
+    Conversation: "",
   },
   {
-      "Paragraph": "",
-      "Conversation": "",
-      "Question": "A statement in a pet store says: 'All parrots can talk and all canaries cannot. No parrots are canaries.' Which of the following must be true?",
-      "Options": {
-          "a": "Some parrots are canaries.",
-          "b": "Canaries are not birds because they do not talk.",
-          "c": "All talking birds in the store are parrots.",
-          "d": "No canaries can talk."
-      },
-      "Answer": "d",
-      "Explanation": "This answer is CORRECT as if all parrots can talk, but no canaries can talk then there must be no overlap between parrots and canaries in regards to their ability to talk. Therefore, no canaries can talk.",
-      "images": []
+    Paragraph:
+      "The efficiency of wind turbines in generating enough power is subject to certain conditions like wind speed and turbine height. Some analysts have expressed concern over the fact that turbines are often situated in regions with inadequate airflow. Based on this, Philip believes the government should impose stricter guidelines on where turbines are to be located. Which of the following, if true, would most effectively strengthen Philip's argument?",
+    Question:
+      "Which of the following, if true, most effectively strengthens Philip's argument on imposing stricter guidelines on wind turbine locations?",
+    Options: {
+      a: "In certain regions, wind turbines have been found to generate surplus power which is not utilised.",
+      b: "Citizens rely on the government to ensure a sustainable and efficient power generation.",
+      c: "The visual aesthetics of wind turbines are often criticized by the public.",
+      d: "There is scientific evidence showing that high wind speed areas can significantly improve the efficiency of wind turbines.",
+    },
+    Answer: "d",
+    Explanation:
+      "Option D provides specific scientific evidence that supports Philip's argument. It points out the correlation between wind speed, turbine location and efficiency, thus justifying the need for stricter guidelines.",
+    Conversation: "",
   },
   {
-      "Paragraph": "In Stella's gym class, everyone had a limited time to use the gym equipment. But due to the high number of attendees, not everyone got the equal amount of time. Noticing this, Stella shared some of her workout time with others who couldn't get enough time. This gesture was appreciated by those who benefited from her action. Thus, we should all strive to share resources fairly when there's scarcity.",
-      "Question": "Which of the following, if true, would best strengthen the above argument?",
-      "Options": {
-          "a": "In practice, sharing scarce resources is more complex than sharing gym equipment.",
-          "b": "If everyone took the initiative to share scarce resources, this would alleviate the issue of scarcity, leading to a more harmonious community.",
-          "c": "It's the job of the gym instructor, not the individual, to ensure fair usage of gym equipment.",
-          "d": "Sharing with others provides an emotional reward for the sharer."
-      },
-      "Answer": "b",
-      "Explanation": "Option B reinforces the argument by suggesting that if everyone began to share scarce resources, the issue of scarcity may largely be resolved, resulting in a more harmonious community.",
-      "Conversation": "",
-      "images": []
+    Paragraph:
+      "At the city library, reading rooms are always occupied and difficult to get a seat during peak hours. However, there is a special provision: 'If you are a member of the library's board and the book you want to read is a new addition to the library, you will have direct access to a reading room.'",
+    Question: "If the above is correct, which of the following must be true?",
+    Options: {
+      a: "Zoya did not reserve a spot, but she was able to secure a reading room spot during peak hours.",
+      b: "Zoya is a member of the library board and wanted to revisit one of her favourite old novels. Hence, Zoya was provided a spot even during peak hours.",
+      c: "Zoya is not acquainted with any board member. Therefore, she couldn't get a seat in the reading room during peak hours without prior reservation.",
+      d: "Zoya wants to read a new addition book but has not reserved a spot. It is assured that she will be able to access the reading room without a prior reservation.",
+    },
+    Answer: "c",
+    Explanation:
+      "The answer is CORRECT C as if Zoya did not know any board member, she couldn't have been a member. Therefore, the special provision for direct access to a reading room wouldn't apply during peak hours without a prior reservation.",
+    Conversation: "",
   },
   {
-      "Paragraph": "At an exclusive art exhibition centre, entry is not permitted after working hours unless you are a premium member. However, there is a special provision: 'If you are a renowned artist and the exhibition is displaying your work, you will be permitted access even after hours.' Given these conditions, evaluate the following scenarios.",
-      "Conversation": "",
-      "Question": "Which of the following statements must be true?",
-      "Options": {
-          "a": "Stella, who is a renowned artist, can access the exhibition centre after hours even if she is not a premium member.",
-          "b": "Stella, despite not being a premium member, was allowed entry after hours because she was exhibiting her work.",
-          "c": "Stella can't exhibit her work in the centre after hours as she is not a renowned artist.",
-          "d": "Stella, a renowned artist, but without an exhibit at the centre, can't access it after working hours."
-      },
-      "Answer": "c",
-      "Explanation": "The paragraph clearly mentions that for someone to gain access after working hours without being a premium member, they need to be a renowned artist and have their work displayed at the exhibition. Since in option C, Stella is not a renowned artist, she would not enjoy the provision and could not exhibit her work after hours.",
-      "images": []
+    Paragraph:
+      "In a recent survey about a redevelopment plan for a downtown district, more negative opinions were gathered from the residents than positive ones. David asserts that the pollsters are biased against the project because they have gathered more negative opinions.",
+    Conversation: "",
+    Question:
+      "Which one of the following, if true, most seriously weakens David's argument?",
+    Options: {
+      a: "The redevelopment project will significantly increase the traffic in the downtown area.",
+      b: "Majority of the residents were unacquainted with the specifics of the redevelopment plan prior to the survey.",
+      c: "The pollsters were former residents of the same downtown district.",
+      d: "Before the survey was conducted, a considerable majority of the residents were already against the redevelopment plan.",
+    },
+    Answer: "d",
+    Explanation:
+      "This information weakens David's argument by suggesting that the greater number of negative opinions gathered might just be reflecting the existing sentiment of the residents, rather than it being an indication of the pollsters' personal bias against the project. If the majority of the residents were already against the redevelopment plan even before the survey, then it would naturally lead to more negative responses, regardless of the pollsters' personal views about the project.",
   },
   {
-      "Paragraph": "In Frank's office team, everyone was accustomed to taking turns making coffee for the team. However, on some days, certain team members wouldn't get their turn due to uneven distribution. Thinking quickly, Frank stepped up and offered to make coffee when no one else was available. His actions were appreciated by his team members. Hence, everyone in a team should be ready to step up when necessary for the benefit of the team.",
-      "Question": "Which of the following, if true, would strengthen the above argument?",
-      "Options": {
-          "a": "In a team environment, it's not always feasible for everyone to take turns.",
-          "b": "If every team member was ready to step up when necessary, the overall efficiency and camaraderie of the team would be enhanced.",
-          "c": "The team leader should be the one to step up when other members can't take their turn.",
-          "d": "Being ready to step up in a team is not an important aspect of teamwork."
-      },
-      "Answer": "b",
-      "Explanation": "Option B supports the idea that readiness of all team members to step up when necessary has significant implications beyond the immediate act. If everyone in the team follows this, it could lead to increased efficiency and camaraderie in the team, thereby enhancing the overall team dynamics.",
-      "Conversation": "",
-      "images": [
-          "/images/frank.jpg"
-      ]
+    Paragraph:
+      "Alfred is holding a birthday party. In his party invitation, Alfred mentioned that 'every type of cake in the party will be multi-layered and every chocolate cake will have cherries on top. None of the multi-layered cakes have cherries.'",
+    Conversation: "undefined",
+    Question:
+      "Which of the following must be true according to Alfred's invitation?",
+    Options: {
+      a: "Some chocolate cakes are multi-layered.",
+      b: "Multi-layered cakes only contain flour, eggs, sugar, and cherries.",
+      c: "No multi-layered cakes are chocolate cakes.",
+      d: "All cakes in the party are chocolate cakes.",
+    },
+    Answer: "c",
+    Explanation:
+      "This answer is CORRECT because if all chocolate cakes have cherries on top but none of the multi-layered cakes have cherries on top, there must be no overlap between chocolate cakes and multi-layered cakes. Therefore, no multi-layered cakes can be chocolate cakes.",
   },
-  {
-      "Paragraph": "A vast number of college students depend on online resources to prepare for their exams. Some educators argue that relying too heavily on these resources can lead to a lack of deep understanding and critical thinking skills. In this context, John believes that colleges should enact stricter policies about using online resources for studying.",
-      "Question": "Which of the following, if true, most effectively strengthens John's argument?",
-      "Options": {
-          "a": "Many online resources provide incorrect or misleading information.",
-          "b": "Not all students have access to internet, making it unfair for those who depend on traditional resources.",
-          "c": "Most college professors recommend their students to use online resources for additional learning.",
-          "d": "A research study found that students who rely heavily on online resources have a lower understanding of the subject matter compared to those who use traditional study methods."
-      },
-      "Answer": "d",
-      "Explanation": "Option D strengthens John's argument about enforcing stricter policies on the usage of online resources. It gives evidence that relying heavily on online resources can lead to a lower understanding, which aligns with John's concern.",
-      "Conversation": "",
-      "images": [
-          "/images/john.jpg"
-      ]
-  },
-  {
-      "Paragraph": "At a famous ski resort, access to the best slopes during the winter season is only granted for guests having high-end bookings. However, an exception is made for: 'If you are a national champion in skiing and have been personally invited by the resort owner, you can enjoy unfettered access to all slopes.' Given this, if these preconditions are fulfilled, which statements must be accurate?",
-      "Conversation": "",
-      "Question": "Which of the following statements must be true?",
-      "Options": {
-          "a": "Nathan hasn't made a high-end booking but can still access all the ski slopes during winter.",
-          "b": "Nathan, being friends with the resort owner, will be able to get to ski without a prior high-end booking.",
-          "c": "Nathan, not being a national champion, has no way to get premier access without making a high-end booking.",
-          "d": "Nathan has a personal invite from the owner but is not a national champion. Hence, he will get premier access."
-      },
-      "Answer": "c",
-      "Explanation": "From the given paragraph, we understand that to get premier access without a high-end booking, one must be a national champion and have a personal invite from the owner. Since option C states that Nathan is not a national champion, he would not enjoy the exception.",
-      "images": []
-  },
-  {
-      "Paragraph": "In the context of eco-conservation, Frank suggests that strict regulations should be established on companies that produce excessive amounts of greenhouse gases. He believes this can greatly reduce the carbon footprint and slow down the process of global warming.",
-      "Question": "Which of the following, if true, most effectively strengthens Frank's argument?",
-      "Options": {
-          "a": "Several companies have already taken initiatives on their own to reduce carbon emissions.",
-          "b": "Greenhouse gases are not the only factors contributing to global warming.",
-          "c": "A recent report indicates that companies contributing to most of the greenhouse gases are actually only a handful, and they are known for neglecting eco-friendly practices.",
-          "d": "Some companies claim that they can't reduce carbon emissions without seeing a significant decrease in production."
-      },
-      "Answer": "c",
-      "Explanation": "Option C strengthens Frank's argument. It provides evidence that the most significant contributors to greenhouse gas emissions represent a small number of companies, which are known for ignoring eco-friendly practices. Thus, enforcing strict regulations would directly target these primary contributors.",
-      "Conversation": "",
-      "images": [
-          "/images/frank.jpg"
-      ]
-  },
-  {
-      "Paragraph": "Lack of physical activity has been identified as a key factor contributing to the rising number of teenagers with bad health and obesity. Schools, therefore, should make participation in at least one physical sport mandatory for students.",
-      "Conversation": "",
-      "Question": "Which of the following, if true, would strenghten the above argument?",
-      "Options": {
-          "a": "Obesity among teenagers has been associated with increased risk of various diseases like diabetes and heart disease.",
-          "b": "A lot of students find physical sports boring and would rather engage in other activities like playing video games or reading.",
-          "c": "Not all students are skilled in physical sports and this may lead to them feeling left out or bullied.",
-          "d": "Modern technology has made it easy for kids to stay indoors and engage in sedentary activities for long periods"
-      },
-      "Answer": "a",
-      "Explanation": "Option A strengthens the argument by outlining the potential health risks of teen obesity, providing a sense of urgency to the need for mandatory physical sports participation in schools.",
-      "images": []
-  },
-  {
-      "Paragraph": "During a broadcast covering a dispute over a new city park proposal, a radio show host interviewed several residents. Out of the total interviews conducted, the number of residents who opposed the park proposal was twice as many as those who supported it. Consequently, John argues that the radio show is biased against the park proposal.",
-      "Question": "Which one of the following, if true, most seriously weakens John's argument?",
-      "Options": {
-          "a": "The majority of listeners were already familiar with the city park issue before the radio show.",
-          "b": "Most listeners of the radio show do not expect it to be entirely unbiased.",
-          "c": "Prior to the broadcast, a poll showed that twice as many residents were against the park proposal as were in favor of it.",
-          "d": "The proposed park is in close proximity to the radio station, potentially causing disturbances during broadcasts."
-      },
-      "Answer": "c",
-      "Explanation": "This information weakens John's argument by suggesting that the bias observed in the interviews may reflect pre-existing public sentiment rather than a conscious bias by the radio show. If more residents were already against the park proposal before the broadcast, it is only natural that there would be more interviews with those opposed to it, even without any intentional bias from the radio show.",
-      "Conversation": "",
-      "images": [
-          "/images/john.jpg"
-      ]
-  },
-  {
-      "Paragraph": "Fast food companies have often been criticized for contributing to the obesity epidemic in the society. These companies serve high calorie, unhealthy food which contributes to consuming more than necessary calories in a day. Hence, the authorities should consider placing stricter regulations on fast food companies.",
-      "Conversation": "",
-      "Question": "Which of the following, if true, would strenghten the above argument?",
-      "Options": {
-          "a": "Obesity rates have skyrocketed in the last few years and majority of these cases can be traced back to excessive consumption of fast food.",
-          "b": "Fast food companies engage in aggressive marketing tactics to entice consumers, particularly children.",
-          "c": "A lot of fast food companies have started including healthier options in their menu.",
-          "d": "The food served by fast food companies is usually cheap and easily accessible, making it a common choice for a lot of people."
-      },
-      "Answer": "a",
-      "Explanation": "Option A strengthens the argument by providing a direct link between fast food consumption and obesity rate, amplifying the reasoning for stricter regulations on fast food companies.",
-      "images": []
-  }
 ];
 
 // export default function Test2() {
@@ -409,6 +330,57 @@ import { Stack } from "@mui/system";
 import QuestionCard from "./Pages/Admin/TestSeries/Components/QuestionCard";
 // import potrace from "potrace-js";
 const MyComponent = () => {
+  const maleNames = [
+    "Henry",
+    "James",
+    "Nathan",
+    "Carl",
+    "John",
+    "Peter",
+    "Shane",
+    "Alfred",
+    "Bobby",
+    "Clive",
+    "Dennis",
+    "Lloyd",
+    "Luke",
+    "Oliver",
+    "Philip",
+    "Winston",
+    "Henry",
+    "Jackson",
+    "Charlie",
+    "Roy",
+    "Harrison",
+    "Josh",
+    "Billy",
+  ];
+  const femaleNames = [
+    "Alice",
+    "Zoya",
+    "Emma",
+    "Darcy",
+    "Ella",
+    "Mary",
+    "Freda",
+    "Janie",
+    "Katty",
+    "Myra",
+    "Nora",
+    "Martha",
+    "Veverly",
+    "Ruth",
+    "Jenifer",
+    "Jenifer",
+    "Diana",
+    "Lucy",
+    "Daisy",
+    "Georgia",
+    "Matilda",
+    "Eliza",
+    "Clara",
+    "Kate",
+  ];
   const { data } = useQuery({
     queryKey: ["images"],
     queryFn: async () => {
@@ -418,85 +390,36 @@ const MyComponent = () => {
   const responses: any[] = [];
   let image_data = data?.data.images;
   const [resData, setResData] = useState<any>([]);
-  const maleNames = [
-    "boy",
-    "Nathan",
-    "Austin",
-    "Frank",
-    "Bill",
-    "Jenson",
-    "Lloyd",
-    "Oliver",
-    "Louis",
-    "Sam",
-    "Chris",
-    "David",
-    "Tom",
-    "Bobby",
-    "Dennis",
-    "Evan",
-    "Philips",
-    "James",
-    "Adam",
-    "Jay",
-  ];
-  const femaleNames = [
-    "girl",
-    "Zoya",
-    "Ruby",
-    "Lucy",
-    "Daisy",
-    "Georgia",
-    "Sally",
-    "Nora",
-    "Amelia",
-    "Stella",
-    "Natasha",
-    "Marry",
-    "Annie",
-    "Clara",
-    "Jessie",
-    "Flora",
-    "Myra",
-    "Sarah",
-    "Alice",
-    "Eliza",
-
-  ];
-  const image_keyword = image_data?.map((item:any)=>{
-  
-    return item.image_name;
-});
   const set = ()=>{
     const newArray = ArrayData?.map((item: any, index: any) => {
       // if (category == 3) {
       item.Paragraph =
         item.Paragraph && item.Paragraph != "undefined"
-          ? item.Paragraph.replace(/Paragraph:/g, "").replace(/\/n/g, "")
+          ? item.Paragraph.replace(/Paragraph:/g, "").replace(/\/n/g, '')
           : "";
-
+  
       item.Conversation =
         item.Conversation && item.Conversation != "undefined"
-          ? item.Conversation.replace(/Conversation:/g, "").replace(
-              /\/n/g,
-              ""
-            )
+          ? item.Conversation.replace(/Conversation:/g, "").replace(/\/n/g, '')
           : "";
-
+  
       // }
       item.Explanation =
-        item.Explanation &&
-        item.Explanation.replace(/Explanation:/g, "").replace(/\/n/g, "");
+        item.Explanation && item.Explanation.replace(/Explanation:/g, "");
       item.Question =
         item.Question &&
-        item.Question.replace(/Question:/g, "").replace(/\/n/g, "");
+        item.Question.replace(/Question:/g, '').replace(/\/n/g, '');
+  
+         
+      console.log(item.Question);
+  
       let data: string[] = [];
       // const keysToCheck = ["Paragraph", "Conversation", ""];
       // const itemKeys = Object.keys(item);
       // const exists = keysToCheck.every((key) => {
       //   return itemKeys.includes(key);
       // });
-
+  
       // if (exists) {
       // if (item.Paragraph || item.Conversation) {
       const paragraphData = item.Paragraph?.split(" ") ?? [];
@@ -504,9 +427,9 @@ const MyComponent = () => {
       const questionData = item.Question.split(" ") ?? [];
       data = [...paragraphData, ...conversationData, ...questionData];
       // console.log(paragraphData, conversationData, questionData);
-      
+      // console.log(data,paragraphData,conversationData,questionData);
       // }
-
+  
       // data = [
       //   ...item.Paragraph?.split(" "),
       //   ...item.Conversation?.split(" "),
@@ -515,107 +438,60 @@ const MyComponent = () => {
       //   data = item.Question.split(" ");
       // }
       // console.log(data);
-
+  
       item.images = [];
-      let count: number = 0;
+      let count: number = 1;
       // console.log(item.images?.length);
-
+  
       // if (item.images?.length !== 2) {
       // if (exists) {
-      // const m_random = Math.floor(Math.random() * 3);
-      
-     
-    
-      // const m_image_urls2:string[] = [...maleNames].splice(10,10).filter((name:string)=>{
-      //   return image_keyword.includes(name)
-      // });
-      // let t = [...maleNames];
-  
-      
+      const m_random = Math.floor(Math.random() * 3);
+      const m_image_urls = [
+        "/images/boy.jpg",
+        "/images/boy2.jpeg",
+        "/images/boy3.jpeg",
+      ];
+      const m_image_urls2 = [
+        "/images/left_boy.jpg",
+        "/images/left_boy2.jpeg",
+        "/images/left_boy3.jpeg",
+      ];
       // console.log(" girl " + m_random);
-      if(count==0){
-        const m_image_urls:string[] =  [...maleNames].splice(0,10).filter((name:string)=>{
-          return image_keyword.includes(name)
-         });
-        [...m_image_urls].forEach((search: string) => {
-          const caps = search.toUpperCase();
-          let match = data.find(
-            (word: string) => word.toUpperCase() === caps
-          );
-        
-          if (match) {
-            const url = image_data.find((word:any) => word.image_name.toUpperCase() === match);
-                item.images?.push(url);
-                count++;
-                return true; 
-            }
-        });
-      }
-
-      if(count==0){
-        const g_image_urls =  femaleNames.splice(0,10).filter((name:string)=>{
-          image_keyword.includes(name)
-        });
-        [...g_image_urls].forEach((search: string) => {
-          const caps = search.toUpperCase();
-          let match = data.find(
-            (word: string) => word.toUpperCase() === caps
-          );
-        
-          if (match) {
-            const url = image_data.find((word:any) => word.image_name.toUpperCase() === match);
-                item.images?.push(url);
-                count++;
-                return true; 
-            }
-        });
-      }
-      
-      if(count<=1){
-        const m_image_urls2:string[] =  [...maleNames].splice(10,10).filter((name:string)=>{
-          return image_keyword.includes(name)
-         });
-        [...m_image_urls2].forEach((search: string) => {
-          const caps = search.toUpperCase();
-          let match = data.find(
-            (word: string) => word.toUpperCase() === caps
-          );
-        
-          if (match) {
-            const url = image_data.find((word:any) => word.image_name.toUpperCase() === match);
-                item.images?.push(url);
-                count++;
-                return true; 
-            }
-        });
-      }
-
-      if(count<=1){
-        const g_image_urls2 =  femaleNames.splice(10,10).filter((name:string)=>{
-          image_keyword.includes(name)
-        });
-        [...g_image_urls2].forEach((search: string) => {
-          const caps = search.toUpperCase();
-          let match = data.find(
-            (word: string) => word.toUpperCase() === caps
-          );
-        
-          if (match) {
-            const url = image_data.find((word:any) => word.image_name.toUpperCase() === match);
-                item.images?.push(url);
-                count++;
-                return true; 
-            }
-        });
-      }
-    
-      // const g_random = Math.floor(Math.random() * 1);
-   
-      // const g_image_urls2 = femaleNames.splice(0,10).filter((name:string)=>{
-      //   image_keyword.includes(name)
-      // });
-      // console.log(" girl " + g_random);
-
+  
+      maleNames.forEach((search: string) => {
+        if (item.images.length >= 2) {
+          return true; // Exit the loop
+        }
+        const caps = search.toUpperCase();
+        let match = data.find((word: string) => word.toUpperCase() === caps);
+        if (match) {
+          match = data.find((word: string) => word.toUpperCase() === caps);
+        }
+        if (match) {
+          switch (count) {
+            case 1:
+              item.images?.push(m_image_urls[m_random]);
+              count++;
+              break;
+            case 2:
+              item.images?.push(m_image_urls2[m_random]);
+              count++;
+              break;
+            default:
+              item.images?.push(m_image_urls2[m_random]);
+              count++;
+          }
+        }
+        return count == 3;
+      });
+      const g_random = Math.floor(Math.random() * 1);
+      const g_image_urls = ["/images/girl.jpg", "/images/girl.jpg"];
+      const g_image_urls2 = [
+        "/images/right_girl.jpg",
+        "/images/right_girl2.jpeg",
+      ];
+      console.log(" girl " + g_random);
+  
       femaleNames.forEach((search: string) => {
         if (item.images.length >= 2) {
           return true;
@@ -624,53 +500,47 @@ const MyComponent = () => {
         const match = data.find(
           (word: string) => word.replace(/:/g, "").toUpperCase() === caps
         );
-
+  
         if (match) {
-          const url = image_data.find((word:any) => word.image_name.toUpperCase() === match);
           switch (count) {
             case 1:
-              item.images?.push(url);
+              item.images?.push(g_image_urls2[g_random]);
               count++;
               break;
             case 2:
-              item.images?.push(url);
+              item.images?.push(g_image_urls[g_random]);
               count++;
               break;
             case 3:
             default:
-              item.images?.push(url);
+              item.images?.push(g_image_urls[g_random]);
               count++;
           }
         }
+        return count == 3;
       });
       // }
-      image_data.forEach(
-        (search: { image_name: string; image_url: string }) => {
-          if (item.images?.length >= 2) {
-            return true;
-          }
-          const caps = search.image_name.toUpperCase();
-
-          const match = data.find(
-            (word: string) => word.toUpperCase() === caps
-          );
-
-          if (match) {
-            item.images?.push(search.image_url); // Add the image URL to the question
-          }
+      image_data?.forEach((search: { image_name: string; image_url: string }) => {
+        if (item.images?.length >= 2) {
+          return true;
         }
-      );
+        const caps = search.image_name.toUpperCase();
+  
+        const match = data.find((word: string) => word.toUpperCase() === caps);
+  
+        if (match) {
+          item.images?.push(search.image_url); // Add the image URL to the question
+        }
+      });
       // }
       // console.log(male,female);
-
+  
       // if (item.images.length === 0) {
       //   delete item.images;
       // }
       return item;
-      console.log(item);
-      // responses.push(item); // Add the modified item to the responses array
-    });console.log(newArray);
-    
+   // Add the modified item to the responses array
+    });
     setResData(newArray);
 
   }
@@ -679,7 +549,7 @@ const MyComponent = () => {
   return (
     <Stack spacing={2}>
       <button onClick={set}>Click</button>
-    {resData && resData.length != 0 && resData.map((questionData: any, index: any) => (
+    {resData?.map((questionData: any, index: any) => (
       <QuestionCard
         key={index}
         // questionNo={index + 1}

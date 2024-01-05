@@ -62,11 +62,11 @@ const pages: Type[] = [
   //   url: "/admin/view-topics/add-topics/add-question-to-reading-set",
   //   icon: <EventRepeatOutlinedIcon sx={pCss} />,
   // },
-  // {
-  //   name: "Profile",
-  //   url: "/admin/profile",
-  //   icon: <AccountBoxOutlinedIcon sx={pCss} />,
-  // },
+  {
+    name: "Profile",
+    url: "/admin/profile",
+    icon: <AccountBoxOutlinedIcon sx={pCss} />,
+  },
 ];
 
 const AdminNavbar = () => {

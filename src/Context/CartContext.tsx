@@ -109,7 +109,6 @@ const MainCartContext: React.FC<MainContextProps> = ({ children }) => {
   const CRLoading = CartRemove.isLoading;
 
   const addToCart = (id: number) => {
-    
     const updatedCart: number[] = cart ? [...cart, id] : [id];
 
     if (user && purchases?.includes(id)) {
