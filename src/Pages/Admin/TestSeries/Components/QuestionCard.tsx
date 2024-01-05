@@ -76,7 +76,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
           {images && images.length !== 0 && (
             <ImageList
               sx={{
-                width: "80%",
+                width: "90%",
                 // maxHeight: "340px",
                 maxWidth: "hidden",
                 flex: "column",
