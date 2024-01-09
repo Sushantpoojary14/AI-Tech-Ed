@@ -56,7 +56,7 @@ const Navbar = () => {
 
     { name: "Home", url: "/#home", icon: <HomeOutlinedIcon sx={pCss} /> },
     {
-      name: "Buy Test Series",
+      name: "Buy Online Test",
       url: "/#product",
       icon: <FeedOutlinedIcon sx={pCss} />,
     },
