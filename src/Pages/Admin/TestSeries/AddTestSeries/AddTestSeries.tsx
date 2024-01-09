@@ -131,7 +131,7 @@ const AddTestSeries = () => {
     console.log("DATA", data);
 
     try {
-      // await addTSProductMU.mutateAsync(data);
+      await addTSProductMU.mutateAsync(data);
       // console.log("Data submitted successfully", data);
     } catch (error) {}
   };

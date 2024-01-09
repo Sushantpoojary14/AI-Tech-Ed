@@ -165,7 +165,7 @@ const SectionTwo = ({
     "ViewProductDetails1",
     p_id,
   ]);
-  console.log(getProductDetail);
+  // console.log(getProductDetail);
   
   return (
     <>

@@ -48,7 +48,7 @@ const ViewProductDetail = () => {
           `admin/show-product-details/${productdetails}`
         );
 
-        console.log("Products Details", response.data?.product_detail);
+        // console.log("Products Details", response.data?.product_detail);
 
         return response?.data?.product_detail;
       } catch (error) {
