@@ -81,6 +81,7 @@ const styles = {
   image: {
     maxWidth: "150px",
     height: "110px",
+    marginLeft:"70%"  
   },
   optionImage: {
     width: "100px",
