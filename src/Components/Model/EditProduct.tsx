@@ -4,13 +4,14 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Input,
   Select,
   Stack,
 } from "@mui/material";
 import { UserContext } from "../../Context/UserContext";
 import { OButton, WButton } from "../Common/Button";
 import { Header1 } from "../Common/HeaderText";
-import { Input } from "../Common/Input";
+import { Input as TextInput } from "../Common/Input";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import LoadingBar from "../Headers/LoadingBar";
 import { useParams } from "react-router-dom";
@@ -22,9 +23,10 @@ type Inputs = {
   p_name: string;
   p_description: string;
   p_price: string;
-  test_month_limit: string;
-  p_image: FileList;
-  release_date: string;
+  p_image: any;
+  // image?: any;
+  test_month_limit?: string;
+  release_date?: string;
 };
 
 const EditProduct = () => {
@@ -69,7 +71,7 @@ const EditProduct = () => {
   // console.log(data);
   const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
     console.log(para_data);
-    // updateProductMU.mutate(para_data);
+    updateProductMU.mutate(para_data);
   };
 
   const product = cacheProductData;
@@ -99,10 +101,10 @@ const EditProduct = () => {
           /> */}
             <Header1 header="EDIT PRODUCT" />
           </Stack>
-          <form onSubmit={handleSubmit(onSubmit)}  >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={4} direction="column" margin="auto">
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Input
+                <TextInput
                   label="Package Name"
                   type="text"
                   reg={register("p_name")}
@@ -110,7 +112,7 @@ const EditProduct = () => {
                 />
               </Box>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Input
+                <TextInput
                   label="Product Description"
                   type="text"
                   reg={register("p_description")}
@@ -145,40 +147,32 @@ const EditProduct = () => {
                 />
               </Box>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-            
-                  <ParaText1
-                    text={"Update image"}
-                    css={{ textAlign: "left" }}
-                  />
-                  <Controller
-                    name="p_image"
-                  
-                    // accept="image/*"
-                    control={control}
-                    render={({ field: { value, onChange, ...field } }:any) => (
-                      <FormControl fullWidth sx={{ bgcolor: "white" }}>
-                        <Input
-                          {...field}
-                          type="file"
-                          // fullWidth
-                          // label="Product Image"
-                          // variant="outlined"
-                          // value={value.fileName}
-                          onChange={(event: any) => {
-                            console.log("image ",event.target.files[0]);
-                            
-                            onChange(event.target.files[0]);
-                          }}
-                          required
-                          // sx={{ backgroundColor: "white" }}
-                        />
-                       </FormControl>
-                    )}
-                  />
-                
+                <ParaText1 text={"Image Upload"} css={{ textAlign: "left" }} />
+                <Controller
+                  name="p_image"
+                  control={control}
+                  render={({ field: { value, onChange, ...field } }) => (
+                    <FormControl fullWidth sx={{ bgcolor: "white" }}>
+                      <Input
+                        {...field}
+                        type="file"
+                        onChange={(event: any) => {
+                          const selectedFile = event.target.files[0];
+                          console.log(selectedFile);
+
+                          // Ensure that the value passed to onChange is an object containing the file information
+                          onChange(selectedFile);
+                        }}
+                        required
+                        sx={{ backgroundColor: "white" }}
+                      />
+                    </FormControl>
+                  )}
+                />
               </Box>
+
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Input
+                <TextInput
                   label="Price"
                   type="text"
                   reg={register("p_price")}
@@ -186,7 +180,7 @@ const EditProduct = () => {
                 />
               </Box>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Input
+                <TextInput
                   required={false}
                   label="Release Date"
                   type="date"
