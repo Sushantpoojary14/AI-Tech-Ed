@@ -31,13 +31,14 @@ import { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import AlertBox from "../../../../Components/Common/AlertBox";
+import { height } from "@mui/system";
 
 interface Detail {
   title: string;
   data: string;
 }
 const SectionOne = ({ product }: any) => {
-  // console.log("section !", product);
+  console.log("section !", product);
   const [open, setOpen] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -162,29 +163,44 @@ const SectionOne = ({ product }: any) => {
             }}
           />
         </Stack>
-        <Box>
-          {details?.map((item: Detail, key: number) => {
-            return (
-              <Stack
-                //   flexDirection="row"
-                //   sx={{ alignItems: "center", justifyContent: "space-between" }}
-                marginY="1rem"
-                //   marginBottom="50px"
-                key={key}
-              >
-                <Grid container spacing={2}>
-                  <Grid xs={4}>
-                    <ParaText3 text={item?.title} />
+        <Stack flexDirection={"row"} justifyContent={"space-between"} width={"100%"}>
+          <Box sx={{ width: "90%" }}>
+            {details?.map((item: Detail, key: number) => {
+              return (
+                <Stack
+                  //   flexDirection="row"
+                  //   sx={{ alignItems: "center", justifyContent: "space-between" }}
+                  marginY="1rem"
+                  //   marginBottom="50px"
+                  key={key}
+                >
+                  <Grid container spacing={2}>
+                    <Grid xs={4}>
+                      <ParaText3 text={item?.title} />
+                    </Grid>
+                    <Grid xs={8}>
+                      <ParaText1 text={item?.data} css={{ m: "0", p: 0 }} />
+                    </Grid>
                   </Grid>
-                  <Grid xs={8}>
-                    <ParaText1 text={item?.data} css={{ m: "0", p: 0 }} />
-                  </Grid>
-                </Grid>
-              </Stack>
-            );
-          })}
-        </Box>
-        <Box sx={{ width: "100%", textAlign: "right" }}></Box>
+                </Stack>
+              );
+            })}
+          </Box>
+          <Box
+            sx={{
+              width: "30%",
+              p:0,
+              m:0,
+              py: "7px",
+              
+            }}
+          >
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={import.meta.env.VITE_IMAGE_URL + product?.p_image}
+            />
+          </Box>
+        </Stack>
       </Card>
     </>
   );
