@@ -19,12 +19,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ParaText1 } from "../Common/ParaText";
 
 type Inputs = {
-  p_name?: string;
-  p_description?: string;
-  p_price?: string;
-  p_image?: any;
-  test_month_limit?: string;
-  release_date?: string;
+  p_name: string;
+  p_description: string;
+  p_price: string;
+  test_month_limit: string;
+  p_image: FileList;
+  release_date: string;
 };
 
 const EditProduct = () => {
@@ -36,9 +36,9 @@ const EditProduct = () => {
   const p_id = para["*"]?.slice(30);
   const cacheProductData: any = queryClient.getQueryData([
     "ViewProductDetails1",
-    p_id
+    p_id,
   ]);
-// console.log(updatedData?.categories);
+  // console.log(updatedData?.categories);
 
   const updateProductMU = useMutation({
     mutationFn: async (data: Inputs) => {
@@ -48,9 +48,12 @@ const EditProduct = () => {
       );
     },
     onSuccess(res) {
-     res.data.product_detail.categories = cacheProductData.categories;
+      res.data.product_detail.categories = cacheProductData.categories;
       console.log(res.data);
-      queryClient.setQueryData(['ViewProductDetails1',p_id],res.data.product_detail);
+      queryClient.setQueryData(
+        ["ViewProductDetails1", p_id],
+        res.data.product_detail
+      );
       handlePREditClose();
     },
   });
@@ -65,11 +68,10 @@ const EditProduct = () => {
   // });
   // console.log(data);
   const onSubmit: SubmitHandler<Inputs> = async (para_data: Inputs) => {
-    // console.log(para_data);
-    updateProductMU.mutate(para_data);
+    console.log(para_data);
+    // updateProductMU.mutate(para_data);
   };
 
-  
   const product = cacheProductData;
   return (
     <Dialog
@@ -90,100 +92,128 @@ const EditProduct = () => {
         {/* {isLoading ? (
           <LoadingBar />
         ) : ( */}
-          <>
-            <Stack
-              spacing={1}
-              direction="row"
-              margin="auto"
-              sx={{ my: "10px" }}
-            >
-              {/* <LockOpenIcon
+        <>
+          <Stack spacing={1} direction="row" margin="auto" sx={{ my: "10px" }}>
+            {/* <LockOpenIcon
             sx={{ height: "30px", width: "30px", color: "#FA8128" }}
           /> */}
-              <Header1 header="EDIT PRODUCT" />
-            </Stack>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Stack spacing={4} direction="column" margin="auto">
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <Input
-                    label="Package Name"
-                    type="text"
-                    reg={register("p_name")}
-                    defaultVal={product?.p_name}
-                  />
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <Input
-                    label="Product Description"
-                    type="text"
-                    reg={register("p_description")}
-                    defaultVal={product?.p_description}
-                  />
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Header1 header="EDIT PRODUCT" />
+          </Stack>
+          <form onSubmit={handleSubmit(onSubmit)}  >
+            <Stack spacing={4} direction="column" margin="auto">
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Input
+                  label="Package Name"
+                  type="text"
+                  reg={register("p_name")}
+                  defaultVal={product?.p_name}
+                />
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Input
+                  label="Product Description"
+                  type="text"
+                  reg={register("p_description")}
+                  defaultVal={product?.p_description}
+                />
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <ParaText1
+                  text={"Test month limit"}
+                  css={{ textAlign: "left" }}
+                />
+                <Controller
+                  name="test_month_limit"
+                  control={control}
+                  defaultValue={product?.test_month_limit}
+                  render={({ field }) => (
+                    <FormControl fullWidth sx={{ bgcolor: "white" }}>
+                      <Select
+                        defaultValue={product?.test_month_limit}
+                        placeholder="select"
+                        {...field}
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Choose</em>
+                        </MenuItem>
+                        <MenuItem value={3}>3 Months</MenuItem>
+                        <MenuItem value={6}>6 Months</MenuItem>
+                        <MenuItem value={12}>12 Months</MenuItem>
+                      </Select>
+                    </FormControl>
+                  )}
+                />
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+            
                   <ParaText1
-                    text={"Test month limit"}
+                    text={"Update image"}
                     css={{ textAlign: "left" }}
                   />
                   <Controller
-                    name="test_month_limit"
+                    name="p_image"
+                  
+                    // accept="image/*"
                     control={control}
-                    defaultValue={product?.test_month_limit}
-                    render={({ field }) => (
+                    render={({ field: { value, onChange, ...field } }:any) => (
                       <FormControl fullWidth sx={{ bgcolor: "white" }}>
-                        <Select
-                          defaultValue={product?.test_month_limit}
-                          placeholder="select"
+                        <Input
                           {...field}
-                        >
-                          <MenuItem value="" disabled>
-                            <em>Choose</em>
-                          </MenuItem>
-                          <MenuItem value={3}>3 Months</MenuItem>
-                          <MenuItem value={6}>6 Months</MenuItem>
-                          <MenuItem value={12}>12 Months</MenuItem>
-                        </Select>
-                      </FormControl>
+                          type="file"
+                          // fullWidth
+                          // label="Product Image"
+                          // variant="outlined"
+                          // value={value.fileName}
+                          onChange={(event: any) => {
+                            console.log("image ",event.target.files[0]);
+                            
+                            onChange(event.target.files[0]);
+                          }}
+                          required
+                          // sx={{ backgroundColor: "white" }}
+                        />
+                       </FormControl>
                     )}
                   />
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <Input
-                    label="Price"
-                    type="text"
-                    reg={register("p_price")}
-                    defaultVal={product?.p_price}
-                  />
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <Input
-                    required={false}
-                    label="Release Date"
-                    type="date"
-                    reg={register("release_date")}
-                    defaultVal={product?.release_date}
-                  />
-                </Box>
-                <Stack
-                  spacing={{ lg: 6, md: 6, sm: 6, xs: 2 }}
-                  direction="row"
-                  marginX="auto"
-                  paddingTop={2}
-                >
-                  <WButton
-                    name="CANCEL"
-                    css={{ width: "177px" }}
-                    func={handlePREditClose}
-                  />
-                  <OButton
-                    name={updateProductMU.isLoading ? "Updating..." : "Update"}
-                    css={{ width: "177px" }}
-                    type={updateProductMU.isLoading ? "button" : "submit"}
-                  />
-                </Stack>
+                
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Input
+                  label="Price"
+                  type="text"
+                  reg={register("p_price")}
+                  defaultVal={product?.p_price}
+                />
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Input
+                  required={false}
+                  label="Release Date"
+                  type="date"
+                  reg={register("release_date")}
+                  defaultVal={product?.release_date}
+                />
+              </Box>
+              <Stack
+                spacing={{ lg: 6, md: 6, sm: 6, xs: 2 }}
+                direction="row"
+                marginX="auto"
+                paddingTop={2}
+              >
+                <WButton
+                  name="CANCEL"
+                  css={{ width: "177px" }}
+                  func={handlePREditClose}
+                />
+                <OButton
+                  name={updateProductMU.isLoading ? "Updating..." : "Update"}
+                  css={{ width: "177px" }}
+                  type={updateProductMU.isLoading ? "button" : "submit"}
+                />
               </Stack>
-            </form>
-          </>
+            </Stack>
+          </form>
+        </>
         {/* )} */}
       </Box>
     </Dialog>
