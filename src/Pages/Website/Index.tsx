@@ -17,6 +17,9 @@ import PasswordChangeModal from "../../Components/Model/PasswordChangeModal";
 import img from "../../Assets/images/password_success.jpg";
 import SuccessModel from "../../Components/Model/SuccessModel";
 import AlertBox from "../../Components/Common/AlertBox";
+import PrivacyPolicy from "./Terms/PrivacyPolicy";
+import RefundReturnPolicy from "./Terms/RefundReturnPolicy";
+import TermsAndConditions from "./Terms/TermsAndConditions";
 const Index = () => {
   const { Logout } = AppContext();
   // const {  handleClickOpen} = UserContext();
@@ -66,6 +69,10 @@ const Index = () => {
       <MainAuth />
       <Navbar />
       <Routes>
+       <Route path="/Privacy-Policy" element={<PrivacyPolicy />} />
+       <Route path="/Refund-Return-Policy" element={<RefundReturnPolicy />} />
+       <Route path="/Refund-Return-Policy" element={<RefundReturnPolicy />} />
+       <Route path="/Terms-And-Conditions" element={<TermsAndConditions />} />
         <Route index element={<HomePage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/product/:id" element={<Product />} />
