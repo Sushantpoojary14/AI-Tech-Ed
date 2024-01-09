@@ -61,7 +61,7 @@ const Navbar = () => {
       icon: <FeedOutlinedIcon sx={pCss} />,
     },
     {
-      name: "Features",
+      name: "Resources",
       url: "/#third",
       icon: <FeaturedPlayListOutlinedIcon sx={pCss} />,
     },
