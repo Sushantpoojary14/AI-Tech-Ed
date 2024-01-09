@@ -119,7 +119,7 @@ ModalProps) => {
   //   "ViewProductDetails1",
   //   p_id,
   // ]);
-  console.log(122, getProductDetail.categories);
+  // console.log(122, getProductDetail.categories);
 
   const updateTestSeriesSets = useMutation({
     mutationFn: async (formattedDatav2: any) => {
@@ -140,7 +140,7 @@ ModalProps) => {
       // setCounter(counter + 1);
 
       getProductDetail.categories = getProductDetail.categories.map((item: any) => {
-        console.log(item.id , res.data.set_data.id);
+        // console.log(item.id , res.data.set_data.id);
         
         return item.id === res.data.set_data.id ? res.data.set_data : item;
       });
@@ -150,7 +150,7 @@ ModalProps) => {
       queryClient.setQueryData(["ViewProductDetails1", p_id], getProductDetail);
     },
   });
-  console.log(162, getProductDetail.categories);
+  // console.log(162, getProductDetail.categories);
   // const selectedCategories = Object.keys(categoryObj);
   // console.log("selectedCategories", selectedCategories);
 
