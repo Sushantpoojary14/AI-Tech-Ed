@@ -44,9 +44,18 @@ const EditProduct = () => {
 
   const updateProductMU = useMutation({
     mutationFn: async (data: Inputs) => {
-      return await adminTokenAxios.put(
+     
+      console.log(data);
+      
+      return await adminTokenAxios.post(
         `/admin/update-test-series-product/${p_id}`,
-        data
+        // `/admin/add-test-series-product`,
+        data ,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
     },
     onSuccess(res) {
@@ -163,7 +172,7 @@ const EditProduct = () => {
                           // Ensure that the value passed to onChange is an object containing the file information
                           onChange(selectedFile);
                         }}
-                        required
+                      
                         sx={{ backgroundColor: "white" }}
                       />
                     </FormControl>

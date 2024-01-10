@@ -32,7 +32,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import adminTokenAxios from "../../../../Hooks/AdminTokenAxios";
 import AlertBox from "../../../../Components/Common/AlertBox";
 import { height } from "@mui/system";
-
+import img from "../../../../Assets/images/product.jpg";
 interface Detail {
   title: string;
   data: string;
@@ -163,7 +163,11 @@ const SectionOne = ({ product }: any) => {
             }}
           />
         </Stack>
-        <Stack flexDirection={"row"} justifyContent={"space-between"} width={"100%"}>
+        <Stack
+          flexDirection={"row"}
+          justifyContent={"space-between"}
+          width={"100%"}
+        >
           <Box sx={{ width: "90%" }}>
             {details?.map((item: Detail, key: number) => {
               return (
@@ -189,15 +193,18 @@ const SectionOne = ({ product }: any) => {
           <Box
             sx={{
               width: "30%",
-              p:0,
-              m:0,
+              p: 0,
+              m: 0,
               py: "7px",
-              
             }}
           >
             <img
-              style={{ width: "100%", height: "100%" }}
-              src={import.meta.env.VITE_IMAGE_URL + product?.p_image}
+              style={{ width: "100%", aspectRatio: "3/3" }}
+              src={
+                product?.p_image
+                  ? import.meta.env.VITE_IMAGE_URL + product?.p_image
+                  : img
+              }
             />
           </Box>
         </Stack>

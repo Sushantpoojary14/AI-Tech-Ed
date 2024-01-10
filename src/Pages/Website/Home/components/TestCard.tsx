@@ -5,11 +5,11 @@ import { Header2 } from "../../../../Components/Common/HeaderText";
 import { ParaText1 } from "../../../../Components/Common/ParaText";
 // import { AppContext } from "../../../../Context/AppContext";
 import { CartContext } from "../../../../Context/CartContext";
-import img from "../../../../Assets/images/product.jpg"
+import img from "../../../../Assets/images/product.jpg";
 
 interface props {
   data: any;
-  val:boolean;
+  val: boolean;
 }
 
 const TestCard = (props: props) => {
@@ -31,21 +31,42 @@ const TestCard = (props: props) => {
       }}
     >
       <Link to={`/product/${props.data.id}`}>
-        <CardMedia
+        <img
+          src={
+            props.data.p_image
+              ? import.meta.env.VITE_IMAGE_URL + props.data.p_image
+              : img
+          }
+          style={{
+            width: "90%",
+            height: "317px",
+            marginLeft: "20px",
+            marginTop: "5px",
+            aspectRatio: "1/1",
+          }}
+        />
+        {/* <CardMedia
           sx={{
             height: "317px",
-            width: { sm: "301px", xs: "301px", md: "331px", lg: "100%" },
+            width: "100%",
+            marginX: "auto",
+            aspectRatio: "1/1",
+            objectFit: "cover",
           }}
-          image={props.data.p_image  ? import.meta.env.VITE_IMAGE_URL+props.data.p_image : img }
-        />
+          image={
+            props.data.p_image
+              ? import.meta.env.VITE_IMAGE_URL + props.data.p_image
+              : img
+          }
+        /> */}
         <CardContent sx={{ py: "0px", px: { lg: 0, md: "27px" } }}>
           <Header2 header={props.data.p_name} />
-          <ParaText1 text={`$ ${ props.data.p_price}`} />
+          <ParaText1 text={`$ ${props.data.p_price}`} />
         </CardContent>
       </Link>
 
       <CardActions sx={{ py: "0px" }}>
-        { props.val ? (
+        {props.val ? (
           <Link to="/cart" style={{ width: "100%" }}>
             <WButton name="Go to cart" type="button" css={{ width: "100%" }} />
           </Link>
