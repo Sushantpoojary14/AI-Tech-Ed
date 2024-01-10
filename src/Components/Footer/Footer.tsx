@@ -4,9 +4,9 @@ import { ParaText1 } from '../Common/ParaText';
 import { Link } from 'react-router-dom';
 import { HashLink } from "react-router-hash-link";
 
-const pages = ['RESOURCES', 'TESTS SERIES' ];
+const pages = ['FREE RESOURCES', 'BUY ONLINE TESTS' ];
 const purl = ['/#third', '/#product'];
-const pages2 = ['TERMS AND CONDITIONS ', 'PRIVACY POLICY','Refund and Return Policy'];
+const pages2 = ['TERMS AND CONDITIONS ', 'PRIVACY POLICY','REFUND and RETURN POLICY'];
 const surl = ['/Terms-And-Conditions', '/Privacy-Policy', '/Refund-Return-Policy',];
 
 const Footer = () => {
