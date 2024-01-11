@@ -58,20 +58,23 @@ const ViewFirstSection = ({ data }: any) => {
   const result = data?.data?.all_results;
   const details: Detail[] = [
     // { title: "Set Name", data: result?.set_name },
-    { title: "Time Taken : ", data: result?.time_taken },
-    { title: "Marks Secured : ", data: result?.total_marks },
-    { title: "Total Marks : ", data: result?.total_questions }, //result?.total_marks
-    { title: "Percentage : ", data: result?.percentage },
-    { title: "Correct Answers : ", data: result?.total_marks },
-    {
-      title: "Wrong Answers : ",
-      data: result?.negative_marks,
-    },
     { title: "Total Questions : ", data: result?.total_questions },
     {
       title: "Questions Attempted : ",
       data: result?.total_answered,
     },
+    {
+      title: "Time Taken to Attempt (min) : ",
+      data: result?.time_taken + ":00",
+    },
+    { title: "Correct Answers : ", data: result?.total_marks },
+    { title: "Marks Secured : ", data: result?.total_marks },
+    {
+      title: "Wrong Answers : ",
+      data: result?.negative_marks,
+    },
+    { title: "Percentage : ", data: result?.percentage },
+    { title: "Total Marks : ", data: result?.total_questions }, //result?.total_marks
     {
       title: "Rank : ",
       data: result?.rank,
