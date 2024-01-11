@@ -151,7 +151,7 @@ const AdminIndex = () => {
             text="Back to Dashboard"
             link="/user"
           />
-          <EditProduct />
+          
           <Container
             maxWidth={false}
             sx={{

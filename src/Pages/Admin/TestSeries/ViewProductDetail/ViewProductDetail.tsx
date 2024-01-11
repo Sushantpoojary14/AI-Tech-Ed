@@ -14,6 +14,7 @@ import { UserContext } from "../../../../Context/UserContext";
 import LoadingBar from "../../../../Components/Headers/LoadingBar";
 import AddTestSetModal from "../../../../Components/Model/AddTestSetModal";
 import EditTestSetModal from "../../../../Components/Model/EditTestSetModal";
+import EditProduct from "../../../../Components/Model/EditProduct";
 
 const ViewProductDetail = () => {
   const queryClient = useQueryClient();
@@ -61,7 +62,7 @@ const ViewProductDetail = () => {
     "ViewProductDetails1",
     productdetails,
   ]);
-  // console.log(updatedData);
+  // console.log(updatedData,productdetails);
 
   const deleteSetMU = useMutation({
     mutationFn: async (id: number) => {
@@ -266,7 +267,9 @@ const ViewProductDetail = () => {
           categoryObj={category}
         />
       )}
+      <EditProduct />
     </>
+    
   );
 };
 
