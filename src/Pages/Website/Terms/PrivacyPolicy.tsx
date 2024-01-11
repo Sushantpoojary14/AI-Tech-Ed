@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
   return (
     <Container maxWidth="md" sx={{ my: 4 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Privacy Policy
         </Typography>
         <Divider sx={{ my: 2 }} />

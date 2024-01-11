@@ -12,7 +12,7 @@ const TermsAndConditions = () => {
   return (
     <Container maxWidth="md" sx={{ my: 4 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Acceptance of Terms
         </Typography>
         <Divider sx={{ my: 2 }} />
