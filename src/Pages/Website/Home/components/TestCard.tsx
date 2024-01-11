@@ -8,6 +8,7 @@ import { CartContext } from "../../../../Context/CartContext";
 import img from "../../../../Assets/images/product.jpg";
 import { useQuery } from "@tanstack/react-query";
 import tokenAxios from "../../../../Hooks/TokenAxios";
+import { AppContext } from "../../../../Context/AppContext";
 
 interface props {
   data: any;
@@ -16,11 +17,14 @@ interface props {
 
 const TestCard = (props: props) => {
   const { addToCart, purchases, addLoading } = CartContext();
-  // const { user } = AppContext();
+  const { user } = AppContext();
   // console.log(props.val?.includes(props.data?.id));
   const { data: PUdata } = useQuery(
     [],
-    async () => await tokenAxios.get(`get-user-purchases-id`)
+    async () => await tokenAxios.get(`get-user-purchases-id`),
+    {
+      enabled: !!user,
+    }
   );
   console.log(purchases, PUdata);
 
