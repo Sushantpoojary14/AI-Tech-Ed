@@ -23,8 +23,11 @@ const header = ["Sr. No", "Test name", "Price", ""];
 
 const FirstSectionTwo = ({ data }: any) => {
   const queryClient = useQueryClient();
-  // const { cart, removeFromCart, cartUpdate } = CartContext();
+  const { cart, removeFromCart, cartUpdate } = CartContext();
   const { user } = AppContext();
+  const allProduct = data?.data?.remaining_product
+
+
   // const { handlePUSuccessOpen2 } = UserContext();
   // const purchaseMU = useMutation({
   //   mutationFn: async (p_id: number) => {
@@ -55,21 +58,22 @@ const FirstSectionTwo = ({ data }: any) => {
 
   return (
     <Container maxWidth="xl">
-      <Header1 header="Buy Test Packages" />
+      <Header1 header="Buy Online Tests " />
       <Card sx={{ boxShadow: "5px 5px 20px 0px #808080", my: "15px" }}>
         <TableContainer>
           <Table sx={{ minWidth: 650 }}>
             <TableHeader header={header} />
             <TableBody>
-              {data?.data?.remaining_product?.length === 0 ? (
+              {allProduct?.length === 0 ? (
                 <TableRow>
                   <TableCell align="center" sx={{ border: 0 }} colSpan={5}>
                     No Item Found
                   </TableCell>
                 </TableRow>
               ) : (
-                data?.data?.remaining_product.map((item: any, key: number) => {
+                allProduct.map((item: any, key: number) => {
                   // console.log(item.tsp_id);
+                  // if(cart.includes(item.id)){
 
                   return (
                     <TableRow key={key}>
@@ -80,8 +84,8 @@ const FirstSectionTwo = ({ data }: any) => {
                         {item.p_name}
                       </TableCell>
                       {/* <TableCell align="center" sx={{ border: 0 }}>
-                        {item.duration}
-                      </TableCell> */}
+                          {item.duration}
+                        </TableCell> */}
                       <TableCell align="center" sx={{ border: 0 }}>
                         {item.p_price}
                       </TableCell>
@@ -99,6 +103,7 @@ const FirstSectionTwo = ({ data }: any) => {
                       </TableCell>
                     </TableRow>
                   );
+                  // }
                 })
               )}
             </TableBody>

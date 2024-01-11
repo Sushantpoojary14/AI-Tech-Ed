@@ -31,7 +31,8 @@ const Product = () => {
     UserContext();
   // const [amount, setAmount] = useState<number>(0);
   const { user } = AppContext();
-  const { removeFromCart, cartUpdate, addToCart, cart } = CartContext();
+  const { removeFromCart, cartUpdate, addToCart, cart, purchases } =
+    CartContext();
   const [open, setOpen] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
   const [p_id, setP_id] = useState<number>();
@@ -75,14 +76,15 @@ const Product = () => {
     if (cart.includes(id)) {
       setOpen2(true);
     } else {
-     const val = addToCart(id);
-     console.log(val);
-     val && setOpen(true);
+      const val = addToCart(id);
+      console.log(val);
+      val && setOpen(true);
     }
     // handleClickOpen("1");
   };
 
   let product = data?.data.product_data;
+  console.log(product);
 
   if (isLoading) {
     return <LoadingBar />;
@@ -145,7 +147,18 @@ const Product = () => {
                 <Link to="/">
                   <WButton name="Back" css={{ width: "127px" }} />
                 </Link>
-                <OButton name="Checkout" func={() => loginCheck(product.id)} />
+                {cart.includes(product.id) ? (
+                  <Link to="/cart">
+                    <OButton name={"Go to Cart"} />
+                  </Link>
+                ) : purchases?.includes(product.id) ? (
+                  <WButton name="ALready Purchased" type="button" css={{ width: "200px" }} />
+                ) : (
+                  <OButton
+                    func={() => loginCheck(product.id)}
+                    name={"Checkout"}
+                  />
+                )}
               </Stack>
             </CardActions>
           </Stack>

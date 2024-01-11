@@ -6,6 +6,8 @@ import { ParaText1 } from "../../../../Components/Common/ParaText";
 // import { AppContext } from "../../../../Context/AppContext";
 import { CartContext } from "../../../../Context/CartContext";
 import img from "../../../../Assets/images/product.jpg";
+import { useQuery } from "@tanstack/react-query";
+import tokenAxios from "../../../../Hooks/TokenAxios";
 
 interface props {
   data: any;
@@ -13,9 +15,14 @@ interface props {
 }
 
 const TestCard = (props: props) => {
-  const { addToCart } = CartContext();
+  const { addToCart, purchases, addLoading } = CartContext();
   // const { user } = AppContext();
   // console.log(props.val?.includes(props.data?.id));
+  const { data: PUdata } = useQuery(
+    [],
+    async () => await tokenAxios.get(`get-user-purchases-id`)
+  );
+  console.log(purchases, PUdata);
 
   return (
     <Card
@@ -66,16 +73,30 @@ const TestCard = (props: props) => {
       </Link>
 
       <CardActions sx={{ py: "0px" }}>
-        {props.val ? (
-          <Link to="/cart" style={{ width: "100%" }}>
-            <WButton name="Go to cart" type="button" css={{ width: "100%" }} />
-          </Link>
+        {!addLoading ? (
+          props.val ? (
+            <Link to="/cart" style={{ width: "100%" }}>
+              <WButton
+                name="Go to cart"
+                type="button"
+                css={{ width: "100%" }}
+              />
+            </Link>
+          ) : purchases?.includes(props.data.id) ? (
+            <WButton
+              name="ALready Purchased"
+              type="button"
+              css={{ width: "100%" }}
+            />
+          ) : (
+            <OButton2
+              name="Add to cart"
+              func={() => addToCart(props.data.id)}
+              type="button"
+            />
+          )
         ) : (
-          <OButton2
-            name="Add to cart"
-            func={() => addToCart(props.data.id)}
-            type="button"
-          />
+          <WButton name="Loading..." type="button" css={{ width: "100%" }} />
         )}
       </CardActions>
     </Card>
