@@ -9,7 +9,20 @@ import {
   Paper,
   ListItemButton,
   ListItemIcon,
+  AccordionSummary,
+  AccordionDetails,
+  Accordion,
 } from "@mui/material";
+import { ParaText3 } from "../../../Components/Common/ParaText";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import DemoQuestionComp from "../../User/TestResultAnalysis/Components/DemoQuestionComp";
+import { Box } from "@mui/system";
+import FR_OC from "./components/FR_OC";
+import FR_Selective from "./components/FR_Selective";
+import { useQuery } from "@tanstack/react-query";
+import axiosBaseURL from "../../../Hooks/BaseUrl";
+import SampleQuestionCard from "./components/SampleQuestionCard";
+import LoadingBar from "../../../Components/Headers/LoadingBar";
 const data = [
   "Opportunity Class (OC) placement tests",
   "FREE OC Samples",
@@ -18,11 +31,28 @@ const data = [
 ];
 
 const FreeResources = () => {
+  const {
+    data: sampleData,
+    isLoading,
+    isError,
+  } = useQuery(
+    ["sampleData"],
+    async () => {
+      const response = await axiosBaseURL.get("/get-sample-question");
+      return response.data;
+    }
+    // { enabled: !user } // Uncomment this line if needed, assuming 'user' is defined
+  );
+
+  if (isLoading) {
+    return <LoadingBar/>;
+  }
+  console.log(sampleData);
   return (
     <Container maxWidth="md" sx={{ my: 4 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h4">Free Resources</Typography>
-        {data.map((item) => (
+        {/* {data.map((item) => (
           <ListItemButton
             key={item}
             sx={{ py: 0, minHeight: 32, color: "black" }}
@@ -33,50 +63,55 @@ const FreeResources = () => {
               primaryTypographyProps={{ fontSize: 14, fontWeight: "medium" }}
             />
           </ListItemButton>
-        ))}
+        ))} */}
 
-        <Typography variant="h5">
-          Opportunity Class (OC) placement tests
-        </Typography>
-        <Typography variant="body1">
-          An OC (Opportunity Class) Placement Test is a form of examination used
-          in New South Wales (NSW), Australia, to select students for placement
-          in Opportunity Classes. Opportunity classrooms are specialised
-          classrooms in some primary schools for academically exceptional and
-          talented students. These classes offer a more difficult and enriching
-          educational environment for kids with exceptional intellectual
-          potential.
-        </Typography>
+        <Box mt={3} key={1}>
+          {data?.map((item: any, key: number) => {
+            let ReComponent = null;
+            switch (key) {
+              case 0:
+                ReComponent = <FR_OC />;
+                break;
+              case 1:
+                ReComponent = (
+                  <SampleQuestionCard currentData={sampleData?.oc_question} />
+                );
+                break;
+              case 2:
+                ReComponent = <FR_Selective />;
+                break;
+              case 3:
+                ReComponent = (
+                  <SampleQuestionCard
+                    currentData={sampleData?.selective_question}
+                  />
+                );
+                break;
+            }
+            // console.log(ReComponent);
 
-        <Typography variant="body1">
-          Students often take the OC Placement Test in Year 4, which tests their
-          skills in:
-        </Typography>
+            return (
+              <Accordion key={item.id}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id={`panel${key + 1}-header`}
+                >
+                  <ParaText3 text={item} />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Divider sx={{marginY:1}}/>
+                  {ReComponent}
 
-        <List>
-          <ListItem>
-            <ListItemText primary="Reading: is the capacity to comprehend and interpret written material." />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="Mathematics: Problem-solving ability and mathematical thinking." />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="Thinking Skills: refers to cognitive abilities such as the ability to reason and think logically." />
-          </ListItem>
-        </List>
-
-        <Typography variant="body1">
-          The test is designed to identify students who would benefit from the
-          advanced and accelerated curriculum available in Opportunity Classes.
-          It's important for parents and students to be aware of the specific
-          details, dates, and requirements related to the OC Placement Test in
-          NSW. The NSW Department of Education or the relevant educational
-          authorities typically provide information on the test, including
-          sample questions and guidelines for preparation. Parents can obtain
-          information about the test from their child's school or through
-          official channels to ensure they are well-prepared for the testing
-          process.
-        </Typography>
+                  {/* <DemoQuestionComp
+                      questions={item?.get_question}
+                      total_questions={item}
+                    /> */}
+                </AccordionDetails>
+              </Accordion>
+            );
+          })}
+        </Box>
       </Paper>
     </Container>
   );
