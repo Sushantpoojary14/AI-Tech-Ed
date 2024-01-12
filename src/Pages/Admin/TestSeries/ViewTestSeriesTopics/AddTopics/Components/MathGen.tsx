@@ -33,7 +33,8 @@ const MathGen = ({
   handleClose,
 }: MathProps) => {
   const [category, topicGen, totalQuestions, testType, topicName] = formData;
-
+  console.log(formData);
+  
   const [resData, setResData] = useState([]);
   const [open, setOpen] = useState<boolean>(false);
   const [errMessage, setErrMessage] = useState<string>("");
@@ -76,9 +77,8 @@ const MathGen = ({
   });
   let image_data = data?.data.images;
   // console.log(image_data);
-  const image_keyword = image_data?.map((item:any)=>{
-  
-        return item.image_name;
+  const image_keyword = image_data?.map((item: any) => {
+    return item.image_name;
   });
   // console.log(image_keyword);
   const addTestCTMu = useMutation({
@@ -212,7 +212,9 @@ const MathGen = ({
         query = `Generate total ${totalQuestions} unique and exceptionally challenging advanced-level practice questions designed for 25-year-old college students preparing for an aptitude exam on the topic of ${topic} that should be extremely difficult, requiring a high IQ of 140 and above.
 
         Criteria:
-        - Scenario: Each question should intricately incorporate a real-life story or scenario related to the topic and make use of this  keyword in question ${image_keyword.join(",")} , making it profoundly contextually rich and engaging. No limit in how long the question is.
+        - Scenario: Each question should intricately incorporate a real-life story or scenario related to the topic and make use of this  keyword in question ${image_keyword.join(
+          ","
+        )} , making it profoundly contextually rich and engaging. No limit in how long the question is.
         - Complexity: Ensure that the questions are not just challenging, but they should demand an exceptional level of critical thinking and intellectual prowess, reflecting the highest standards of advanced-level aptitude exams.
         - Explanation: Furnish a detailed and elaborate explanation for the correct answer to help students comprehend the underlying concepts, encouraging a deep understanding of the subject matter.
         
@@ -234,16 +236,19 @@ const MathGen = ({
             "Explanation": "Provide an in-depth and comprehensive explanation for the correct answer, unraveling the intricate details of the scenario and solution."
           },
           ......
-           generate ${totalQuestions-1}  more like this and in total ${totalQuestions}
+           generate ${
+             totalQuestions - 1
+           }  more like this and in total ${totalQuestions}
            
         ]
         `;
-        
       } else {
         query = `Generate ${totalQuestions} unique and challenging advanced-level practice word questions designed for 25 college year students who are preparing for an aptitude exam on the topic of ${topic}. Each question should be based on real-life scenarios, and no limit in how long the question is. 
         Ensure the following criteria for each question:
 
-        1. Scenario: Incorporate a real-life scenario that relates to the topic and make use of this keyword in question ${image_keyword.join(",")}.
+        1. Scenario: Incorporate a real-life scenario that relates to the topic and make use of this keyword in question ${image_keyword.join(
+          ","
+        )}.
         2. Clarity: Craft questions that are clear, concise, and easily understandable for 25 college year students.
         3. Diversity: Create a diverse set of questions that cover various aspects of the topic.
         5. Complexity: Ensure that answer choices are complex and require critical thinking.
@@ -266,7 +271,7 @@ const MathGen = ({
         "Explanation": "Detailed explanation for the correct answer"
       },
       ......
-      generate ${totalQuestions-1} more like this 
+      generate ${totalQuestions - 1} more like this 
       
    
     ]
@@ -299,10 +304,12 @@ const MathGen = ({
       console.log("parsed", questions);
       questions?.map((item: mapData, index: any) => {
         item.Explanation =
-          item.Explanation && item.Explanation.replace(/Explanation:/g, "").replace(/\/n/g, "");
+          item.Explanation &&
+          item.Explanation.replace(/Explanation:/g, "").replace(/\/n/g, "");
         item.Question =
-          item.Question && item.Question.replace(/Question:/g, "").replace(/\/n/g, "");
-          const questionData = item.Question.split(" ") ?? [];
+          item.Question &&
+          item.Question.replace(/Question:/g, "").replace(/\/n/g, "");
+        const questionData = item.Question.split(" ") ?? [];
         let data: string[] = questionData;
         item.images = [];
         let count: number = 1;
@@ -311,26 +318,23 @@ const MathGen = ({
         image_data?.forEach(
           (search: { image_name: string; image_url: string }) => {
             // console.log(item.images.length);
-            if (item.images.length  === 1) {
-              return true; 
+            if (item.images.length === 1) {
+              return true;
             }
-          
+
             const caps = search.image_name.toUpperCase();
 
-            const match = data.find(
-              (word: string) => {
-                console.log(word.toUpperCase() , caps);
-               return word.toUpperCase() === caps
-              }
-            );
+            const match = data.find((word: string) => {
+              console.log(word.toUpperCase(), caps);
+              return word.toUpperCase() === caps;
+            });
 
             if (match) {
               item.images.push(search.image_url); // Add the image URL to the question
             }
-           
           }
         );
-       // }
+        // }
         // console.log(male,female);
 
         // if (item.images?.length === 0) {
@@ -385,6 +389,7 @@ const MathGen = ({
                     type="button"
                     func={handleGenerate}
                     name="Generate"
+                    disabled={!!totalQuestions}
                   />
                 ))}
               {resData.length != 0 && newRes.data && totalQuestions && (
@@ -432,6 +437,7 @@ const MathGen = ({
                     type="button"
                     func={handleGenerate}
                     name="Re-Generate"
+                    disabled={!totalQuestions}
                   />
                 ))}
               {/* {resData.length != 0 && newRes.data && (
