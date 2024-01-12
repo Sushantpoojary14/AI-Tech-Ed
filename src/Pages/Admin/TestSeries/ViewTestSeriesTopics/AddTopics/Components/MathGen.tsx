@@ -389,7 +389,7 @@ const MathGen = ({
                     type="button"
                     func={handleGenerate}
                     name="Generate"
-                    disabled={!!totalQuestions}
+                    disabled={!totalQuestions}
                   />
                 ))}
               {resData.length != 0 && newRes.data && totalQuestions && (
