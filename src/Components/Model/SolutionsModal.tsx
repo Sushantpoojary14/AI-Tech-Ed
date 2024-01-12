@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import { ConverationComp, ParaText3, ParaText4 } from "../Common/ParaText";
 import { Controller, useForm } from "react-hook-form";
+import AlertBox from "../Common/AlertBox";
 
 const style = {
   position: "absolute" as "absolute",
@@ -62,19 +63,27 @@ export default function SolutionsModal({
   index,
   indexID,
 }: ModalProps) {
-  document.addEventListener('contextmenu', (e:any) => e.preventDefault());
+  document.addEventListener("contextmenu", (e: any) => e.preventDefault());
+ 
 
-  function ctrlShiftKey(e:any, keyCode:any) {
+
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.key == "p") {
+      setOpenModel(true);
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  });
+  function ctrlShiftKey(e: any, keyCode: any) {
     return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
   }
 
-  document.onkeydown = (e:any) => {
+  document.onkeydown = (e: any) => {
     if (
-
-      ctrlShiftKey(e, 'I') ||
-      ctrlShiftKey(e, 'J') ||
-      ctrlShiftKey(e, 'C') ||
-      (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
+      ctrlShiftKey(e, "I") ||
+      ctrlShiftKey(e, "J") ||
+      ctrlShiftKey(e, "C") ||
+      (e.ctrlKey && e.keyCode === "U".charCodeAt(0))
     )
       return false;
   };
@@ -82,7 +91,7 @@ export default function SolutionsModal({
     e.preventDefault();
     alert("Copying and pasting is not allowed!");
   };
- 
+
   const { control } = useForm<Inputs>();
 
   const handleClose = () => {
@@ -101,9 +110,9 @@ export default function SolutionsModal({
   // console.log("sa", data?.data?.questions.questions);
   const qData = data?.data?.questions.questions;
   const qData2 = data?.data?.questions;
-  if (isLoading) {
-    return <LoadingBar />;
-  }
+  // if (isLoading) {
+  //   return <LoadingBar />;
+  // }
   // let new_index: any;
   // if (index.length != 0) {
   //   let count = 1;
@@ -128,9 +137,18 @@ export default function SolutionsModal({
     item.element.includes(parseInt(indexID) + 1)
   );
   console.log(index);
-
+  const [openModel, setOpenModel] = React.useState<boolean>(false);
+  const handleAlertModelBoxClose = () => {
+    setOpenModel(false);
+  };
   return (
-    <div  >
+    <div>
+      <AlertBox
+        name={`Not Allowed`}
+        type="error"
+        bol={openModel}
+        handleAlertBoxClose={handleAlertModelBoxClose}
+      />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

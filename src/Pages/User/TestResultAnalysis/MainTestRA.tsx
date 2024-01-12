@@ -203,7 +203,7 @@ const MainTestRA = () => {
       },
       {
         accessorKey: "id",
-        header: "",
+        header: "Status",
         size: 50,
         Cell: ({ cell, row }: any) => (
           <Link to={`view/${cell.getValue()}`}>
@@ -235,9 +235,9 @@ const MainTestRA = () => {
     []
   );
 
-  if (isLoading) {
-    return <LoadingBar />;
-  }
+  // if (isLoading) {
+  //   return <LoadingBar />;
+  // }
 
   const props = {
     columns: columns,

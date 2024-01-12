@@ -137,7 +137,7 @@ const MainTestSchedule = () => {
       },
       {
         accessorKey: "id",
-        header: "",
+        header: "Status",
         size: 50,
         Cell: ({ cell, row }: any) => (
           // <Link to={`${cell.getValue()}`}>

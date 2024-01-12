@@ -200,19 +200,20 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
                         >
                           {subject.map((item: any) => {
                             console.log(item.id);
-                            
-                            if(item.id != 2){
-                              return (<FormControlLabel
-                                // onClick={(e: any) =>
-                                //   mutation.mutate(e.target.value)
-                                // }
-                                key={item.tsc_type}
-                                value={item.id}
-                                control={<Radio />}
-                                label={item.tsc_type}
-                              />)
+
+                            if (item.id != 2) {
+                              return (
+                                <FormControlLabel
+                                  // onClick={(e: any) =>
+                                  //   mutation.mutate(e.target.value)
+                                  // }
+                                  key={item.tsc_type}
+                                  value={item.id}
+                                  control={<Radio />}
+                                  label={item.tsc_type}
+                                />
+                              );
                             }
-                          
                           })}
                         </RadioGroup>
                       )}
@@ -233,6 +234,9 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
               />
             )}
           /> */}
+                  <Typography color={"red"} >
+                    *Upload 20 Images at a time
+                  </Typography>
                   <input
                     type="file"
                     multiple
@@ -241,8 +245,13 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Button type="submit" variant="contained" color="primary" disabled={uploadImagesMutation.isLoading}>
-                  Upload Images
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={uploadImagesMutation.isLoading}
+                  >
+                    Upload Images
                   </Button>
                 </Grid>
               </Grid>
