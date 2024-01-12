@@ -187,6 +187,7 @@ const UploadModal = ({
             {topic[0] == 1 && (
               <MathGen
                 formData={topic}
+                topicId={topicId}
                 // reset={reset}
                 edit={true}
               />
@@ -205,6 +206,7 @@ const UploadModal = ({
                 csvData={csvData}
                 setCsvData={setCsvData}
                 // reset={reset}
+                topicId={topicId}
                 edit={true}
               />
             )}
