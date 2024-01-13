@@ -33,7 +33,7 @@ const MathGen = ({
   handleClose,
 }: MathProps) => {
   const [category, topicGen, totalQuestions, testType, topicName] = formData;
-  console.log(formData);
+  // console.log(formData);
   
   const [resData, setResData] = useState([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -123,7 +123,7 @@ const MathGen = ({
     },
     onSuccess: (res: any) => {
       if (res.status == 200) {
-        console.log(res);
+        // console.log(res);
         handleAlertBoxOpen2();
         // navigate(`/admin/test-series/view-test-series-topics`);
         // reset({
@@ -301,7 +301,7 @@ const MathGen = ({
         handleAlertBoxOpen();
       }
       // console.log(message);
-      console.log("parsed", questions);
+      // console.log("parsed", questions);
       questions?.map((item: mapData, index: any) => {
         item.Explanation =
           item.Explanation &&
@@ -313,7 +313,7 @@ const MathGen = ({
         let data: string[] = questionData;
         item.images = [];
         let count: number = 1;
-        console.log(data);
+        // console.log(data);
 
         image_data?.forEach(
           (search: { image_name: string; image_url: string }) => {
@@ -325,7 +325,7 @@ const MathGen = ({
             const caps = search.image_name.toUpperCase();
 
             const match = data.find((word: string) => {
-              console.log(word.toUpperCase(), caps);
+              // console.log(word.toUpperCase(), caps);
               return word.toUpperCase() === caps;
             });
 
@@ -349,7 +349,7 @@ const MathGen = ({
 
     onSuccess: (data: any) => {
       setResData(data);
-      // console.log("Success Data", data);
+      console.log("Success Data", data);
     },
     onError: (error) => {
       // console.log(error);
