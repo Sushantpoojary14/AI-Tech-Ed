@@ -11,6 +11,11 @@ const styles = {
     padding: 20,
     // breakAfter: "page",
   },
+  optionsImage2: {
+    fontSize: 16,
+    // marginTop: 2,
+    // marginBottom: 2,
+  },
   section: {
     margin: 10,
   },
