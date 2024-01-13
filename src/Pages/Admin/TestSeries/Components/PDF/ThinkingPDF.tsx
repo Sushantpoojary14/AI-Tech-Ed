@@ -180,7 +180,17 @@ const ThinkingPDF = ({ props }: any) => {
                           )}
                         </Stack>
                       )}
-                      {item?.Conversation && (
+                      {item?.Conversation || !item?.Paragraph ? (
+                        // <Typography sx={{ my: "10px" }}>
+                        //   {`${item.Conversation}`}
+                        // </Typography>
+                        <Stack flexDirection={"row"} columnGap={1}>
+                          <Typography sx={styles.mainText} className="">{`${
+                            key + 1
+                          }: `}</Typography>
+                          <Typography>{` ${item.Conversation}`}</Typography>
+                        </Stack>
+                      ) : (
                         <Typography sx={{ my: "10px" }}>
                           {`${item.Conversation}`}
                         </Typography>
@@ -294,12 +304,26 @@ const ThinkingPDF = ({ props }: any) => {
                           })}
                         </Stack>
                       )}
-                      {item.conversation && (
+                      {/* {item.conversation && (
+                        <Typography sx={{ my: "10px" }}>
+                          {`${item.conversation}`}
+                        </Typography>
+                      )} */}
+                      {item?.conversation || !item?.paragraph ? (
+                        // <Typography sx={{ my: "10px" }}>
+                        //   {`${item.Conversation}`}
+                        // </Typography>
+                        <Stack flexDirection={"row"} columnGap={1}>
+                          <Typography sx={styles.mainText} className="">{`${
+                            key + 1
+                          }: `}</Typography>
+                          <Typography>{` ${item.conversation}`}</Typography>
+                        </Stack>
+                      ) : (
                         <Typography sx={{ my: "10px" }}>
                           {`${item.conversation}`}
                         </Typography>
                       )}
-
                       {item.conversation || item.paragraph ? (
                         <Typography
                           sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
