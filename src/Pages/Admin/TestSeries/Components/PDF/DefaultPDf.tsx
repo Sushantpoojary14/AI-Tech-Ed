@@ -81,7 +81,7 @@ const styles = {
   image: {
     maxWidth: "150px",
     height: "110px",
-    marginLeft:"70%"  
+    marginLeft: "70%",
   },
   optionImage: {
     width: "100px",
@@ -156,7 +156,6 @@ const DefaultPDf = ({ props }: any) => {
                   //   (key + 1) % 3 === 0 ? "break-after-page" : ""
                   // }  mt-10`}
                 >
-              
                   {item?.Options ? (
                     <>
                       {item.Question && (
@@ -234,7 +233,80 @@ const DefaultPDf = ({ props }: any) => {
                       )}
 
                       <div style={styles.optionContainer}>
-                        {item?.option_1 && (
+                        {item?.option_1?.split(".")[1] === "png" ||
+                        item?.option_1?.split(".")[1] === "jpg" ||
+                        item?.option_1?.split(".")[1] === "jpeg" ? (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <div
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                // flexDirection: "row",
+                              }}
+                            >
+                              <p style={styles.options}>A.</p>
+                              <img
+                                style={styles.optionsImage2}
+                                src={
+                                  import.meta.env.VITE_IMAGE_URL + item.option_1
+                                }
+                              />
+                            </div>
+
+                            {/* <Text>{`${import.meta.env.VITE_IMAGE_OAPI_URL}${item.option_2?.split("/")[3]}`}</Text> */}
+                            <div
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                // flexDirection: "row",
+                              }}
+                            >
+                              <p style={styles.options}>B.</p>
+                              <img
+                                style={styles.optionsImage2}
+                                src={
+                                  import.meta.env.VITE_IMAGE_URL + item.option_2
+                                }
+                              />
+                            </div>
+                            <div
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                // flexDirection: "row",
+                              }}
+                            >
+                              <p style={styles.options}>C.</p>
+                              <img
+                                style={styles.optionsImage2}
+                                src={
+                                  import.meta.env.VITE_IMAGE_URL + item.option_3
+                                }
+                              />
+                            </div>
+                            <div
+                              style={{
+                                ...styles.optionContainer,
+                                display: "flex",
+                                // flexDirection: "row",
+                              }}
+                            >
+                              <p style={styles.options}>D.</p>
+                              <img
+                                style={styles.optionsImage2}
+                                src={
+                                  import.meta.env.VITE_IMAGE_URL + item.option_4
+                                }
+                              />
+                            </div>
+                          </div>
+                        ) : (
                           <>
                             <p
                               style={styles.options}
