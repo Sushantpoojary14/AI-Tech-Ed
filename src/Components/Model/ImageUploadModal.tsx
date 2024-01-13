@@ -124,12 +124,17 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
     //   method: 'POST',
     //   body: formData,
     // }).then((res) => console.log(res));
+    if(data.images.length>20){
+      handleAlertBoxOpen2();
+    }else{
+      // console.log(" DATA", data.images.length);
+      // console.log("image upload D", newData);
+      uploadImagesMutation.mutateAsync(data);
+      setMultipleImages([]);
+    }
     const newData = Object.values(data.images);
     // console.log("image upload F", formData);
-    console.log(" DATA", data);
-    // console.log("image upload D", newData);
-    uploadImagesMutation.mutateAsync(data);
-    setMultipleImages([]); // You'll get an array of File objects here
+   
   };
 
   return (
@@ -142,7 +147,7 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
       />
 
       <AlertBox
-        name="Please try again"
+        name="Please try again "
         type="error"
         bol={open2}
         handleAlertBoxClose={handleAlertBoxClose2}
@@ -235,7 +240,7 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
             )}
           /> */}
                   <Typography color={"red"} >
-                    *Upload 20 Images at a time
+                    *Maximum 20 Images can be uploaded
                   </Typography>
                   <input
                     type="file"
