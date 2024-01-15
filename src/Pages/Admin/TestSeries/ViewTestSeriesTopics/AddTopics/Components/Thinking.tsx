@@ -304,7 +304,7 @@ const Thinking = ({
         )} unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
    
           Example Question:
-          Paragraph:${item.Paragraph}
+          ${item.Paragraph ? "Conversation: " + item.Paragraph : ""} 
           ${item.Conversation ? "Conversation: " + item.Conversation : ""} 
           Question: ${item.Question}
           Options:
