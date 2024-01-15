@@ -381,6 +381,9 @@ const Thinking = ({
        
      
           questions = message && JSON.parse(message);
+          // const questions = message?.split("Question:");
+          console.log(questions);
+          
           questions?.map((item: any, index: any) => {
             // if (category == 3) {
             item.Paragraph = item.Paragraph.replace(/Paragraph:/g, "").replace(
@@ -602,7 +605,7 @@ const Thinking = ({
           });
           // throw "error"
         } catch (e) {
-          setErrMessage(`Question No.- ${key + 1} is proper in Csv`);
+          setErrMessage(`Question No.- ${key + 1} is not proper in Csv`);
           handleAlertBoxOpen();
         }
         // console.log(message);
