@@ -61,11 +61,11 @@ const Thinking = ({
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentData = resData.slice(startIndex, endIndex);
-  console.log(
-    Math.round(totalQuestions / csvData.length),
-    csvData.length,
-    totalQuestions
-  );
+  // console.log(
+  //   Math.round(totalQuestions / csvData.length),
+  //   csvData.length,
+  //   totalQuestions
+  // );
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -234,7 +234,7 @@ const Thinking = ({
         }
         return false;
       });
-      console.log(filteredCsvData);
+      // console.log(filteredCsvData);
       newRes.mutate(filteredCsvData);
     } else {
       alert("upload csv in correct formast");
@@ -304,7 +304,7 @@ const Thinking = ({
         )} unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
    
           Example Question:
-          ${item.Paragraph ? "Conversation: " + item.Paragraph : ""} 
+          ${item.Paragraph ? "Paragraph: " + item.Paragraph : ""} 
           ${item.Conversation ? "Conversation: " + item.Conversation : ""} 
           Question: ${item.Question}
           Options:
@@ -345,8 +345,8 @@ const Thinking = ({
   
           [
             {
-              "Paragraph": "Replace with paragraph text"
-              "Conversation": "Replace with conversation text"
+              ${item.Paragraph ? "Paragraph: Replace with paragraph text ": ""} 
+              ${item.Conversation ? "Conversation: Replace with paragraph text": ""} 
               "Question": "Replace with question text",
               "Options": {
                 "a": "Option A text",
@@ -378,7 +378,7 @@ const Thinking = ({
 
         const message = response?.data?.choices[0]?.message?.content;
         // const questions = message?.split("Question:");
-       
+        console.log(message);
      
           questions = message && JSON.parse(message);
           // const questions = message?.split("Question:");
@@ -386,28 +386,28 @@ const Thinking = ({
           
           questions?.map((item: any, index: any) => {
             // if (category == 3) {
-            item.Paragraph = item.Paragraph.replace(/Paragraph:/g, "").replace(
-              /\/n/g,
-              ""
-            );
+            // item.Paragraph = item.Paragraph.replace(/Paragraph:/g, "").replace(
+            //   /\/n/g,
+            //   ""
+            // );
             if (
               !item.Paragraph ||
               item.Paragraph == "undefined" ||
               item.Paragraph == "N/A"
             ) {
-              console.log(!item.Paragraph);
+              // console.log(!item.Paragraph);
               delete item.Paragraph;
             }
-            item.Conversation = item.Conversation.replace(
-              /Paragraph:/g,
-              ""
-            ).replace(/\/n/g, "");
+            // item.Conversation = item.Conversation.replace(
+            //   /Paragraph:/g,
+            //   ""
+            // ).replace(/\/n/g, "");
             if (
               !item.Conversation ||
               item.Conversation == "undefined" ||
               item.Conversation == "N/A"
             ) {
-              console.log(!item.Conversation);
+              // console.log(!item.Conversation);
   
               delete item.Conversation;
             }
@@ -473,7 +473,7 @@ const Thinking = ({
                 .filter((name: string) => {
                   return image_keyword.includes(name.toLowerCase());
                 });
-              console.log(image_keyword, m_image_urls);
+              // console.log(image_keyword, m_image_urls);
   
               for (const search of m_image_urls) {
                 const caps = search.toUpperCase();
@@ -486,7 +486,7 @@ const Thinking = ({
                     (word: any) =>
                       word.image_name.toUpperCase() === match.toUpperCase()
                   );
-                  console.log(url, match);
+                  // console.log(url, match);
                   item.images?.push(url.image_url);
                   count++;
                   break;
@@ -512,7 +512,7 @@ const Thinking = ({
                     (word: any) =>
                       word.image_name.toUpperCase() === match.toUpperCase()
                   );
-                  console.log(url, match);
+                  // console.log(url, match);
                   item.images?.push(url.image_url);
                   count++;
                   break;
@@ -537,7 +537,7 @@ const Thinking = ({
                     (word: any) =>
                       word.image_name.toUpperCase() === match.toUpperCase()
                   );
-                  console.log(url, match);
+                  // console.log(url, match);
                   item.images?.push(url.image_url);
                   count++;
                   break;
@@ -562,7 +562,7 @@ const Thinking = ({
                     (word: any) =>
                       word.image_name.toUpperCase() === match.toUpperCase()
                   );
-                  console.log(url, match);
+                  // console.log(url, match);
                   item.images?.push(url.image_url);
                   count++;
                   break;
@@ -605,6 +605,8 @@ const Thinking = ({
           });
           // throw "error"
         } catch (e) {
+          console.log(e);
+          
           setErrMessage(`Question No.- ${key + 1} is not proper in Csv`);
           handleAlertBoxOpen();
         }
@@ -613,6 +615,7 @@ const Thinking = ({
        
         // console.log(responses);
       }
+      console.log(responses);
       setResData(responses);
       return responses;
     },

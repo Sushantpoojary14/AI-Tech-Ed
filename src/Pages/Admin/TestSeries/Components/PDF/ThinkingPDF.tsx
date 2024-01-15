@@ -127,7 +127,7 @@ type questions = {
 const ThinkingPDF = ({ props }: any) => {
   const { selected_question, topic, index } = props;
   let count = 1;
-  console.log(selected_question, "s");
+  // console.log(selected_question, "s");
 
   return (
     <Box>
