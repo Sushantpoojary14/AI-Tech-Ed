@@ -325,18 +325,22 @@ const ThinkingPDF = ({ props }: any) => {
                           {`${item.conversation}`}
                         </Typography>
                       )}
-                      {item.conversation || item.paragraph ? (
-                        <Typography
-                          sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
-                        >{`${item.question}`}</Typography>
-                      ) : (
-                        <Stack flexDirection={"row"} columnGap={1}>
-                          <Typography sx={styles.mainText} className="">{`${
-                            key + 1
-                          }: `}</Typography>
-                          <Typography>{` ${item.question}`}</Typography>
-                        </Stack>
-                      )}
+                       {item?.conversation &&
+                        (item?.conversation && !item?.paragraph ? (
+                          // <Typography sx={{ my: "10px" }}>
+                          //   {`${item.Conversation}`}
+                          // </Typography>
+                          <Stack flexDirection={"row"} columnGap={1}>
+                            <Typography sx={styles.mainText} className="">{`${
+                              key + 1
+                            }: `}</Typography>
+                            <Typography>{`${item.conversation}`}</Typography>
+                          </Stack>
+                        ) : (
+                          <Typography sx={{ my: "10px" }}>
+                            {`${item.conversation}`}
+                          </Typography>
+                        ))}
 
                       {!item?.paragraph && item?.question_image && (
                         <Stack
