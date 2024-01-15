@@ -368,7 +368,7 @@ const Thinking = ({
           })
         );
         let questions;
-        console.log("QUERY", query);
+        // console.log("QUERY", query);
         try {
         const response = await openAi.createChatCompletion({
           // model: "gpt-4",
@@ -378,9 +378,9 @@ const Thinking = ({
 
         const message = response?.data?.choices[0]?.message?.content;
         // const questions = message?.split("Question:");
-        console.log(message);
-     
-          questions = message && JSON.parse(message);
+        // console.log(message);
+        const sanitizedJsonString = message?.replace(/[\x00-\x1F\x7F-\x9F]/g, ''); 
+          questions = sanitizedJsonString && JSON.parse(sanitizedJsonString);
           // const questions = message?.split("Question:");
           console.log(questions);
           
@@ -451,7 +451,7 @@ const Thinking = ({
             // else {
             //   data = item.Question.split(" ");
             // }
-            // console.log(data);
+            console.log(data);
   
             item.images = [];
             let count: number = 0;
