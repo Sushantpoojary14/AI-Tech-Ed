@@ -341,7 +341,7 @@ const Thinking = ({
   
           4. If there is a Paragraph ,conversation between persons, generate that as well.
   
-          5. Provide the JSON representation of the five MCQs in the following format:
+          5. Provide the correct JSON representation and Each question should adhere to the following format:
   
           [
             {
@@ -437,13 +437,13 @@ const Thinking = ({
             // });
   
             // if (exists) {
-            if (item.Paragraph || item.Conversation) {
+            // if (item.Paragraph || item.Conversation) {
               const paragraphData = item.Paragraph?.split(" ") ?? [];
               const conversationData = item.Conversation?.split(" ") ?? [];
               const questionData = item.Question.split(" ") ?? [];
               data = [...paragraphData, ...conversationData, ...questionData];
               // console.log(paragraphData, conversationData, questionData);
-            }
+            // }
             // data = [
             //   ...item.Paragraph?.split(" "),
             //   ...item.Conversation?.split(" "),
