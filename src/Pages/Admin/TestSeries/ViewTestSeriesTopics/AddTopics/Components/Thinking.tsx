@@ -330,12 +330,10 @@ const Thinking = ({
           1. For each question, use one of the specified names in order for persons. For males, use first name and only one from this list  ${
             t_m_name[Math.floor(Math.random() * 19)]
           },${
-            t_m_name[Math.floor(Math.random() * 19)]
-          }, and for females, use first name from this list   ${
-            t_f_name[Math.floor(Math.random() * 19)]
-          },${
-            t_f_name[Math.floor(Math.random() * 19)]
-          }.
+          t_m_name[Math.floor(Math.random() * 19)]
+        }, and for females, use first name from this list   ${
+          t_f_name[Math.floor(Math.random() * 19)]
+        },${t_f_name[Math.floor(Math.random() * 19)]}.
   
           2. Maintain the question and Explanation sentence structure only modify variables like numbers.
   
@@ -390,26 +388,49 @@ const Thinking = ({
         // console.log(questions);
         questions?.map((item: any, index: any) => {
           // if (category == 3) {
-          item.Paragraph =
-            item.Paragraph && item.Paragraph != "undefined"
-              ? item.Paragraph.replace(/Paragraph:/g, "").replace(/\/n/g, "")
-              : "";
+          item.Paragraph = item.Paragraph.replace(/Paragraph:/g, "").replace(
+            /\/n/g,
+            ""
+          );
+          if (
+            !item.Paragraph ||
+            item.Paragraph == "undefined" ||
+            item.Paragraph == "N/A"
+          ) {
+            console.log(!item.Paragraph);
+            delete item.Paragraph;
+          }
+          item.Conversation = item.Conversation.replace(
+            /Paragraph:/g,
+            ""
+          ).replace(/\/n/g, "");
+          if (
+            !item.Conversation ||
+            item.Conversation == "undefined" ||
+            item.Conversation == "N/A"
+          ) {
+            console.log(!item.Conversation);
 
-          item.Conversation =
-            item.Conversation && item.Conversation != "undefined"
-              ? item.Conversation.replace(/Conversation:/g, "").replace(
-                  /\/n/g,
-                  ""
-                )
+            delete item.Conversation;
+          }
+
+          // item.Paragraph =
+          //   item.Paragraph && item.Paragraph != "undefined"
+          //     ? item.Paragraph.replace(/Paragraph:/g, "").replace(/\/n/g, "")
+          //     : "";
+
+          item.Question =
+            item.Question && item.Question != "undefined"
+              ? item.Question.replace(/Conversation:/g, "").replace(/\/n/g, "")
               : "";
 
           // }
           item.Explanation =
             item.Explanation &&
             item.Explanation.replace(/Explanation:/g, "").replace(/\/n/g, "");
-          item.Question =
-            item.Question &&
-            item.Question.replace(/Question:/g, "").replace(/\/n/g, "");
+          // item.Question =
+          //   item.Question &&
+          //   item.Question.replace(/Question:/g, "").replace(/\/n/g, "");
           let data: string[] = [];
           // const keysToCheck = ["Paragraph", "Conversation", ""];
           // const itemKeys = Object.keys(item);
@@ -418,15 +439,13 @@ const Thinking = ({
           // });
 
           // if (exists) {
-          // if (item.Paragraph || item.Conversation) {
-          const paragraphData = item.Paragraph?.split(" ") ?? [];
-          const conversationData = item.Conversation?.split(" ") ?? [];
-          const questionData = item.Question.split(" ") ?? [];
-          data = [...paragraphData, ...conversationData, ...questionData];
-          // console.log(paragraphData, conversationData, questionData);
-
-          // }
-
+          if (item.Paragraph || item.Conversation) {
+            const paragraphData = item.Paragraph?.split(" ") ?? [];
+            const conversationData = item.Conversation?.split(" ") ?? [];
+            const questionData = item.Question.split(" ") ?? [];
+            data = [...paragraphData, ...conversationData, ...questionData];
+            // console.log(paragraphData, conversationData, questionData);
+          }
           // data = [
           //   ...item.Paragraph?.split(" "),
           //   ...item.Conversation?.split(" "),

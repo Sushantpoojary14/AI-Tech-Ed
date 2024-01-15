@@ -154,7 +154,7 @@ const ThinkingPDF = ({ props }: any) => {
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
                           }: `}</Typography>
-                          <Typography>{` ${item.Paragraph}`}</Typography>
+                          <Typography>{`${item.Paragraph}`}</Typography>
                         </Stack>
                       )}
                       {item?.Paragraph && item?.question_image && (
@@ -180,21 +180,22 @@ const ThinkingPDF = ({ props }: any) => {
                           )}
                         </Stack>
                       )}
-                      {item?.Conversation || !item?.Paragraph ? (
-                        // <Typography sx={{ my: "10px" }}>
-                        //   {`${item.Conversation}`}
-                        // </Typography>
-                        <Stack flexDirection={"row"} columnGap={1}>
-                          <Typography sx={styles.mainText} className="">{`${
-                            key + 1
-                          }: `}</Typography>
-                          <Typography>{` ${item.Conversation}`}</Typography>
-                        </Stack>
-                      ) : (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${item.Conversation}`}
-                        </Typography>
-                      )}
+                      {item?.Conversation &&
+                        (item?.Conversation && !item?.Paragraph ? (
+                          // <Typography sx={{ my: "10px" }}>
+                          //   {`${item.Conversation}`}
+                          // </Typography>
+                          <Stack flexDirection={"row"} columnGap={1}>
+                            <Typography sx={styles.mainText} className="">{`${
+                              key + 1
+                            }: `}</Typography>
+                            <Typography>{`${item.Conversation}`}</Typography>
+                          </Stack>
+                        ) : (
+                          <Typography sx={{ my: "10px" }}>
+                            {`${item.Conversation}`}
+                          </Typography>
+                        ))}
                       {item.Conversation || item.Paragraph ? (
                         <Typography
                           sx={{ mt: "10px", mb: "20px", fontSize: "16px" }}
@@ -204,10 +205,10 @@ const ThinkingPDF = ({ props }: any) => {
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
                           }: `}</Typography>
-                          <Typography>{` ${item.Question}`}</Typography>
+                          <Typography>{`${item.Question}`}</Typography>
                         </Stack>
                       )}
-                      {!item.paragraph && item?.question_image && (
+                      {/* {!item.paragraph && item?.question_image && (
                         <Stack
                           flexDirection={"row"}
                           justifyContent={"space-between"}
@@ -227,7 +228,7 @@ const ThinkingPDF = ({ props }: any) => {
                             }
                           )}
                         </Stack>
-                      )}
+                      )} */}
                       {!item.paragraph && item?.images && (
                         <Stack
                           flexDirection={"row"}
@@ -246,7 +247,7 @@ const ThinkingPDF = ({ props }: any) => {
                           })}
                         </Stack>
                       )}
-                      {item?.question_image && (
+                      {/* {item?.question_image && (
                         <Stack
                           flexDirection={"row"}
                           justifyContent={"space-between"}
@@ -268,7 +269,7 @@ const ThinkingPDF = ({ props }: any) => {
                             }
                           )}
                         </Stack>
-                      )}
+                      )} */}
                       <Box style={styles.optionContainer} mb={4}>
                         <p style={styles.options}>{`A. ${item.Options.a}`}</p>
                         <p style={styles.options}>{`B. ${item.Options.b}`}</p>
