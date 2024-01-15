@@ -55,12 +55,12 @@ type questionType = {
   };
 };
 const Exam_Section = () => {
-  document.addEventListener("keyup", (e) => {
-    if (e.key == "PrintScreen") {
-      navigator.clipboard.writeText("");
-      setOpen(true);
-    }
-  });
+  // document.addEventListener("keyup", (e) => {
+  //   if (e.key == "PrintScreen") {
+  //     navigator.clipboard.writeText("");
+  //     setOpen(true);
+  //   }
+  // });
 
   document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key == "p") {
