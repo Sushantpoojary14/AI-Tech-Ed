@@ -367,7 +367,9 @@ const Thinking = ({
             apiKey: import.meta.env.VITE_OPENAI_KEY,
           })
         );
+        let questions;
         console.log("QUERY", query);
+        try {
         const response = await openAi.createChatCompletion({
           model: "gpt-4",
           // model: "gpt-3.5-turbo",
@@ -376,9 +378,228 @@ const Thinking = ({
 
         const message = response?.data?.choices[0]?.message?.content;
         // const questions = message?.split("Question:");
-        let questions;
-        try {
+       
+     
           questions = message && JSON.parse(message);
+          questions?.map((item: any, index: any) => {
+            // if (category == 3) {
+            item.Paragraph = item.Paragraph.replace(/Paragraph:/g, "").replace(
+              /\/n/g,
+              ""
+            );
+            if (
+              !item.Paragraph ||
+              item.Paragraph == "undefined" ||
+              item.Paragraph == "N/A"
+            ) {
+              console.log(!item.Paragraph);
+              delete item.Paragraph;
+            }
+            item.Conversation = item.Conversation.replace(
+              /Paragraph:/g,
+              ""
+            ).replace(/\/n/g, "");
+            if (
+              !item.Conversation ||
+              item.Conversation == "undefined" ||
+              item.Conversation == "N/A"
+            ) {
+              console.log(!item.Conversation);
+  
+              delete item.Conversation;
+            }
+  
+            // item.Paragraph =
+            //   item.Paragraph && item.Paragraph != "undefined"
+            //     ? item.Paragraph.replace(/Paragraph:/g, "").replace(/\/n/g, "")
+            //     : "";
+  
+            item.Question =
+              item.Question && item.Question != "undefined"
+                ? item.Question.replace(/Conversation:/g, "").replace(/\/n/g, "")
+                : "";
+  
+            // }
+            item.Explanation =
+              item.Explanation &&
+              item.Explanation.replace(/Explanation:/g, "").replace(/\/n/g, "");
+            // item.Question =
+            //   item.Question &&
+            //   item.Question.replace(/Question:/g, "").replace(/\/n/g, "");
+            let data: string[] = [];
+            // const keysToCheck = ["Paragraph", "Conversation", ""];
+            // const itemKeys = Object.keys(item);
+            // const exists = keysToCheck.every((key) => {
+            //   return itemKeys.includes(key);
+            // });
+  
+            // if (exists) {
+            if (item.Paragraph || item.Conversation) {
+              const paragraphData = item.Paragraph?.split(" ") ?? [];
+              const conversationData = item.Conversation?.split(" ") ?? [];
+              const questionData = item.Question.split(" ") ?? [];
+              data = [...paragraphData, ...conversationData, ...questionData];
+              // console.log(paragraphData, conversationData, questionData);
+            }
+            // data = [
+            //   ...item.Paragraph?.split(" "),
+            //   ...item.Conversation?.split(" "),
+            // // ];
+            // else {
+            //   data = item.Question.split(" ");
+            // }
+            // console.log(data);
+  
+            item.images = [];
+            let count: number = 0;
+            // console.log(item.images?.length);
+  
+            // if (item.images?.length !== 2) {
+            // if (exists) {
+            // const m_random = Math.floor(Math.random() * 3);
+  
+            // const m_image_urls2:string[] = [...maleNames].splice(10,10).filter((name:string)=>{
+            //   return image_keyword.includes(name)
+            // });
+            // let t = [...maleNames];
+  
+            // console.log(" girl " + m_random);
+            if (count === 0) {
+              const m_image_urls: string[] = [...maleNames]
+                .splice(0, 10)
+                .filter((name: string) => {
+                  return image_keyword.includes(name.toLowerCase());
+                });
+              console.log(image_keyword, m_image_urls);
+  
+              for (const search of m_image_urls) {
+                const caps = search.toUpperCase();
+                const match = data.find(
+                  (word: string) => word.toUpperCase() === caps
+                );
+  
+                if (match) {
+                  const url = image_data.find(
+                    (word: any) =>
+                      word.image_name.toUpperCase() === match.toUpperCase()
+                  );
+                  console.log(url, match);
+                  item.images?.push(url.image_url);
+                  count++;
+                  break;
+                }
+              }
+            }
+  
+            if (count == 0) {
+              const g_image_urls = femaleNames
+                .splice(0, 10)
+                .filter((name: string) => {
+                  image_keyword.includes(name.toLowerCase());
+                });
+              for (const search of g_image_urls) {
+                // [...g_image_urls].forEach((search: string) => {
+                const caps = search.toUpperCase();
+                const match = data.find(
+                  (word: string) => word.toUpperCase() === caps
+                );
+  
+                if (match) {
+                  const url = image_data.find(
+                    (word: any) =>
+                      word.image_name.toUpperCase() === match.toUpperCase()
+                  );
+                  console.log(url, match);
+                  item.images?.push(url.image_url);
+                  count++;
+                  break;
+                }
+              }
+            }
+  
+            if (count <= 1) {
+              const m_image_urls: string[] = [...maleNames]
+                .splice(10, 10)
+                .filter((name: string) => {
+                  return image_keyword.includes(name.toLowerCase());
+                });
+              for (const search of m_image_urls) {
+                const caps = search.toUpperCase();
+                const match = data.find(
+                  (word: string) => word.toUpperCase() === caps
+                );
+  
+                if (match) {
+                  const url = image_data.find(
+                    (word: any) =>
+                      word.image_name.toUpperCase() === match.toUpperCase()
+                  );
+                  console.log(url, match);
+                  item.images?.push(url.image_url);
+                  count++;
+                  break;
+                }
+              }
+            }
+  
+            if (count <= 1) {
+              const g_image_urls = femaleNames
+                .splice(10, 10)
+                .filter((name: string) => {
+                  image_keyword.includes(name.toLowerCase());
+                });
+              for (const search of g_image_urls) {
+                const caps = search.toUpperCase();
+                const match = data.find(
+                  (word: string) => word.toUpperCase() === caps
+                );
+  
+                if (match) {
+                  const url = image_data.find(
+                    (word: any) =>
+                      word.image_name.toUpperCase() === match.toUpperCase()
+                  );
+                  console.log(url, match);
+                  item.images?.push(url.image_url);
+                  count++;
+                  break;
+                }
+              }
+            }
+  
+            // const g_random = Math.floor(Math.random() * 1);
+  
+            // const g_image_urls2 = femaleNames.splice(0,10).filter((name:string)=>{
+            //   image_keyword.includes(name)
+            // });
+            // console.log(" girl " + g_random);
+  
+            // }
+            // image_data.forEach(
+            //   (search: { image_name: string; image_url: string }) => {
+            //     if (item.images?.length >= 2) {
+            //       return true;
+            //     }
+            //     const caps = search.image_name.toUpperCase();
+  
+            //     const match = data.find(
+            //       (word: string) => word.toUpperCase() === caps
+            //     );
+  
+            //     if (match) {
+            //       item.images?.push(search.image_url); // Add the image URL to the question
+            //     }
+            //   }
+            // );
+            // }
+            // console.log(male,female);
+  
+            // if (item.images.length === 0) {
+            //   delete item.images;
+            // }
+  
+            responses.push(item); // Add the modified item to the responses array
+          });
           // throw "error"
         } catch (e) {
           setErrMessage(`Question No.- ${key + 1} is proper in Csv`);
@@ -386,225 +607,7 @@ const Thinking = ({
         }
         // console.log(message);
         // console.log(questions);
-        questions?.map((item: any, index: any) => {
-          // if (category == 3) {
-          item.Paragraph = item.Paragraph.replace(/Paragraph:/g, "").replace(
-            /\/n/g,
-            ""
-          );
-          if (
-            !item.Paragraph ||
-            item.Paragraph == "undefined" ||
-            item.Paragraph == "N/A"
-          ) {
-            console.log(!item.Paragraph);
-            delete item.Paragraph;
-          }
-          item.Conversation = item.Conversation.replace(
-            /Paragraph:/g,
-            ""
-          ).replace(/\/n/g, "");
-          if (
-            !item.Conversation ||
-            item.Conversation == "undefined" ||
-            item.Conversation == "N/A"
-          ) {
-            console.log(!item.Conversation);
-
-            delete item.Conversation;
-          }
-
-          // item.Paragraph =
-          //   item.Paragraph && item.Paragraph != "undefined"
-          //     ? item.Paragraph.replace(/Paragraph:/g, "").replace(/\/n/g, "")
-          //     : "";
-
-          item.Question =
-            item.Question && item.Question != "undefined"
-              ? item.Question.replace(/Conversation:/g, "").replace(/\/n/g, "")
-              : "";
-
-          // }
-          item.Explanation =
-            item.Explanation &&
-            item.Explanation.replace(/Explanation:/g, "").replace(/\/n/g, "");
-          // item.Question =
-          //   item.Question &&
-          //   item.Question.replace(/Question:/g, "").replace(/\/n/g, "");
-          let data: string[] = [];
-          // const keysToCheck = ["Paragraph", "Conversation", ""];
-          // const itemKeys = Object.keys(item);
-          // const exists = keysToCheck.every((key) => {
-          //   return itemKeys.includes(key);
-          // });
-
-          // if (exists) {
-          if (item.Paragraph || item.Conversation) {
-            const paragraphData = item.Paragraph?.split(" ") ?? [];
-            const conversationData = item.Conversation?.split(" ") ?? [];
-            const questionData = item.Question.split(" ") ?? [];
-            data = [...paragraphData, ...conversationData, ...questionData];
-            // console.log(paragraphData, conversationData, questionData);
-          }
-          // data = [
-          //   ...item.Paragraph?.split(" "),
-          //   ...item.Conversation?.split(" "),
-          // // ];
-          // else {
-          //   data = item.Question.split(" ");
-          // }
-          // console.log(data);
-
-          item.images = [];
-          let count: number = 0;
-          // console.log(item.images?.length);
-
-          // if (item.images?.length !== 2) {
-          // if (exists) {
-          // const m_random = Math.floor(Math.random() * 3);
-
-          // const m_image_urls2:string[] = [...maleNames].splice(10,10).filter((name:string)=>{
-          //   return image_keyword.includes(name)
-          // });
-          // let t = [...maleNames];
-
-          // console.log(" girl " + m_random);
-          if (count === 0) {
-            const m_image_urls: string[] = [...maleNames]
-              .splice(0, 10)
-              .filter((name: string) => {
-                return image_keyword.includes(name.toLowerCase());
-              });
-            console.log(image_keyword, m_image_urls);
-
-            for (const search of m_image_urls) {
-              const caps = search.toUpperCase();
-              const match = data.find(
-                (word: string) => word.toUpperCase() === caps
-              );
-
-              if (match) {
-                const url = image_data.find(
-                  (word: any) =>
-                    word.image_name.toUpperCase() === match.toUpperCase()
-                );
-                console.log(url, match);
-                item.images?.push(url.image_url);
-                count++;
-                break;
-              }
-            }
-          }
-
-          if (count == 0) {
-            const g_image_urls = femaleNames
-              .splice(0, 10)
-              .filter((name: string) => {
-                image_keyword.includes(name.toLowerCase());
-              });
-            for (const search of g_image_urls) {
-              // [...g_image_urls].forEach((search: string) => {
-              const caps = search.toUpperCase();
-              const match = data.find(
-                (word: string) => word.toUpperCase() === caps
-              );
-
-              if (match) {
-                const url = image_data.find(
-                  (word: any) =>
-                    word.image_name.toUpperCase() === match.toUpperCase()
-                );
-                console.log(url, match);
-                item.images?.push(url.image_url);
-                count++;
-                break;
-              }
-            }
-          }
-
-          if (count <= 1) {
-            const m_image_urls: string[] = [...maleNames]
-              .splice(10, 10)
-              .filter((name: string) => {
-                return image_keyword.includes(name.toLowerCase());
-              });
-            for (const search of m_image_urls) {
-              const caps = search.toUpperCase();
-              const match = data.find(
-                (word: string) => word.toUpperCase() === caps
-              );
-
-              if (match) {
-                const url = image_data.find(
-                  (word: any) =>
-                    word.image_name.toUpperCase() === match.toUpperCase()
-                );
-                console.log(url, match);
-                item.images?.push(url.image_url);
-                count++;
-                break;
-              }
-            }
-          }
-
-          if (count <= 1) {
-            const g_image_urls = femaleNames
-              .splice(10, 10)
-              .filter((name: string) => {
-                image_keyword.includes(name.toLowerCase());
-              });
-            for (const search of g_image_urls) {
-              const caps = search.toUpperCase();
-              const match = data.find(
-                (word: string) => word.toUpperCase() === caps
-              );
-
-              if (match) {
-                const url = image_data.find(
-                  (word: any) =>
-                    word.image_name.toUpperCase() === match.toUpperCase()
-                );
-                console.log(url, match);
-                item.images?.push(url.image_url);
-                count++;
-                break;
-              }
-            }
-          }
-
-          // const g_random = Math.floor(Math.random() * 1);
-
-          // const g_image_urls2 = femaleNames.splice(0,10).filter((name:string)=>{
-          //   image_keyword.includes(name)
-          // });
-          // console.log(" girl " + g_random);
-
-          // }
-          // image_data.forEach(
-          //   (search: { image_name: string; image_url: string }) => {
-          //     if (item.images?.length >= 2) {
-          //       return true;
-          //     }
-          //     const caps = search.image_name.toUpperCase();
-
-          //     const match = data.find(
-          //       (word: string) => word.toUpperCase() === caps
-          //     );
-
-          //     if (match) {
-          //       item.images?.push(search.image_url); // Add the image URL to the question
-          //     }
-          //   }
-          // );
-          // }
-          // console.log(male,female);
-
-          // if (item.images.length === 0) {
-          //   delete item.images;
-          // }
-
-          responses.push(item); // Add the modified item to the responses array
-        });
+       
         // console.log(responses);
       }
       setResData(responses);
