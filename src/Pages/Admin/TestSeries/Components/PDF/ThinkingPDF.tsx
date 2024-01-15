@@ -280,9 +280,12 @@ const ThinkingPDF = ({ props }: any) => {
                   ) : (
                     <>
                       {item?.paragraph && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${key + 1}:${item.paragraph}`}
-                        </Typography>
+                        <Stack flexDirection={"row"} columnGap={1}>
+                          <Typography sx={styles.mainText} className="">{`${
+                            key + 1
+                          }: `}</Typography>
+                          <Typography>{`${item.paragraph}`}</Typography>
+                        </Stack>
                       )}
                       {/* {item?.paragraph && item?.images && (
                         <Stack
