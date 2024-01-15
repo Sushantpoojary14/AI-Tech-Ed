@@ -611,7 +611,7 @@ const Thinking = ({
       return responses;
     },
     onSuccess: (data: any) => {
-      // console.log("Success Data", data);
+      console.log("Success Data", data);
     },
     onError: (error) => {
       // console.log(error);
@@ -694,7 +694,7 @@ const Thinking = ({
               {resData.length == 0 &&
                 category != 2 &&
                 (newRes.isLoading ? (
-                  <BButton2 type="button" name="Generating..." />
+                  <BButton2 type="button" name="Re-Generating..." />
                 ) : (
                   <BButton2
                     type="button"
