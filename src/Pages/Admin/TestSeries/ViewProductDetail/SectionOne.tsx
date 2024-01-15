@@ -143,7 +143,7 @@ const SectionOne = ({ product }: any) => {
               <EditIconButton
                 type="button"
                 func={handlePREditOpen}
-                disabled={product?.release_status}
+                // disabled={product?.release_status}
               />
               <DeleteIconButton
                 type="button"
