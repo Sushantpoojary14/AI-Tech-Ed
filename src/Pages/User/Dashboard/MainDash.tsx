@@ -73,7 +73,7 @@ const MainDash = () => {
     queryFn: async () => {
       const response = await tokenAxios.get(`get-latest-product`);
 
-      return response;
+      return response.data;
     },
   });
 
