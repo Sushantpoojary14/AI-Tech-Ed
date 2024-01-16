@@ -66,7 +66,7 @@ const Thinking = ({
   //   csvData.length,
   //   totalQuestions
   // );
-
+  console.log("len "+resData.length);
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     newPage: number
@@ -103,16 +103,16 @@ const Thinking = ({
   const image_keyword = image_data?.map((item: any) => {
     return item.image_name.toLowerCase();
   });
-  console.log(image_keyword);
+  // console.log(image_keyword);
   
   const addTestCTMu = useMutation({
     mutationFn: async (data: object[]) => {
-      console.log(data);
+      console.log(resData.length);
 
       return await adminTokenAxios.post(`/admin/add-test-series-topics`, {
         tsc_id: category,
         t_name: topicName,
-        question: data,
+        question: resData,
         topic: topicGen,
         ts_id: testType,
       });
@@ -189,7 +189,7 @@ const Thinking = ({
         alert("upload csv in correct formast");
       }
     } else {
-      addTestCTMu.mutate(data);
+      addTestCTMu.mutate(resData);
     }
   };
   const handleGenerate = async () => {
@@ -384,7 +384,7 @@ const Thinking = ({
         const sanitizedJsonString = message?.replace(/[\x00-\x1F\x7F-\x9F]/g, ''); 
           questions = sanitizedJsonString && JSON.parse(sanitizedJsonString);
           // const questions = message?.split("Question:");
-          console.log(questions);
+          // console.log(questions);
           
           questions?.map((item: any, index: any) => {
             // if (category == 3) {
@@ -453,7 +453,7 @@ const Thinking = ({
             // else {
             //   data = item.Question.split(" ");
             // }
-            console.log(data);
+            // console.log(data);
   
             item.images = [];
             let count: number = 0;
@@ -484,7 +484,7 @@ const Thinking = ({
                 );
   
                 if (match) {
-                  console.log(match);
+                  // console.log(match);
                   const url = image_data.find(
                     (word: any) =>
                       word.image_name.toLowerCase() === match.toLowerCase()
@@ -512,7 +512,7 @@ const Thinking = ({
                 );
   
                 if (match) {
-                  console.log(match);
+                  // console.log(match);
                   const url = image_data.find(
                     (word: any) =>
                       word.image_name.toLowerCase() === match.toLowerCase()
@@ -538,7 +538,7 @@ const Thinking = ({
                 );
   
                 if (match) {
-                  console.log(match);
+                  // console.log(match);
                   const url = image_data.find(
                     (word: any) =>
                       word.image_name.toLowerCase() === match.toLowerCase()
@@ -564,7 +564,7 @@ const Thinking = ({
                 );
   
                 if (match) {
-                  console.log(match);
+                  // console.log(match);
                   const url = image_data.find(
                     (word: any) =>
                       word.image_name.toLowerCase() === match.toLowerCase()
@@ -576,7 +576,7 @@ const Thinking = ({
                 }
               }
             }
-            console.log(count);
+            // console.log(count);
             
             // const g_random = Math.floor(Math.random() * 1);
   
@@ -755,7 +755,7 @@ const Thinking = ({
       {/* )} */}
       {resData?.length > 1 && (
         <>
-          <Stack alignItems={"center"} mt={2} mb={1}>
+          {/* <Stack alignItems={"center"} mt={2} mb={1}>
             <Pagination
               color="secondary"
               variant="outlined"
@@ -763,7 +763,7 @@ const Thinking = ({
               page={currentPage}
               onChange={handlePageChange}
             />
-          </Stack>
+          </Stack> */}
           <Stack spacing={2}>
             {currentData?.map((questionData: any, index: any) => (
               <QuestionCard
