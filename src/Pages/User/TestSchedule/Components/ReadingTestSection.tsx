@@ -229,7 +229,7 @@ const ReadingTestSection = (props: props) => {
                       text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
                       css={{ fontWeight: "500" }}
                     /> */}
-                    <ParaText4
+                    {/* <ParaText4
                       text={
                         <span>
                           For questions
@@ -240,11 +240,11 @@ const ReadingTestSection = (props: props) => {
                           think the best answers the question
                         </span>
                       }
-                    />
-                    <ParaText3
+                    /> */}
+                    {/* <ParaText3
                       text={`Read the extracts below then answer the question`}
                       css={{ fontWeight: "500" }}
-                    />
+                    /> */}
                     {/* <Typography
                       textAlign={"center"}
                       fontSize={"30px"}
