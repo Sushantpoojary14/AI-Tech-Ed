@@ -17,14 +17,7 @@ const FourthSection = ({ data }: any) => {
   const handleAlertBoxClose = () => {
     setOpen(false);
   };
-  const navigateTo = () => {
-    if(data?.latest_product_id){
-      Navigate({to:`/product/${data?.latest_product_id}`})
-    }else{
-      setOpen(true);
-    }
-    
-  };
+ 
 
   return (
     <>
@@ -54,13 +47,21 @@ const FourthSection = ({ data }: any) => {
             }}
           >
             <Header1 header="New Test Package Coming Up!" />
-            {/* <Link to={`/product/${data?.latest_product_id}`}> */}
-            <OButton2
-              name="GO TO LATEST TEST PACKAGE"
-              css={{ maxWidth: "344px" }}
-              func={navigateTo}
-            />
-            {/* </Link> */}
+            {data?.latest_product_id ? (
+              <Link to={`/product/${data?.latest_product_id}`}>
+                <OButton2
+                  name="GO TO LATEST TEST PACKAGE"
+                  css={{ maxWidth: "344px" }}
+                  // func={navigateTo}
+                />
+              </Link>
+            ) : (
+              <OButton2
+                name="GO TO LATEST TEST PACKAGE"
+                css={{ maxWidth: "344px" }}
+                func={()=>setOpen(true)}
+              />
+            )}
           </Stack>
           <Paper
             variant="outlined"

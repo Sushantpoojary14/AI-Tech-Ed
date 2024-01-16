@@ -29,7 +29,7 @@ const NotificationStrip = ({ data }: any) => {
     >
       <Link to="/user/Test-schedule">
         <AnimatedText>
-          {data.map((item: any) => (
+          {data?.length !=0 && data?.map((item: any) => (
             <Typography
               component={"span"}
               key={item.id}

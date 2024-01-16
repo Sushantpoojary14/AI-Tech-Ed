@@ -55,12 +55,28 @@ type questionType = {
   };
 };
 const Exam_Section = () => {
-  // document.addEventListener("keyup", (e) => {
-  //   if (e.key == "PrintScreen") {
-  //     navigator.clipboard.writeText("");
-  //     setOpen(true);
-  //   }
-  // });
+  
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const params = useParams();
+  const { user } = AppContext();
+  const [timer, setTimer] = useState<boolean>(true);
+  const [question, setQuestion] = useState<questionType | null>(null);
+  const [questions, setQuestions] = useState<questionType[] | []>([]);
+  const [count, setCount] = useState<number>(0);
+  const [open, setOpen] = useState<boolean>(false);
+  const handleAlertBoxClose = () => {
+    setOpen(false);
+  };
+  document.addEventListener("keyup", (e) => {
+    if (e.key === "PrintScreen") {
+      console.log(e.key);
+      
+      e.preventDefault();
+      setOpen(true);
+      return false;
+    }
+  });
 
   document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key == "p") {
@@ -68,6 +84,7 @@ const Exam_Section = () => {
       // e.cancelBubble = true;
       e.preventDefault();
       e.stopImmediatePropagation();
+      return false;
     }
   });
   document.addEventListener("contextmenu", (e: any) => e.preventDefault());
@@ -90,15 +107,6 @@ const Exam_Section = () => {
     e.preventDefault();
     setOpen(true);
   };
-
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const params = useParams();
-  const { user } = AppContext();
-  const [timer, setTimer] = useState<boolean>(true);
-  const [question, setQuestion] = useState<questionType | null>(null);
-  const [questions, setQuestions] = useState<questionType[] | []>([]);
-  const [count, setCount] = useState<number>(0);
 
   const updateTStatus = useMutation({
     mutationFn: async (data: mutateType) => {
@@ -188,7 +196,7 @@ const Exam_Section = () => {
       restart(time);
       setTimer(false);
     }
-
+ 
     setQuestions(data?.data.test_data);
     // console.log(!question);
 
@@ -277,10 +285,7 @@ const Exam_Section = () => {
   if (isLoading) {
     return <LoadingBar />;
   }
-  const [open, setOpen] = useState<boolean>(false);
-  const handleAlertBoxClose = () => {
-    setOpen(false);
-  };
+  
   return (
     <>
       <AlertBox

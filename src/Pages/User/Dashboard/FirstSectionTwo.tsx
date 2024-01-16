@@ -6,6 +6,7 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
@@ -19,14 +20,13 @@ import { UserContext } from "../../../Context/UserContext";
 import LoadingBar from "../../../Components/Headers/LoadingBar";
 import { Link } from "react-router-dom";
 
-const header = ["Sr. No", "Test name", "Price", ""];
+const header = ["Sr. No", "Test name", "Price", "Buy Tests"];
 
 const FirstSectionTwo = ({ data }: any) => {
   const queryClient = useQueryClient();
   const { cart, removeFromCart, cartUpdate } = CartContext();
   const { user } = AppContext();
-  const allProduct = data?.data?.remaining_product
-
+  const allProduct = data?.data?.remaining_product;
 
   // const { handlePUSuccessOpen2 } = UserContext();
   // const purchaseMU = useMutation({
@@ -91,14 +91,16 @@ const FirstSectionTwo = ({ data }: any) => {
                       </TableCell>
                       <TableCell align="center" sx={{ border: 0 }}>
                         <Link to={`/product/${item.id}`}>
-                          <ShoppingCartIcon
-                            sx={{
-                              width: "25px",
-                              height: "25px",
-                              color: "#3A9BDC",
-                            }}
-                            // onClick={() => purchaseMU.mutate(item.tsp_id)}
-                          />
+                          <Tooltip title="Buy Test" arrow>
+                            <ShoppingCartIcon
+                              sx={{
+                                width: "25px",
+                                height: "25px",
+                                color: "#3A9BDC",
+                              }}
+                              // onClick={() => purchaseMU.mutate(item.tsp_id)}
+                            />
+                          </Tooltip>
                         </Link>
                       </TableCell>
                     </TableRow>

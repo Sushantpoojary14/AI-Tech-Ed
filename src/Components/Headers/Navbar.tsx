@@ -62,7 +62,7 @@ const Navbar = () => {
     },
     {
       name: "Free Resources",
-      url: "/#third",
+      url: "/free-resources",
       icon: <FeaturedPlayListOutlinedIcon sx={pCss} />,
     },
     {

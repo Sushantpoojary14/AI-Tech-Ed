@@ -49,9 +49,9 @@ const TestCard = (props: props) => {
               : img
           }
           style={{
-            width: "90%",
+            width: "100%",
             height: "317px",
-            marginLeft: "20px",
+            // marginLeft: "20px",
             marginTop: "5px",
             aspectRatio: "1/1",
           }}
@@ -72,11 +72,11 @@ const TestCard = (props: props) => {
         /> */}
         <CardContent sx={{ py: "0px", px: { lg: 0, md: "27px" } }}>
           <Header2 header={props.data.p_name} />
-          <ParaText1 text={`$ ${props.data.p_price}`} />
+          <ParaText1 text={`$ ${props.data.p_price}`} css={{fontWeight:"bold"}}/>
         </CardContent>
       </Link>
 
-      <CardActions sx={{ py: "0px" }}>
+      <CardActions sx={{ p: "0px" }}>
         {!addLoading ? (
           props.val ? (
             <Link to="/cart" style={{ width: "100%" }}>

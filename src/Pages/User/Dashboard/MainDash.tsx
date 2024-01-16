@@ -64,8 +64,7 @@ const MainDash = () => {
       const response = await tokenAxios.get(
         `check-user-purchase-expire/${user?.id}`
       );
-
-      return await response;
+      return  response.data;
     },
   });
 
@@ -74,7 +73,7 @@ const MainDash = () => {
     queryFn: async () => {
       const response = await tokenAxios.get(`get-latest-product`);
 
-      return await response.data;
+      return response;
     },
   });
 
@@ -88,11 +87,12 @@ const MainDash = () => {
       return await response.data;
     },
   });
+console.log(packageExpireQuery?.data);
 
   return (
     <>
-      {packageExpireQuery?.data?.status === 403 && (
-        <NotificationStrip data={packageExpireQuery?.data?.data?.tsp} />
+      {packageExpireQuery?.data?.tsp != 0 && (
+        <NotificationStrip data={packageExpireQuery?.data?.tsp} />
       )}
 
       <Stack direction="row" sx={{ my: "8px", justifyContent: "center" }}>
