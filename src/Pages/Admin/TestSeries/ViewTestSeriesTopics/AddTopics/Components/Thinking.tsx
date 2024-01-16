@@ -101,8 +101,10 @@ const Thinking = ({
   let image_data = data?.data.images;
   // console.log(image_data);
   const image_keyword = image_data?.map((item: any) => {
-    return item.image_name;
+    return item.image_name.toLowerCase();
   });
+  console.log(image_keyword);
+  
   const addTestCTMu = useMutation({
     mutationFn: async (data: object[]) => {
       console.log(data);
@@ -476,15 +478,16 @@ const Thinking = ({
               // console.log(image_keyword, m_image_urls);
   
               for (const search of m_image_urls) {
-                const caps = search.toUpperCase();
+                const caps = search.toLowerCase();
                 const match = data.find(
-                  (word: string) => word.toUpperCase() === caps
+                  (word: string) => word.toLowerCase() === caps
                 );
   
                 if (match) {
+                  console.log(match);
                   const url = image_data.find(
                     (word: any) =>
-                      word.image_name.toUpperCase() === match.toUpperCase()
+                      word.image_name.toLowerCase() === match.toLowerCase()
                   );
                   // console.log(url, match);
                   item.images?.push(url.image_url);
@@ -495,22 +498,24 @@ const Thinking = ({
             }
   
             if (count == 0) {
-              const g_image_urls = femaleNames
+              const g_image_urls = [...femaleNames]
                 .splice(0, 10)
                 .filter((name: string) => {
-                  image_keyword.includes(name.toLowerCase());
+                  return image_keyword.includes(name.toLowerCase());
                 });
+
               for (const search of g_image_urls) {
                 // [...g_image_urls].forEach((search: string) => {
-                const caps = search.toUpperCase();
+                const caps = search.toLowerCase();
                 const match = data.find(
-                  (word: string) => word.toUpperCase() === caps
+                  (word: string) => word.toLowerCase() === caps
                 );
   
                 if (match) {
+                  console.log(match);
                   const url = image_data.find(
                     (word: any) =>
-                      word.image_name.toUpperCase() === match.toUpperCase()
+                      word.image_name.toLowerCase() === match.toLowerCase()
                   );
                   // console.log(url, match);
                   item.images?.push(url.image_url);
@@ -527,15 +532,16 @@ const Thinking = ({
                   return image_keyword.includes(name.toLowerCase());
                 });
               for (const search of m_image_urls) {
-                const caps = search.toUpperCase();
+                const caps = search.toLowerCase();
                 const match = data.find(
-                  (word: string) => word.toUpperCase() === caps
+                  (word: string) => word.toLowerCase() === caps
                 );
   
                 if (match) {
+                  console.log(match);
                   const url = image_data.find(
                     (word: any) =>
-                      word.image_name.toUpperCase() === match.toUpperCase()
+                      word.image_name.toLowerCase() === match.toLowerCase()
                   );
                   // console.log(url, match);
                   item.images?.push(url.image_url);
@@ -546,21 +552,22 @@ const Thinking = ({
             }
   
             if (count <= 1) {
-              const g_image_urls = femaleNames
+              const g_image_urls = [...femaleNames]
                 .splice(10, 10)
                 .filter((name: string) => {
-                  image_keyword.includes(name.toLowerCase());
+                  return image_keyword.includes(name.toLowerCase());
                 });
               for (const search of g_image_urls) {
-                const caps = search.toUpperCase();
+                const caps = search.toLowerCase();
                 const match = data.find(
-                  (word: string) => word.toUpperCase() === caps
+                  (word: string) => word.toLowerCase() === caps
                 );
   
                 if (match) {
+                  console.log(match);
                   const url = image_data.find(
                     (word: any) =>
-                      word.image_name.toUpperCase() === match.toUpperCase()
+                      word.image_name.toLowerCase() === match.toLowerCase()
                   );
                   // console.log(url, match);
                   item.images?.push(url.image_url);
@@ -569,7 +576,8 @@ const Thinking = ({
                 }
               }
             }
-  
+            console.log(count);
+            
             // const g_random = Math.floor(Math.random() * 1);
   
             // const g_image_urls2 = femaleNames.splice(0,10).filter((name:string)=>{
