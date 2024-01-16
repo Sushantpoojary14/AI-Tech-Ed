@@ -117,15 +117,20 @@ const Product = () => {
             justifyContent: "space-between",
             width: { lg: "900px", xs: "350px", md: "900px", sm: "700px" },
             boxShadow: "none",
-            backgroundColor: "transparent",
+            // backgroundColor: "transparent",
           }}
         >
-          <CardMedia
-            sx={{
-              height: "330px",
-              width: { lg: "400px", xs: "330px", sm: "400px", md: "400px" },
+          <img
+            style={{
+              width: "40%",
+              // height: "50%",
+              marginLeft: "auto",
+              marginTop: "auto",
+              marginRight:"auto",
+              marginBottom: "auto",
+              aspectRatio: "1/1",
             }}
-            image={
+            src={
               product.p_image
                 ? import.meta.env.VITE_IMAGE_URL + product.p_image
                 : img
@@ -152,7 +157,11 @@ const Product = () => {
                     <OButton name={"Go to Cart"} />
                   </Link>
                 ) : purchases?.includes(product.id) ? (
-                  <WButton name="ALready Purchased" type="button" css={{ width: "200px" }} />
+                  <WButton
+                    name="ALready Purchased"
+                    type="button"
+                    css={{ width: "200px" }}
+                  />
                 ) : (
                   <OButton
                     func={() => loginCheck(product.id)}
