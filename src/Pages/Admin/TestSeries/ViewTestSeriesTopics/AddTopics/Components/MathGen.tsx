@@ -88,7 +88,7 @@ const MathGen = ({
       return await adminTokenAxios.post(`/admin/add-test-series-topics`, {
         tsc_id: category,
         t_name: topicName,
-        question: data,
+        question: resData,
         topic: topicGen,
         ts_id: testType,
       });
@@ -115,7 +115,7 @@ const MathGen = ({
     mutationFn: async (data: object[]) => {
       return await adminTokenAxios.put(
         `/admin/update-test-series-topics/${topicId}`,
-        { question: data }
+        { question: resData }
       );
     },
     onError: (error: any) => {

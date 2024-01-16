@@ -98,6 +98,8 @@ const Thinking = ({
     },
     enabled: !!category,
   });
+  console.log((typeof setTopic === 'function'), setTopic);
+  
   let image_data = data?.data.images;
   // console.log(image_data);
   const image_keyword = image_data?.map((item: any) => {
@@ -139,7 +141,7 @@ const Thinking = ({
     mutationFn: async (data: object[]) => {
       return await adminTokenAxios.put(
         `/admin/update-test-series-topics/${topicId}`,
-        { question: data }
+        { question: resData }
       );
     },
     onError: (error: any) => {
@@ -157,6 +159,9 @@ const Thinking = ({
         setCsvData([]);
         setResData([]);
         setTopic(null);
+        // if (typeof setTopic === 'function') {
+      
+        // }
         handleClose?.();
       }
     },
