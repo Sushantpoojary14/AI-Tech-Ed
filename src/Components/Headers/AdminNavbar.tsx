@@ -52,11 +52,11 @@ const pages: Type[] = [
     url: "/admin/view-topics",
     icon: <EventRepeatOutlinedIcon sx={pCss} />,
   },
-  {
-    name: "Non-Verbal",
-    url: "/admin/non-verbal",
-    icon: <EventRepeatOutlinedIcon sx={pCss} />,
-  },
+  // {
+  //   name: "Non-Verbal",
+  //   url: "/admin/non-verbal",
+  //   icon: <EventRepeatOutlinedIcon sx={pCss} />,
+  // },
   // {
   //   name: "Add-Reading-Question",
   //   url: "/admin/view-topics/add-topics/add-question-to-reading-set",
