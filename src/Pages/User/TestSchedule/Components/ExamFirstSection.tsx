@@ -200,7 +200,7 @@ const ExamFirstSection = (props: props) => {
               onCopy={(e) => props.preventCopyPaste(e)}
             >
               <Stack>
-                {props.index && props.index?.length != 0 && (
+                {/* {props.index && props.index?.length != 0 && (
                   <Stack spacing={2} marginBottom={3}>
                     <ParaText4
                       text={`${index_data.start} - ${index_data.end}): For questions ${index_data.start} - ${index_data.end} choose the option (A,B,C or D) which think the best answers the question`}
@@ -211,7 +211,7 @@ const ExamFirstSection = (props: props) => {
                       css={{ fontWeight: "500" }}
                     />
                   </Stack>
-                )}
+                )} */}
 
                 {question && (
                   <>
@@ -245,7 +245,7 @@ const ExamFirstSection = (props: props) => {
                                 (item: image, key: number) => (
                                   <ImageListItem
                                     key={key}
-                                    // sx={{ width: "200px" }}
+                                    sx={{ width: "100px" }}
                                   >
                                     <img
                                       src={
@@ -253,7 +253,7 @@ const ExamFirstSection = (props: props) => {
                                         item.image_url
                                       }
                                       alt={`Image ${key}`}
-                                      // style={{ maxWidth: "200px" }}
+                                      style={{ aspectRatio:"1/1" }}
                                     />
                                   </ImageListItem>
                                 )
@@ -300,7 +300,7 @@ const ExamFirstSection = (props: props) => {
                                 (item: image, key: number) => (
                                   <ImageListItem
                                     key={key}
-                                    sx={{ minWidth: "200px" }}
+                                    // sx={{ width: "100px" }}
                                   >
                                     <img
                                       src={
@@ -308,8 +308,9 @@ const ExamFirstSection = (props: props) => {
                                         item.image_url
                                       }
                                       style={{
-                                        // minWidth: "150px",
+                                        width: "150px",
                                         objectFit: "cover",
+                                        aspectRatio:"1/1"
                                       }}
                                       alt={`Image ${key}`}
                                     />

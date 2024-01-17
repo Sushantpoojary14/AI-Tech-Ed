@@ -15,6 +15,7 @@ import {
 import React from "react";
 
 const SampleQuestionCard = ({ currentData }: { currentData: any }) => {
+
   return currentData?.map((questionData: any, index: any) => (
     <Card key={index} sx={{marginBottom:1}}>
       <CardContent>
@@ -37,7 +38,8 @@ const SampleQuestionCard = ({ currentData }: { currentData: any }) => {
               : `Question : ${questionData.question} `}
           </Typography>
         }
-        {questionData.images && questionData.images.length !== 0 && (
+        {/* <p>{questionData?.question_image?.length}</p> */}
+        {questionData.question_image && questionData.question_image.length !== 0 && (
           <ImageList
             sx={{
               width: "80%",
@@ -50,7 +52,7 @@ const SampleQuestionCard = ({ currentData }: { currentData: any }) => {
             }}
             cols={3}
           >
-            {questionData.images.map((item: any, key: number) => (
+            {questionData.question_image.map((item: any, key: number) => (
               <ImageListItem
                 key={key}
                 sx={{
@@ -58,8 +60,8 @@ const SampleQuestionCard = ({ currentData }: { currentData: any }) => {
                 }}
               >
                 <img
-                  src={import.meta.env.VITE_IMAGE_URL + item}
-                  alt={`Image ${import.meta.env.VITE_IMAGE_URL + item}`}
+                  src={import.meta.env.VITE_IMAGE_URL + item.image_url}
+                  alt={`Image ${import.meta.env.VITE_IMAGE_URL + item.name}`}
                 />
               </ImageListItem>
             ))}
