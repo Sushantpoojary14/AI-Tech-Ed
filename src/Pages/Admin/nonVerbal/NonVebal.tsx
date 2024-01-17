@@ -1,4 +1,4 @@
-import { Box, Container, Stack, TextField } from "@mui/material";
+import { Box, Button, Container, Stack, TextField } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { Header1 } from "../../../Components/Common/HeaderText";
 import SelectBox from "../../../Components/Common/Select";
@@ -20,6 +20,9 @@ import Mirror3 from "./Mirror/Mirror3";
 import NonVerbalPDF from "../TestSeries/Components/PDF/NonVerbalPDF";
 import DownloadPDF from "../TestSeries/Components/PDF/DownloadPDF";
 import "../../../Assets/Css/cube.css"
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import { useNavigate } from "react-router-dom";
 const options = [
   {
     test_type: "Cube & Dice",
@@ -62,7 +65,7 @@ const NonVebal = () => {
   const handleAlertBoxClose1 = () => {
     setOpen1(false);
   };
-
+  const navigate = useNavigate();
   for (let index = 0; index < 25; index++) {
     const questionRef = useRef(null);
     const optionRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
@@ -250,7 +253,40 @@ const NonVebal = () => {
           backgroundColor: "#F5F5F5",
         }}
         disableGutters
+      ><Stack direction="row">
+      <Button
+        size="small"
+        variant="contained"
+        color="primary"
+        sx={{ paddingRight: "1rem" }}
+        type={"button"}
+        onClick={()=>navigate(-1)}
       >
+        <ArrowBackIosNewRoundedIcon />
+        Back
+      </Button>
+
+      <Stack
+        direction="row"
+        sx={{
+          // my: "18px",
+          justifyContent: "center",
+          mx: "auto",
+          pr: { lg: "100px", xs: "0px", sm: "100px", md: "100px" },
+        }}
+      >
+        <AddBoxOutlinedIcon
+          sx={{
+            height: "28px",
+            width: "28px",
+            color: "#FA8128",
+            mx: "8px",
+            my: "auto",
+          }}
+        />
+        <Header1 header="Add Topics" />
+      </Stack>
+    </Stack>
         <Stack
           direction="row"
           justifyContent="space-between"
