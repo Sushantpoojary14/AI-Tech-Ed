@@ -94,7 +94,7 @@ const EditProduct = () => {
     <Dialog
       onClose={handlePREditClose}
       open={productEdit}
-      sx={{ height: "630px" }}
+      sx={{ height: "100vh" }}
     >
       <Box
         sx={{
