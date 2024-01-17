@@ -179,7 +179,7 @@ const ExamFirstSection = (props: props) => {
             </Box>
             <Stack
               direction="column"
-              spacing={5}
+              spacing={1}
               marginX="auto"
               marginTop={3}
               maxWidth="950px"
@@ -245,7 +245,7 @@ const ExamFirstSection = (props: props) => {
                                 (item: image, key: number) => (
                                   <ImageListItem
                                     key={key}
-                                    sx={{ width: "100px" }}
+                                    sx={{ width: "100%" }}
                                   >
                                     <img
                                       src={
@@ -253,7 +253,7 @@ const ExamFirstSection = (props: props) => {
                                         item.image_url
                                       }
                                       alt={`Image ${key}`}
-                                      style={{ aspectRatio:"1/1" }}
+                                      style={{width: "100%" }}
                                     />
                                   </ImageListItem>
                                 )
@@ -300,7 +300,7 @@ const ExamFirstSection = (props: props) => {
                                 (item: image, key: number) => (
                                   <ImageListItem
                                     key={key}
-                                    // sx={{ width: "100px" }}
+                                    sx={{ maxWidth: "180px" }}
                                   >
                                     <img
                                       src={
@@ -308,9 +308,11 @@ const ExamFirstSection = (props: props) => {
                                         item.image_url
                                       }
                                       style={{
-                                        width: "150px",
-                                        objectFit: "cover",
-                                        aspectRatio:"1/1"
+                                        // maxWidth: "150px",
+                                        // height: "100%",
+                                        // objectFit: "cover",
+                                        backgroundSize:"none"
+                                        // aspectRatio:"1/1"
                                       }}
                                       alt={`Image ${key}`}
                                     />
@@ -324,7 +326,7 @@ const ExamFirstSection = (props: props) => {
                   </>
                 )}
               </Stack>
-              <Stack sx={{mx:8}}>
+              <Stack sx={{m:0,mx:1}}>
                 {/* <ParaText4 text="Option" css={{ fontWeight: "600" }} /> */}
                 <form onChange={handleSubmit(onSubmit)}>
                   <Controller
