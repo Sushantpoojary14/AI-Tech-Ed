@@ -38,7 +38,7 @@ interface Detail {
   data: string;
 }
 const SectionOne = ({ product }: any) => {
-  console.log("section !", product);
+  // console.log("section !", product);
   const [open, setOpen] = useState<boolean>(false);
   const [open2, setOpen2] = useState<boolean>(false);
   const navigate = useNavigate();

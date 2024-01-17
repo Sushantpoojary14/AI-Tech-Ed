@@ -85,7 +85,7 @@ const DownloadPDF = ({
 
   useEffect(() => {
     const questions: questions[] = data;
-    console.log(questions);
+    // console.log(questions);
 
     // console.log(questions?.length < total);
     if (randomG) {

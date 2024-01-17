@@ -182,7 +182,7 @@ const MainContext: React.FC<MainContextProps> = ({ children }) => {
     dispatch({ type: "SET_ADMINTOKEN", payload: token });
     localStorage.setItem("admin", JSON.stringify(data));
     dispatch({ type: "SET_ADMIN", payload: JSON.stringify(data) });
-    console.log("ss");
+ 
     navigate("/admin/");
   };
 
