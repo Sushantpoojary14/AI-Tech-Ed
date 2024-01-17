@@ -7,6 +7,7 @@ import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
 import { Configuration, OpenAIApi } from "openai";
 import AlertBox from "../../../../../../Components/Common/AlertBox";
 import DownloadPDF from "../../../Components/PDF/DownloadPDF";
+import { ParaText4 } from "../../../../../../Components/Common/ParaText";
 
 type mapData = {
   Conversation?: string;
@@ -34,7 +35,7 @@ const MathGen = ({
 }: MathProps) => {
   const [category, topicGen, totalQuestions, testType, topicName] = formData;
   // console.log(formData);
-  
+
   const [resData, setResData] = useState([]);
   const [open, setOpen] = useState<boolean>(false);
   const [errMessage, setErrMessage] = useState<string>("");
@@ -376,7 +377,10 @@ const MathGen = ({
         bol={open2}
         handleAlertBoxClose={handleAlertBoxClose2}
       />
-
+      <ParaText4
+        text={`Total Question Generated: ${resData.length}`}
+        css={{ fontWeight: "bold" }}
+      />
       {!edit
         ? category == "1" && (
             <Stack marginY="1rem" direction="row" spacing={2}>

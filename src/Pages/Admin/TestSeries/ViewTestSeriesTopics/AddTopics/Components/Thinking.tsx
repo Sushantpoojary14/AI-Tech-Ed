@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
-import { Pagination, Stack } from "@mui/material";
+import { Box, Pagination, Stack } from "@mui/material";
 import QuestionCard from "../../../Components/QuestionCard";
 import { BButton2 } from "../../../../../../Components/Common/Button";
 import DownloadPDF from "../../../Components/PDF/DownloadPDF";
 import AlertBox from "../../../../../../Components/Common/AlertBox";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import adminTokenAxios from "../../../../../../Hooks/AdminTokenAxios";
+import { ParaText4 } from "../../../../../../Components/Common/ParaText";
 type CsvItem = {
   Answer: string;
   Conversation?: string;
@@ -662,7 +663,10 @@ const Thinking = ({
         bol={open2}
         handleAlertBoxClose={handleAlertBoxClose2}
       />
+      <Box marginY={5} marginLeft={2}>
+      <ParaText4 text={`Total Question Generated: ${resData.length}`} css={{fontWeight:"bold"}}/>
 
+      </Box>
       {!edit
         ? (csvData.length > 0 || category == "1") && (
             <Stack marginY="1rem" direction="row" spacing={2}>
