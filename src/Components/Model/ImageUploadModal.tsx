@@ -240,7 +240,7 @@ const ImageUploadModal = ({ open, handleClose, subject }: ModalProps) => {
             )}
           /> */}
                   <Typography color={"red"} >
-                    *Maximum 20 Images can be uploaded
+                    *Maximum 10 Images can be uploaded
                   </Typography>
                   <input
                     type="file"

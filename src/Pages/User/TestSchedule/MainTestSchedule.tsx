@@ -193,9 +193,7 @@ const MainTestSchedule = () => {
 
   // console.log("Test schedule", data?.data?.tsp);
 
-  if (isLoading) {
-    return <LoadingBar />;
-  }
+
 
   const props = {
     columns: columns,
@@ -256,7 +254,8 @@ const MainTestSchedule = () => {
             <TestPurchasesTable data={data?.data?.tsp} />
           </Table>
         </TableContainer> */}
-        <AdvanceTable {...props} />
+    
+        {isLoading ? <LoadingBar /> :<AdvanceTable {...props} />}
         {/* </Card> */}
       </Stack>
     </Container>
