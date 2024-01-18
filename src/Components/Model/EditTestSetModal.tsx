@@ -123,7 +123,7 @@ ModalProps) => {
   //   p_id,
   // ]);
   // console.log(122, getProductDetail.categories);
-
+  console.log(getProductDetail);
   const updateTestSeriesSets = useMutation({
     mutationFn: async (formattedDatav2: any) => {
       return await adminTokenAxios.put(
@@ -144,14 +144,15 @@ ModalProps) => {
 
         handleClick();
         // setCounter(counter + 1);
+        getProductDetail.categories = res.data.set_data
+        
+        // getProductDetail.categories = getProductDetail.categories.map(
+        //   (item: any) => {
+        //     // console.log(item.id , res.data.set_data.id);
 
-        getProductDetail.categories = getProductDetail.categories.map(
-          (item: any) => {
-            // console.log(item.id , res.data.set_data.id);
-
-            return item.id === res.data.set_data.id ? res.data.set_data : item;
-          }
-        );
+        //     return item.id === res.data.set_data.id ? res.data.set_data : item;
+        //   }
+        // );
 
         // console.log(154, getProductDetail.categories);
         queryClient.setQueryData(

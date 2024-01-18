@@ -1,4 +1,4 @@
-import { Pagination, Stack } from "@mui/material";
+import { Box, Pagination, Stack } from "@mui/material";
 import React, { useState } from "react";
 import QuestionCard from "../../../Components/QuestionCard";
 import { BButton2 } from "../../../../../../Components/Common/Button";
@@ -377,10 +377,12 @@ const MathGen = ({
         bol={open2}
         handleAlertBoxClose={handleAlertBoxClose2}
       />
-      <ParaText4
-        text={`Total Question Generated: ${resData.length}`}
-        css={{ fontWeight: "bold" }}
-      />
+      <Box marginY={5} marginLeft={2}>
+        <ParaText4
+          text={`Total Question Generated: ${resData.length}`}
+          css={{ fontWeight: "bold" }}
+        />
+      </Box>
       {!edit
         ? category == "1" && (
             <Stack marginY="1rem" direction="row" spacing={2}>
