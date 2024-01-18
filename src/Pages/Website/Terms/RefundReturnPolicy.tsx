@@ -11,7 +11,7 @@ import {
 const RefundReturnPolicy = () => {
   return (
     <Container maxWidth="md" sx={{ my: 4 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
+      <Paper elevation={3} sx={{ p:6 }}>
         <Typography variant="h4" gutterBottom>
           Refund and Return Policy
         </Typography>
@@ -20,7 +20,7 @@ const RefundReturnPolicy = () => {
           Due to the nature of digital goods and the instant access provided to
           online learning tests, we generally do not offer refunds or returns.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Digital Goods:
         </Typography>
         <Typography paragraph>
@@ -29,7 +29,7 @@ const RefundReturnPolicy = () => {
           and the digital goods are accessed, we are unable to accept returns or
           provide refunds.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Quality Assurance:
         </Typography>
         <Typography paragraph>
@@ -38,14 +38,14 @@ const RefundReturnPolicy = () => {
           customer support within 7 working days of purchase, and we will make
           reasonable efforts to address and resolve the issue.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Cancellation:
         </Typography>
         <Typography paragraph>
           As our products are digital and accessible immediately upon purchase,
           cancellation requests are not applicable. All sales are final.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Customer Support:
         </Typography>
         <Typography paragraph>
@@ -56,7 +56,7 @@ const RefundReturnPolicy = () => {
           </Link>{" "}
           within the specified time frame.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Unauthorized Access:
         </Typography>
         <Typography paragraph>
@@ -64,7 +64,7 @@ const RefundReturnPolicy = () => {
           if you suspect any fraudulent activity, please contact us immediately
           for assistance.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Changes to Policy:
         </Typography>
         <Typography paragraph>

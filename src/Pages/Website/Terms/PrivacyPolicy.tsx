@@ -10,8 +10,8 @@ import {
 
 const PrivacyPolicy = () => {
   return (
-    <Container maxWidth="md" sx={{ my: 4 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
+    <Container maxWidth="md" sx={{ my: 4 ,textAlign:"left"}}>
+      <Paper elevation={3} sx={{ p: 6 }}>
         <Typography variant="h4" gutterBottom>
           Privacy Policy
         </Typography>
@@ -29,7 +29,7 @@ const PrivacyPolicy = () => {
           how we collect, use, and safeguard your data when you visit our website
           and use our services.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}> 
           Information We Collect:
         </Typography>
         <Typography paragraph>
@@ -54,7 +54,7 @@ const PrivacyPolicy = () => {
           to enhance your browsing experience. You can manage cookie preferences
           through your browser settings.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           How We Use Your Information:
         </Typography>
         <Typography paragraph>
@@ -75,7 +75,7 @@ const PrivacyPolicy = () => {
           d. <strong>Legal Compliance:</strong> We may use your information to
           comply with applicable laws and regulations.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Data Security:
         </Typography>
         <Typography paragraph>
@@ -87,7 +87,7 @@ const PrivacyPolicy = () => {
           b. Despite our best efforts, no online transmission or electronic
           storage is completely secure. You use our services at your own risk.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Third-Party Services:
         </Typography>
         <Typography paragraph>
@@ -99,21 +99,21 @@ const PrivacyPolicy = () => {
           b. We may use third-party tools for analytics, and their use is
           governed by their respective privacy policies.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Children's Privacy:
         </Typography>
         <Typography paragraph>
           a. Our services are not directed towards individuals under the age of
           6. We do not knowingly collect personal information from children.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Changes to Privacy Policy:
         </Typography>
         <Typography paragraph>
           a. We reserve the right to update this Privacy Policy. Any changes will
           be effective upon posting the revised policy on our website.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Contact Us:
         </Typography>
         <Typography paragraph>

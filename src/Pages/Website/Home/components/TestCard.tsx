@@ -26,13 +26,13 @@ const TestCard = (props: props) => {
       enabled: !!user,
     }
   );
-  console.log(purchases, PUdata);
+  // console.log(purchases, PUdata);
 
   return (
     <Card
       sx={{
         width: { lg: "400px", md: "450px", sm: "355px", xs: "355px" },
-        height: { lg: "495px", sm: "490px", xs: "490px", md: "490px" },
+       
         border: "1px solid #ccc",
         borderRadius: "3px",
         p: { lg: "25px", md: "10px", sm: "15px", xs: "25px" },
@@ -70,9 +70,9 @@ const TestCard = (props: props) => {
               : img
           }
         /> */}
-        <CardContent sx={{ py: "0px", px: { lg: 0, md: "27px" } }}>
-          <Header2 header={props.data.p_name} />
-          <ParaText1 text={`$ ${props.data.p_price}`} css={{fontWeight:"bold"}}/>
+        <CardContent sx={{ py: "10px", px: { lg: 0, md: "27px" } }}>
+          <Header2 header={props.data.p_name.toUpperCase()} />
+          <ParaText1 text={`$${props.data.p_price}`} css={{fontWeight:"bold",fontSize:"20px"}}/>
         </CardContent>
       </Link>
 

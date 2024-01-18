@@ -21,7 +21,7 @@ const TermsAndConditions = () => {
           you have read, understood, and agree to comply with these Terms and
           Conditions.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           User Accounts:
         </Typography>
         <Typography paragraph>
@@ -30,7 +30,7 @@ const TermsAndConditions = () => {
           your account information and for all activities that occur under your
           account.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Use of Services:
         </Typography>
         <Typography paragraph>
@@ -38,7 +38,7 @@ const TermsAndConditions = () => {
           accordance with these Terms and Conditions, as well as applicable
           laws and regulations.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Intellectual Property:
         </Typography>
         <Typography paragraph>
@@ -46,7 +46,7 @@ const TermsAndConditions = () => {
           of [Your Company/Shop Name]. You may not use, reproduce, or
           distribute them without our explicit written permission.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Payments:
         </Typography>
         <Typography paragraph>
@@ -54,7 +54,7 @@ const TermsAndConditions = () => {
           learning tests. Payment is processed through third-party payment
           processors, and you agree to their terms and conditions.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Refunds:
         </Typography>
         <Typography paragraph>
@@ -62,7 +62,7 @@ const TermsAndConditions = () => {
           to Refund Policy). Please refer to that document for detailed
           information.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Prohibited Activities:
         </Typography>
         <Typography paragraph>
@@ -70,7 +70,7 @@ const TermsAndConditions = () => {
           infringe on the rights of others, or interfere with the operation of
           our services.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Privacy:
         </Typography>
         <Typography paragraph>
@@ -79,7 +79,7 @@ const TermsAndConditions = () => {
           understand our practices regarding the collection and use of your
           personal information.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Termination:
         </Typography>
         <Typography paragraph>
@@ -87,7 +87,7 @@ const TermsAndConditions = () => {
           to our services at our sole discretion, without notice, for any
           reason, including a breach of these Terms and Conditions.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Limitation of Liability:
         </Typography>
         <Typography paragraph>
@@ -95,7 +95,7 @@ const TermsAndConditions = () => {
           indirect, incidental, consequential, or punitive damages arising out
           of your use of our services.
         </Typography>
-        <Typography variant="h6" sx={{ mt: 2 }}>
+        <Typography variant="h6" sx={{ mt: 2 }} fontWeight={"bold"}>
           Changes to Terms:
         </Typography>
         <Typography paragraph>
