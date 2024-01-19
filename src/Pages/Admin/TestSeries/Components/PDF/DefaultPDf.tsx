@@ -84,9 +84,9 @@ const styles = {
     textAlign: "center" as const,
   },
   image: {
-    maxWidth: "150px",
-    height: "110px",
-    marginLeft: "70%",
+    maxWidth: "300px",
+    maxHeight: "150px",
+    marginLeft:"auto"
   },
   optionImage: {
     width: "100px",
@@ -164,14 +164,18 @@ const DefaultPDf = ({ props }: any) => {
                   {item?.Options ? (
                     <>
                       {item.Question && (
-                        <Stack flexDirection={"row"} columnGap={1}>
+                        <Stack
+                          flexDirection={"row"}
+                          columnGap={1}
+                          width={"100%"}
+                        >
                           <Typography sx={styles.mainText} className="">{`${
                             key + 1
                           }: `}</Typography>
                           <Typography>{` ${item.Question}`}</Typography>
                         </Stack>
                       )}
-                      {item?.question_image && (
+                      {/* {item?.question_image && (
                         <div>
                           {item?.question_image?.map(
                             (item2: any, key: number) => {
@@ -185,9 +189,14 @@ const DefaultPDf = ({ props }: any) => {
                             }
                           )}
                         </div>
-                      )}
+                      )} */}
                       {item?.images && (
-                        <Stack flexDirection={"row"} columnGap={16}>
+                        <Stack
+                          flexDirection={"row"}
+                          justifyContent={"space-between"}
+                          width={"100%"}
+                          marginRight={"auto"}
+                        >
                           {item?.images?.map((item2: any, key: number) => {
                             return (
                               <img
@@ -219,7 +228,12 @@ const DefaultPDf = ({ props }: any) => {
                       )}
 
                       {item?.question_image && (
-                        <div>
+                        <Stack
+                          flexDirection={"row"}
+                          justifyContent={"space-between"}
+                          width={"100%"}
+                          // marginLeft={"auto"}
+                        >
                           {item?.question_image?.map(
                             (item2: any, key: number) => {
                               return (
@@ -234,7 +248,7 @@ const DefaultPDf = ({ props }: any) => {
                               );
                             }
                           )}
-                        </div>
+                        </Stack>
                       )}
 
                       <div style={styles.optionContainer}>

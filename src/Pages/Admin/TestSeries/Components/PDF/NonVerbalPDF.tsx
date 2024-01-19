@@ -150,7 +150,7 @@ const NonVerbalPDF = ({ props }: any) => {
                 >
                   {item?.options?.a ? (
                     <>
-                      {
+                      { 
                         <Stack flexDirection={"row"} flexWrap={"wrap"}>
                           <Stack
                             flexDirection={"row"}
@@ -280,27 +280,7 @@ const NonVerbalPDF = ({ props }: any) => {
                     </>
                   ) : (
                     <>
-                      {item?.paragraph && (
-                        <Typography sx={{ my: "10px" }}>
-                          {`${key + 1}: ${item.paragraph}`}
-                        </Typography>
-                      )}
-                      {item?.paragraph && item?.images && (
-                        <div>
-                          {item?.images?.map((item2: any, key: any) => {
-                            return (
-                              <img
-                                key={key}
-                                style={styles.image}
-                                src={
-                                  import.meta.env.VITE_IMAGE_URL +
-                                  item2?.image_url
-                                }
-                              />
-                            );
-                          })}
-                        </div>
-                      )}
+                     
 
                       {
                         <Stack flexDirection={"row"} columnGap={1}>

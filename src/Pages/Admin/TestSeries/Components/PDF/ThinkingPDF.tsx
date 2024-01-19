@@ -26,6 +26,7 @@ const styles = {
     padding: 2,
     paddingLeft: 20,
     paddingRight: 20,
+    width:"100%"
     // border: "1pt solid #000",
   },
   question: {
@@ -81,8 +82,9 @@ const styles = {
     textAlign: "center" as const,
   },
   image: {
-    maxWidth: "150px",
-    height: "110px",
+    width: "200px",
+    height: "150px",
+    
   },
   optionImage: {
     width: "100px",
@@ -157,14 +159,15 @@ const ThinkingPDF = ({ props }: any) => {
                           <Typography>{`${item.Paragraph}`}</Typography>
                         </Stack>
                       )}
-                      {item?.Paragraph && item?.question_image && (
+                      {item?.Paragraph && item?.images && (
                         <Stack
                           flexDirection={"row"}
                           justifyContent={"space-between"}
-                          width={"60%"}
+                          width={"100%"}
                           marginRight={"auto"}
+                          my={2}
                         >
-                          {item?.question_image?.map(
+                          {item?.images?.map(
                             (item2: any, key: number) => {
                               return (
                                 <img
@@ -172,7 +175,7 @@ const ThinkingPDF = ({ props }: any) => {
                                   style={styles.image}
                                   src={
                                     import.meta.env.VITE_IMAGE_URL +
-                                    item2?.image_url
+                                    item2
                                   }
                                 />
                               );
@@ -233,8 +236,9 @@ const ThinkingPDF = ({ props }: any) => {
                         <Stack
                           flexDirection={"row"}
                           justifyContent={"space-between"}
-                          width={"70%"}
+                          width={"100%"}
                           marginRight={"auto"}
+                          my={2}
                         >
                           {item?.images?.map((item2: any, key: number) => {
                             return (
@@ -346,8 +350,9 @@ const ThinkingPDF = ({ props }: any) => {
                         <Stack
                           flexDirection={"row"}
                           justifyContent={"space-between"}
-                          width={"70%"}
+                          width={"100%"}
                           marginRight={"auto"}
+                          my={2}
                         >
                           {item?.question_image?.map(
                             (item2: any, key: number) => {
@@ -371,6 +376,7 @@ const ThinkingPDF = ({ props }: any) => {
                           justifyContent={"space-between"}
                           width={"70%"}
                           marginRight={"auto"}
+                          my={2}
                         >
                           {item?.question_image?.map(
                             (item2: any, key: number) => {
