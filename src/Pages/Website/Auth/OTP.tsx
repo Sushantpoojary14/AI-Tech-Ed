@@ -28,13 +28,13 @@ const OTP = ({
   const handleCheckOtp = () => {
     setLoading(true);
     if (parseInt(otpAPI) === parseInt(otp)) {
-      console.log("correct");
+      // console.log("correct");
       setLoading(false);
       setNewPassword(true);
     } else {
       setLoading(false);
       setError(true);
-      console.log("wrong");
+      // console.log("wrong");
     }
   };
   const resendOTP = () => {
@@ -44,7 +44,7 @@ const OTP = ({
       const index = Math.floor(Math.random() * 10);
       otpArray += String(index);
     }
-    console.log(otpArray);
+    // console.log(otpArray);
     mainSetOtp(otpArray);
 
     sendOTPMail({ email: email, para_otp: otpArray });

@@ -46,7 +46,7 @@ const ForgotPassword = ({ setShowForgotPassword }: Props) => {
       )
       .then(
         (result) => {
-          console.log(result.text);
+          // console.log(result.text);
         },
         (error) => {
           console.log("error " + error.text);
@@ -55,7 +55,7 @@ const ForgotPassword = ({ setShowForgotPassword }: Props) => {
   };
   const getOtpMU = useMutation({
     mutationFn: async (data: Inputs) => {
-      console.log(data);
+      // console.log(data);
 
       return await axiosBaseURL.post("/send-otp-mail", data);
     },
