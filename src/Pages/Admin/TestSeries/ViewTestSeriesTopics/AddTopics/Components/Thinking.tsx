@@ -67,7 +67,7 @@ const Thinking = ({
   //   csvData.length,
   //   totalQuestions
   // );
-  console.log("len "+resData.length);
+  // console.log("len "+resData.length);
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     newPage: number
@@ -99,7 +99,7 @@ const Thinking = ({
     },
     enabled: !!category,
   });
-  console.log((typeof setTopic === 'function'), setTopic);
+  // console.log((typeof setTopic === 'function'), setTopic);
   
   let image_data = data?.data.images;
   // console.log(image_data);
@@ -190,9 +190,15 @@ const Thinking = ({
           }
           return false;
         });
+        console.log(filteredCsvData);
+        
         addTestCTMu.mutate(filteredCsvData);
       } else {
-        alert("upload csv in correct formast");
+        
+        setErrMessage(
+          "upload csv in correct format"
+        );
+        handleAlertBoxOpen();
       }
     } else {
       addTestCTMu.mutate(resData);
@@ -307,54 +313,60 @@ const Thinking = ({
         const t_m_name = [...maleNames];
         const t_f_name = [...femaleNames];
         // if (category == 3) {
-        query = `Generate ${Math.round(
-          totalQuestions / csvData.length
-        )} unique and challenging advanced-level practice questions designed for college students preparing for an aptitude exam on the topic of ${topic}. These questions should meet the following criteria:
-   
+          query = `Generate ${Math.round(
+            totalQuestions / csvData.length
+          )} new unique questions similar to the provided example question below:
+          
           Example Question:
           ${item.Paragraph ? "Paragraph: " + item.Paragraph : ""} 
           ${item.Conversation ? "Conversation: " + item.Conversation : ""} 
           Question: ${item.Question}
           Options:
-              a. ${item.Option_A}
-              b. ${item.Option_B}
-              c. ${item.Option_C}
-              d. ${item.Option_D}
-               Answer: ${
-                 item.Answer
-                   ? item.Answer
-                   : "Generate an Answer based on the question"
-               }
-              Explanation: ${
-                item.Explanation
-                  ? item.Explanation
-                  : "Generate an explanation based on the question and correct answer"
-              }
-  
+            a. ${item.Option_A}
+            b. ${item.Option_B}
+            c. ${item.Option_C}
+            d. ${item.Option_D}
+          Answer: ${
+            item.Answer
+              ? item.Answer
+              : "Generate an Answer based on the question"
+          }
+          Explanation: ${
+            item.Explanation
+              ? item.Explanation
+              : "Generate an explanation based on the question and correct answer"
+          }
+          
           ---
-  
-          Please follow these guidelines for generating each MCQ:
-  
-          1. For each question, use one of the specified names in order for persons. For males, use first name and only one from this list  ${
+          
+          Follow these guidelines for generating each question:
+          
+          1. For each question, use one of the specified names in order for persons. For males, use the first name from this list: ${
             t_m_name[Math.floor(Math.random() * 19)]
-          },${
-          t_m_name[Math.floor(Math.random() * 19)]
-        }, and for females, use first name from this list   ${
-          t_f_name[Math.floor(Math.random() * 19)]
-        },${t_f_name[Math.floor(Math.random() * 19)]}.
-  
-          2. Maintain the question and Explanation sentence structure only modify variables like numbers.
-  
+          }, ${
+            t_m_name[Math.floor(Math.random() * 19)]
+          }. For females, use the first name from this list: ${
+            t_f_name[Math.floor(Math.random() * 19)]
+          }, ${
+            t_f_name[Math.floor(Math.random() * 19)]
+          }.
+          
+          2. Maintain the question and explanation sentence structure; only modify variables like numbers.
+          
           3. Ensure that each question includes options (a, b, c, d), a correct answer, and an explanation. If an explanation is not provided, mention that one should be generated.
-  
-          4. If there is a Paragraph ,conversation between persons, generate that as well.
-  
-          5. Provide the correct JSON representation and Each question should adhere to the following format:
-  
+          
+          4. If there is a paragraph or conversation between persons, generate that as well.
+          
+          5. Provide the correct JSON representation, and each question should adhere to the following format:
+          
           [
             {
-              ${item.Paragraph ? "Paragraph: Replace with paragraph text ": ""} 
-              ${item.Conversation ? "Conversation: Replace with paragraph text": ""} 
+              ${item.Paragraph ? "Paragraph: Replace with paragraph text" : ""}
+              ${
+                item.Conversation
+                  ? "Conversation: Replace with paragraph text"
+                  : ""
+              } 
               "Question": "Replace with question text",
               "Options": {
                 "a": "Option A text",
@@ -365,9 +377,10 @@ const Thinking = ({
               "Answer": "Correct answer letter (a, b, c, or d)",
               "Explanation": "Explanation for the correct answer"
             },
-           ....
+            ...
           ]
-  `;
+          `;
+          
         // }
 
         const openAi = new OpenAIApi(
@@ -379,9 +392,10 @@ const Thinking = ({
         // console.log("QUERY", query);
         try {
         const response = await openAi.createChatCompletion({
-          // model: "gpt-4",
-          model: "gpt-3.5-turbo",
+          model: "gpt-4",
+          // model: "gpt-3.5-turbo",
           messages: [{ role: "user", content: query }],
+          temperature: 0.5,
         });
 
         const message = response?.data?.choices[0]?.message?.content;
