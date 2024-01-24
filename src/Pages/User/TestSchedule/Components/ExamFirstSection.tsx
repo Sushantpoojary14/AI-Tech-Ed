@@ -253,7 +253,7 @@ const ExamFirstSection = (props: props) => {
                                         import.meta.env.VITE_IMAGE_URL +
                                         item.image_url
                                       }
-                                      alt={`Image ${key}`}
+                                      alt=""
                                       style={{width: "100%" }}
                                     />
                                   </ImageListItem>
@@ -317,7 +317,7 @@ const ExamFirstSection = (props: props) => {
                                         backgroundSize:"none"
                                         // aspectRatio:"1/1"
                                       }}
-                                      alt={`Image ${key}`}
+                                      alt=""
                                     />
                                   </ImageListItem>
                                 )

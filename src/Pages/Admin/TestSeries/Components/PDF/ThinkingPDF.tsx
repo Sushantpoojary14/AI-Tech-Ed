@@ -177,6 +177,7 @@ const ThinkingPDF = ({ props }: any) => {
                                     import.meta.env.VITE_IMAGE_URL +
                                     item2
                                   }
+                                  alt=""
                                 />
                               );
                             }
@@ -246,6 +247,7 @@ const ThinkingPDF = ({ props }: any) => {
                                 key={key}
                                 style={styles.image}
                                 src={import.meta.env.VITE_IMAGE_URL + item2}
+                                alt=""
                               />
                             );
                           })}
@@ -364,6 +366,7 @@ const ThinkingPDF = ({ props }: any) => {
                                     import.meta.env.VITE_IMAGE_URL +
                                     item2?.image_url
                                   }
+                                  alt=""
                                 />
                               );
                             }
@@ -388,6 +391,7 @@ const ThinkingPDF = ({ props }: any) => {
                                     import.meta.env.VITE_IMAGE_URL +
                                     item2?.image_url
                                   }
+                                  alt=""
                                 />
                               );
                             }

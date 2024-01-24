@@ -170,6 +170,7 @@ const NonVerbalPDF = ({ props }: any) => {
                                 key={key}
                                 style={styles.image}
                                 src={item?.question_image}
+                                alt=""
                               />
                               // {/* </div> */}
                             )}
@@ -216,6 +217,7 @@ const NonVerbalPDF = ({ props }: any) => {
                               <img
                                 style={styles.optionImage}
                                 src={item?.options?.a}
+                                alt=""
                               />
                             </div>
 
@@ -308,6 +310,7 @@ const NonVerbalPDF = ({ props }: any) => {
                                     import.meta.env.VITE_IMAGE_URL +
                                     item2?.image_url
                                   }
+                                  alt=""
                                 />
                               );
                             }

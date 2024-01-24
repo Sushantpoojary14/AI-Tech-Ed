@@ -203,6 +203,7 @@ const DefaultPDf = ({ props }: any) => {
                                 key={key}
                                 style={styles.image}
                                 src={import.meta.env.VITE_IMAGE_URL + item2}
+                                alt=""
                               />
                             );
                           })}
@@ -244,6 +245,7 @@ const DefaultPDf = ({ props }: any) => {
                                     import.meta.env.VITE_IMAGE_URL +
                                     item2?.image_url
                                   }
+                                  alt=""
                                 />
                               );
                             }
@@ -275,6 +277,7 @@ const DefaultPDf = ({ props }: any) => {
                                 src={
                                   import.meta.env.VITE_IMAGE_URL + item.option_1
                                 }
+                                alt=""
                               />
                             </div>
 
@@ -307,6 +310,7 @@ const DefaultPDf = ({ props }: any) => {
                                 src={
                                   import.meta.env.VITE_IMAGE_URL + item.option_3
                                 }
+                                alt=""
                               />
                             </div>
                             <div
@@ -322,6 +326,7 @@ const DefaultPDf = ({ props }: any) => {
                                 src={
                                   import.meta.env.VITE_IMAGE_URL + item.option_4
                                 }
+                                alt=""
                               />
                             </div>
                           </div>
