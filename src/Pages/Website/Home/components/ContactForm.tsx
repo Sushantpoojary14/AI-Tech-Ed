@@ -37,6 +37,7 @@ const ContactForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const onSubmit: SubmitHandler<Inputs> = async (para_data: any) => {
     // console.log("contact form", para_data);
+    para_data.subject ="Contact Us message"; 
     setLoading(true);
     emailjs
       .send(
