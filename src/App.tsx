@@ -20,7 +20,7 @@ import PrivacyPolicy from "./Pages/Website/Terms/PrivacyPolicy";
 
 const initialOptions = {
   clientId:import.meta.env.VITE_PAYPAL_CLIENT_ID,
-  currency: "USD",
+  currency: "AUD",
   intent: "capture",
 };
 
