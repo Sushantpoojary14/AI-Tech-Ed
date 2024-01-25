@@ -156,7 +156,7 @@ const DownloadPDF = ({
   //   selected_question = questions;
   // }
 
-  // console.log( selected_question,data);
+  // console.log( total,data,selected_question);
   return (
     <>
       <Box display={"none"}>

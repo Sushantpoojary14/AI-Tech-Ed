@@ -24,7 +24,8 @@ const MainDash = () => {
       return await response.data;
     },
   });
-
+  console.log(getUserSetQuery);
+  
   const getRemaingProductQuery = useQuery({
     queryKey: ["get-remaining-product"],
     queryFn: async () => {
@@ -71,7 +72,7 @@ const MainDash = () => {
   const getLatestProductQuery = useQuery({
     queryKey: ["get-latest-product"],
     queryFn: async () => {
-      const response = await tokenAxios.get(`get-latest-product`);
+      const response = await tokenAxios.get(`get-latest-product/${user?.id}`);
 
       return response.data;
     },
